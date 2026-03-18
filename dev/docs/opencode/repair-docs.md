@@ -217,8 +217,8 @@
 **Datei:** OpenCode tool runtime
 
 ## BUG-20260317-015: Root repo commit blocked by stale `.git/index.lock`
-**Aufgetreten:** 2026-03-17  **Status:** 🔴 OFFEN
+**Aufgetreten:** 2026-03-17  **Status:** ✅ GEFIXT
 **Symptom:** Root-repo commits fail with `fatal: Unable to create '/Users/jeremy/.git/index.lock': File exists.`
-**Ursache:** Another git process is running or a previous root-repo git command left a stale lock file behind.
-**Fix:** Verify no active git process owns the root repo lock, remove the stale lock if safe, then retry the commit.
+**Ursache:** A stale root-repo lock file remained for hours while only read-only `git ls-files` processes were active.
+**Fix:** Verified the lock age / active processes, removed the stale `/Users/jeremy/.git/index.lock`, and re-ran the blocked commits successfully.
 **Datei:** `/Users/jeremy/.git/index.lock`
