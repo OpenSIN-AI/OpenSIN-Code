@@ -1,0 +1,71 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Delqhi enterprise AI banner</title>
+  <desc id="desc">Enterprise AI systems, automation infrastructure, and developer tooling.</desc>
+  <defs>
+    <linearGradient id="bg" x1="80" y1="60" x2="1200" y2="580" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07111F"/>
+      <stop offset="0.55" stop-color="#0E2438"/>
+      <stop offset="1" stop-color="#13324A"/>
+    </linearGradient>
+    <linearGradient id="line" x1="120" y1="140" x2="520" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#41E3B5"/>
+      <stop offset="1" stop-color="#8BD8FF"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="860" y1="170" x2="1130" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#11293D" stop-opacity="0.96"/>
+      <stop offset="1" stop-color="#0A1D2D" stop-opacity="0.86"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="640" rx="36" fill="url(#bg)"/>
+  <rect x="64" y="64" width="1152" height="512" rx="28" stroke="#FFFFFF" stroke-opacity="0.10"/>
+
+  <g opacity="0.18">
+    <path d="M120 108H1160" stroke="white" stroke-width="1"/>
+    <path d="M120 180H1160" stroke="white" stroke-width="1"/>
+    <path d="M120 252H1160" stroke="white" stroke-width="1"/>
+    <path d="M120 324H1160" stroke="white" stroke-width="1"/>
+    <path d="M120 396H1160" stroke="white" stroke-width="1"/>
+    <path d="M120 468H1160" stroke="white" stroke-width="1"/>
+    <path d="M120 540H1160" stroke="white" stroke-width="1"/>
+    <path d="M160 96V560" stroke="white" stroke-width="1"/>
+    <path d="M280 96V560" stroke="white" stroke-width="1"/>
+    <path d="M400 96V560" stroke="white" stroke-width="1"/>
+    <path d="M520 96V560" stroke="white" stroke-width="1"/>
+    <path d="M640 96V560" stroke="white" stroke-width="1"/>
+    <path d="M760 96V560" stroke="white" stroke-width="1"/>
+    <path d="M880 96V560" stroke="white" stroke-width="1"/>
+    <path d="M1000 96V560" stroke="white" stroke-width="1"/>
+    <path d="M1120 96V560" stroke="white" stroke-width="1"/>
+  </g>
+
+  <circle cx="1034" cy="148" r="82" fill="#3BE0B3" fill-opacity="0.08"/>
+  <circle cx="1112" cy="500" r="108" fill="#79BFFF" fill-opacity="0.08"/>
+
+  <path d="M140 432C238 354 314 322 416 312C520 302 580 252 676 166" stroke="url(#line)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M140 476C228 420 322 392 406 394C492 396 568 378 650 332" stroke="#9DD8FF" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round"/>
+
+  <rect x="818" y="156" width="322" height="292" rx="28" fill="url(#panel)" stroke="#FFFFFF" stroke-opacity="0.10"/>
+
+  <text x="140" y="168" fill="#8BD8FF" font-family="Arial, Helvetica, sans-serif" font-size="22" letter-spacing="4">ENTERPRISE AI SYSTEMS</text>
+  <text x="140" y="250" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="700">DELQHI</text>
+  <text x="140" y="318" fill="#D8E7F2" font-family="Arial, Helvetica, sans-serif" font-size="28">Automation infrastructure, agent platforms,</text>
+  <text x="140" y="358" fill="#D8E7F2" font-family="Arial, Helvetica, sans-serif" font-size="28">and developer tooling for enterprise execution.</text>
+
+  <text x="850" y="214" fill="#8BD8FF" font-family="Arial, Helvetica, sans-serif" font-size="18" letter-spacing="2">ACTIVE SYSTEMS</text>
+  <text x="850" y="270" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">AIOMETRICS</text>
+  <text x="850" y="318" fill="#D8E7F2" font-family="Arial, Helvetica, sans-serif" font-size="24">BIOMETRICS</text>
+  <text x="850" y="356" fill="#D8E7F2" font-family="Arial, Helvetica, sans-serif" font-size="24">OpenDocs</text>
+  <text x="850" y="394" fill="#D8E7F2" font-family="Arial, Helvetica, sans-serif" font-size="24">OMOC Swarm</text>
+
+  <rect x="140" y="448" width="246" height="52" rx="14" fill="#10283B" stroke="#FFFFFF" stroke-opacity="0.14"/>
+  <text x="168" y="481" fill="#F4FAFF" font-family="Arial, Helvetica, sans-serif" font-size="22">Repo-first execution</text>
+
+  <rect x="404" y="448" width="236" height="52" rx="14" fill="#10283B" stroke="#FFFFFF" stroke-opacity="0.14"/>
+  <text x="432" y="481" fill="#F4FAFF" font-family="Arial, Helvetica, sans-serif" font-size="22">Observable systems</text>
+
+  <rect x="658" y="448" width="126" height="52" rx="14" fill="#10283B" stroke="#FFFFFF" stroke-opacity="0.14"/>
+  <text x="686" y="481" fill="#F4FAFF" font-family="Arial, Helvetica, sans-serif" font-size="22">AI ops</text>
+
+  <text x="140" y="554" fill="#8FB4CB" font-family="Arial, Helvetica, sans-serif" font-size="18">github.com/Delqhi</text>
+</svg>
