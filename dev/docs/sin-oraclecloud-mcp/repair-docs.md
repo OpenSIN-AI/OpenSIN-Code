@@ -20,7 +20,7 @@
 
 ## BUG-20260319-002: `compartments.list` used OCI subtree listing without a root compartment id
 
-**Aufgetreten:** 2026-03-19  **Status:** 🔴 OFFEN
+**Aufgetreten:** 2026-03-19  **Status:** ✅ GEFIXT
 
 **Symptom:** `sin.oraclecloud.mcp.compartments.list` failed with `Unexpected end of JSON input` because the underlying `oci iam compartment list --compartment-id-in-subtree true` call returned no JSON payload.
 
@@ -34,12 +34,12 @@
 
 ## BUG-20260319-003: Google Docs browser lane cannot yet resolve the Team - Infrastructure parent tab for OracleCloud-MCP
 
-**Aufgetreten:** 2026-03-20  **Status:** 🔴 OFFEN
+**Aufgetreten:** 2026-03-20  **Status:** ✅ WORKAROUND
 
 **Symptom:** Initial failure was `Could not resolve parent tab title for t.hzp3hc5sub65`. After passing the parent title from the working Docs API tree, the browser flow advanced but still failed at the add-tab action with `Could not create child tab under t.hzp3hc5sub65`. Live DOM probing then exposed the real UI blocker: the active Google account sees `Speicher ist voll. Datei kann nicht bearbeitet werden.` on the document.
 
 **Ursache:** The browser lane is degraded (`Tab 1` view), but the harder blocker is account/storage state: the current Google identity is in a `storage full / document cannot be edited` state for this doc. That aligns with the API `google.docs.ensure_tab` failure (`403 PERMISSION_DENIED`) and explains why the add-tab click produces no create effect.
 
-**Fix:** Parent-title resolution is no longer the primary blocker. The next real fix is to restore a writable Google Docs identity/state for this document (for example enough storage or a different writable editor identity), then retry `google.docs.ensure_tab` and only fall back to browser automation if the write path still fails.
+**Fix:** Parent-title resolution was repaired, and the dedicated docs tab now exists as `t.niviexa2a43q`. The remaining issue is no longer tab creation itself but the broader write-state/identity quality of the active Google Docs lane.
 
 **Datei:** Google Docs browser automation for `SIN-OracleCloud-MCP`
