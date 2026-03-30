@@ -112,3 +112,47 @@ The external protocol dictates how the agent proactively hunts for bugs in upstr
 - **`scripts/remediate_workspace_docs.mjs`**: Idempotent documentation sync for Google Workspace.
 
 > **FLEET SYNC MANDATE:** Any modifications to this skill or its scripts MUST be pushed to all runtimes via `sin-sync`.
+
+---
+
+## PART 3: Automated Wiki Governance (Best Practices)
+
+In enterprise and private environments, standard GitHub Wikis easily become disorganized dumping grounds. To maintain technical excellence, all A2A agents MUST autonomously initialize and structure the GitHub Wiki of a new or existing repository using strict best practices based on the repository's use case.
+
+### Core Enterprise Wiki Rules
+1. **Wiki as Code:** A GitHub Wiki is just a secondary Git repository (`https://github.com/<org>/<repo>.wiki.git`). Agents must interact with it via `git clone`, generate the structure locally, and `git push`.
+2. **Mandatory Navigation:** Every wiki MUST have a `_Sidebar.md` to force a strict, hierarchical navigation menu. Do not rely on GitHub's default alphabetical sorting.
+3. **Logical Folders:** Use slash-separated filenames to mimic folders (e.g., `Architecture/System-Design.md`).
+4. **Image Persistence:** Create an `assets/` folder inside the `.wiki.git` repository to host images. Never link to ephemeral external image hosts.
+
+### Standard Templates per Use Case
+Use the `scripts/zeus/wiki-bootstrap.mjs` script to automatically generate the correct structure based on the repo type:
+
+- **Frontend (`--type frontend`)**:
+  - `Home.md` (Project Overview, Setup)
+  - `Architecture/State-Management.md`
+  - `Architecture/Component-Library.md`
+  - `Guides/Styling-Conventions.md`
+- **Backend/Service (`--type backend`)**:
+  - `Home.md` (Project Overview, Setup)
+  - `Architecture/System-Design.md`
+  - `Architecture/Database-Schema.md`
+  - `API/Endpoints.md`
+  - `Operations/Runbooks.md`
+- **Library/Package (`--type library`)**:
+  - `Home.md` (Overview, Installation)
+  - `Usage/Quickstart.md`
+  - `API/Reference.md`
+  - `Guides/Contributing.md`
+- **Monorepo (`--type monorepo`)**:
+  - `Home.md` (Ecosystem Overview, Setup)
+  - `Architecture/Package-Boundaries.md`
+  - `Operations/CI-CD-Pipelines.md`
+  - `Guides/Tooling.md`
+
+### Execution
+Whenever a new repo is created or an agent is tasked with documentation:
+```bash
+node scripts/zeus/wiki-bootstrap.mjs --org OpenSIN-AI --repo my-new-service --type backend
+```
+This clones the wiki, scaffolds the correct `.md` files and the `_Sidebar.md`, and pushes it to the repository.
