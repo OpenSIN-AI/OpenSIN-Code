@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencode.local/templates/pr-watcher.schema.json",
+  "title": "PR Watcher Config",
+  "type": "object",
+  "required": ["enabled", "repo", "prSource", "ignoreAuthors", "watcherScript", "followupCommand"],
+  "properties": {
+    "enabled": { "type": "boolean" },
+    "repo": { "type": "string" },
+    "prSource": { "enum": ["all", "linked-issues-only", "managed-branches-only"] },
+    "ignoreAuthors": { "type": "array", "items": { "type": "string" } },
+    "ignoreBots": { "type": "boolean" },
+    "noisePrefixes": { "type": "array", "items": { "type": "string" } },
+    "noiseSubstrings": { "type": "array", "items": { "type": "string" } },
+    "watcherScript": { "type": "string" },
+    "followupCommand": { "type": "string" },
+    "stateDir": { "type": "string" },
+    "summaryFile": { "type": "string" },
+    "logFile": { "type": "string" }
+  },
+  "additionalProperties": true
+}

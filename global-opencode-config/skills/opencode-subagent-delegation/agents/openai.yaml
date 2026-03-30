@@ -1,0 +1,4 @@
+interface:
+  display_name: "Opencode Canonical Co-Working"
+  short_description: "Persistent Codex+opencode teamwork with canonical-first project context"
+  default_prompt: "Start a persistent opencode collaboration session in the current project with auto profile detection, canonical-first context, strict redaction, no-dup synthesis, strict mutual skepticism (critical pair protocol with hard gates before execution), and ordered model fallback (primary -> flash -> nvidia-nim)."

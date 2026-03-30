@@ -1,0 +1,211 @@
+{
+  "version": "1.0.0",
+  "description": "Context-Router Configuration for OpenCode - Keyword-based context loading",
+  "defaultFiles": [
+    "Agents.md"
+  ],
+  "modules": [
+    {
+      "id": "design",
+      "name": "Design & UI",
+      "description": "Frontend design, UI components, styling guidelines",
+      "triggers": [
+        "design",
+        "ui",
+        "frontend",
+        "css",
+        "layout",
+        "react",
+        "component",
+        "tailwind",
+        "styling",
+        "theme",
+        "color",
+        "typography",
+        "responsive",
+        "mobile",
+        "desktop"
+      ],
+      "files": [
+        "agents-instructions/context-modules/design/design_guidelines.md",
+        "agents-instructions/context-modules/design/ui_components.md",
+        "agents-instructions/context-modules/design/frontend_architecture.md"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "infrastructure",
+      "name": "Infrastruktur & Deployment",
+      "description": "Docker, server setup, deployment workflows",
+      "triggers": [
+        "docker",
+        "server",
+        "infra",
+        "deploy",
+        "container",
+        "hosting",
+        "cloud",
+        "kubernetes",
+        "k8s",
+        "compose",
+        "nginx",
+        "reverse-proxy",
+        "tunnel",
+        "cloudflare"
+      ],
+      "files": [
+        "agents-instructions/context-modules/infrastructure/infrastructure_setup.md",
+        "agents-instructions/context-modules/infrastructure/deployment_flow.md",
+        "agents-instructions/context-modules/infrastructure/docker_config.md"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "worker",
+      "name": "Worker & CAPTCHA",
+      "description": "SIN-Solver worker logic, CAPTCHA solving, browser automation",
+      "triggers": [
+        "worker",
+        "captcha",
+        "2captcha",
+        "solver",
+        "browser",
+        "rotation",
+        "ip",
+        "proxy",
+        "stealth",
+        "automation",
+        "scraping",
+        "nodriver",
+        "steel",
+        "cdp",
+        "chrome"
+      ],
+      "files": [
+        "agents-instructions/context-modules/worker/worker_logic.md",
+        "agents-instructions/context-modules/worker/captcha_solving.md",
+        "agents-instructions/context-modules/worker/browser_automation.md"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "security",
+      "name": "Security & Authentication",
+      "description": "Security protocols, authentication, secrets management",
+      "triggers": [
+        "security",
+        "auth",
+        "authentication",
+        "encrypt",
+        "vault",
+        "secret",
+        "password",
+        "token",
+        "jwt",
+        "oauth",
+        "ssl",
+        "tls",
+        "https",
+        "firewall",
+        "vpn"
+      ],
+      "files": [
+        "agents-instructions/context-modules/security/security_protocols.md",
+        "agents-instructions/context-modules/security/authentication_flow.md",
+        "agents-instructions/context-modules/security/secrets_management.md"
+      ],
+      "priority": 2
+    },
+    {
+      "id": "api",
+      "name": "API & Endpoints",
+      "description": "API documentation, endpoints, error handling",
+      "triggers": [
+        "api",
+        "endpoint",
+        "request",
+        "route",
+        "controller",
+        "middleware",
+        "rest",
+        "graphql",
+        "http",
+        "post",
+        "get",
+        "put",
+        "delete",
+        "json",
+        "swagger",
+        "openapi"
+      ],
+      "files": [
+        "agents-instructions/context-modules/api/api_documentation.md",
+        "agents-instructions/context-modules/api/error_handling.md",
+        "agents-instructions/context-modules/api/api_best_practices.md"
+      ],
+      "priority": 1
+    },
+    {
+      "id": "database",
+      "name": "Datenbank & Speicher",
+      "description": "Database schema, queries, persistence",
+      "triggers": [
+        "database",
+        "db",
+        "sql",
+        "postgres",
+        "postgresql",
+        "redis",
+        "schema",
+        "migration",
+        "query",
+        "table",
+        "column",
+        "index",
+        "orm",
+        "prisma",
+        "typeorm"
+      ],
+      "files": [
+        "agents-instructions/context-modules/database/database_schema.md",
+        "agents-instructions/context-modules/database/query_optimization.md",
+        "agents-instructions/context-modules/database/migration_guide.md"
+      ],
+      "priority": 1
+    }
+  ],
+  "combinationRules": [
+    {
+      "description": "When worker and security are both triggered, add security considerations for workers",
+      "when": [
+        "worker",
+        "security"
+      ],
+      "add": [
+        "agents-instructions/context-modules/worker/security_considerations.md"
+      ]
+    },
+    {
+      "description": "When API and database are both triggered, add API-database integration guide",
+      "when": [
+        "api",
+        "database"
+      ],
+      "add": [
+        "agents-instructions/context-modules/api/database_integration.md"
+      ]
+    }
+  ],
+  "fallbackBehavior": {
+    "description": "What to do when no modules match",
+    "action": "loadDefault",
+    "notifyUser": true,
+    "suggestModules": true
+  },
+  "performance": {
+    "maxFilesPerModule": 5,
+    "maxTotalFiles": 10,
+    "cacheEnabled": true,
+    "cacheTTL": 3600
+  }
+}

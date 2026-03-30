@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# ~/.config/opencode/hooks/pre-commit
+# Automatically syncs all projects when global config changes
+
+if [[ "$GIT_DIR" == *".config/opencode"* ]]; then
+    echo "[HOOK] Config change detected, syncing to all projects..."
+    ~/.config/opencode/opencode-master-sync.sh
+fi

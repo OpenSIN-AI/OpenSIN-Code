@@ -1,0 +1,162 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": "/Users/jeremy/.local/bin/serena-mcp-server",
+      "args": [
+        "--project-from-cwd",
+        "--log-level",
+        "ERROR",
+        "--enable-web-dashboard",
+        "false",
+        "--open-web-dashboard",
+        "false"
+      ]
+    },
+    "tavily": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@tavily/claude-mcp"
+      ],
+      "env": {
+        "TAVILY_API_KEY": "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"
+      }
+    },
+    "canva": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@canva/claude-mcp"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropics/context7-mcp"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropics/chrome-devtools-mcp"
+      ]
+    },
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/sse",
+      "enabled": true
+    },
+    "singularity": {
+      "command": "node",
+      "args": [
+        "/Users/jeremy/.singularity/CLI/bin/singularity.js",
+        "mcp"
+      ]
+    },
+    "sin-google-apps": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-google-apps-mcp",
+      "args": [],
+      "env": {
+        "SIN_GOOGLE_APPS_HOST": "127.0.0.1",
+        "SIN_GOOGLE_APPS_PORT": "45872",
+        "SIN_GOOGLE_APPS_PUBLIC_BASE_URL": "https://a2a-sin-google-apps.delqhi.com"
+      }
+    },
+    "sin-server": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-server",
+      "args": [
+        "serve-mcp"
+      ]
+    },
+    "sin-cloudflare": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-cloudflare",
+      "args": [
+        "serve-mcp"
+      ]
+    },
+    "sin-passwordmanager": {
+      "command": "node",
+      "args": [
+        "/Users/jeremy/dev/SIN-Solver/a2a/team-infratructur/A2A-SIN-Passwordmanager/dist/src/cli.js",
+        "serve-mcp"
+      ],
+      "env": {
+        "SIN_PASSWORDMANAGER_HOST": "127.0.0.1",
+        "SIN_PASSWORDMANAGER_PORT": "4646"
+      }
+    },
+    "sin-research": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-research",
+      "args": [
+        "serve-mcp"
+      ]
+    },
+    "sin-team-worker": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-team-worker",
+      "args": [
+        "serve-mcp"
+      ]
+    },
+    "sin-tiktok": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-tiktok",
+      "args": [
+        "serve-mcp"
+      ]
+    },
+    "sin-tiktok-shop": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-tiktok-shop",
+      "args": [
+        "serve-mcp"
+      ]
+    },
+    "sin-terminal": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-terminal",
+      "args": [
+        "serve-mcp"
+      ]
+    },
+    "webauto-nodriver": {
+      "command": "python3",
+      "args": [
+        "/Users/jeremy/dev/webauto-nodriver-mcp/webauto_nodriver_mcp.py"
+      ],
+      "env": {
+        "WEBAUTO_CDP_PORT": "9335",
+        "WEBAUTO_PROFILE_DIR": "/Users/jeremy/Library/Application Support/Google/Chrome/Default",
+        "WEBAUTO_PROFILE_DIRECTORY": "Default",
+        "WEBAUTO_DESKTOPGRAB_ENABLED": "true",
+        "WEBAUTO_DESKTOPGRAB_FPS": "10",
+        "WEBAUTO_ATTACH_FRAMES_PER_ACTION": "1",
+        "WEBAUTO_ATTACH_DESKTOP_FRAMES_PER_ACTION": "1",
+        "WEBAUTO_EXPORT_DIR": "/Users/jeremy/Desktop/webauto_exports"
+      }
+    },
+    "sin-authenticator": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-authenticator",
+      "args": [
+        "serve-mcp"
+      ],
+      "env": {
+        "AUTHD_HOST": "127.0.0.1",
+        "AUTHD_PORT": "44711",
+        "SIN_AUTH_HOST": "127.0.0.1",
+        "SIN_AUTH_PORT": "45871",
+        "SIN_AUTH_PUBLIC_BASE_URL": "https://delqhi-sin-authenticator.hf.space"
+      }
+    },
+    "sin-github-issues": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-github-issues",
+      "args": [
+        "serve-mcp"
+      ]
+    },
+    "sin-oraclecloud-mcp": {
+      "command": "/Users/jeremy/dev/SIN-Solver/bin/sin-oraclecloud-mcp",
+      "args": [
+        "serve-mcp"
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencode.local/templates/work-item.schema.json",
+  "title": "Normalized Inbound Work Item",
+  "type": "object",
+  "required": [
+    "sourcePlatform",
+    "sourceEventType",
+    "externalId",
+    "externalUrl",
+    "title",
+    "summary",
+    "receivedAt",
+    "dedupeKey",
+    "targetRepo",
+    "priority",
+    "riskLevel",
+    "automationPolicy",
+    "watcherRequired"
+  ],
+  "properties": {
+    "sourcePlatform": { "type": "string" },
+    "sourceEventType": { "type": "string" },
+    "externalId": { "type": "string" },
+    "externalUrl": { "type": "string" },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "rawPayloadRef": { "type": "string" },
+    "receivedAt": { "type": "string" },
+    "dedupeKey": { "type": "string" },
+    "targetRepo": { "type": "string" },
+    "labels": { "type": "array", "items": { "type": "string" } },
+    "priority": { "enum": ["low", "medium", "high", "critical"] },
+    "riskLevel": { "enum": ["low", "medium", "high", "critical"] },
+    "automationPolicy": { "enum": ["ingest_only", "issue_only", "issue_plus_pr", "manual_review_required"] },
+    "watcherRequired": { "type": "boolean" },
+    "issueNumber": { "type": ["integer", "null"] },
+    "prNumber": { "type": ["integer", "null"] }
+  },
+  "additionalProperties": true
+}

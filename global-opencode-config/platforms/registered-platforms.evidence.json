@@ -1,0 +1,59 @@
+{
+  "version": "registered-platforms.evidence.v1",
+  "generatedAt": "2026-03-25",
+  "evidenceOnly": true,
+  "notes": "This file lists only platforms with local evidence in repo/config/profile directories. It is not a claim that unsupported platforms are absent; it is a fail-closed registry of what is currently evidenced.",
+  "people": {
+    "jeremy": {
+      "observedProfileDirs": [
+        "clickworker",
+        "freecash",
+        "meinungsstudie",
+        "outlier",
+        "prolific",
+        "swagbucks",
+        "yougov",
+        "yougov_new"
+      ],
+      "evidencePath": "/Users/jeremy/dev/SIN-Solver/services/solver-18-survey-worker/nodriver-service/profiles/jeremy"
+    },
+    "gina": {
+      "observedProfileDirs": ["freecash", "meinungsstudie", "yougov"],
+      "evidencePath": "/Users/jeremy/dev/SIN-Solver/services/solver-18-survey-worker/nodriver-service/profiles/gina"
+    },
+    "simone": {
+      "observedProfileDirs": ["freecash", "meinungsstudie", "yougov"],
+      "evidencePath": "/Users/jeremy/dev/SIN-Solver/services/solver-18-survey-worker/nodriver-service/profiles/simone"
+    },
+    "markus": {
+      "observedProfileDirs": [],
+      "evidencePath": "/Users/jeremy/dev/SIN-Solver/services/solver-18-survey-worker/nodriver-service/profiles/markus"
+    },
+    "rico": {
+      "observedProfileDirs": [],
+      "evidencePath": "/Users/jeremy/dev/SIN-Solver/services/solver-18-survey-worker/nodriver-service/profiles/rico"
+    }
+  },
+  "platformSignals": {
+    "bugcrowd": {
+      "status": "planned-unverified",
+      "evidence": ["user request 2026-03-25 to add n8n intake"]
+    },
+    "hackerone": {
+      "status": "planned-unverified",
+      "evidence": ["user request 2026-03-25 to add n8n intake"]
+    },
+    "upwork": {
+      "status": "handler-present-registration-unverified",
+      "evidence": [
+        "/Users/jeremy/dev/SIN-Solver.worktrees/copilot-worktree-2026-03-02T16-16-41/services/solver-18-survey-worker/src/platform-handlers/upwork.js"
+      ]
+    },
+    "fiverr": {
+      "status": "handler-present-registration-unverified",
+      "evidence": [
+        "/Users/jeremy/dev/SIN-Solver.worktrees/copilot-worktree-2026-03-02T16-16-41/services/solver-18-survey-worker/src/platform-handlers/fiverr.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencode.local/templates/repo-governance.schema.json",
+  "title": "Repo Governance Contract",
+  "type": "object",
+  "required": [
+    "repo",
+    "issueFirstRequired",
+    "prWatcherRequired",
+    "strictDispatchMatrixRequired",
+    "platformRegistryRef",
+    "prWatcherConfigRef",
+    "defaultLabels",
+    "automationFlow",
+    "failClosedRules"
+  ],
+  "properties": {
+    "repo": { "type": "string" },
+    "issueFirstRequired": { "type": "boolean" },
+    "prWatcherRequired": { "type": "boolean" },
+    "strictDispatchMatrixRequired": { "type": "boolean" },
+    "platformRegistryRef": { "type": "string" },
+    "prWatcherConfigRef": { "type": "string" },
+    "coderDispatchMatrixRef": { "type": "string" },
+    "workItemSchemaRef": { "type": "string" },
+    "defaultLabels": { "type": "array", "items": { "type": "string" } },
+    "automationFlow": { "type": "array", "items": { "type": "string" } },
+    "failClosedRules": { "type": "array", "items": { "type": "string" } },
+    "trackingIssue": { "type": ["integer", "null"] }
+  },
+  "additionalProperties": true
+}

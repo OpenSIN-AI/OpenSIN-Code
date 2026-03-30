@@ -1,0 +1,4 @@
+interface:
+  display_name: "Browser Crash Test Lab"
+  short_description: "Parallel browser crash tests with strict dual-judge design verdict"
+  default_prompt: "Run a full browser crashtest, then generate a dual-judge design zeugnis (Codex app + Qwen)."

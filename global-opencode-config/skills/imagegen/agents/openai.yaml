@@ -1,0 +1,6 @@
+interface:
+  display_name: "Image Gen"
+  short_description: "Generate and edit images with Gemini-first routing"
+  icon_small: "./assets/imagegen-small.svg"
+  icon_large: "./assets/imagegen.png"
+  default_prompt: "Use $imagegen to generate or edit images for this task with Gemini-first routing, and return the final prompt plus selected outputs."

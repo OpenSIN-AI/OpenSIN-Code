@@ -1,0 +1,949 @@
+# AGENTS.yaml - Machine-Native Configuration for KI Agents
+# EFFECTIVE: 2026-02-21
+# VERSION: 1.0 "ENTERPRISE PRACTICE FEBRUAR 2026"
+# OPTIMIZED_FOR: KI Agent Parsing (NOT human reading)
+
+meta:
+  version: "1.0"
+  effective_date: "2026-02-21"
+  target_audience: "KI_AGENTS_ONLY"
+  human_readable: false
+
+
+providers:
+  nvidia_nim:
+    name: NVIDIA NIM Provider
+    effective_date: "2026-02-16"
+    mandate_version: "0.34+"
+    status: ACTIVE
+
+    # Critical Warning
+    warning:
+      latency_issue: "Qwen 3.5 397B has extreme latency (70-90s)"
+      solution: "NO TIMEOUT ALLOWED - Timeouts are strictly forbidden"
+      mandate: "NIEMALS OPENCODE TIMEOUT - Never use timeout settings in config"
+
+    # npm Package
+    npm_package: "@ai-sdk/openai-compatible"
+
+    # OpenCode Configuration
+    opencode_config:
+      baseURL: "https://integrate.api.nvidia.com/v1"
+      timeout: false
+      models:
+        qwen-3.5-397b:
+          id: "qwen/qwen3.5-397b-a17b"
+          context_limit: 262144
+          output_limit: 32768
+          use_case: "Code (BEST - aber langsam)"
+          correct_id: true
+        qwen2.5-coder-32b:
+          context_limit: 128000
+          output_limit: 8000
+          use_case: "Code (fast)"
+        qwen2.5-coder-7b:
+          context_limit: 128000
+          output_limit: 8000
+          use_case: "Code (fastest)"
+        kimi-k2.5:
+          context_limit: 1048576
+          output_limit: 65536
+          use_case: "General"
+
+    # OpenClaw Configuration
+    openclaw_config:
+      location: "~/.openclaw/openclaw.json"
+      port: 18789
+      env_variable: "NVIDIA_API_KEY"
+      baseURL: "https://integrate.api.nvidia.com/v1"
+      api_field: "openai-completions"
+      models: []
+      default_model:
+        primary: "nvidia/moonshotai/kimi-k2.5"
+        fallbacks:
+          - "nvidia/meta/llama-3.3-70b-instruct"
+          - "nvidia/mistralai/mistral-large-3-675b-instruct-2512"
+
+    # Technical Details
+    technical_details:
+      endpoint: "https://integrate.api.nvidia.com/v1"
+      rate_limit:
+        value: 40
+        unit: "RPM"
+        tier: "Free"
+      http_429_handling:
+        solution: "60 Sekunden warten + Fallbacks nutzen"
+        status_code: "429 Too Many Requests"
+
+    # Troubleshooting
+    troubleshooting:
+      test_script: "/Users/jeremy/dev/sin-code/verify_nvidia.sh"
+      command: "bash ~/dev/sin-code/verify_nvidia.sh"
+
+    # Quick Commands
+    quick_commands:
+      test_nvidia: "openclaw models | grep nvidia"
+      test_opencode: "opencode models | grep nvidia"
+      gateway_restart: "openclaw gateway restart"
+      gateway_doctor: "openclaw doctor --fix"
+      api_test: "curl -H 'Authorization: Bearer $NVIDIA_API_KEY' https://integrate.api.nvidia.com/v1/models"
+
+    # Config Locations
+    config_locations:
+      openclaw:
+        path: "~/.openclaw/openclaw.json"
+        provider: "nvidia-nim"
+        env: "NVIDIA_API_KEY"
+      opencode:
+        path: "~/.config/opencode/opencode.json"
+        provider: "nvidia-nim"
+
+opencode_provider_schema:
+  structure:
+    provider:
+      custom-name:
+        npm: "@ai-sdk/openai-compatible"
+        name: "Display Name"
+        options:
+          baseURL: "https://api.example.com/v1"
+        models:
+          model-id:
+            name: "Model Name"
+            limit:
+              context: 100000
+              output: 10000
+
+fallback_chain:
+  recommended_order:
+    - "Primary model (fastest, smartest)"
+    - "Fallback models (different strengths)"
+    - "Vision models for image tasks"
+    - "General models for basic tasks"
+
+mcp_servers:
+  active:
+    - name: serena
+      type: local
+      command: "uvx serena start-mcp-server"
+      purpose: Orchestration
+    - name: tavily
+      type: local
+      command: "npx @tavily/claude-mcp"
+      purpose: Web search
+    - name: canva
+      type: local
+      command: "npx @canva/claude-mcp"
+      purpose: Design
+    - name: context7
+      type: local
+      command: "npx @anthropics/context7-mcp"
+      purpose: Documentation
+    - name: linear
+      type: remote
+      url: "https://mcp.linear.app/sse"
+      purpose: Project management
+
+rules:
+  mandatory_workflow:
+    phase_1_context_acquisition:
+      - lastchanges.md
+      - conductor.py
+      - BLUEPRINT.md
+      - tasks-system.json
+      - last_2_sessions
+    phase_2_research:
+      - websearch_best_practices_2026
+      - grep_github_production_examples
+      - context7_official_docs
+      - code_review_improvements
+    phase_3_internal_documentation:
+      - dev_docs
+      - elite_guides
+      - troubleshooting_tickets
+    phase_4_master_plan:
+      - 10_phase_conductor_track
+      - ceo_level_detail
+      - blueprint_compliant
+      - tasks_system_compliant
+      - parallel_fähig
+    phase_5_swarm_delegation:
+      min_agents: 5
+      agents:
+        - serena_mcp
+        - sisyphus
+        - atlas
+        - prometheus
+        - oracle
+        - explore
+        - librarian
+    violations:
+      - skipping_any_phase
+      - implementation_before_phase_4
+      - fewer_than_5_parallel_tasks
+      - not_reading_lastchanges
+      - not_researching_best_practices
+
+  mandate_0_0_immutability:
+    description: "Immutability of Knowledge - Supreme Law"
+    principles:
+      - no_deletion_or_overwrite
+      - additive_enhancement_only
+      - chronological_fortress
+      - deletion_is_termination_offense
+      - verify_integrity_before_save
+
+  mandate_0_1_swarm_system:
+    description: "Modular Swarm System"
+    min_agents_per_task: 5
+    agent_roles:
+      - planner
+      - researcher
+      - developer
+      - tester
+      - reviewer
+
+  mandate_0_2_reality_over_prototype:
+    description: "No Mocks, No Simulations, Real Code Only"
+    rules:
+      - no_simulation
+      - real_api_calls
+      - real_database_operations
+      - real_file_operations
+
+  mandate_0_3_blueprint:
+    description: "Omniscience Blueprint Mandate"
+    requirements:
+      - blueprint_md_required
+      - must_follow_blueprint_vorlage_v5_3
+      - 22_pillars_coverage
+      - master_templates_immutable
+      - 500_line_knowledge_minimum
+
+  mandate_0_4_docker:
+    description: "Docker Sovereignty & Infrastructure"
+    requirements:
+      - local_image_persistence
+      - docker_save_to_local
+      - hierarchical_structure
+      - guide_conformity
+    path: "/Users/jeremy/dev/sin-code/Docker/[project-name]/"
+
+  mandate_0_5_citadel:
+    description: "26-Pillar Documentation Structure"
+    pillar_files:
+      - overview
+      - lastchanges
+      - troubleshooting
+      - architecture
+      - api_reference
+      - configuration
+      - deployment
+      - security
+      - performance
+      - testing
+      - monitoring
+      - integration
+      - migration
+      - backup
+      - scaling
+      - maintenance
+      - compliance
+      - accessibility
+      - localization
+      - analytics
+      - support
+      - roadmap
+      - glossary
+      - faq
+      - examples
+      - appendix
+
+  mandate_0_6_troubleshooting:
+    description: "Ticket-Based Troubleshooting"
+    rules:
+      - each_error_gets_ticket
+      - project_specific_path: "[PROJECT-ROOT]/troubleshooting/ts-ticket-[XX].md"
+      - infra_path: "/Users/jeremy/dev/sin-code/troubleshooting/ts-ticket-[XX].md"
+      - ticket_naming: "ts-ticket-[XX].md"
+      - additive_integrity_only
+
+  mandate_0_7_safe_migration:
+    description: "Safe Migration & Consolidation"
+    protocol:
+      - read_totality
+      - preserve_rename_old
+      - create_synthesize
+      - integrate_everything
+      - multi_verify_3x
+      - cleanup_after_verification
+
+  mandate_0_8_source_of_truth:
+    hierarchy:
+      - "~/.config/opencode/opencode.json"
+      - "~/.config/opencode/AGENTS.md"
+      - "~/.opencode/"
+      - "[PROJECT]/.opencode/"
+
+  mandate_0_9_coding_standards:
+    description: "TypeScript Strict Mode Mandatory"
+    rules:
+      - strict_true_in_tsconfig
+      - no_any_types
+      - no_ts_ignore
+      - no_ts_expect_error_without_ticket
+      - jsdoc_all_functions
+      - document_all_exports
+
+  mandate_0_10_commit_standards:
+    format: "<type>(<scope>): <description>"
+    types:
+      - feat
+      - fix
+      - docs
+      - style
+      - refactor
+      - test
+      - chore
+
+  mandate_0_11_serena:
+    description: "Serena MCP & Swarm Delegation"
+    rules:
+      - always_use_serena_mcp
+      - route_through_serena
+
+  mandate_0_12_free_first:
+    description: "Free First Philosophy"
+    free_services:
+      - opencode_zen_models
+      - self_hosted_mcp
+      - duckduckgo_search
+      - edge_tts
+      - ffmpeg
+
+  mandate_0_13_workspace:
+    description: "CEO-Level Workspace Organization"
+    structure:
+      desktop: "CLEAN - auto-cleaned daily"
+      documents: "important only"
+      downloads: "temp, cleaned weekly"
+      bilder: "AI-Screenshots organized"
+      dev: "all development work"
+      config: "PRIMARY CONFIG in .config/opencode"
+
+  mandate_0_14_million_line:
+    description: "Million-Line Codebase Ambition"
+    targets:
+      min_loc: 100000
+      target_loc: 500000
+      elite_loc: 1000000
+      min_test_coverage: 60
+      target_test_coverage: 80
+      elite_test_coverage: 95
+
+  mandate_0_15_screenshot:
+    description: "AI Screenshot Sovereignty"
+    directories:
+      steel: "~/Bilder/AI-Screenshots/steel/"
+      opencode: "~/Bilder/AI-Screenshots/opencode/"
+    cleanup_days: 7
+    archive_days: 7
+
+  mandate_0_16_trinity:
+    description: "Trinity Documentation Standard"
+    structure:
+      docs/non_dev: "users_guides_tutorials"
+      docs/dev: "coders_api_ref"
+      docs/project: "team_deployment"
+      docs/postman: "hoppscotch_postman"
+      DOCS.md: "rulebook_index"
+      README.md: "gateway"
+
+  mandate_0_17_openhands:
+    description: "Universal OpenHands Coding Layer"
+    coding_tasks_route: "agent-04.1-openhands-codeserver"
+    slash_commands: 29
+    api_endpoints: 38
+
+  mandate_0_18_slash:
+    description: "Slash Command Protocol & Autonomy"
+    requirements:
+      - slash_md_required
+      - mutable_entities_via_api
+      - mutable_entities_via_slash
+
+  mandate_0_19_cli_toolchain:
+    description: "Modern CLI Toolchain 2026"
+    forbidden_tools:
+      grep: "use ripgrep (rg)"
+      find: "use fd or fast-glob"
+      sed: "use sd"
+      awk: "use ugrep or ripgrep"
+      cat: "use bat"
+      ls: "use exa or lsd"
+    mandatory_tools:
+      - ripgrep
+      - fd
+      - fast-glob
+      - sd
+      - tree-sitter
+      - bat
+      - exa_or_lsd
+      - deno_or_bun
+
+  mandate_0_20_status_footer:
+    description: "Status Footer Protocol"
+    required_fields:
+      - updated_docs
+      - fortschritt_progress
+      - github_url
+      - last_commit_timestamp
+      - vercel_or_openurl
+
+  mandate_0_21_secrets:
+    description: "Global Secrets Registry"
+    location: "~/dev/environments-jeremy.md"
+    rules:
+      - all_secrets_documented
+      - never_delete_only_add
+      - mark_deprecated_rotated
+      - append_only
+    template_fields:
+      - service_name
+      - account
+      - password
+      - api_key
+      - endpoint
+      - ports
+      - projects
+      - status
+
+  mandate_0_22_local_agents:
+    description: "Vollumfängliches Projekt-Wissen - Lokale AGENTS.md"
+    location: "[PROJECT-ROOT]/AGENTS.md"
+    workflow:
+      - read_at_project_start
+      - update_on_changes
+      - commit_after_session
+
+workflows:
+  coder_5_phase:
+    - context_acquisition
+    - research_best_practices
+    - internal_documentation
+    - master_plan_creation
+    - swarm_delegation
+
+  migration_protocol:
+    - read_totality
+    - preserve_rename_old
+    - create_synthesize
+    - integrate_everything
+    - multi_verify
+    - cleanup_after_verification
+
+  troubleshooting:
+    - create_ticket_file
+    - document_problem_root_cause
+    - document_steps_commands
+    - add_holy_reference
+    - additive_only
+
+mandates_chunk3:
+  mandate_0_22:
+    name: "Vollumfängliches Projekt-Wissen - Lokale AGENTS.md"
+    effective: "2026-01-28"
+    principle: "User expects AI to know project inside out"
+    workflow:
+      - "Read local AGENTS.md at project start"
+      - "Extract project-specific rules and conventions"
+      - "Adapt behavior to local standards"
+      - "Update AGENTS.md with changes"
+    mandatory_content:
+      - "Tech Stack: [React, Node.js, etc.]"
+      - "Architecture: [Monolith/Microservices]"
+      - "Database: [PostgreSQL, MongoDB]"
+      - "Naming conventions"
+      - "Folder Structure"
+      - "State Management"
+    integrity_check:
+      - "Have I read the local AGENTS.md?"
+      - "Are my answers conformant with local conventions?"
+      - "Do I need to update AGENTS.md?"
+      - "Are architecture changes documented?"
+
+  mandate_0_23:
+    name: "Photografisches Gedächtnis - lastchanges.md"
+    effective: "2026-01-28"
+    principle: "User expects AI to always know last worked task"
+    workflow_before:
+      - "Read /projektname/projektname-lastchanges.md"
+      - "Extract: What was last done?"
+      - "Extract: What went wrong?"
+      - "Extract: What are next steps?"
+    workflow_after:
+      - "APPEND to lastchanges.md (NEVER overwrite)"
+      - "Structured entry with timestamp"
+      - "All observations, errors, solutions, insights"
+      - "Next steps and open tasks"
+    mandatory_format:
+      - "## [YYYY-MM-DD HH:MM] - [AGENT/TASK-ID]"
+      - "**Beobachtungen:**"
+      - "**Fehler:**"
+      - "**Lösungen:**"
+      - "**Nächste Schritte:**"
+      - "**Arbeitsbereich:**"
+
+  mandate_0_24:
+    name: "Allumfassendes Wissen - Best Practices 2026"
+    effective: "2026-01-28"
+    principle: "User expects AI to be omniscient"
+    research_phases:
+      phase_1_planning:
+        - "Web Search: [Technology] Best Practices 2026"
+        - "GitHub Grep: Find production-ready implementations"
+        - "Context7: Official documentation latest version"
+        - "Stack Overflow: Current solutions and patterns"
+      phase_2_during_planning:
+        - "For each architecture decision: Research alternatives"
+        - "Compare patterns: Which is 2026 State-of-the-Art?"
+        - "Check deprecations: Is this method still current?"
+        - "Security Check: Any new CVEs for this library?"
+      phase_3_during_coding:
+        - "At EVERY error hint → Start research immediately"
+        - "Copy error message → Search Google/Bing/DDG"
+        - "Never guess when uncertain, ALWAYS look up"
+        - "Analyze stacktraces → Find root cause"
+      phase_4_at_problems:
+        - "Error occurred → Immediate: websearch_web_search_exa()"
+        - "[Error Message] solution 2026"
+        - "Compare multiple sources"
+        - "Implement verified solution (not workaround!)"
+    research_sources_priority:
+      - "Official Documentation (context7_query-docs)"
+      - "GitHub Repositories (grep_app_searchGitHub)"
+      - "Web Search (websearch_web_search_exa)"
+      - "Stack Overflow / Dev.to / Medium"
+    forbidden:
+      - "Ich denke, das sollte so funktionieren..."
+      - "Das habe ich mal irgendwo gesehen..."
+      - "Probieren wir es einfach aus..."
+      - "Das ist vermutlich deprecated..."
+    preferred:
+      - "Lass mich die aktuelle Dokumentation prüfen..."
+      - "Die offiziellen Best Practices 2026 sagen..."
+      - "Laut der neuesten Version sollten wir..."
+      - "Ich recherchiere das jetzt genau..."
+
+  mandate_0_25:
+    name: "Selbstkritik & Crashtests - CEO-Mindset"
+    effective: "2026-01-28"
+    principle: "Be your WORST EXAMINER and CONTROLLER"
+    validation_workflow:
+      step_1_weakness_analysis:
+        - "How could this code crash?"
+        - "What edge cases were forgotten?"
+        - "Is error handling complete?"
+        - "Are there race conditions?"
+        - "Are all input validations present?"
+      step_2_crash_tests:
+        - "Test invalid inputs"
+        - "Test boundary values (0, null, undefined, [], {})"
+        - "Test concurrent requests"
+        - "Simulate network failures"
+        - "Simulate database connection loss"
+      step_3_browser_verification:
+        - "Open UI in browser and visually verify"
+        - "Mobile/Responsive Testing"
+        - "Cross-Browser Testing"
+      step_4_integration_tests:
+        - "Run end-to-end tests"
+        - "Test API integration"
+        - "Verify database operations"
+        - "Mock and test external services"
+      step_5_performance_tests:
+        - "Load Testing (100+ concurrent requests)"
+        - "Memory Leak Detection"
+        - "Response Time Monitoring (< 200ms P95)"
+      step_6_security_audit:
+        - "OWASP Top 10 Check"
+        - "SQL Injection Tests"
+        - "XSS Vulnerability Scan"
+        - "Secret-Leakage Check"
+
+  mandate_0_26:
+    name: "Phasenplanung & Fehlervermeidung"
+    effective: "2026-01-28"
+    principle: "Plan sequentially, anticipate errors, avoid proactively"
+    planning_workflow:
+      step_1_milestones:
+        - "Define clear milestones (max 5 per phase)"
+        - "Define expectations (what is desired result?)"
+        - "Define acceptance criteria (when is it 'done'?)"
+        - "Define timeframe (realistic estimate)"
+      step_2_error_anticipation:
+        - "What could go wrong with database integration?"
+        - "What CORS problems do we expect?"
+        - "Where could race conditions occur?"
+        - "What dependencies could conflict?"
+      step_3_avoidance_strategies:
+        - "Define preventive measure for each anticipated error"
+        - "Create fallback plan"
+        - "Set up monitoring/alerting"
+        - "Prepare solution documentation"
+      step_4_phase_tracking:
+        - "Status per phase: PLANNED → IN_PROGRESS → REVIEW → TESTING → DONE"
+        - "Document blockers"
+        - "Update risks"
+        - "Inform user immediately of blockers"
+
+  mandate_0_27:
+    name: "Docker Knowledge Base - Eigene Knowledge Infrastruktur"
+    effective: "2026-01-28"
+    principle: "Use our OWN Docker-based Knowledge Base - not external tools like Linear!"
+    uses:
+      - "Dev-Book"
+      - "Dev-Docs"
+      - "Wiki"
+      - "Task collection"
+      - "Task planner"
+      - "Milestone tracker"
+      - "Project update center"
+    mandatory_workflow:
+      - "Create project entry in Docker Knowledge Base"
+      - "Link /projectname/AGENTS.md and /projectname/lastchanges.md"
+      - "Define milestones and epics"
+      - "Create issues/tasks for all features"
+      - "Use labels for categorization"
+    forbidden:
+      - "External tools like Linear NOT used"
+    mandatory:
+      - "Use exclusively our own Docker-based Knowledge Base"
+      - "Complete data sovereignty and self-hosting"
+      - "No dependency on external providers"
+
+  mandate_0_28:
+    name: "Marktanalyse - Spitzenposition"
+    effective: "2026-01-28"
+    principle: "Is our project really at the TOP in its field?"
+    analysis_dimensions:
+      - "Feature comparison: What can competitors do?"
+      - "Technology stack: Are we on the latest?"
+      - "Performance: How fast are we compared?"
+      - "UX/UI: Is our solution more user-friendly?"
+      - "Pricing: Are we competitive?"
+      - "Innovation: Do we have Unique Selling Points?"
+    rating_scale:
+      - "🥇 Leading (Top 3 in market)"
+      - "🥈 Competitive (Top 10)"
+      - "🥉 Needs improvement (Outside Top 10)"
+    goal: "MINIMUM 🥈 in all dimensions, 🥇 in core features"
+    review_frequency:
+      - "Monthly: Quick market check"
+      - "Quarterly: Detailed analysis"
+      - "At major releases: Competitive comparison"
+
+  mandate_0_29:
+    name: "Arbeitsbereich-Tracking - Eigener Bereich"
+    effective: "2026-01-28"
+    principle: "Each has their OWN workspace to avoid conflicts"
+    mandatory_format: "{todo};{task-id}-{workspace/path}-{status}"
+    examples:
+      - "{Implementiere Login};TASK-001-src/auth/login.ts-IN_PROGRESS"
+      - "{Fix Bug #123};BUG-456-src/utils/api.ts-COMPLETED"
+      - "{Review Code};REV-789-src/components/-PENDING"
+    rules:
+      - "ALWAYS keep current (at each task change)"
+      - "Use unique task IDs"
+      - "Clear path specifications (which files/folders)"
+      - "Status: IN_PROGRESS / COMPLETED / PENDING / BLOCKED"
+      - "On conflicts: Inform user immediately"
+    updates:
+      - "At task start: Enter new workspace"
+      - "At task end: Mark as COMPLETED"
+      - "On blocker: Set status to BLOCKED + reason"
+      - "Archiving: Move old workspaces to HISTORY"
+
+  mandate_0_30:
+    name: "OpenCode Preservation - Niemals Neuinstallieren"
+    effective: "2026-01-28"
+    principle: "NEVER reinstall OpenCode - always repair"
+    absolutely_forbidden:
+      - "brew reinstall opencode"
+      - "npm install -g opencode"
+      - "Any form of reinstallation"
+      - "Delete ~/.opencode"
+      - "Delete ~/.oh-my-opencode"
+      - "Delete ~/.config/opencode"
+    allowed_actions:
+      - "Diagnose: What exactly is the problem?"
+      - "Backup: Create copy of config files"
+      - "Repair: Repair specific files (NOT delete!)"
+      - "Test: Verify the repair"
+      - "At corrupted files: Read and identify problem"
+      - "Repair specific line (not whole file)"
+      - "OR: Restore from backup"
+      - "NEVER simply delete and recreate file"
+
+  mandate_0_31:
+    name: "ALL-MCP Verzeichnis - Globale MCP Dokumentation"
+    effective: "2026-01-28"
+    principle: "Central documentation of all OpenCode integrated MCP servers in one place"
+    location: "/Users/jeremy/dev/sin-code/OpenCode/ALL-MCP/"
+    structure_per_mcp:
+      - "readme.md: Overview, MCP type, links to repos/docs"
+      - "guide.md: Detailed usage instructions"
+      - "install.md: Step-by-step installation"
+    mandatory_workflow_new_mcp:
+      - "Create folder: /dev/sin-code/OpenCode/ALL-MCP/[mcp-name]/"
+      - "Create readme.md with: MCP type, docs links, GitHub URL, description"
+      - "Create guide.md with: Available tools, code examples, parameters"
+      - "Create install.md with: Prerequisites, config examples, troubleshooting"
+      - "Link in AGENTS.md under Elite Guide References"
+    rules:
+      - "Every MCP server MUST be documented in ALL-MCP"
+      - "3 files are MANDATORY (readme.md, guide.md, install.md)"
+      - "Updates to MCP → IMMEDIATELY update documentation"
+      - "Links to official docs MUST work"
+      - "Installation instructions MUST be tested"
+
+  mandate_0_32:
+    name: "GitHub Templates & Repository Standards"
+    effective: "2026-01-29"
+    principle: "Every repository MUST have professional GitHub templates and CI/CD"
+    mandatory_structure:
+      github_directory:
+        - "ISSUE_TEMPLATE/ (bug_report.md, feature_request.md, config.yml)"
+        - "workflows/ (ci.yml, release.yml, codeql.yml, dependabot-auto.yml)"
+        - "PULL_REQUEST_TEMPLATE.md"
+        - "CODEOWNERS"
+        - "dependabot.yml"
+        - "FUNDING.yml (optional)"
+        - "SECURITY.md"
+      root_files:
+        - "CONTRIBUTING.md"
+        - "CODE_OF_CONDUCT.md"
+        - "LICENSE"
+    bug_report_template_fields:
+      - "name, about, title, labels, assignees"
+      - "Bug Description, Steps to Reproduce"
+      - "Expected Behavior, Actual Behavior"
+      - "Screenshots, Environment, Additional Context, Logs"
+    pr_template_fields:
+      - "Description, Related Issue"
+      - "Type of Change (checklist)"
+      - "Checklist (style guidelines, self-review, documentation)"
+      - "Screenshots, Testing Instructions"
+    ci_workflow_requirements:
+      - "lint job"
+      - "typecheck job"
+      - "test job (with coverage)"
+      - "build job"
+      - "concurrency settings"
+
+tech_stack_rules:
+  # No specific tech stack rules in lines 2001-3000
+
+guidelines:
+  documentation_standards:
+    - "lastchanges.md: APPEND-ONLY, never overwrite"
+    - "AGENTS.md: Must exist in every project root"
+    - "INTEGRATION.md: Mandatory in every project"
+    - "All changes: Commit + Push after every session"
+  
+  quality_assurance:
+    - "100% tests pass (Unit, Integration, E2E)"
+    - "Browser verification successful"
+    - "Crash tests passed"
+    - "Performance tests in green zone"
+    - "Security audit without critical findings"
+  
+  research_mandate:
+    - "NEVER guess - ALWAYS look up"
+    - "Check documentation first"
+    - "Compare multiple sources"
+    - "Implement verified solution"
+  
+  workspace_tracking:
+    - "Format: {todo};{task-id}-{workspace}-{status}"
+    - "Always keep current"
+    - "Use unique task IDs"
+    - "Clear path specifications"
+    - "Status: IN_PROGRESS / COMPLETED / PENDING / BLOCKED"
+
+
+mandates_chunk4:
+  mandate_0_32_continued:
+    github_templates:
+      dependabot:
+        package_ecosystems: ["npm", "github-actions", "docker"]
+        schedule: "weekly"
+      codeowners:
+        frontend: "/src/components/, /src/styles/"
+        backend: "/src/api/, /src/services/"
+        infrastructure: "/.github/, /docker/, /terraform/"
+        documentation: "/docs/, *.md"
+      contributing: "Conventional Commits required (feat, fix, docs, style, refactor, test, chore)"
+
+  mandate_0_33:
+    name: "Docker Container as MCP - Wrapper Protocol"
+    effective: "2026-01-29"
+    principle: "Docker containers are HTTP APIs, NOT native MCP Servers. A stdio-wrapper MUST be created."
+    architecture:
+      step_1: "Docker Container (HTTP API) -> Express/FastAPI on Port 8xxx"
+      step_2: "MCP Wrapper (stdio) -> Node.js/Python script in /mcp-wrappers/"
+      step_3: "OpenCode Config -> type: local, command: node wrapper.js"
+    rules:
+      forbidden:
+        - "Docker container as type: remote in opencode.json"
+        - "Direct HTTP URLs in opencode.json MCP config"
+        - "Hardcoded IPs (172.20.0.x)"
+        - "Everything in one docker-compose.yml"
+      mandatory:
+        - "Wrapper as type: local (stdio)"
+        - "Wrapper script in between"
+        - "Use service names"
+        - "One container = one docker-compose.yml"
+    required_docs:
+      - "CONTAINER-REGISTRY.md"
+      - "ARCHITECTURE-MODULAR.md"
+      - "MCP WRAPPERS README"
+
+  container_naming_convention:
+    format: "{category}-{number}-{name}"
+    categories:
+      agent: "AI Workers, Orchestrators, Automation (e.g., agent-01-n8n-manager)"
+      room: "Infrastructure, Databases, Storage (e.g., room-01-dashboard)"
+      solver: "Money-Making Workers (e.g., solver-1.1-captcha-worker)"
+      builder: "Content Creation Workers"
+    forbidden_prefixes: ["sin-zimmer-"]
+
+  provider_schema:
+    opencode_format:
+      custom_provider:
+        npm: "@ai-sdk/openai-compatible"
+        options:
+          baseURL: "https://api.example.com/v1"
+
+mandates_chunk5:
+  security_mandates:
+    secrets_management:
+      - "NEVER commit secrets to git"
+      - "Store API keys in environment variables"
+      - "Use .gitignore for sensitive files (.env, *.key, *.pem, credentials.json)"
+    file_permissions:
+      config_files: "600 (rw-------)"
+      examples:
+        - "chmod 600 ~/.config/opencode/antigravity-accounts.json"
+        - "chmod 600 ~/.config/opencode/opencode.json"
+
+  scira_ai_search:
+    effective: "2026-01-30"
+    container: "room-30-scira-ai-search"
+    public_search: "Exa/Tavily (no auth required)"
+    auth_scraping: "Skyvern + Steel Browser (login required)"
+    prohibited:
+      - "Direct scraping without session management"
+      - "Multiple parallel logins on same provider"
+      - "Hardcoded selectors"
+      - "Bypassing CAPTCHAs without solving"
+
+  model_assignment_rules:
+    effective: "2026-02-19"
+    assignments:
+      minimax_m2_5:
+        use_case: "Suchen/Lesen/Recherche/MD-Dateien erstellen"
+        parallel_limit: 10
+      qwen_3_5:
+        use_case: "Code-Umsetzung/Planung/Implementation"
+        parallel_limit: 1
+      kimi_k2_5:
+        use_case: "Deep Research/Complex Analysis"
+    workflow:
+      step_1: "MiniMax sucht/liest/erstellt MD"
+      step_2: "Qwen 3.5 setzt um"
+
+  rule_minus_11:
+    name: "Parallele Agenten-Arbeit & Datei-Prüfung"
+    effective: "2026-02-02"
+    rules:
+      parallel_work:
+        - "NEVER use run_in_background=false for delegation"
+        - "ALWAYS use run_in_background=true"
+        - "Agents MUST NOT wait for each other"
+        - "Main agent orchestrates, sub-agents work in parallel"
+      file_creation:
+        - "NEVER blindly create files"
+        - "ALWAYS check if files exist first (glob/ls)"
+        - "Reuse existing structures"
+        - "Append/expand, don't overwrite"
+
+  rule_minus_13:
+    name: "Projekt-Integration Übersicht"
+    effective: "2026-02-02"
+    rule: "EVERY project MUST have an INTEGRATION.md in root"
+    content_requirements:
+      - "External APIs"
+      - "Databases & Storage"
+      - "External Services (n8n, Grafana)"
+      - "Security & Auth (Vault, Cloudflare)"
+      - "Monitoring & Logging"
+      - "Deployment & CI/CD"
+
+mandates_chunk6:
+  browser_automation:
+    effective: "2026-01-31"
+    mandatory:
+      - "Use Native CDP WebSocket directly"
+      - "Implement connection pooling (5-10 connections)"
+      - "Use JPEG screenshots (not PNG), viewport only"
+      - "Cache solutions in Redis"
+      - "Use local LLMs (Ollama) when possible"
+
+  rule_minus_14:
+    name: "Einfache Lösungen"
+    effective: "2026-02-03"
+    rule: "First answer must be the direct, simplest solution. No lengthy explanations or alternatives unless asked."
+
+  mandate_0_36:
+    name: "DELQHI-LOOP: Infinite Work Mode"
+    effective: "2026-02-07"
+    rules:
+      - "After each completed task -> IMMEDIATELY add 5 new tasks"
+      - "NEVER wait for agents -> ALWAYS parallel (run_in_background=true)"
+      - "No 'done' - only 'next task'"
+      - "Always document -> Every change in lastchanges.md + AGENTS.md"
+
+  rule_minus_15:
+    name: "NotebookLM Source Management"
+    effective: "2026-02-16"
+    rule: "NEVER blindly upload files to NLM (creates duplicates)."
+    workflow:
+      step_1: "nlm source list <notebook-id>"
+      step_2: "nlm source delete <duplicate-source-id> -y"
+      step_3: "nlm source add <notebook-id> --file <file> --wait"
+
+  mandate_0_37:
+    name: "ENTERPRISE ORCHESTRATOR PROTOCOL (ZERO-QUESTION POLICY)"
+    effective: "2026-02-20"
+    role: "FORTUNE 500 LEAD ARCHITECT & CONTROLLER"
+    tech_stack:
+      frontend: "Next.js, pnpm ONLY, Strict TypeScript"
+      backend: "Supabase + Go"
+      architecture: "Greenbook-Standard (Strictly modular)"
+    concurrency_rules:
+      max_parallel: 3
+      model_collision_forbidden: true
+    quality_gate_sicher:
+      trigger: "When sub-agent reports 'Task completed'"
+      action: "Send prompt: 'Sicher? Führe eine vollständige Selbstreflexion durch...'"
+    enterprise_version_control:
+      - "No direct main commits"
+      - "Conventional commits"
+      - "Atomic commits"
+    observability:
+      - "Structured Logging (Go slog/zap)"
+      - "TraceID mapping"
+    code_compliance:
+      go: "go fmt ./... && go vet ./..."
+      nextjs: "pnpm lint && pnpm format"
+      no_dead_code: true

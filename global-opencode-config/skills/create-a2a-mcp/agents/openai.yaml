@@ -1,0 +1,16 @@
+name: create-a2a-mcp
+description: Scaffold production-ready MCP servers for A2A agents or standalone projects
+version: 1.0.0
+author: SIN-Zeus
+tags:
+  - mcp
+  - a2a
+  - scaffold
+  - opencode
+triggers:
+  - create mcp
+  - scaffold mcp
+  - create-a2a-mcp
+  - add mcp to agent
+  - mcp server
+compatibility: opencode

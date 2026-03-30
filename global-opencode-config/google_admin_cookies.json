@@ -1,0 +1,20 @@
+[
+  {
+    "name": "__Secure-ENID",
+    "value": "",
+    "domain": ".google.com",
+    "path": "/",
+    "expirationDate": 13453433905092152,
+    "secure": true,
+    "httpOnly": false
+  },
+  {
+    "name": "__Secure-ENID",
+    "value": "",
+    "domain": ".lensfrontend-pa.googleapis.com",
+    "path": "/",
+    "expirationDate": 13453433904502241,
+    "secure": true,
+    "httpOnly": false
+  }
+]

@@ -1,0 +1,12 @@
+# Ripgrep ignore rules for OpenCode tooling.
+#
+# Goal: prevent rg-backed tools (glob/grep/opencode debug rg) from traversing
+# large or volatile directories under ~/.config/opencode.
+
+nodriver-profiles/
+node_modules/
+antigravity-logs/
+
+opencode.db*
+opencode-local.db
+archive/

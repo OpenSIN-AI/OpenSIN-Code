@@ -1,0 +1,40 @@
+{
+  "name": "Inbound Work Intake Template",
+  "nodes": [
+    {
+      "name": "Inbound Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "notes": "Replace with webhook or scheduled poller per platform"
+    },
+    {
+      "name": "Verify Signature Or Cursor",
+      "type": "n8n-nodes-base.code",
+      "notes": "Validate webhook signature or poll cursor before any mutation"
+    },
+    {
+      "name": "Normalize To Work Item",
+      "type": "n8n-nodes-base.set",
+      "notes": "Map raw platform payload into work-item.schema.json fields"
+    },
+    {
+      "name": "Dedupe Gate",
+      "type": "n8n-nodes-base.if",
+      "notes": "Reject duplicate delivery ids or existing dedupe keys"
+    },
+    {
+      "name": "Create Or Update GitHub Issue",
+      "type": "n8n-nodes-base.httpRequest",
+      "notes": "Issue-first: accepted work becomes a GitHub issue before execution"
+    },
+    {
+      "name": "Bootstrap PR Watcher Contract",
+      "type": "n8n-nodes-base.code",
+      "notes": "Attach watcherRequired, watcherConfigRef, and repo-governance context"
+    }
+  ],
+  "connections": {},
+  "meta": {
+    "purpose": "canonical inbound platform intake skeleton",
+    "contract": "~/.config/opencode/templates/work-item.schema.json"
+  }
+}

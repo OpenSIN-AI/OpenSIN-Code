@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opencode.local/templates/platform-registry.schema.json",
+  "title": "Inbound Platform Registry",
+  "type": "object",
+  "required": ["version", "platforms"],
+  "properties": {
+    "version": { "type": "string" },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "category",
+          "status",
+          "intakeMode",
+          "defaultRepo",
+          "watcherRequired",
+          "automationPolicy"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "category": { "type": "string" },
+          "enabled": { "type": "boolean" },
+          "status": { "enum": ["planned", "intake-only", "issue-live", "review-live", "active", "paused", "deprecated"] },
+          "intakeMode": { "enum": ["webhook", "poller", "manual-none"] },
+          "webhookPath": { "type": "string" },
+          "pollIntervalMinutes": { "type": "number" },
+          "signatureRequired": { "type": "boolean" },
+          "authRef": { "type": "string" },
+          "secretRef": { "type": "string" },
+          "baseUrl": { "type": "string" },
+          "workUrlPattern": { "type": "string" },
+          "eventTypes": { "type": "array", "items": { "type": "string" } },
+          "normalizer": { "type": "string" },
+          "dedupeKeyTemplate": { "type": "string" },
+          "defaultRepo": { "type": "string" },
+          "defaultLabels": { "type": "array", "items": { "type": "string" } },
+          "watcherRequired": { "type": "boolean" },
+          "watcherConfigRef": { "type": "string" },
+          "riskLevel": { "enum": ["low", "medium", "high", "critical"] },
+          "automationPolicy": { "enum": ["ingest_only", "issue_only", "issue_plus_pr", "manual_review_required"] },
+          "allowedActions": { "type": "array", "items": { "type": "string" } },
+          "forbiddenActions": { "type": "array", "items": { "type": "string" } },
+          "evidenceRequired": { "type": "boolean" },
+          "retentionDays": { "type": "integer" },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

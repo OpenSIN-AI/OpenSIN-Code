@@ -1,0 +1,4 @@
+interface:
+  display_name: "NVIDIA Video Forge"
+  short_description: "Enterprise NVIDIA NIM video generation pipeline"
+  default_prompt: "Use $nvidia-video-forge to generate a production-grade NVIDIA NIM video with QA gating, manifest artifacts, and visual dashboard reports."
