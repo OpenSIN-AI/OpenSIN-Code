@@ -656,7 +656,7 @@
     },
     "omoc-autostart": {
       "description": "Auto-bind swarm + start JAM guidance",
-      "template": "OMOC Autostart (keine Erklaerungen):\n\n1) ⚙ swarm_discover({ id: \"$ARGUMENTS\" })\n2) ⚙ swarm_jam({ id: \"$ARGUMENTS\", prompt: \"OMOC JAM Autostart: Koordiniert euch als Swarm (planner/researcher/coder/reviewer). Arbeitet kollaborativ im selben Worktree. Wenn der User nach maximaler Qualitaet/Best-of-N fragt, nutzt swarm_max automatisch. Warte ansonsten auf die naechste konkrete Aufgabe.\" })\n\nDanach: schreibe exakt: OMOC ready"
+      "template": "OMOC Autostart (keine Erklaerungen):\n\n1) \u2699 swarm_discover({ id: \"$ARGUMENTS\" })\n2) \u2699 swarm_jam({ id: \"$ARGUMENTS\", prompt: \"OMOC JAM Autostart: Koordiniert euch als Swarm (planner/researcher/coder/reviewer). Arbeitet kollaborativ im selben Worktree. Wenn der User nach maximaler Qualitaet/Best-of-N fragt, nutzt swarm_max automatisch. Warte ansonsten auf die naechste konkrete Aufgabe.\" })\n\nDanach: schreibe exakt: OMOC ready"
     },
     "sin-terminal-orchestrate": {
       "description": "Use SIN-Terminal to open and steer parallel visible OpenCode sessions",
