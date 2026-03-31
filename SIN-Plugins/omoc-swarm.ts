@@ -239,7 +239,7 @@ async function discoverSwarmForSession(
     const swarmId = bestPrefix || fallbackPrefix || eventPrefix || `auto_${rootID}`;
 
     const registry = await loadSwarmRegistry(directory, swarmId);
-    const creationEvent = [...events].reverse().find((event) => event.swarmId === swarmId && event.type === "swarm.create");
+    const creationEvent = [...events].reverse().find((event) => event.swarmId === swarmId && event.type === "swarm_create");
     const eventMembers = Array.isArray(creationEvent?.data?.members)
       ? (creationEvent?.data?.members as Array<{ name?: string; agent?: string }> )
       : [];
@@ -330,7 +330,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
       latestConfig = cfg;
     },
     tool: {
-      "swarm.discover": tool({
+      "swarm_discover": tool({
         description:
           "Discover and register a swarm from existing session titles (expects titles like '<swarmId>:<memberName>' under the same parent).",
         args: {
@@ -340,7 +340,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
           const result = await resolveSwarm(client, args.id, context.sessionID, context.directory, context.worktree);
           if ("error" in result) return result.error;
           await appendSwarmEvent(context.directory, {
-            type: "swarm.discover",
+            type: "swarm_discover",
             swarmId: result.swarmId,
             sessionID: context.sessionID,
             data: { members: Object.keys(result.swarm.members) },
@@ -349,7 +349,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
         },
       }),
 
-      "swarm.create": tool({
+      "swarm_create": tool({
         description:
           "Create a multi-agent swarm (separate sessions) that can run in parallel and message each other via swarm.send.",
         args: {
@@ -413,7 +413,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
 
           await saveSwarmRegistry(context.directory, swarmId, swarm.members);
           await appendSwarmEvent(context.directory, {
-            type: "swarm.create",
+            type: "swarm_create",
             swarmId,
             sessionID: context.sessionID,
             data: { members: memberConfigs },
@@ -424,7 +424,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
         },
       }),
 
-      "swarm.status": tool({
+      "swarm_status": tool({
         description: "Show swarm status (members, sessions).",
         args: {
           id: schema.string().min(1).optional().describe("Optional swarm id; defaults to current session's swarm"),
@@ -433,7 +433,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
           const result = await resolveSwarm(client, args.id, context.sessionID, context.directory, context.worktree);
           if ("error" in result) return result.error;
           await appendSwarmEvent(context.directory, {
-            type: "swarm.status",
+            type: "swarm_status",
             swarmId: result.swarmId,
             sessionID: context.sessionID,
             data: { members: Object.keys(result.swarm.members) },
@@ -442,7 +442,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
         },
       }),
 
-      "swarm.max": tool({
+      "swarm_max": tool({
         description:
           "Codebuff-like MAX mode: run multiple parallel editor tries in isolated git worktrees, then use a selector to pick and apply the best result.",
         args: {
@@ -653,7 +653,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
             ].join("\n");
 
             await appendSwarmEvent(context.directory, {
-              type: "swarm.max",
+              type: "swarm_max",
               swarmId: swarm.id,
               sessionID: context.sessionID,
               data: {
@@ -696,7 +696,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
         },
       }),
 
-      "swarm.parallel": tool({
+      "swarm_parallel": tool({
         description:
           "Run the same prompt across multiple swarm members in parallel (with model-collision gating). Returns a combined report.",
         args: {
@@ -775,7 +775,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
               .join("\n\n");
 
             await appendSwarmEvent(context.directory, {
-              type: "swarm.parallel",
+              type: "swarm_parallel",
               swarmId: swarm.id,
               sessionID: context.sessionID,
               data: { targets: targetNames, members: targetNames.length },
@@ -790,7 +790,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
         },
       }),
 
-      "swarm.jam": tool({
+      "swarm_jam": tool({
         description:
           "Collaborative swarm run in the SAME worktree: sends a coordination prompt to multiple members so they can work together (may touch the same files).",
         args: {
@@ -868,7 +868,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
               .join("\n\n");
 
             await appendSwarmEvent(context.directory, {
-              type: "swarm.jam",
+              type: "swarm_jam",
               swarmId: swarm.id,
               sessionID: context.sessionID,
               data: { targets: targetNames, members: targetNames.length },
@@ -883,7 +883,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
         },
       }),
 
-      "swarm.send": tool({
+      "swarm_send": tool({
         description:
           "Send a message to another swarm member (routes as a prompt into their session). Optionally waits for their reply.",
         args: {
@@ -932,7 +932,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
 
           const text = extractText(response.parts) || "(no text output)";
           await appendSwarmEvent(context.directory, {
-            type: "swarm.send",
+            type: "swarm_send",
             swarmId: swarm.id,
             sessionID: context.sessionID,
             data: { to: toName, awaitReply, replyLength: text.length },
@@ -941,7 +941,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
         },
       }),
 
-      "swarm.forget": tool({
+      "swarm_forget": tool({
         description: "Forget swarm state in this process (does not delete sessions).",
         args: {
           id: schema.string().min(1).optional().describe("Optional swarm id; defaults to current session's swarm"),
@@ -953,7 +953,7 @@ const OmocSwarmPlugin: Plugin = async ({ client, $ }) => {
           const swarm = result.swarm;
 
           await appendSwarmEvent(context.directory, {
-            type: "swarm.forget",
+            type: "swarm_forget",
             swarmId,
             sessionID: context.sessionID,
             data: { members: Object.keys(swarm.members) },
