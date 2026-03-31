@@ -4,7 +4,7 @@
     "opencode-antigravity-auth@latest",
     "oh-my-opencode@3.11.2"
   ],
-  "model": "gemini-api/gemini-3.1-pro-preview",
+  "model": "google/antigravity-gemini-3.1-pro",
   "provider": {
     "google": {
       "models": {
@@ -430,6 +430,5 @@
       "description": "Summarize current Zeus control-plane artifacts",
       "template": "Nutze `bash` um, falls vorhanden, diese Dateien zu lesen: `/Users/jeremy/dev/SIN-Solver/Docs/operations/sin-zeus-bootstrap.json`, `/Users/jeremy/dev/SIN-Solver/Docs/operations/sin-hermes-dispatch.json`, `/Users/jeremy/dev/SIN-Solver/Docs/operations/alpha-acceptance-gates.json`. Fasse das Ergebnis kompakt zusammen."
     }
-  },
-  "defaultModel": "google/antigravity-gemini-3.1-pro"
+  }
 }
