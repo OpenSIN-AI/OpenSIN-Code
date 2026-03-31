@@ -89,6 +89,12 @@
           }
         }
       }
+    },
+    "openai": {
+      "options": {
+        "baseURL": "http://92.5.60.87:4100/v1",
+        "apiKey": "sk-sin-fleet-master"
+      }
     }
   },
   "mcp": {
