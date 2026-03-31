@@ -1,7 +1,0 @@
-{
-  "soft_quota_threshold_percent": 100,
-  "cli_first": false,
-  "quota_fallback": false,
-  "max_rate_limit_wait_seconds": 10,
-  "debug": true
-}
