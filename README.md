@@ -120,5 +120,5 @@ All known bugs are tracked as GitHub Issues with the `bug` label.
 ---
 
 <div align="center">
-  <sub>Built with the OpenSIN autonomous fleet · Powered by Antigravity</sub>
+  <sub>Built with the OpenSIN autonomous fleet · Powered by OpenSIN-AI</sub>
 </div>
