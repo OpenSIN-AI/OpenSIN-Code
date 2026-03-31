@@ -1,0 +1,17 @@
+2026/02/28-21:20:23.813 f9dbf3 Reusing MANIFEST /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_www.swagbucks.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/28-21:20:23.814 f9dbf3 Recovering log #29
+2026/02/28-21:20:23.821 f9dbf3 Reusing old log /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_www.swagbucks.com_0.indexeddb.leveldb/000029.log 
+2026/02/28-21:20:23.975 f9dbf3 Level-0 table #35: started
+2026/02/28-21:20:23.978 f9dbf3 Level-0 table #35: 842 bytes OK
+2026/02/28-21:20:23.991 f9dbf3 Delete type=0 #29
+2026/02/28-21:20:23.992 f9dbf3 Manual compaction at level-0 from '\x00\x0f\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x10\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/02/28-21:20:24.159 f9dbf3 Level-0 table #37: started
+2026/02/28-21:20:24.166 f9dbf3 Level-0 table #37: 529 bytes OK
+2026/02/28-21:20:24.185 f9dbf3 Delete type=0 #34
+2026/02/28-21:20:24.186 f9dbf3 Manual compaction at level-0 from '\x00\x10\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x11\x00\x00\x00' @ 0 : 0; will stop at '\x00\x10\x00\x00\x05' @ 1106 : 1
+2026/02/28-21:20:24.186 f9dbf3 Compacting 1@0 + 1@1 files
+2026/02/28-21:20:24.188 f9dbf3 Generated table #38@0: 18 keys, 624 bytes
+2026/02/28-21:20:24.192 f9dbf3 Compacted 1@0 + 1@1 files => 624 bytes
+2026/02/28-21:20:24.197 f9dbf3 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/02/28-21:20:24.204 f9dbf3 Delete type=2 #37
+2026/02/28-21:20:24.210 f9dbf3 Manual compaction at level-0 from '\x00\x10\x00\x00\x05' @ 1106 : 1 .. '\x00\x11\x00\x00\x00' @ 0 : 0; will stop at (end)

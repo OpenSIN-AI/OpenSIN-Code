@@ -1,0 +1,6 @@
+2026/02/26-22:09:19.203 25fe90 Creating DB /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_dash.cloudflare.com_0.indexeddb.leveldb since it was missing.
+2026/02/26-22:09:19.218 25fe90 Reusing MANIFEST /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_dash.cloudflare.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/26-22:10:11.662 25fe92 Level-0 table #5: started
+2026/02/26-22:10:11.669 25fe92 Level-0 table #5: 1418 bytes OK
+2026/02/26-22:10:11.673 25fe92 Delete type=0 #3
+2026/02/26-22:10:11.673 25fe92 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

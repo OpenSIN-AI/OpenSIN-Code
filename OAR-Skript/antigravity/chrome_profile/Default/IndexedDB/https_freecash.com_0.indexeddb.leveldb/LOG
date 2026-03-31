@@ -1,0 +1,46 @@
+2026/02/27-15:25:42.848 1ae8 Reusing MANIFEST /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_freecash.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/27-15:25:42.849 1ae8 Recovering log #3
+2026/02/27-15:25:42.851 1ae8 Reusing old log /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_freecash.com_0.indexeddb.leveldb/000003.log 
+2026/02/27-15:49:09.297 1aeb Level-0 table #5: started
+2026/02/27-15:49:10.520 1aeb Level-0 table #5: 3187206 bytes OK
+2026/02/27-15:49:10.682 1aeb Delete type=0 #3
+2026/02/27-16:08:08.612 1aeb Level-0 table #7: started
+2026/02/27-16:08:08.671 1aeb Level-0 table #7: 3351372 bytes OK
+2026/02/27-16:08:08.679 1aeb Delete type=0 #4
+2026/02/27-16:16:08.597 1ae8 Compacting 1@1 + 1@2 files
+2026/02/27-16:16:08.624 1ae8 Generated table #8@1: 290 keys, 26569 bytes
+2026/02/27-16:16:08.624 1ae8 Compacted 1@1 + 1@2 files => 26569 bytes
+2026/02/27-16:16:08.627 1ae8 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/27-16:16:08.628 1ae8 Delete type=2 #7
+2026/02/27-16:16:08.629 1ae8 Delete type=2 #5
+2026/02/27-16:20:08.587 1aeb Level-0 table #10: started
+2026/02/27-16:20:08.611 1aeb Level-0 table #10: 3427674 bytes OK
+2026/02/27-16:20:08.624 1aeb Delete type=0 #6
+2026/02/27-17:21:08.832 1ae8 Compacting 1@1 + 1@2 files
+2026/02/27-17:21:08.882 1ae8 Generated table #11@1: 306 keys, 34773 bytes
+2026/02/27-17:21:08.883 1ae8 Compacted 1@1 + 1@2 files => 34773 bytes
+2026/02/27-17:21:08.887 1ae8 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/27-17:21:08.890 1ae8 Delete type=2 #10
+2026/02/27-17:21:08.891 1ae8 Delete type=2 #8
+2026/02/27-17:27:08.985 1ae8 Level-0 table #13: started
+2026/02/27-17:27:09.106 1ae8 Level-0 table #13: 3418318 bytes OK
+2026/02/27-17:27:09.117 1ae8 Delete type=0 #9
+2026/02/27-17:35:39.281 1aeb Level-0 table #15: started
+2026/02/27-17:35:39.374 1aeb Level-0 table #15: 1833033 bytes OK
+2026/02/27-17:35:39.384 1aeb Delete type=0 #12
+2026/02/27-17:35:39.389 1aeb Manual compaction at level-0 from (begin) .. (end); will stop at '\x00\x02\x02\x1f\x03\x00\x00\x00\x00\x00\x00\xf0\xbf\x00\x03\x00\x00\x00\x00\x00\x80_@' @ 12085 : 1
+2026/02/27-17:35:39.391 1aeb Compacting 1@0 + 1@1 files
+2026/02/27-17:35:39.452 1aeb Generated table #16@0: 979 keys, 23745 bytes
+2026/02/27-17:35:39.452 1aeb Compacted 1@0 + 1@1 files => 23745 bytes
+2026/02/27-17:35:39.462 1aeb compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/02/27-17:35:39.468 1aeb Delete type=2 #15
+2026/02/27-17:35:39.468 1aeb Delete type=2 #13
+2026/02/27-17:35:39.473 1aeb Manual compaction at level-0 from '\x00\x02\x02\x1f\x03\x00\x00\x00\x00\x00\x00\xf0\xbf\x00\x03\x00\x00\x00\x00\x00\x80_@' @ 12085 : 1 .. (end); will stop at (end)
+2026/02/27-17:35:39.474 1aeb Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x02\x02\x1f\x03\x00\x00\x00\x00\x00\x00\xf0\xbf\x00\x03\x00\x00\x00\x00\x00\x80_@' @ 12085 : 1
+2026/02/27-17:35:39.474 1aeb Compacting 1@1 + 1@2 files
+2026/02/27-17:35:39.481 1aeb Generated table #17@1: 327 keys, 20034 bytes
+2026/02/27-17:35:39.481 1aeb Compacted 1@1 + 1@2 files => 20034 bytes
+2026/02/27-17:35:39.490 1aeb compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/27-17:35:39.491 1aeb Delete type=2 #16
+2026/02/27-17:35:39.492 1aeb Delete type=2 #11
+2026/02/27-17:35:39.496 1aeb Manual compaction at level-1 from '\x00\x02\x02\x1f\x03\x00\x00\x00\x00\x00\x00\xf0\xbf\x00\x03\x00\x00\x00\x00\x00\x80_@' @ 12085 : 1 .. (end); will stop at (end)

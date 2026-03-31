@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <script src="scripts/fsEnterLicense.js"></script>
+
+
+
+    <title data-i18n="action_enter_license">License details</title>
+    <link rel="icon" type="image/png" href="images/sss_32.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            /* background: linear-gradient(135deg, #4a90e2, #357abd); */
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            background-image: url('images/sss_128.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .info-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .button-link {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .button-link:hover {
+            background-color: #e5e5e5;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+            justify-content: space-between;
+        }
+
+        label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            min-width: 120px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            width: 26em;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        input[type="text"].invalid {
+            border-color: #e74c3c;
+        }
+
+        input[type="text"].valid {
+            border-color: #27ae60;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .server-error {
+            background-color: #fee;
+            border: 1px solid #e74c3c;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .server-error.show {
+            display: flex;
+        }
+
+        .server-error-icon {
+            color: #e74c3c;
+            font-size: 30px;
+            flex-shrink: 0;
+            line-height: 0.8;
+        }
+
+        .server-error-content {
+            flex: 1;
+        }
+
+        .server-error-title {
+            font-weight: 600;
+            color: #c0392b;
+            margin-bottom: 5px;
+        }
+
+        .server-error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .server-error-close {
+            cursor: pointer;
+            color: #e74c3c;
+            font-size: 20px;
+            line-height: 1;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+        }
+
+        .server-error-close:hover {
+            color: #c0392b;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            border: 1px solid #28a745;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        .success-message-icon {
+            color: #28a745;
+            font-size: 30px;
+            flex-shrink: 0;
+        }
+
+        .success-message-content {
+            flex: 1;
+        }
+
+        .success-message-title {
+            font-weight: 600;
+            color: #155724;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .success-message-text {
+            color: #155724;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        button {
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-purchase {
+            color: #4a90e2;
+            background-color: transparent;
+            text-decoration: underline;
+        }
+
+        .btn-purchase:hover {
+            color: #357abd;
+        }
+
+        .btn-cancel {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e5e5e5;
+        }
+
+        .btn-ok {
+            background-color: #4a90e2;
+            color: white;
+            position: relative;
+        }
+
+        .btn-ok:hover:not(:disabled) {
+            background-color: #357abd;
+        }
+
+        .btn-ok:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-ok.loading {
+            background-color: #357abd;
+            pointer-events: none;
+        }
+
+        .btn-ok.loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spinner 0.6s linear infinite;
+        }
+
+        @keyframes spinner {
+            to {transform: rotate(360deg);}
+        }
+
+        .license-key-input {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .api-config {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .api-config label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+            min-width: auto;
+        }
+
+        .api-config input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .api-config small {
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo"></div>
+            <h1><span span data-i18n="action_enter_license">License Details</span></h1>
+        </div>
+
+        <div class="info-section">
+            <div class="info-text">
+                <span span data-i18n="lic_dialog_enter_owner_name">Enter your Owner name and License key exactly as they appeared when supplied. If you haven't got them yet, you can obtain them online:</span>
+            </div>
+        </div>
+
+        <a href="#" class="button-link lnk-purchase" target="_blank"><span span data-i18n="lic_dialog_get_license">Get licensing information...</span></a>
+
+
+        <!-- Server Error Message -->
+        <div class="server-error" id="serverError">
+            <div class="server-error-icon">⚠️</div>
+            <div class="server-error-content">
+                <div class="server-error-title"><span span data-i18n="lic_dialog_activation_error">Activation Error</span></div>
+                <div class="server-error-message" id="serverErrorMessage"></div>
+            </div>
+            <button class="server-error-close" id="closeError" aria-label="Close">×</button>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            <div class="success-message-icon">✓</div>
+            <div class="success-message-content">
+                <div class="success-message-title"><span span data-i18n="lic_dialog_activate_successfully">License Activated Successfully!</span></div>
+            </div>
+        </div>
+
+        <form id="licenseForm">
+            <div class="form-group">
+                <label for="ownerName"><span span data-i18n="lic_dialog_owner_name">Owner Name:</span></label>
+                <div>
+                    <input type="text" id="ownerName" name="ownerName" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="licenseKey"><span span data-i18n="lic_dialog_license_key">License Key:</span></label>
+                <div>
+                    <input 
+                        type="text" 
+                        id="licenseKey" 
+                        name="licenseKey" 
+                        class="license-key-input"
+                        placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX"
+                        maxlength="34"
+                        required
+                    >
+                    <div class="error-message" id="errorMessage">
+                        <span span data-i18n="lic_dialog_invalid_lic_key">Invalid license key format.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-purchase"><span span data-i18n="captured_ads_button_purchase_fireshot_pro">Purchase FireShot Pro</span></button>
+                <button type="button" class="btn-cancel"><span span data-i18n="pdf_dialog_cancel">Cancel</span></button>
+                <button type="submit" class="btn-ok" id="submitBtn" disabled>
+                    <span  span data-i18n="action_ok" id="submitBtnText">OK</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

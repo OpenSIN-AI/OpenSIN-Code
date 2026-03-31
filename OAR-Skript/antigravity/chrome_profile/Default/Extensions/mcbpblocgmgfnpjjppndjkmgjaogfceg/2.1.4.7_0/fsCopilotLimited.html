@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <script src="scripts/fsCopilotLimited.js"></script>
+
+    
+
+  <title></title>
+
+  <link rel="stylesheet" href="css/fspopup.css" type="text/css" />
+
+  <style>
+    .user-options {
+      list-style: disc !important;
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    ul.user-options li {
+      overflow: visible;
+      list-style: initial;
+      line-height: normal;
+      cursor: default;
+      padding : 0;
+    }
+  </style>
+</head>
+
+<body style="overflow:visible;">
+  <div id="mnuMain">
+    <div>
+      
+      <div id="mnuEnableFileSupport">
+        <div>
+          <h2><span data-i18n="popup_protected_content_title">Protected content</span></h2>
+          <div class="messagetext">
+            <p><span data-i18n="popup_protected_content_line1">Edge protection prevents FireShot from capturing this page.</span></p> 
+            <p><strong><span data-i18n="popup_protected_content_line2">How to resolve this problem:</span></strong></p>
+            <ul class="user-options">
+            <li><span data-i18n="popup_protected_content_option1">Use FireShot to capture this page in Chrome, Firefox, or another browser.</span></li>
+            <li id="option1"><a id="lnkInstallFeatures" href="#" rel="command"><span data-i18n="popup_protected_content_command1">Activate advanced features</span></a>
+                <span data-i18n="popup_protected_content_option2">to unlock advanced content capture options.</span></li>
+            <li id="option2"><a id="lnkCaptureWindow" href="#" rel="command"><span data-i18n="popup_protected_content_command2">Capture entire browser window</span></a><span data-i18n="popup_protected_content_option3">, then crop it in Editor.</span></li>
+            </ul>
+            <!-- <p><a id="lnkReadMore" href="#" rel="command"><span data-i18n="popup_tabs_permission_learn_more">Learn more</span></a> <span data-i18n="popup_tabs_permission_line3-">.</span></p> -->
+             <p><strong><span data-i18n="popup_protected_content_line3">See how to resolve this issue in a short video.</span></strong></p>
+            <div style="display: flex; justify-content: flex-end;">
+                <button id="btnSeeVideo" data-title-i18n="popup_protected_content_line3" rel="command" class="ok"><span data-i18n="popup_protected_see_video">See video...</span></button>
+                <button id="btnCancel" rel="command" class="cancel"><span data-i18n="pdf_dialog_cancel">Cancel</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

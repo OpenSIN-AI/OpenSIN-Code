@@ -1,0 +1,20 @@
+2026/02/25-21:15:17.804 25fe92 Creating DB /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_login.ionos.de_0.indexeddb.leveldb since it was missing.
+2026/02/25-21:15:17.833 25fe92 Reusing MANIFEST /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_login.ionos.de_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/25-21:15:17.857 25fed1 Level-0 table #5: started
+2026/02/25-21:15:17.868 25fed1 Level-0 table #5: 673 bytes OK
+2026/02/25-21:15:17.883 25fed1 Delete type=0 #3
+2026/02/25-21:15:17.884 25fed1 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/02/25-21:15:17.914 25fed1 Level-0 table #7: started
+2026/02/25-21:15:17.924 25fed1 Level-0 table #7: 749 bytes OK
+2026/02/25-21:15:17.929 25fed1 Delete type=0 #4
+2026/02/25-21:15:17.931 25fe90 Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/02/25-21:15:24.074 25fed1 Level-0 table #9: started
+2026/02/25-21:15:24.077 25fed1 Level-0 table #9: 1597 bytes OK
+2026/02/25-21:15:24.080 25fed1 Delete type=0 #6
+2026/02/25-21:15:24.081 25fe90 Manual compaction at level-0 from '\x00\x04\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at '\x00\x04\x00\x00\x05' @ 97 : 1
+2026/02/25-21:15:24.081 25fe90 Compacting 1@0 + 1@1 files
+2026/02/25-21:15:24.084 25fe90 Generated table #10@0: 44 keys, 1269 bytes
+2026/02/25-21:15:24.084 25fe90 Compacted 1@0 + 1@1 files => 1269 bytes
+2026/02/25-21:15:24.086 25fe90 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/02/25-21:15:24.087 25fe90 Delete type=2 #9
+2026/02/25-21:15:24.088 25fe90 Manual compaction at level-0 from '\x00\x04\x00\x00\x05' @ 97 : 1 .. '\x00\x05\x00\x00\x00' @ 0 : 0; will stop at (end)

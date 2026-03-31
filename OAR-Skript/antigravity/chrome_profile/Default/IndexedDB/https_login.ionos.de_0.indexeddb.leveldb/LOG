@@ -1,0 +1,34 @@
+2026/02/26-22:46:58.646 1194a8c Reusing MANIFEST /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_login.ionos.de_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/26-22:46:58.649 1194a8c Recovering log #8
+2026/02/26-22:46:58.651 1194a8c Reusing old log /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_login.ionos.de_0.indexeddb.leveldb/000008.log 
+2026/02/26-22:46:58.652 1194a8c Delete type=2 #7
+2026/02/26-22:46:59.213 1194a8c Level-0 table #13: started
+2026/02/26-22:46:59.257 1194a8c Level-0 table #13: 658 bytes OK
+2026/02/26-22:46:59.283 1194a8c Delete type=0 #8
+2026/02/26-22:46:59.305 1194a9e Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at '\x00\x05\x00\x00\x05' @ 116 : 1
+2026/02/26-22:46:59.305 1194a9e Compacting 1@0 + 1@1 files
+2026/02/26-22:46:59.322 1194a9e Generated table #14@0: 46 keys, 1282 bytes
+2026/02/26-22:46:59.323 1194a9e Compacted 1@0 + 1@1 files => 1282 bytes
+2026/02/26-22:46:59.334 1194a9e compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/02/26-22:46:59.341 1194a9e Delete type=2 #13
+2026/02/26-22:46:59.344 1194a8c Manual compaction at level-0 from '\x00\x05\x00\x00\x05' @ 116 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/02/26-22:47:04.549 1194a8c Level-0 table #16: started
+2026/02/26-22:47:04.560 1194a8c Level-0 table #16: 230 bytes OK
+2026/02/26-22:47:04.594 1194a8c Delete type=0 #12
+2026/02/26-22:47:04.597 1194a8c Delete type=2 #10
+2026/02/26-22:47:04.639 1194a8c Manual compaction at level-0 from (begin) .. (end); will stop at '\x00\x00\x00\x002\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00' @ 130 : 0
+2026/02/26-22:47:04.639 1194a8c Compacting 1@0 + 1@1 files
+2026/02/26-22:47:04.643 1194a8c Generated table #17@0: 47 keys, 1290 bytes
+2026/02/26-22:47:04.644 1194a8c Compacted 1@0 + 1@1 files => 1290 bytes
+2026/02/26-22:47:04.662 1194a8c compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/02/26-22:47:04.664 1194a8c Delete type=2 #14
+2026/02/26-22:47:04.664 1194a8c Delete type=2 #16
+2026/02/26-22:47:04.664 1194a8c Manual compaction at level-0 from '\x00\x00\x00\x002\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00' @ 130 : 0 .. (end); will stop at (end)
+2026/02/26-22:47:04.665 1194a8c Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x03\x01\x02\x013\x00[\x00D\x00E\x00F\x00A\x00U\x00L\x00T\x00]\x00!\x001\x00:\x001\x001\x009\x003\x000\x003\x001\x003\x002\x009\x001\x007\x00:\x00w\x00e\x00b\x00:\x008\x004\x004\x00f\x00b\x00e\x00f\x00c\x00e\x002\x00c\x00e\x00f\x00e\x002\x00a\x00f\x009\x005\x007\x00b\x00c' @ 87 : 1
+2026/02/26-22:47:04.665 1194a8c Compacting 1@1 + 1@2 files
+2026/02/26-22:47:04.669 1194a8c Generated table #18@1: 20 keys, 921 bytes
+2026/02/26-22:47:04.669 1194a8c Compacted 1@1 + 1@2 files => 921 bytes
+2026/02/26-22:47:04.683 1194a8c compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/02/26-22:47:04.704 1194a8c Delete type=2 #17
+2026/02/26-22:47:04.722 1194a8c Delete type=2 #5
+2026/02/26-22:47:04.723 1194a8c Manual compaction at level-1 from '\x00\x03\x01\x02\x013\x00[\x00D\x00E\x00F\x00A\x00U\x00L\x00T\x00]\x00!\x001\x00:\x001\x001\x009\x003\x000\x003\x001\x003\x002\x009\x001\x007\x00:\x00w\x00e\x00b\x00:\x008\x004\x004\x00f\x00b\x00e\x00f\x00c\x00e\x002\x00c\x00e\x00f\x00e\x002\x00a\x00f\x009\x005\x007\x00b\x00c' @ 87 : 1 .. (end); will stop at (end)

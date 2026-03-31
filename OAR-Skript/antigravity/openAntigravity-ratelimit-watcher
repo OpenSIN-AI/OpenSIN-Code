@@ -1,0 +1,143 @@
+#!/usr/bin/env python3
+"""
+openAntigravity-ratelimit-watcher
+Polls ALL iTerm2 terminals via AppleScript every 8s.
+ANY antigravity rate-limit detected → macOS notification + full account rotation immediately.
+No fallback tiers. Simple and reliable.
+"""
+import os, re, subprocess, sys, time
+from pathlib import Path
+
+ROTATOR_DIR  = Path.home() / "dev" / "openantigravity-auth-rotator"
+ORCHESTRATOR = ROTATOR_DIR / "orchestrator" / "run_rotate.py"
+LOCK_FILE    = Path("/tmp/openAntigravity-auth-rotator.lock")
+COOLDOWN     = 10 * 60   # 10 min cooldown — rotation + opencode restart takes ~5-8 min
+POLL         = 8         # seconds between polls
+
+RATE_LIMIT_PATTERNS = [
+    re.compile(p, re.IGNORECASE) for p in [
+        # FIX: Only match antigravity models explicitly - do NOT match gpt/openai
+        r"All \d+ account.*rate.?limited for (claude|gemini)",
+        r"Quota resets in \d+h for (claude|gemini)",
+        r"over \d+% usage for (claude|gemini)",
+        r"Quota protection.*All.*account.*(claude|gemini)",
+        r"Add more accounts with.*opencode auth login.*(claude|gemini)",
+        r"rate.?limited for claude",
+        r"rate.?limited for gemini",
+    ]
+]
+
+LAST_ROT_FILE = Path("/tmp/openAntigravity-last-rotation.txt")
+
+def _load_last_rotation() -> float:
+    try: return float(LAST_ROT_FILE.read_text().strip())
+    except Exception: return 0.0
+
+def _save_last_rotation(t: float) -> None:
+    try: LAST_ROT_FILE.write_text(str(t))
+    except Exception: pass
+
+_last_rotation: float = _load_last_rotation()
+
+
+def _log(msg: str) -> None:
+    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {msg}", flush=True)
+
+
+def _notify(title: str, msg: str) -> None:
+    safe_msg = msg.replace('"', "'")
+    subprocess.run(
+        ["osascript", "-e", f'display notification "{safe_msg}" with title "{title}"'],
+        capture_output=True,
+    )
+
+
+def _iterm_texts() -> list[str]:
+    # Use long variable names — aS/aW/aT fail in German macOS locale (-2741)
+    # Only read last 2000 chars per session — prevents timeout on large buffers
+    script = '''tell application "iTerm2"
+    set allData to ""
+    set windowList to every window
+    repeat with aWindow in windowList
+        set tabList to every tab of aWindow
+        repeat with aTab in tabList
+            set sessList to every session of aTab
+            repeat with aSess in sessList
+                try
+                    set txt to contents of aSess
+                    if (length of txt) > 2000 then
+                        set txt to text ((length of txt) - 1999) thru (length of txt) of txt
+                    end if
+                    set allData to allData & txt & "@@SEP@@"
+                end try
+            end repeat
+        end repeat
+    end repeat
+    return allData
+end tell'''
+    try:
+        r = subprocess.run(["osascript", "-e", script], capture_output=True, text=True, timeout=20)
+        if r.returncode != 0:
+            _log(f"AppleScript error: {r.stderr.strip()[:80]}")
+            return []
+        return [t for t in r.stdout.split("@@SEP@@") if t.strip()]
+    except Exception as e:
+        _log(f"_iterm_texts error: {e}")
+        return []
+
+
+def _has_rate_limit() -> bool:
+    texts = _iterm_texts()
+    _log(f"Polling {len(texts)} iTerm2 sessions...")
+    for text in texts:
+        for pattern in RATE_LIMIT_PATTERNS:
+            if pattern.search(text):
+                _log(f"Pattern matched: {pattern.pattern!r}")
+                return True
+    return False
+
+
+def _rotation_on_cooldown() -> bool:
+    return (time.time() - _last_rotation) < COOLDOWN
+
+
+def _trigger_rotation() -> None:
+    global _last_rotation
+    _log("Rate-limit detected → triggering openAntigravity-auth-rotator NOW")
+    _notify("🔄 openAntigravity", "Rate-limit erkannt → Account-Rotation startet...")
+    try:
+        LOCK_FILE.touch()
+        _last_rotation = time.time()
+        _save_last_rotation(_last_rotation)
+        subprocess.Popen(
+            [sys.executable, str(ORCHESTRATOR)],
+            cwd=str(ROTATOR_DIR),
+            stdout=open("/tmp/openAntigravity-rotation.log", "a"),
+            stderr=subprocess.STDOUT,
+        )
+    except Exception as e:
+        _log(f"ERROR starting rotator: {e}")
+        _notify("❌ openAntigravity", f"Rotator-Fehler: {e}")
+        LOCK_FILE.unlink(missing_ok=True)
+
+
+def main() -> None:
+    _log("openAntigravity-ratelimit-watcher started")
+    _notify("✅ openAntigravity", "Watcher gestartet — überwacht alle iTerm2 Sessions")
+    while True:
+        try:
+            if LOCK_FILE.exists():
+                _log("Rotation in progress (lock active)")
+            elif _rotation_on_cooldown():
+                remaining = int(COOLDOWN - (time.time() - _last_rotation))
+                _log(f"Cooldown active — {remaining}s remaining")
+            else:
+                if _has_rate_limit():
+                    _trigger_rotation()
+        except Exception as e:
+            _log(f"Poll error: {e}")
+        time.sleep(POLL)
+
+
+if __name__ == "__main__":
+    main()
