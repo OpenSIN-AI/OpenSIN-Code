@@ -1,13 +1,10 @@
 {
-  "mcpServers": {
-    "template-a2a-sin-agent": {
-      "command": "node",
-      "args": [
-        "dist/src/cli.js",
-        "serve-mcp"
-      ]
-    }
-  },
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-antigravity-auth@latest",
+    "oh-my-opencode@3.11.2"
+  ],
+  "model": "gemini-api/gemini-3.1-pro-preview",
   "provider": {
     "google": {
       "models": {
@@ -92,6 +89,346 @@
           }
         }
       }
+    }
+  },
+  "mcp": {
+    "serena": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/.local/bin/serena-mcp-server",
+        "--project-from-cwd",
+        "--log-level",
+        "ERROR",
+        "--enable-web-dashboard",
+        "false",
+        "--open-web-dashboard",
+        "false"
+      ],
+      "enabled": true
+    },
+    "tavily": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@tavily/claude-mcp"
+      ],
+      "environment": {
+        "TAVILY_API_KEY": "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"
+      },
+      "enabled": false
+    },
+    "canva": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@canva/claude-mcp"
+      ],
+      "enabled": false
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@anthropics/context7-mcp"
+      ],
+      "enabled": false
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@anthropics/chrome-devtools-mcp"
+      ],
+      "enabled": false
+    },
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/sse",
+      "enabled": false
+    },
+    "singularity": {
+      "type": "local",
+      "command": [
+        "node",
+        "/Users/jeremy/.singularity/CLI/bin/singularity.js",
+        "mcp"
+      ],
+      "enabled": false
+    },
+    "sin-google-apps": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-google-apps-mcp"
+      ],
+      "environment": {
+        "SIN_GOOGLE_APPS_HOST": "127.0.0.1",
+        "SIN_GOOGLE_APPS_PORT": "45872",
+        "SIN_GOOGLE_APPS_PUBLIC_BASE_URL": "https://a2a-sin-google-apps.delqhi.com"
+      },
+      "enabled": true
+    },
+    "sin-server": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-server",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-cloudflare": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-cloudflare",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-passwordmanager": {
+      "type": "local",
+      "command": [
+        "node",
+        "/Users/jeremy/dev/SIN-Solver/a2a/team-infratructur/A2A-SIN-Passwordmanager/dist/src/cli.js",
+        "serve-mcp"
+      ],
+      "environment": {
+        "SIN_PASSWORDMANAGER_HOST": "127.0.0.1",
+        "SIN_PASSWORDMANAGER_PORT": "4646"
+      },
+      "enabled": true
+    },
+    "sin-research": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-research",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-team-worker": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-team-worker",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-tiktok": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-tiktok",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-tiktok-shop": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-tiktok-shop",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-terminal": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-terminal",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "webauto-nodriver": {
+      "type": "local",
+      "command": [
+        "python3",
+        "/Users/jeremy/dev/webauto-nodriver-mcp/webauto_nodriver_mcp.py"
+      ],
+      "environment": {
+        "WEBAUTO_CDP_PORT": "9335",
+        "WEBAUTO_PROFILE_DIR": "/Users/jeremy/Library/Application Support/Google/Chrome/Default",
+        "WEBAUTO_PROFILE_DIRECTORY": "Default",
+        "WEBAUTO_DESKTOPGRAB_ENABLED": "true",
+        "WEBAUTO_DESKTOPGRAB_FPS": "10",
+        "WEBAUTO_ATTACH_FRAMES_PER_ACTION": "1",
+        "WEBAUTO_ATTACH_DESKTOP_FRAMES_PER_ACTION": "1",
+        "WEBAUTO_EXPORT_DIR": "/Users/jeremy/Desktop/webauto_exports"
+      },
+      "enabled": true
+    },
+    "sin-authenticator": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-authenticator",
+        "serve-mcp"
+      ],
+      "environment": {
+        "AUTHD_HOST": "127.0.0.1",
+        "AUTHD_PORT": "44711",
+        "SIN_AUTH_HOST": "127.0.0.1",
+        "SIN_AUTH_PORT": "45871",
+        "SIN_AUTH_PUBLIC_BASE_URL": "https://delqhi-sin-authenticator.hf.space"
+      },
+      "enabled": true
+    },
+    "sin-github-issues": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-github-issues",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-oraclecloud-mcp": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-oraclecloud-mcp",
+        "serve-mcp"
+      ],
+      "enabled": true
+    }
+  },
+  "agent": {
+    "Atlas (Plan Executor)": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "Hephaestus (Deep Agent)": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "Metis (Plan Consultant)": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "Momus (Plan Critic)": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "Prometheus (Plan Builder)": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "Sisyphus (Ultraworker)": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "Sisyphus-Junior (Fast-Ultraworker)": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "artistry": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "build": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "compaction": {
+      "steps": 999999
+    },
+    "explore": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "general": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "librarian": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "multimodal-looker": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999,
+      "description": "Zero-Shot Object Detection & Vision Understanding via NVIDIA NIM"
+    },
+    "oracle": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "plan": {
+      "model": "openai/gpt-5.4",
+      "steps": 999999
+    },
+    "summary": {
+      "steps": 999999
+    },
+    "title": {
+      "steps": 999999
+    },
+    "omoc": {
+      "mode": "primary",
+      "model": "openai/gpt-5.4",
+      "description": "OMOC Swarm Orchestrator (auto swarm_discover/create + swarm_jam; uses swarm_max on request)",
+      "prompt": "You are OMOC, a multi-agent orchestrator running inside OpenCode.\n\nDo NOT start a swarm for greetings, acknowledgements, pleasantries, or tiny one-shot chat turns (for example: 'hi', 'hello', 'hey', 'thanks', 'ok', 'yo'). Reply directly in one concise sentence.\n\nDo NOT start a swarm for simple read-only questions that can be answered directly by inspecting one or two files or by using normal built-in tools. Answer those directly.\n\nStart a swarm only for real multi-step work such as implementation, debugging, coordinated edits, broad investigation, planning with parallel roles, or when the user explicitly asks for OMOC/swarm/parallel/best-of-n behavior.\n\nWhen you do start a swarm, use exactly one canonical swarm per request:\n1) First call swarm_discover({id:'sin-solver'}).\n2) If that does not find a swarm, call swarm_create({id:'sin-solver', title:'SIN-Solver OMOC', members:[{name:'hephaestus', agent:'hephaestus'}, {name:'oracle', agent:'oracle'}, {name:'momus', agent:'momus'}]}).\n3) Immediately call exactly one swarm_jam({id:'sin-solver', prompt:<user message>}).\n4) After swarm_jam returns, produce one concise integrated answer plus next concrete steps.\n\nNever invent extra swarm ids such as 'root', 'ctx', 'ContextGathering', or similar. Never create multiple swarms for one user message. Never call swarm_create twice in a row for the same message.\n\nIf the user explicitly asks for MAX / best-of-n / multiple independent implementations, run swarm_max({id:'sin-solver', prompt:<user message>, tries: 3, apply: true}) instead of swarm_jam.\n\nDo not use tmux. Keep all work inside the current project directory.\n\nWhen the user asks to use SIN-Terminal, visible terminal control, parallel OpenCode terminals/tabs, or to delegate work into multiple local OpenCode sessions, prefer the `sin-terminal` MCP tools over swarm tools. Use `sin_terminal_orchestrator_start` to open multiple visible OpenCode sessions in the same project, `sin_terminal_orchestrator_delegate` to steer them, `sin_terminal_orchestrator_status` to inspect them, and `sin_terminal_orchestrator_stop` to clean them up. Use regular `sin_terminal_interactive_*` tools for non-OpenCode terminal control.",
+      "steps": 999999
+    },
+    "sin-zeus": {
+      "mode": "primary",
+      "model": "openai/gpt-5.4",
+      "description": "Local cloud-only master orchestrator for SIN-Code. Plans locally, dispatches through GitHub Projects and Hermes, never codes features locally.",
+      "prompt": "You are SIN-Zeus, the local control-plane orchestrator for the SIN Code cloud workforce. You never execute feature work locally and you never directly edit product code locally. Your job is: inspect local repo state, research with explore/librarian/oracle, synthesize an ultra-plan, create an explicit git baseline when safely attributable, create GitHub Projects/issues/linked branches, and generate Hermes dispatch payloads for cloud executors.\n\nHard rules:\n- Never implement the requested feature locally.\n- Never resolve feature code conflicts locally.\n- GitHub is the source of truth for work intent and result state.\n- Hermes is a dispatcher only, not a planner.\n- HF VM executors do the real coding.\n- Before dispatch, inspect git status/diff and only create a local snapshot commit when the state is scoped and attributable.\n- If local dirty state is ambiguous, do planning only and do not mutate the repo.\n- Use explore for codebase analysis, librarian for official docs/examples, and oracle for architecture.\n- Prefer machine-readable artifacts over prose-only planning.\n\nExecution pattern:\n1) Run parallel research.\n2) Produce an ultra-plan.\n3) Ensure local base branch and SHA are explicit.\n4) Use Zeus bootstrap tooling to create GitHub Project/issues/linked branches.\n5) Use Hermes dispatch tooling to package cloud jobs.\n6) Report exact artifacts, SHAs, project numbers, issue URLs, and dispatch outputs.\n\nYou are a pure control-plane brain, never a local coder.",
+      "steps": 999999
+    }
+  },
+  "default_agent": "sin-zeus",
+  "command": {
+    "omoc-swarm-create": {
+      "description": "Create/register a swarm for this session",
+      "template": "Nutze das Tool `swarm_create` um eine OMOC Swarm Session zu erstellen. Wenn $ARGUMENTS nicht leer ist, nutze es als id, sonst auto-id. Danach gib `swarm_status()` aus."
+    },
+    "omoc-swarm-discover": {
+      "description": "Discover swarm from session titles",
+      "template": "Nutze `swarm_discover` (optional mit id=$ARGUMENTS falls gegeben) und gib danach `swarm_status()` aus."
+    },
+    "omoc-jam": {
+      "description": "Collaborative swarm_jam",
+      "template": "Nutze `swarm_jam({ prompt: \"$ARGUMENTS\" })`. Wenn noch kein Swarm gebunden ist: erst `swarm_discover()` (oder `swarm_create()`), dann erneut `swarm_jam`."
+    },
+    "omoc-max": {
+      "description": "OMOC MAX best-of-n",
+      "template": "Nutze `swarm_max({ prompt: \"$ARGUMENTS\", tries: 3, apply: true })`. Wenn noch kein Swarm gebunden ist: erst `swarm_discover()` (oder `swarm_create()`), dann erneut `swarm_max`."
+    },
+    "omoc-status": {
+      "description": "Show swarm members and sessions",
+      "template": "Gib `swarm_status()` aus. Wenn kein Swarm gebunden ist, versuche `swarm_discover()`."
+    },
+    "omoc-autostart": {
+      "description": "Auto-bind swarm + start JAM guidance",
+      "template": "OMOC Autostart (keine Erklaerungen):\n\n1) \u2699 swarm_discover({ id: \"$ARGUMENTS\" })\n2) \u2699 swarm_jam({ id: \"$ARGUMENTS\", prompt: \"OMOC JAM Autostart: Koordiniert euch als Swarm (planner/researcher/coder/reviewer). Arbeitet kollaborativ im selben Worktree. Wenn der User nach maximaler Qualitaet/Best-of-N fragt, nutzt swarm_max automatisch. Warte ansonsten auf die naechste konkrete Aufgabe.\" })\n\nDanach: schreibe exakt: OMOC ready"
+    },
+    "sin-terminal-orchestrate": {
+      "description": "Use SIN-Terminal to open and steer parallel visible OpenCode sessions",
+      "template": "Nutze das MCP-Tool `sin_terminal_orchestrator_start` mit `cwd` auf das aktuelle Projekt, `sessionCount: 3`, sinnvollen `roles` und `confirm: true`. Nutze den User-Wunsch als `prompt`. Gib danach die `orchestrationId`, Rollen und naechste Steuerungsoptionen aus."
+    },
+    "sin-terminal-orchestrate-status": {
+      "description": "Show SIN-Terminal orchestration status",
+      "template": "Wenn $ARGUMENTS leer ist, erklaere kurz, dass eine orchestrationId gebraucht wird. Sonst nutze `sin_terminal_orchestrator_status` mit `orchestrationId: \"$ARGUMENTS\"` und gib den Status kompakt aus."
+    },
+    "sin-terminal-orchestrate-delegate": {
+      "description": "Delegate a follow-up prompt into a SIN-Terminal orchestration",
+      "template": "Wenn $ARGUMENTS leer ist, erklaere das JSON-Format `{ \"orchestrationId\": \"...\", \"prompt\": \"...\", \"role\": \"optional\" }`. Sonst parse $ARGUMENTS als JSON und nutze `sin_terminal_orchestrator_delegate` mit `confirm: true`."
+    },
+    "sin-terminal-orchestrate-stop": {
+      "description": "Stop all sessions in a SIN-Terminal orchestration",
+      "template": "Wenn $ARGUMENTS leer ist, erklaere kurz, dass eine orchestrationId gebraucht wird. Sonst nutze `sin_terminal_orchestrator_stop` mit `orchestrationId: \"$ARGUMENTS\"` und `confirm: true`."
+    },
+    "sin-zeus-bootstrap": {
+      "description": "Create GitHub Project and issue pool from a Zeus ultra-plan JSON",
+      "template": "Wenn $ARGUMENTS leer ist, erklaere das JSON-Format `{ \"owner\": \"...\", \"repo\": \"owner/repo\", \"title\": \"...\", \"planFile\": \"scripts/zeus/ultra-plan.example.json\", \"base\": \"main\", \"dryRun\": true }`. Sonst parse $ARGUMENTS als JSON und nutze `bash` um `node /Users/jeremy/dev/SIN-Solver/scripts/zeus/bootstrap-github-project.mjs --owner <owner> --repo <repo> --title <title> --plan-file <planFile> --base <base>` auszufuehren; wenn `dryRun` true ist, haenge `--dry-run` an."
+    },
+    "sin-zeus-hermes": {
+      "description": "Generate Hermes dispatch payloads for Zeus-created issues",
+      "template": "Wenn $ARGUMENTS leer ist, erklaere das JSON-Format `{ \"repo\": \"owner/repo\", \"repoPath\": \"/abs/path\", \"bootstrap\": \"Docs/operations/sin-zeus-bootstrap.json\" }`. Sonst parse $ARGUMENTS als JSON und nutze `bash` um `node /Users/jeremy/dev/SIN-Solver/scripts/zeus/hermes-dispatch.mjs --repo <repo> --repo-path <repoPath> --bootstrap <bootstrap>` auszufuehren."
+    },
+    "sin-zeus-status": {
+      "description": "Summarize current Zeus control-plane artifacts",
+      "template": "Nutze `bash` um, falls vorhanden, diese Dateien zu lesen: `/Users/jeremy/dev/SIN-Solver/Docs/operations/sin-zeus-bootstrap.json`, `/Users/jeremy/dev/SIN-Solver/Docs/operations/sin-hermes-dispatch.json`, `/Users/jeremy/dev/SIN-Solver/Docs/operations/alpha-acceptance-gates.json`. Fasse das Ergebnis kompakt zusammen."
     }
   },
   "defaultModel": "google/antigravity-gemini-3.1-pro"
