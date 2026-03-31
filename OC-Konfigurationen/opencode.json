@@ -1,7 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-antigravity-auth@1.6.5-beta.0",
+    "oh-my-opencode@3.11.2"
+  ],
+  "model": "openai/gpt-5.4",
   "provider": {
     "google": {
+      "options": {
+        "timeout": false,
+        "chunkTimeout": 999999999
+      },
       "models": {
         "antigravity-claude-sonnet-4-6": {
           "name": "Claude Sonnet 4.6 (Antigravity)",
@@ -52,8 +61,99 @@
         "antigravity-gemini-3.1-pro": {
           "name": "Gemini 3.1 Pro (Antigravity)",
           "limit": {
-            "context": 200000,
-            "output": 64000
+            "context": 1048576,
+            "output": 65535
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "variants": {
+            "low": {
+              "thinkingLevel": "low"
+            },
+            "high": {
+              "thinkingLevel": "high"
+            }
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "name": "Gemini 3 Flash (Antigravity)",
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image",
+              "pdf"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "variants": {
+            "minimal": {
+              "thinkingLevel": "minimal"
+            },
+            "low": {
+              "thinkingLevel": "low"
+            },
+            "medium": {
+              "thinkingLevel": "medium"
+            },
+            "high": {
+              "thinkingLevel": "high"
+            }
+          }
+        }
+      }
+    },
+    "nvidia-nim": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "NVIDIA NIM",
+      "options": {
+        "baseURL": "https://integrate.api.nvidia.com/v1",
+        "apiKey": "{env:NVIDIA_API_KEY}"
+      },
+      "models": {
+        "qwen-3.5-122b": {
+          "name": "Qwen 3.5 122B (NVIDIA NIM)",
+          "id": "qwen/qwen3.5-122b-a10b",
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          }
+        },
+        "qwen-3.5-397b": {
+          "name": "Qwen 3.5 397B (NVIDIA NIM)",
+          "id": "qwen/qwen3.5-397b-a17b",
+          "limit": {
+            "context": 262144,
+            "output": 32768
+          }
+        }
+      }
+    },
+    "gemini-api": {
+      "options": {
+        "apiKey": "AIzaSyA1THIC_oph4rwO32RhilqfDGWg308iqDg",
+        "baseURL": "https://generativelanguage.googleapis.com/v1beta"
+      },
+      "models": {
+        "gemini-3.1-pro-preview": {
+          "name": "Gemini 3.1 Pro Preview (with Image Support)",
+          "id": "gemini-3.1-pro-preview",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
           },
           "modalities": {
             "input": [
@@ -66,11 +166,12 @@
             ]
           }
         },
-        "antigravity-gemini-3-flash": {
-          "name": "Gemini 3 Flash (Antigravity)",
+        "gemini-3-flash-preview": {
+          "name": "Gemini 3 Flash Preview (with Image Support)",
+          "id": "gemini-3-flash-preview",
           "limit": {
-            "context": 200000,
-            "output": 64000
+            "context": 1048576,
+            "output": 65536
           },
           "modalities": {
             "input": [
@@ -82,10 +183,456 @@
               "text"
             ]
           }
+        },
+        "gemini-2.5-pro": {
+          "name": "Gemini 2.5 Pro (Direct API)",
+          "id": "gemini-2.5-pro",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          }
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash (Direct API)",
+          "id": "gemini-2.5-flash",
+          "limit": {
+            "context": 1048576,
+            "output": 65536
+          }
+        }
+      }
+    },
+    "openai": {
+      "npm": "@ai-sdk/openai",
+      "models": {
+        "gpt-5.4": {
+          "name": "GPT-5.4",
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
         }
       }
     }
   },
+  "mcp": {
+    "sin-document-forge": {
+      "type": "local",
+      "command": [
+        "python3",
+        "/Users/jeremy/dev/sin-telegrambot-cli/mcp/mcp_sin_document_forge.py"
+      ],
+      "enabled": true
+    },
+    "sin-telegrambot": {
+      "type": "local",
+      "command": [
+        "python3",
+        "/Users/jeremy/dev/sin-telegrambot-cli/mcp/mcp_sin_telegrambot.py"
+      ],
+      "enabled": true
+    },
+    "serena": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/.local/bin/serena-mcp-server",
+        "--project-from-cwd",
+        "--log-level",
+        "ERROR",
+        "--enable-web-dashboard",
+        "false",
+        "--open-web-dashboard",
+        "false"
+      ],
+      "enabled": true
+    },
+    "tavily": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@tavily/claude-mcp"
+      ],
+      "environment": {
+        "TAVILY_API_KEY": "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"
+      },
+      "enabled": false
+    },
+    "canva": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@canva/claude-mcp"
+      ],
+      "enabled": false
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@anthropics/context7-mcp"
+      ],
+      "enabled": false
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@anthropics/chrome-devtools-mcp"
+      ],
+      "enabled": false
+    },
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/sse",
+      "enabled": false
+    },
+    "singularity": {
+      "type": "local",
+      "command": [
+        "node",
+        "/Users/jeremy/.singularity/CLI/bin/singularity.js",
+        "mcp"
+      ],
+      "enabled": false
+    },
+    "sin-google-apps": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-google-apps-mcp"
+      ],
+      "environment": {
+        "SIN_GOOGLE_APPS_HOST": "127.0.0.1",
+        "SIN_GOOGLE_APPS_PORT": "45872",
+        "SIN_GOOGLE_APPS_PUBLIC_BASE_URL": "https://a2a-sin-google-apps.delqhi.com"
+      },
+      "enabled": true
+    },
+    "sin-server": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-server",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-cloudflare": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-cloudflare",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-passwordmanager": {
+      "type": "local",
+      "command": [
+        "node",
+        "/Users/jeremy/dev/SIN-Solver/a2a/team-infratructur/A2A-SIN-Passwordmanager/dist/src/cli.js",
+        "serve-mcp"
+      ],
+      "environment": {
+        "SIN_PASSWORDMANAGER_HOST": "127.0.0.1",
+        "SIN_PASSWORDMANAGER_PORT": "4646"
+      },
+      "enabled": true
+    },
+    "sin-research": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-research",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-team-worker": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-team-worker",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-tiktok": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-tiktok",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-tiktok-shop": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-tiktok-shop",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-terminal": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-terminal",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "webauto-nodriver": {
+      "type": "local",
+      "command": [
+        "python3",
+        "/Users/jeremy/dev/webauto-nodriver-mcp/webauto_nodriver_mcp.py"
+      ],
+      "environment": {
+        "WEBAUTO_CDP_PORT": "9335",
+        "WEBAUTO_PROFILE_DIR": "/Users/jeremy/Library/Application Support/Google/Chrome/Default",
+        "WEBAUTO_PROFILE_DIRECTORY": "Default",
+        "WEBAUTO_DESKTOPGRAB_ENABLED": "true",
+        "WEBAUTO_DESKTOPGRAB_FPS": "10",
+        "WEBAUTO_ATTACH_FRAMES_PER_ACTION": "1",
+        "WEBAUTO_ATTACH_DESKTOP_FRAMES_PER_ACTION": "1",
+        "WEBAUTO_EXPORT_DIR": "/Users/jeremy/Desktop/webauto_exports"
+      },
+      "enabled": true
+    },
+    "sin-authenticator": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-authenticator",
+        "serve-mcp"
+      ],
+      "environment": {
+        "AUTHD_HOST": "127.0.0.1",
+        "AUTHD_PORT": "44711",
+        "SIN_AUTH_HOST": "127.0.0.1",
+        "SIN_AUTH_PORT": "45871",
+        "SIN_AUTH_PUBLIC_BASE_URL": "https://delqhi-sin-authenticator.hf.space"
+      },
+      "enabled": true
+    },
+    "sin-github-issues": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-github-issues",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-oraclecloud-mcp": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-oraclecloud-mcp",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "n8n-workflow-builder": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-n8n-builder"
+      ],
+      "environment": {
+        "N8N_HOST": "http://92.5.60.87:5678/api/v1",
+        "N8N_API_KEY": "n8n_api_69175bcabef4b10d619b43598cd557a92ee38aac5ae4b1ca",
+        "OUTPUT_VERBOSITY": "concise"
+      },
+      "enabled": true
+    },
+    "sin-google-docs": {
+      "type": "local",
+      "command": [
+        "python3",
+        "/Users/jeremy/dev/sin-telegrambot-cli/mcp/mcp_sin_google_docs.py"
+      ],
+      "enabled": true
+    },
+    "sin-summary": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-summary",
+        "serve-mcp"
+      ],
+      "enabled": true
+    },
+    "sin-paragraph": {
+      "type": "local",
+      "command": [
+        "/Users/jeremy/dev/SIN-Solver/bin/sin-paragraph",
+        "serve-mcp"
+      ],
+      "enabled": true
+    }
+  },
+  "agent": {
+    "Atlas (Plan Executor)": {
+      "model": "openai/gpt-5.4",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "Hephaestus (Deep Agent)": {
+      "model": "openai/gpt-5.4",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "Metis (Plan Consultant)": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "Momus (Plan Critic)": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "Prometheus (Plan Builder)": {
+      "model": "openai/gpt-5.4",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "Sisyphus (Ultraworker)": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "Sisyphus-Junior (Fast-Ultraworker)": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "medium"
+      },
+      "steps": 999999
+    },
+    "artistry": {
+      "model": "openai/gpt-5.4",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "build": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "compaction": {
+      "options": {
+        "reasoningEffort": "low"
+      },
+      "steps": 999999
+    },
+    "explore": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "low"
+      },
+      "steps": 999999
+    },
+    "general": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "medium"
+      },
+      "steps": 999999
+    },
+    "librarian": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "low"
+      },
+      "steps": 999999
+    },
+    "multimodal-looker": {
+      "model": "google/antigravity-gemini-3.1-pro",
+      "options": {
+        "reasoningEffort": "low"
+      },
+      "steps": 999999,
+      "description": "Zero-Shot Object Detection & Vision Understanding via NVIDIA NIM"
+    },
+    "oracle": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "plan": {
+      "model": "openai/gpt-5.4-mini",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "steps": 999999
+    },
+    "summary": {
+      "options": {
+        "reasoningEffort": "low"
+      },
+      "steps": 999999
+    },
+    "title": {
+      "options": {
+        "reasoningEffort": "low"
+      },
+      "steps": 999999
+    },
+    "omoc": {
+      "mode": "primary",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "description": "OMOC Swarm Orchestrator (auto swarm_discover/create + swarm_jam; uses swarm_max on request)",
+      "prompt": "You are OMOC, a multi-agent orchestrator running inside OpenCode.\n\nDo NOT start a swarm for greetings, acknowledgements, pleasantries, or tiny one-shot chat turns (for example: 'hi', 'hello', 'hey', 'thanks', 'ok', 'yo'). Reply directly in one concise sentence.\n\nDo NOT start a swarm for simple read-only questions that can be answered directly by inspecting one or two files or by using normal built-in tools. Answer those directly.\n\nStart a swarm only for real multi-step work such as implementation, debugging, coordinated edits, broad investigation, planning with parallel roles, or when the user explicitly asks for OMOC/swarm/parallel/best-of-n behavior.\n\nWhen you do start a swarm, use exactly one canonical swarm per request:\n1) First call swarm_discover({id:'sin-solver'}).\n2) If that does not find a swarm, call swarm_create({id:'sin-solver', title:'SIN-Solver OMOC', members:[{name:'hephaestus', agent:'hephaestus'}, {name:'oracle', agent:'oracle'}, {name:'momus', agent:'momus'}]}).\n3) Immediately call exactly one swarm_jam({id:'sin-solver', prompt:<user message>}).\n4) After swarm_jam returns, produce one concise integrated answer plus next concrete steps.\n\nNever invent extra swarm ids such as 'root', 'ctx', 'ContextGathering', or similar. Never create multiple swarms for one user message. Never call swarm_create twice in a row for the same message.\n\nIf the user explicitly asks for MAX / best-of-n / multiple independent implementations, run swarm_max({id:'sin-solver', prompt:<user message>, tries: 3, apply: true}) instead of swarm_jam.\n\nDo not use tmux. Keep all work inside the current project directory.\n\nWhen the user asks to use SIN-Terminal, visible terminal control, parallel OpenCode terminals/tabs, or to delegate work into multiple local OpenCode sessions, prefer the `sin-terminal` MCP tools over swarm tools. Use `sin_terminal_orchestrator_start` to open multiple visible OpenCode sessions in the same project, `sin_terminal_orchestrator_delegate` to steer them, `sin_terminal_orchestrator_status` to inspect them, and `sin_terminal_orchestrator_stop` to clean them up. Use regular `sin_terminal_interactive_*` tools for non-OpenCode terminal control.",
+      "steps": 999999
+    },
+    "sin-zeus": {
+      "mode": "primary",
+      "model": "openai/gpt-5.4",
+      "options": {
+        "reasoningEffort": "high"
+      },
+      "description": "Local cloud-only master orchestrator for SIN-Code. Plans locally, dispatches through GitHub Projects and Hermes, never codes features locally.",
+      "prompt": "You are SIN-Zeus, the local control-plane orchestrator for the SIN Code cloud workforce. You never execute feature work locally and you never directly edit product code locally. Your job is: inspect local repo state, research with explore/librarian/oracle, synthesize an ultra-plan, create an explicit git baseline when safely attributable, create GitHub Projects/issues/linked branches, and generate Hermes dispatch payloads for cloud executors.\n\nHard rules:\n- Never implement the requested feature locally.\n- Never resolve feature code conflicts locally.\n- GitHub is the source of truth for work intent and result state.\n- Hermes is a dispatcher only, not a planner.\n- HF VM executors do the real coding.\n- Before dispatch, inspect git status/diff and only create a local snapshot commit when the state is scoped and attributable.\n- If local dirty state is ambiguous, do planning only and do not mutate the repo.\n- Use explore for codebase analysis, librarian for official docs/examples, and oracle for architecture.\n- Prefer machine-readable artifacts over prose-only planning.\n\nExecution pattern:\n1) Run parallel research.\n2) Produce an ultra-plan.\n3) Ensure local base branch and SHA are explicit.\n4) Use Zeus bootstrap tooling to create GitHub Project/issues/linked branches.\n5) Use Hermes dispatch tooling to package cloud jobs.\n6) Report exact artifacts, SHAs, project numbers, issue URLs, and dispatch outputs.\n\nYou are a pure control-plane brain, never a local coder.",
+      "steps": 999999
+    },
+    "sin-executor-solo": {
+      "mode": "primary",
+      "model": "openai/gpt-5.4",
+      "options": {
+        "reasoningEffort": "medium"
+      },
+      "description": "Single-agent coding executor for deterministic task processing without swarm orchestration.",
+      "prompt": "You are a direct single-agent coding executor. Work alone in the provided directory. Do not create or join swarms. Do not delegate. Do not edit governance/docs files unless the task explicitly requests docs/policy work. Prefer minimal concrete code changes, then report files changed and validations attempted.",
+      "steps": 999999
+    }
+  },
+  "default_agent": "sin-zeus",
   "command": {
     "omoc-swarm-create": {
       "description": "Create/register a swarm for this session",
@@ -109,7 +656,7 @@
     },
     "omoc-autostart": {
       "description": "Auto-bind swarm + start JAM guidance",
-      "template": "OMOC Autostart (keine Erklaerungen):\n\n1) swarm_discover({ id: \"$ARGUMENTS\" })\n2) swarm_jam({ id: \"$ARGUMENTS\", prompt: \"OMOC JAM Autostart: Koordiniert euch als Swarm (planner/researcher/coder/reviewer). Arbeitet kollaborativ im selben Worktree. Wenn der User nach maximaler Qualitaet/Best-of-N fragt, nutzt swarm_max automatisch. Warte ansonsten auf die naechste konkrete Aufgabe.\" })\n\nDanach: schreibe exakt: OMOC ready"
+      "template": "OMOC Autostart (keine Erklaerungen):\n\n1) ⚙ swarm_discover({ id: \"$ARGUMENTS\" })\n2) ⚙ swarm_jam({ id: \"$ARGUMENTS\", prompt: \"OMOC JAM Autostart: Koordiniert euch als Swarm (planner/researcher/coder/reviewer). Arbeitet kollaborativ im selben Worktree. Wenn der User nach maximaler Qualitaet/Best-of-N fragt, nutzt swarm_max automatisch. Warte ansonsten auf die naechste konkrete Aufgabe.\" })\n\nDanach: schreibe exakt: OMOC ready"
     },
     "sin-terminal-orchestrate": {
       "description": "Use SIN-Terminal to open and steer parallel visible OpenCode sessions",
@@ -128,662 +675,16 @@
       "template": "Wenn $ARGUMENTS leer ist, erklaere kurz, dass eine orchestrationId gebraucht wird. Sonst nutze `sin_terminal_orchestrator_stop` mit `orchestrationId: \"$ARGUMENTS\"` und `confirm: true`."
     },
     "sin-zeus-bootstrap": {
-      "description": "Create GitHub Project + issue pool from ultra-plan",
-      "template": "Fuehre via Bash aus: `node scripts/zeus/bootstrap-github-project.mjs $ARGUMENTS`.\n\nErwartete Defaults, wenn nicht in $ARGUMENTS gesetzt:\n- --out Docs/operations/sin-zeus-bootstrap.json\n- --base main\n\nGib danach die wichtigsten Felder aus: project.url, issue count, und pro Issue issueUrl + targetBranch."
+      "description": "Create GitHub Project and issue pool from a Zeus ultra-plan JSON",
+      "template": "Wenn $ARGUMENTS leer ist, erklaere das JSON-Format `{ \"owner\": \"...\", \"repo\": \"owner/repo\", \"title\": \"...\", \"planFile\": \"scripts/zeus/ultra-plan.example.json\", \"base\": \"main\", \"dryRun\": true }`. Sonst parse $ARGUMENTS als JSON und nutze `bash` um `node /Users/jeremy/dev/SIN-Solver/scripts/zeus/bootstrap-github-project.mjs --owner <owner> --repo <repo> --title <title> --plan-file <planFile> --base <base>` auszufuehren; wenn `dryRun` true ist, haenge `--dry-run` an."
     },
-    "sin-zeus-dispatch": {
-      "description": "Route Zeus issues to HF executors (Hermes dispatch)",
-      "template": "Fuehre via Bash aus: `node scripts/zeus/hermes-dispatch.mjs $ARGUMENTS`.\n\nErwartete Defaults, wenn nicht in $ARGUMENTS gesetzt:\n- --bootstrap Docs/operations/sin-zeus-bootstrap.json\n- --out Docs/operations/sin-hermes-dispatch.json\n\nGib danach eine kompakte Tabelle aus: issueUrl | teamHint | capabilityHint | selected.agent_slug (oder null)."
+    "sin-zeus-hermes": {
+      "description": "Generate Hermes dispatch payloads for Zeus-created issues",
+      "template": "Wenn $ARGUMENTS leer ist, erklaere das JSON-Format `{ \"repo\": \"owner/repo\", \"repoPath\": \"/abs/path\", \"bootstrap\": \"Docs/operations/sin-zeus-bootstrap.json\" }`. Sonst parse $ARGUMENTS als JSON und nutze `bash` um `node /Users/jeremy/dev/SIN-Solver/scripts/zeus/hermes-dispatch.mjs --repo <repo> --repo-path <repoPath> --bootstrap <bootstrap>` auszufuehren."
     },
-    "sin-zeus-intake": {
-      "description": "Generate (and optionally submit) Room-13 tasks from Zeus branches",
-      "template": "Fuehre via Bash aus: `node scripts/zeus/hermes-intake.mjs $ARGUMENTS`.\n\nDefaults:\n- --bootstrap Docs/operations/sin-zeus-bootstrap.json\n- --dispatch Docs/operations/sin-hermes-dispatch.json\n- --out Docs/operations/sin-hermes-intake.json\n\nWenn `--submit` genutzt wird, muss `--room13-url` gesetzt sein.\n\nGib danach aus: Anzahl ok items, Anzahl skipped/failed items, und die erzeugten task_key Werte."
-    },
-    "sin-zeus-artifacts": {
-      "description": "Generate Zeus rollout and todo artifacts",
-      "template": "Fuehre via Bash aus: `node scripts/zeus/generate-zeus-rollout-artifacts.mjs $ARGUMENTS`.\n\nGib danach aus welche Dateien erzeugt wurden."
+    "sin-zeus-status": {
+      "description": "Summarize current Zeus control-plane artifacts",
+      "template": "Nutze `bash` um, falls vorhanden, diese Dateien zu lesen: `/Users/jeremy/dev/SIN-Solver/Docs/operations/sin-zeus-bootstrap.json`, `/Users/jeremy/dev/SIN-Solver/Docs/operations/sin-hermes-dispatch.json`, `/Users/jeremy/dev/SIN-Solver/Docs/operations/alpha-acceptance-gates.json`. Fasse das Ergebnis kompakt zusammen."
     }
-  },
-  "agent": {
-    "artistry": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "atlas": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "build": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "compaction": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "explore": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "general": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "librarian": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "metis": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "momus": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "oracle": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "plan": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "prometheus": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "sisyphus": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "sisyphus-junior": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "summary": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "title": {
-      "steps": 999999,
-      "model": "openai/gpt-5.4"
-    },
-    "omoc": {
-      "mode": "primary",
-      "description": "OMOC Swarm Orchestrator (auto swarm_discover/create + swarm_jam; uses swarm_max on request)",
-      "model": "openai/gpt-5.4",
-      "prompt": "You are OMOC, a multi-agent orchestrator running inside OpenCode.\\n\\nFor EVERY user message:\\n1) Ensure a swarm is bound to this root session: call swarm_discover(); if that fails, call swarm_create().\\n2) Run swarm_jam({prompt: <user message>}). Require each member to name the files they plan to touch before editing, coordinate via swarm_send, and avoid overlapping edits.\\n3) After swarm_jam returns, produce a concise integrated answer + next concrete steps.\\n\\nIf the user explicitly asks for MAX / best-of-n / multiple independent implementations, run swarm_max({prompt: <user message>, tries: 3, apply: true}) instead of swarm_jam.\\n\\nDo not use tmux. Keep all work inside the current project directory.\n\nWhen the user asks to use SIN-Terminal, visible terminal control, parallel OpenCode terminals/tabs, or to delegate work into multiple local OpenCode sessions, prefer the `sin-terminal` MCP tools over swarm tools. Use `sin_terminal_orchestrator_start` to open multiple visible OpenCode sessions in the same project, `sin_terminal_orchestrator_delegate` to steer them, `sin_terminal_orchestrator_status` to inspect them, and `sin_terminal_orchestrator_stop` to clean them up. Use regular `sin_terminal_interactive_*` tools for non-OpenCode terminal control.",
-      "steps": 999999
-    },
-    "sin-zeus": {
-      "description": "SIN-Zeus control-plane orchestrator (GitHub Projects + Hermes dispatch; never codes locally)",
-      "model": "openai/gpt-5.4",
-      "prompt": "You are SIN-Zeus. You never implement product code locally. You are a control-plane agent only.\\n\\nCore behavior:\\n- Create an ultra plan (requirements + acceptance + validation) for the user request.\\n- Ensure local git hygiene: inspect status/diff; do not discard user changes; do not edit feature code.\\n- Publish work into GitHub Projects V2 + Issues + linked branches using the repo Zeus scripts.\\n- Trigger Hermes dispatch artifacts and Hermes intake artifacts.\\n- Cloud executors (SIN-Code / HF VMs) do the coding.\\n\\nHard boundaries:\\n- Do not write or edit product code locally.\\n- Do not bypass the authority model (workflow=Restate, transport=JetStream, projections=Supabase, grants=authd).\\n- Do not leak secrets into issue bodies or artifacts.\\n\\nYou may only change: planning artifacts, project/issue metadata, branch bootstraps, and control-plane config.\\n",
-      "steps": 999999
-    },
-    "sin-executor-solo": {
-      "mode": "primary",
-      "description": "Single-agent coding executor for Room-13 task processing (no swarm)",
-      "model": "openai/gpt-5.4",
-      "prompt": "You are a direct single-agent coding executor. Work alone in the provided directory. Do not create or join swarms. Do not delegate. Do not edit governance/docs files unless the task explicitly requests docs/policy work. Prefer minimal concrete code changes, then report files changed and validations attempted.",
-      "steps": 999999
-    }
-  },
-  "default_agent": "omoc",
-  "mcp": {
-    "sin-team-apple-apps": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-apple-apps",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-imessage": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-imessage",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-devctl": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-device-control",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-notifications": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-notifications",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-pim": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-calendar-contacts",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-notes": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-notes",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-mobile": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-mobile",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-facetime": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-facetime",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-server": {
-      "type": "local",
-      "command": [
-        "bin/sin-server",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-terminal": {
-      "type": "local",
-      "command": [
-        "bin/sin-terminal",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-authenticator": {
-      "type": "local",
-      "command": [
-        "bin/sin-authenticator",
-        "serve-mcp"
-      ],
-      "environment": {
-        "AUTHD_HOST": "127.0.0.1",
-        "AUTHD_PORT": "44711",
-        "SIN_AUTH_HOST": "127.0.0.1",
-        "SIN_AUTH_PORT": "45871",
-        "SIN_AUTH_PUBLIC_BASE_URL": "https://a2a-sin-authenticator.delqhi.com"
-      },
-      "enabled": true
-    },
-    "sin-google-apps": {
-      "type": "local",
-      "command": [
-        "bin/sin-google-apps",
-        "serve-mcp"
-      ],
-      "environment": {
-        "SIN_GOOGLE_APPS_HOST": "127.0.0.1",
-        "SIN_GOOGLE_APPS_PORT": "45872",
-        "SIN_GOOGLE_APPS_PUBLIC_BASE_URL": "https://a2a-sin-google-apps.delqhi.com"
-      },
-      "enabled": true
-    },
-    "sin-passwordmanager": {
-      "type": "local",
-      "command": [
-        "bin/sin-passwordmanager",
-        "serve-mcp"
-      ],
-      "environment": {
-        "SIN_PASSWORDMANAGER_HOST": "127.0.0.1",
-        "SIN_PASSWORDMANAGER_PORT": "4646"
-      },
-      "enabled": true
-    },
-    "sin-team-worker": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-worker",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-mindrift": {
-      "type": "local",
-      "command": [
-        "bin/sin-mindrift-mcp"
-      ],
-      "environment": {
-        "SIN_MINDRIFT_BACKEND_URL": "https://delqhi-delqhi-sin-mindrift.hf.space"
-      },
-      "enabled": true
-    },
-    "sin-cloudflare": {
-      "type": "local",
-      "command": [
-        "bin/sin-cloudflare",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-n8n": {
-      "type": "local",
-      "command": [
-        "bin/sin-n8n",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "A2A-SIN-Infra-\u2022-Global-ConnectorDocsSync": {
-      "type": "local",
-      "command": [
-        "bin/__SIN_AGENT_CLI__",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-research": {
-      "type": "local",
-      "command": [
-        "bin/sin-research",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-tiktok": {
-      "type": "local",
-      "command": [
-        "bin/sin-tiktok",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-tiktok-shop": {
-      "type": "local",
-      "command": [
-        "bin/sin-tiktok-shop",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-team-social": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-social",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-team-company": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-company",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-tax": {
-      "type": "local",
-      "command": [
-        "bin/sin-tax",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-team-shop": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-shop",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-coding-ceo": {
-      "type": "local",
-      "command": [
-        "bin/sin-coding-ceo",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-simone-mcp": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Simone-MCP/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-repo-sync": {
-      "type": "local",
-      "command": [
-        "bin/sin-repo-sync",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-designer": {
-      "type": "local",
-      "command": [
-        "bin/sin-designer",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend": {
-      "type": "local",
-      "command": [
-        "bin/sin-frontend",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-backend": {
-      "type": "local",
-      "command": [
-        "bin/sin-backend",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-tester": {
-      "type": "local",
-      "command": [
-        "bin/sin-tester",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-github-issues": {
-      "type": "local",
-      "command": [
-        "bin/sin-github-issues",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-bugbounty": {
-      "type": "local",
-      "command": [
-        "a2a/team-coding/A2A-SIN-BugBounty/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-oraclecloud-mcp": {
-      "type": "local",
-      "command": [
-        "bin/sin-oraclecloud-mcp",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-team-marketing": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-marketing",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-community": {
-      "type": "local",
-      "command": [
-        "bin/sin-community",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-opal": {
-      "type": "local",
-      "command": [
-        "bin/sin-opal",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-storage": {
-      "type": "local",
-      "command": [
-        "bin/sin-storage",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-supabase": {
-      "type": "local",
-      "command": [
-        "bin/sin-supabase",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-team-creator": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-creator",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-tgapps": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-google-apps",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-torch": {
-      "type": "local",
-      "command": [
-        "bin/sin-team-orchestrator",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-mail": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-mail",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-reminders": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-reminders",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-photos-files": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-photos-files",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-safari-webkit": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-safari-webkit",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-sysset": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-system-settings",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-apple-shortcuts": {
-      "type": "local",
-      "command": [
-        "bin/sin-apple-shortcuts",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-shop-logistic": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-shop/A2A-SIN-Shop-Logistic/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-shop-finance": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-shop/A2A-SIN-Shop-Finance/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-stripe": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-finance/A2A-SIN-Stripe/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-2captcha-worker": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-worker/A2A-SIN-2Captcha-Worker/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-github-action": {
-      "type": "local",
-      "command": [
-        "bin/sin-github-action",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-accessibility": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Accessibility/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-app-shell": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-App-Shell/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-commerce-ui": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Commerce-UI/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-dashboard-analytics": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Dashboard-Analytics/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-data-viz": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Data-Viz/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-design-systems": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Design-Systems/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-forms-workflows": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Forms-Workflows/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-mobile-responsive": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Mobile-Responsive/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-motion-interaction": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Motion-Interaction/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-frontend-performance": {
-      "type": "local",
-      "command": [
-        "node",
-        "a2a/team-coding/A2A-SIN-Frontend-Performance/dist/src/cli.js",
-        "serve-mcp"
-      ],
-      "enabled": true
-    },
-    "sin-patents": {
-      "type": "local",
-      "command": [
-        "bin/sin-patents",
-        "serve-mcp"
-      ],
-      "enabled": true
-    }
-  },
+  }
 }
