@@ -1,12 +1,12 @@
-# 📦 Wrappers
+# Wrapper
 
-## Overview
-Custom CLI shims and wrappers that intercept `opencode` commands to inject OMOC swarm logic or redirect execution to custom Python orchestrators.
+Canonical bucket for CLI shims and bootstrap wrappers.
 
-## Included Wrappers
-- **`bin/opencode`**: Project-local shim.
-- **`oc-swarm`**: Tmux-based multi-agent terminal orchestrator.
-- **`opencode_entrypoint.py`**: Legacy FastAPI/Room-13 Python router.
+Current source: `global-opencode-config/scripts/` wrapper entrypoints and `packages/opencode/bin/`
 
-## Best Practices
-- Wrappers should cleanly fallback to the native `opencode` binary if the specialized environment is missing.
+Quickstart:
+1. Keep wrappers thin.
+2. Never put business logic in a wrapper.
+3. Update this bucket when a shim path changes.
+
+Status: scaffolded, wrappers still live at legacy paths.
