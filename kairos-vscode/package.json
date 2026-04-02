@@ -82,5 +82,18 @@
     "@types/node": "18.x",
     "typescript": "^5.3.3",
     "@vscode/vsce": "^2.24.0"
+  },
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "icon": "media/icon.svg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code.git",
+    "directory": "kairos-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code/issues"
   }
 }
