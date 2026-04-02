@@ -153,24 +153,24 @@ class Panel implements vscode.WebviewViewProvider {
   }
 
   async proactive(doc: vscode.TextDocument) {
-    const root = vscode.workspace.getWorkspaceFolder(doc.uri)?.uri.fsPath;
-    const out = await this.exec(`KAIROS proactive review for ${doc.fileName}: inspect the latest saved file for obvious bugs, regressions, and missing tests. Return a compact result.`, root);
+    const out = await this.message(
+      `KAIROS proactive review for ${doc.fileName}: inspect the latest saved file for obvious bugs, regressions, and missing tests. Return a compact result.`,
+      guide.Debug,
+    );
     this.bump(2);
     this.web?.webview.postMessage({ type: "reply", value: `[KAIROS] ${out}` });
   }
 
   async run(text: string) {
-    const root = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
     const ref = file();
     const ctx = ref ? `\n\nCurrent file context: ${ref}` : "";
-    const intel = this.state.mode === "Architect" || this.state.mode === "Debug" ? await this.intel() : "";
-    const out = await this.exec(`${guide[this.state.mode]}${intel}${ctx}\n\n${text}`, root);
+    const intel = this.state.mode === "Architect" || this.state.mode === "Debug" ? activeHint() : "";
+    const out = await this.message(`${text}${ctx}`, `${guide[this.state.mode]}${intel}`);
     this.bump(1);
     return out;
   }
 
   async simone(kind: SimoneKind) {
-    const root = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
     const item = active();
     if (!item) {return "No active symbol or file context for Simone.";}
 
@@ -178,55 +178,39 @@ class Panel implements vscode.WebviewViewProvider {
       ? `Use Simone MCP to find the symbol \"${item.name}\"${item.file ? ` in ${item.file}` : ""}. Return a concise result with file and line references.`
       : `Use Simone MCP to find references for the symbol \"${item.name}\"${item.file ? ` in ${item.file}` : ""}. Return a concise result with file and line references.`;
 
-    const out = await this.side(prompt, root);
+    const out = await this.message(prompt, "Use Simone MCP if available. Return compact, high-signal output only.");
     this.bump(2);
     return `[Simone:${kind}] ${out}`;
   }
 
-  async intel() {
-    const item = active();
-    if (!item) {return "";}
-
+  async message(text: string, system?: string) {
     const root = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
-    const out = await this.side(
-      `Use Simone MCP to summarize the active symbol \"${item.name}\"${item.file ? ` in ${item.file}` : ""}. Return only the most relevant symbol location and a short explanation.`,
-      root,
-    );
-    return `\n\nSimone context:\n${out}`;
-  }
+    if (!root) {return "No workspace open.";}
 
-  async exec(text: string, cwd?: string) {
-    const cli = "opencode";
     try {
-      const out = await exec(cli, ["run", text, "--model", this.state.model], {
-        cwd,
-        maxBuffer: 1024 * 1024 * 8,
-      });
-      const txt = `${out.stdout ?? ""}${out.stderr ?? ""}`.trim();
-      if (txt) {return txt;}
-      return "No output";
-    } catch (err) {
-      const e = err as Error & { stdout?: string; stderr?: string };
-      const txt = `${e.stdout ?? ""}${e.stderr ?? ""}`.trim();
-      if (txt) {return txt;}
-      return `CLI bridge error: ${e.message}`;
-    }
-  }
+      const state = await ensure(this.ctx, root, this.state.model);
+      const body: Record<string, unknown> = {
+        parts: [{ type: "text", text }],
+      };
+      const model = split(this.state.model);
+      if (model) {body.model = model;}
+      if (system) {body.system = system;}
 
-  async side(text: string, cwd?: string) {
-    try {
-      const out = await exec("sincode", ["run", text], {
-        cwd,
-        maxBuffer: 1024 * 1024 * 8,
+      const res = await fetch(url(state.port, `/session/${state.session}/message`, root), {
+        method: "POST",
+        headers: headers(root),
+        body: JSON.stringify(body),
       });
-      const txt = `${out.stdout ?? ""}${out.stderr ?? ""}`.trim();
-      if (txt) {return txt;}
-      return "No Simone output";
+
+      const raw = await res.text();
+      if (!res.ok) {return `Session API error: ${raw || res.statusText}`;}
+      try {
+        return extract(JSON.parse(raw));
+      } catch {
+        return raw.trim() || "No output";
+      }
     } catch (err) {
-      const e = err as Error & { stdout?: string; stderr?: string };
-      const txt = `${e.stdout ?? ""}${e.stderr ?? ""}`.trim();
-      if (txt) {return txt;}
-      return `Simone bridge error: ${e.message}`;
+      return `Session bridge error: ${err instanceof Error ? err.message : String(err)}`;
     }
   }
 
@@ -299,6 +283,76 @@ async function append(port: number, text: string) {
   });
 }
 
+async function ensure(ctx: vscode.ExtensionContext, root: string, model: string) {
+  const current = live.get(root);
+  if (current) {
+    try {
+      const res = await fetch(url(current.port, `/session/${current.session}`, root), {
+        method: "GET",
+        headers: headers(root),
+      });
+      if (res.ok) {return current;}
+    } catch {}
+    live.delete(root);
+  }
+
+  let term = vscode.window.terminals.find((x: vscode.Terminal) => x.name === name);
+  let port = term ? ports.get(term) : undefined;
+  if (!port) {
+    term = await open(ctx, model, true);
+    port = ports.get(term);
+  }
+  if (!port) {throw new Error("Could not determine opencode port");}
+
+  const res = await fetch(url(port, "/session", root), {
+    method: "POST",
+    headers: headers(root),
+    body: JSON.stringify({}),
+  });
+  const info = await res.json() as { id?: string };
+  if (!res.ok || !info.id) {
+    throw new Error(`Could not create session on port ${port}`);
+  }
+
+  const state = { port, session: info.id };
+  live.set(root, state);
+  return state;
+}
+
+function url(port: number, path: string, root: string) {
+  return `http://localhost:${port}${path}?directory=${encodeURIComponent(root)}`;
+}
+
+function headers(root: string) {
+  return {
+    "Content-Type": "application/json",
+    "x-opencode-directory": root,
+  };
+}
+
+function split(input: string) {
+  const parts = input.split("/");
+  const providerID = parts.shift();
+  const modelID = parts.join("/");
+  if (!providerID || !modelID) {return;}
+  return { providerID, modelID };
+}
+
+function extract(msg: any) {
+  const parts = Array.isArray(msg?.parts) ? msg.parts : [];
+  const text = parts
+    .flatMap((part: any) => {
+      if (part?.type === "text" && typeof part.text === "string") {return [part.text];}
+      const output = part?.state?.output;
+      if (typeof output === "string") {return [output];}
+      return [];
+    })
+    .join("\n\n")
+    .trim();
+  if (text) {return text;}
+  return JSON.stringify(msg, null, 2);
+}
+
 function file() {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {return;}
@@ -331,6 +385,12 @@ function active() {
   const word = editor.document.getText(range).trim();
   if (!word) {return { name: file, file };}
   return { name: word, file };
+}
+
+function activeHint() {
+  const item = active();
+  if (!item) {return "";}
+  return `\n\nIf useful, use Simone MCP to inspect the active symbol \"${item.name}\"${item.file ? ` in ${item.file}` : ""}.`;
 }
 
 function html(state: State) {
