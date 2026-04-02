@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { prompt as acpPrompt, saved as acpSaved } from "./acp";
+import { changed as acpChanged, closed as acpClosed, focused as acpFocused, opened as acpOpened, prompt as acpPrompt, saved as acpSaved } from "./acp";
 
 const name = "opencode";
 const view = "opencode.chat";
@@ -83,7 +83,32 @@ export function activate(ctx: vscode.ExtensionContext) {
     await panel.proactive(doc);
   });
 
-  ctx.subscriptions.push(a, b, c, d, e, f);
+  const g = vscode.workspace.onDidOpenTextDocument(async (doc: vscode.TextDocument) => {
+    const root = vscode.workspace.getWorkspaceFolder(doc.uri)?.uri.fsPath;
+    if (!root) {return;}
+    await acpOpened(root, doc);
+  });
+
+  const h = vscode.workspace.onDidChangeTextDocument(async (ev: vscode.TextDocumentChangeEvent) => {
+    const root = vscode.workspace.getWorkspaceFolder(ev.document.uri)?.uri.fsPath;
+    if (!root) {return;}
+    await acpChanged(root, ev);
+  });
+
+  const i = vscode.workspace.onDidCloseTextDocument(async (doc: vscode.TextDocument) => {
+    const root = vscode.workspace.getWorkspaceFolder(doc.uri)?.uri.fsPath;
+    if (!root) {return;}
+    await acpClosed(root, doc.uri.toString());
+  });
+
+  const j = vscode.window.onDidChangeActiveTextEditor(async (editor?: vscode.TextEditor) => {
+    if (!editor) {return;}
+    const root = vscode.workspace.getWorkspaceFolder(editor.document.uri)?.uri.fsPath;
+    if (!root) {return;}
+    await acpFocused(root, editor);
+  });
+
+  ctx.subscriptions.push(a, b, c, d, e, f, g, h, i, j);
 }
 
 export function deactivate() {}

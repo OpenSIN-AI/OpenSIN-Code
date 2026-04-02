@@ -66,6 +66,9 @@ if (image) {
       <div class="col1">
         <a href={docsHref}>{t('app.lander.cta.getStarted')}</a>
       </div>
+      <div class="col1 ide">
+        <a href={docsIdeHref}>VS Code + KAIROS</a>
+      </div>
       <div class="col2">
       <button class="command" data-command={`${command} ${protocol}${url} ${bash}`}>
           <code>
@@ -76,6 +79,26 @@ if (image) {
             <CheckIcon />
           </span>
         </button>
+      </div>
+    </section>
+
+    <section class="ide-callout">
+      <div class="copy">
+        <div class="eyebrow">NEW IDE LANE</div>
+        <h3>KAIROS sidebar with ACP-first transport</h3>
+        <p>
+          The VS Code extension now has a dedicated KAIROS lane with persistent workspace sessions,
+          Simone symbol/reference actions, proactive file-save reviews, and a real IDE guide.
+        </p>
+        <div class="actions">
+          <a href={docsIdeHref}>Open IDE Guide</a>
+          <a href="https://github.com/OpenSIN-AI/OpenSIN-Code/releases/tag/vscode-v1.3.16" target="_blank" rel="noopener noreferrer">Download VSIX</a>
+        </div>
+      </div>
+      <div class="shot">
+        <a href={docsIdeHref}>
+          <Image src={VscodeScreenshot} alt={t('app.lander.images.vscode.alt')} />
+        </a>
       </div>
     </section>
 
@@ -259,6 +282,15 @@ section.cta {
       padding-bottom: calc(var(--vertical-padding) + 4px);
     }
   }
+
+  & > div.col1.ide {
+    border-left: 2px solid var(--sl-color-border);
+
+    @media (max-width: 50rem) {
+      border-left: 0;
+      border-top: 2px solid var(--sl-color-border);
+    }
+  }
   & > div.col2 {
     flex: 1;
     padding-left: 1rem;
@@ -335,6 +367,81 @@ section.cta {
     &.success .copy svg:last-child {
       display: inline;
     }
+  }
+}
+
+section.ide-callout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 0;
+  border-top: 2px solid var(--sl-color-border);
+  border-bottom: 2px solid var(--sl-color-border);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--sl-color-bg) 86%, #3b82f6 14%), var(--sl-color-bg));
+
+  @media (max-width: 56rem) {
+    grid-template-columns: 1fr;
+  }
+
+  .copy,
+  .shot {
+    padding: var(--padding);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: clamp(1.5rem, 2vw, 2.25rem);
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 0;
+    max-width: 42rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.95rem;
+    border: 1px solid var(--sl-color-text-accent);
+    text-transform: uppercase;
+  }
+
+  .shot {
+    border-left: 2px solid var(--sl-color-border);
+
+    @media (max-width: 56rem) {
+      border-left: 0;
+      border-top: 2px solid var(--sl-color-border);
+    }
+  }
+
+  .shot img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 }
 

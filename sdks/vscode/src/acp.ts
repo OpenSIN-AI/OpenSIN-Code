@@ -37,6 +37,10 @@ type State = {
   proc: ChildProcessWithoutNullStreams
   conn: {
     prompt: (params: { sessionId: string; prompt: Array<{ type: "text"; text: string }> }) => Promise<{ stopReason: string }>
+    unstable_didOpenDocument?: (params: { sessionId: string; uri: string; text: string; languageId: string; version: number }) => Promise<void>
+    unstable_didChangeDocument?: (params: { sessionId: string; uri: string; version: number; contentChanges: Array<{ text: string; range?: { start: { line: number; character: number }; end: { line: number; character: number } } }> }) => Promise<void>
+    unstable_didCloseDocument?: (params: { sessionId: string; uri: string }) => Promise<void>
+    unstable_didFocusDocument?: (params: { sessionId: string; uri: string; version: number; position: { line: number; character: number }; visibleRange: { start: { line: number; character: number }; end: { line: number; character: number } } }) => Promise<void>
     unstable_didSaveDocument?: (params: { sessionId: string; uri: string }) => Promise<void>
     setSessionMode?: (params: { sessionId: string; modeId: string }) => Promise<void | unknown>
     unstable_setSessionModel?: (params: { sessionId: string; modelId: string }) => Promise<void | unknown>
@@ -68,6 +72,73 @@ export async function saved(root: string, uri: string) {
   if (!state) {return;}
   if (!state.conn.unstable_didSaveDocument) {return;}
   await state.conn.unstable_didSaveDocument({
+    sessionId: state.session,
+    uri,
+  });
+}
+
+export async function opened(root: string, doc: vscode.TextDocument) {
+  const state = lanes.get(root);
+  if (!state) {return;}
+  if (!state.conn.unstable_didOpenDocument) {return;}
+  await state.conn.unstable_didOpenDocument({
+    sessionId: state.session,
+    uri: doc.uri.toString(),
+    text: doc.getText(),
+    languageId: doc.languageId,
+    version: doc.version,
+  });
+}
+
+export async function changed(root: string, ev: vscode.TextDocumentChangeEvent) {
+  const state = lanes.get(root);
+  if (!state) {return;}
+  if (!state.conn.unstable_didChangeDocument) {return;}
+  await state.conn.unstable_didChangeDocument({
+    sessionId: state.session,
+    uri: ev.document.uri.toString(),
+    version: ev.document.version,
+    contentChanges: ev.contentChanges.map((change) => ({
+      text: change.text,
+      range: change.range
+        ? {
+            start: { line: change.range.start.line, character: change.range.start.character },
+            end: { line: change.range.end.line, character: change.range.end.character },
+          }
+        : undefined,
+    })),
+  });
+}
+
+export async function focused(root: string, editor: vscode.TextEditor) {
+  const state = lanes.get(root);
+  if (!state) {return;}
+  if (!state.conn.unstable_didFocusDocument) {return;}
+  const doc = editor.document;
+  const visible = editor.visibleRanges[0];
+  const fallback = {
+    start: { line: 0, character: 0 },
+    end: { line: 0, character: 0 },
+  };
+  await state.conn.unstable_didFocusDocument({
+    sessionId: state.session,
+    uri: doc.uri.toString(),
+    version: doc.version,
+    position: { line: editor.selection.active.line, character: editor.selection.active.character },
+    visibleRange: visible
+      ? {
+          start: { line: visible.start.line, character: visible.start.character },
+          end: { line: visible.end.line, character: visible.end.character },
+        }
+      : fallback,
+  });
+}
+
+export async function closed(root: string, uri: string) {
+  const state = lanes.get(root);
+  if (!state) {return;}
+  if (!state.conn.unstable_didCloseDocument) {return;}
+  await state.conn.unstable_didCloseDocument({
     sessionId: state.session,
     uri,
   });
@@ -124,7 +195,7 @@ async function ensure(root: string, model: string) {
   const conn = new sdk.ClientSideConnection(() => client, stream);
   const init = await conn.initialize({
     protocolVersion: 1,
-    clientInfo: { name: "OpenSIN VS Code", version: "1.3.15" },
+    clientInfo: { name: "OpenSIN VS Code", version: "1.3.17" },
     clientCapabilities: {
       fs: { readTextFile: true, writeTextFile: true },
     },
@@ -147,11 +218,28 @@ async function ensure(root: string, model: string) {
   });
 
   lanes.set(root, state);
+  await seed(root, state);
   await setModel(state, model);
   if (init.agentCapabilities?.sessionCapabilities?.resume) {
     // no-op: initialization is enough, but reading this keeps capability drift visible
   }
   return state;
+}
+
+async function seed(root: string, state: State) {
+  const docs = vscode.workspace.textDocuments.filter((doc) => inRoot(root, doc.uri));
+  for (const doc of docs) {
+    await opened(root, doc);
+  }
+  const editor = vscode.window.activeTextEditor;
+  if (editor && inRoot(root, editor.document.uri)) {
+    await focused(root, editor);
+  }
+}
+
+function inRoot(root: string, uri: vscode.Uri) {
+  if (uri.scheme !== "file") {return false;}
+  return uri.fsPath === root || uri.fsPath.startsWith(root + "/");
 }
 
 async function setMode(state: State, mode: Mode) {

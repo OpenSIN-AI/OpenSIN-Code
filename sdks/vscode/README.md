@@ -18,6 +18,7 @@ This extension requires the [opencode CLI](https://opencode.ai) to be installed 
 - **Simone Context Lane**: Sidebar buttons for symbol and reference analysis, plus automatic Simone context injection in `Architect` and `Debug` mode.
 - **Persistent Session Steering**: Sidebar prompts now target a real local opencode session over the Session API instead of spawning a fresh `opencode run` process for every interaction.
 - **ACP-first Sidebar Transport**: The sidebar now prefers a real `opencode acp` subprocess transport and only falls back when ACP is unavailable.
+- **Live Document Events**: Open, focus, change, close, and save events now flow into the ACP lane so the sidebar can track the active editor state more like a real IDE agent.
 
 ## Support
 
