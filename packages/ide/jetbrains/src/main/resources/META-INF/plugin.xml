@@ -1,0 +1,48 @@
+<idea-plugin>
+    <id>ai.opensin.plugin</id>
+    <name>OpenSIN</name>
+    <vendor email="team@opensin.ai" url="https://opensin.ai">OpenSIN</vendor>
+
+    <description><![CDATA[
+    OpenSIN IDE Integration — AI-powered coding assistant for JetBrains IDEs.
+    Provides chat, tool execution visibility, and file diff rendering via the ACP protocol.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="OpenSIN"
+                    anchor="right"
+                    factoryClass="ai.opensin.OpenSINToolWindowFactory"
+                    icon="/icons/opensin.svg"/>
+
+        <applicationConfigurable parentId="tools"
+                                 instance="ai.opensin.OpenSINSettingsConfigurable"
+                                 id="ai.opensin.settings"
+                                 displayName="OpenSIN"/>
+
+        <applicationService serviceImplementation="ai.opensin.OpenSINSettings"/>
+    </extensions>
+
+    <actions>
+        <action id="ai.opensin.Connect"
+                class="ai.opensin.ConnectAction"
+                text="Connect to OpenSIN Server"
+                description="Establish connection to OpenSIN API server"
+                icon="/icons/opensin.svg">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+
+        <action id="ai.opensin.NewChat"
+                class="ai.opensin.NewChatAction"
+                text="New OpenSIN Chat"
+                description="Start a new OpenSIN conversation">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift I"/>
+        </action>
+
+        <action id="ai.opensin.ShowDiff"
+                class="ai.opensin.ShowDiffAction"
+                text="Show OpenSIN Diff"
+                description="Display the latest file diff from OpenSIN"/>
+    </actions>
+</idea-plugin>
