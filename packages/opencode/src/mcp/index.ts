@@ -25,6 +25,8 @@ import { Bus } from "@/bus"
 import { TuiEvent } from "@/cli/cmd/tui/event"
 import open from "open"
 import { Effect, Exit, Layer, Option, ServiceMap, Stream } from "effect"
+import path from "path"
+import path from "path"
 import { InstanceState } from "@/effect/instance-state"
 import { makeRuntime } from "@/effect/run-service"
 import { ChildProcess, ChildProcessSpawner } from "effect/unstable/process"
@@ -480,7 +482,20 @@ export namespace MCP {
       const state = yield* InstanceState.make<State>(
         Effect.fn("MCP.state")(function* () {
           const cfg = yield* cfgSvc.get()
-          const config = cfg.mcp ?? {}
+          const userConfig = cfg.mcp ?? {}
+
+          // Built-in Simone MCP server — injected automatically
+          const simoneDisabled = userConfig.simone && (userConfig.simone as any).enabled === false
+          const builtinMcp: Record<string, any> = simoneDisabled ? {} : {
+            simone: {
+              type: "local" as const,
+              command: ["bun", "run", path.join(__dirname, "../../../../packages/sdk/simone-mcp/src/index.ts")],
+              enabled: true,
+            },
+          }
+
+          // Merge: user config overrides built-in
+          const config = { ...builtinMcp, ...userConfig }
           const s: State = {
             status: {},
             clients: {},

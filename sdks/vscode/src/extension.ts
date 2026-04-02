@@ -1,11 +1,9 @@
-import { execFile } from "child_process";
-import { promisify } from "util";
 import * as vscode from "vscode";
 
-const exec = promisify(execFile);
 const name = "opencode";
 const view = "opencode.chat";
 const ports = new WeakMap<vscode.Terminal, number>();
+const live = new Map<string, { port: number; session: string }>();
 const modes = ["Architect", "Code", "Debug", "Ask"] as const;
 const models = [
   "openrouter/qwen/qwen3.6-plus:free",
