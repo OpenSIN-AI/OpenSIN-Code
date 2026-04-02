@@ -1,112 +1,65 @@
-# SIN Code VS Code Extension (SIN Code)
+# SIN Code VS Code Extension
 
-> Agentic AI Coding Assistant for OpenSIN — Powered by Kilo Code & Claude Code concepts
+> Agentic AI Coding Assistant für das OpenSIN Ökosystem
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-green)
 
 ## Features
 
-### 🔀 Mode Selector
-Switch between specialized agent modes inspired by Kilo Code:
+### Phase 1 — Core Extension
+- 🤖 **SIN Code Sidebar** — Webview Chat Interface im Editor
+- 🔌 **CLI Bridge** — Direkte Kommunikation via `opencode run --format json`
+- 🔀 **Mode Selector** — Architect, Code, Debug, Ask, Proactive
+- 📋 **Model Dropdown** — Auto-fetches aus Provider Config
+- 📁 **Context Provider** — Datei-Auswahl für Kontext
+- ⚡ **Proactive Mode** — Hintergrund-Analyse beim File-Save
+- 🐝 **Swarm Coordinator** — Sub-Agents dispatchen
 
-| Mode | Description | Icon |
-|------|-------------|------|
-| **Architect** | Plan system architecture and create project roadmaps | 🏗️ |
-| **Code** | Implementation, refactoring, and production-ready code | 💻 |
-| **Debug** | Trace issues, read error logs, and suggest fixes | 🐛 |
-| **Ask** | Query and explain existing codebases without modifying | ❓ |
-| **Proactive** | Proactive always-on mode — background analysis on file saves | ⚡ |
+### Phase 2 — Intelligence Layer
+- 🔮 **LSP Diagnostics** — Semantic Context via simone-mcp
+- 🧠 **Memory Consolidation** — AGENTS.md / SIN-MEMORY.md
+- 🐛 **BUDDY Gamification** — Status Bar Pet mit XP/Mood/Leveling
 
-### 🐝 Swarm Coordinator
-Dispatch parallel tasks to specialized agents:
-- **Explore** — Codebase patterns, file structures, ast-grep
-- **Librarian** — Remote repos, official docs, GitHub examples
-- **Oracle** — Architecture, debugging, complex logic
-- **Artistry** — Non-conventional problems, different approaches
-
-### 🐛 BUDDY Gamification
-A pet companion in your status bar that:
-- Levels up on commits (+25 XP)
-- Celebrates test passes (+15 XP)
-- Reacts to errors and failures with mood changes
-- Shows XP, level, and last action on hover
-
-### 🧠 Memory Consolidation
-Automatic context loading from:
-- `AGENTS.md`
-- `SIN-MEMORY.md`
-- `CLAUDE.md` (compatibility)
-- `.sincode-memory.md`
-
-### 🔌 LSP Integration
-Semantic context and diagnostics via `simone-mcp`:
-- Real-time diagnostic info (errors, warnings)
-- Symbol extraction from current file
-- Cursor-aware semantic context
+### Phase 3 — Advanced Features
+- ✨ **Inline Chat** — Ghost Text Code Completion
+- 💡 **Code Actions** — Fix Error, Refactor, Explain, Generate Tests
+- 🤖 **Agent Marketplace** — Browse/Install/Remove Agents
 
 ## Installation
-
-### From .vsix Package
-```bash
-# Build first
-cd sincode-vscode
-npm install
-npm run compile
-npx vsce package
-
-# Install
+\`\`\`bash
 code --install-extension sincode-vscode-0.1.0.vsix
-```
-
-### Development Mode
-```bash
-git clone git@github.com:OpenSIN-AI/OpenSIN-Code.git
-cd OpenSIN-Code/sincode-vscode
-npm install
-
-# Open in VS Code and press F5, or:
-code --extensionDevelopmentPath=$PWD
-```
+\`\`\`
 
 ## Commands
-
 | Command | Description |
 |---------|-------------|
-| `SIN Code: Start` | Open the SIN Code sidebar |
-| `SIN Code: Select Mode` | Switch between agent modes |
-| `SIN Code: Select Model` | Choose the underlying LLM |
-| `SIN Code: Dispatch Agent` | Open Swarm Coordinator panel |
-| `SIN Code: Add File to Context` | Add current file to conversation context |
+| `sincode.start` | Sidebar öffnen |
+| `sincode.selectMode` | Mode wechseln |
+| `sincode.selectModel` | Modell wählen |
+| `sincode.addFileToContext` | Datei zum Kontext |
+| `sincode.openMarketplace` | Agent Markt öffnen |
+| `sincode.inlineChat.trigger` | Inline-Vorschlag |
+
+## Keybindings
+| Shortcut | Action |
+|----------|--------|
+| CMD+Shift+I | Inline Completion |
+| CMD+Shift+M | Agent Marketplace |
 
 ## Architecture
-
-```
-kairos-vscode/
-├── src/
-│   ├── extension.ts          # Main entry, Webview orchestrator
-│   ├── cliBridge.ts          # RPC bridge to opencode CLI
-│   ├── modes.ts              # Agent mode definitions
-│   ├── lspProvider.ts        # LSP diagnostics & semantic context
-│   ├── swarmCoordinator.ts   # Sub-agent dispatch manager
-│   ├── buddyGamification.ts  # BUDDY pet status bar
-│   └── memoryConsolidation.ts # AGENTS.md/SIN-MEMORY.md watcher
-├── media/
-│   └── icon.svg              # Activity bar icon
-├── package.json              # Extension manifest
-└── tsconfig.json             # TypeScript config
-```
-
-## Requirements
-
-- VS Code 1.85.0+
-- `opencode` CLI installed and available in PATH
-- (Optional) `simone-mcp` for LSP diagnostics
-
-## Configuration
-
-The extension uses the global OpenCode configuration at `~/.config/opencode/`. Available models are fetched automatically from your provider config.
+| Datei | Zweck |
+|-------|-------|
+| `extension.ts` | Main Entry, Webview, Commands |
+| `cliBridge.ts` | RPC zu opencode CLI |
+| `modes.ts` | Agent Modes |
+| `lspProvider.ts` | LSP Diagnostics |
+| `swarmCoordinator.ts` | Sub-Agent Dispatch |
+| `buddyGamification.ts` | XP/Mood/Leveling |
+| `memoryConsolidation.ts` | Kontext-Files |
+| `inlineChat.ts` | Ghost Text Completion |
+| `codeActions.ts` | Quick Fixes |
+| `agentMarketplace.ts` | Agent Panel |
 
 ## License
-
 Apache 2.0
