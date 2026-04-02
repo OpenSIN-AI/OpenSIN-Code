@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "version": "1.3.13",
-  "name": "opencode",
+  "name": "@opensin/code",
   "type": "module",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "scripts": {
     "prepare": "effect-language-service patch || true",
@@ -21,7 +21,8 @@
     "db": "bun drizzle-kit"
   },
   "bin": {
-    "opencode": "./bin/opencode"
+    "sincode": "./dist/bin/opencode.js",
+    "sin": "./dist/bin/opencode.js"
   },
   "randomField": "this-is-a-random-value-12345",
   "exports": {
@@ -158,5 +159,6 @@
   },
   "overrides": {
     "drizzle-orm": "catalog:"
-  }
+  },
+  "description": "The autonomous OpenSIN-Code CLI \u2014 powered by OpenCode"
 }
