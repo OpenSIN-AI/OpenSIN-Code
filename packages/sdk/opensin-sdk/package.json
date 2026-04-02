@@ -1,0 +1,24 @@
+{
+  "name": "@opensin/sdk",
+  "version": "0.1.0",
+  "description": "SIN Code SDK — thin wrapper over opencode run with A2A, Supabase, and Model Routing",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code.git",
+    "directory": "packages/sdk/opensin-sdk"
+  },
+  "dependencies": {
+    "execa": "^9.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0"
+  }
+}
