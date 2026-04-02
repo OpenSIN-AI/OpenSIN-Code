@@ -1,48 +1,102 @@
 ---
 title: IDE
-description: The OpenCode extension for VS Code, Cursor, and other IDEs
+description: The OpenCode VS Code extension with KAIROS sidebar, Simone context, and persistent session steering.
 ---
 
-OpenCode integrates with VS Code, Cursor, or any IDE that supports a terminal. Just run `opencode` in the terminal to get started.
+OpenCode integrates with VS Code and terminal-based editors, but the dedicated VS Code extension now has a real **KAIROS** lane instead of acting like a thin terminal launcher.
+
+---
+
+## What is in the extension
+
+- **KAIROS Sidebar** inside VS Code
+- **Mode Selector**: `Architect`, `Code`, `Debug`, `Ask`
+- **Model Selector** with OpenRouter and OpenCode lanes
+- **Proactive reviews** on file save
+- **BUDDY score** for lightweight progress feedback
+- **Simone actions** for symbol and reference analysis
+- **Persistent session steering** instead of spawning a fresh process for every prompt
+
+---
+
+## Install
+
+### Marketplace / normal install
+
+Search for **opencode** in the VS Code Extensions marketplace and install it.
+
+### Manual VSIX install
+
+Download the latest `.vsix` from the [OpenSIN-Code releases](https://github.com/OpenSIN-AI/OpenSIN-Code/releases) page.
+
+Then in VS Code:
+
+1. Open the command palette
+2. Run `Extensions: Install from VSIX...`
+3. Select the downloaded file
 
 ---
 
 ## Usage
 
-- **Quick Launch**: Use `Cmd+Esc` (Mac) or `Ctrl+Esc` (Windows/Linux) to open OpenCode in a split terminal view, or focus an existing terminal session if one is already running.
-- **New Session**: Use `Cmd+Shift+Esc` (Mac) or `Ctrl+Shift+Esc` (Windows/Linux) to start a new OpenCode terminal session, even if one is already open. You can also click the OpenCode button in the UI.
-- **Context Awareness**: Automatically share your current selection or tab with OpenCode.
-- **File Reference Shortcuts**: Use `Cmd+Option+K` (Mac) or `Alt+Ctrl+K` (Linux/Windows) to insert file references. For example, `@File#L37-42`.
+### Terminal lane
+
+- `Cmd+Esc` / `Ctrl+Esc` opens or focuses OpenCode
+- `Cmd+Shift+Esc` / `Ctrl+Shift+Esc` opens a fresh terminal session
+- `Cmd+Alt+K` / `Ctrl+Alt+K` inserts the active file reference
+
+### KAIROS sidebar lane
+
+The sidebar is the deeper integration path.
+
+It keeps a **real local session** alive and routes prompts through the running OpenCode agent instead of launching a new one-shot subprocess for each request.
+
+This gives you:
+
+- persistent context per workspace
+- mode-aware behavior
+- model switching without throwing away the session lane
+- better editor-side continuity
 
 ---
 
-## Installation
+## Simone context lane
 
-To install OpenCode on VS Code and popular forks like Cursor, Windsurf, VSCodium:
+Inside the sidebar you can trigger:
 
-1. Open VS Code
-2. Open the integrated terminal
-3. Run `opencode` - the extension installs automatically
+- **Simone Symbol**
+- **Simone Refs**
 
-If on the other hand you want to use your own IDE when you run `/editor` or `/export` from the TUI, you'll need to set `export EDITOR="code --wait"`. [Learn more](/docs/tui/#editor-setup).
-
----
-
-### Manual Install
-
-Search for **OpenCode** in the Extension Marketplace and click **Install**.
+And in `Architect` and `Debug` mode the extension can inject active-symbol context automatically so KAIROS has a better understanding of what you are pointing at.
 
 ---
 
-### Troubleshooting
+## ACP vs Session API
 
-If the extension fails to install automatically:
+The extension is moving toward a deeper ACP-native transport model.
 
-- Ensure you’re running `opencode` in the integrated terminal.
-- Confirm the CLI for your IDE is installed:
-  - For VS Code: `code` command
-  - For Cursor: `cursor` command
-  - For Windsurf: `windsurf` command
-  - For VSCodium: `codium` command
-  - If not, run `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) and search for "Shell Command: Install 'code' command in PATH" (or the equivalent for your IDE)
-- Ensure VS Code has permission to install extensions
+Current direction:
+
+- ACP-first bridge for the sidebar session lane
+- persistent local session reuse
+- editor-driven save/focus integrations
+- session/message transport without a fresh CLI run for every prompt
+
+That makes the VS Code integration much closer to a real agent workspace and much less like a wrapped terminal.
+
+---
+
+## Release
+
+Latest official release:
+
+- [VS Code Extension v1.3.15 - Persistent Session Steering](https://github.com/OpenSIN-AI/OpenSIN-Code/releases/tag/vscode-v1.3.15)
+
+---
+
+## Troubleshooting
+
+- Make sure `opencode` is installed and available in `PATH`
+- If the sidebar cannot talk to the local agent, first start a local OpenCode session in a terminal
+- If model selection fails, verify your configured provider/model lanes in OpenCode
+- If permissions block tool calls, confirm the prompt in VS Code when KAIROS asks for approval

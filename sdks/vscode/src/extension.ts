@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { prompt as acpPrompt, saved as acpSaved } from "./acp";
 
 const name = "opencode";
 const view = "opencode.chat";
@@ -153,6 +154,10 @@ class Panel implements vscode.WebviewViewProvider {
   }
 
   async proactive(doc: vscode.TextDocument) {
+    const root = vscode.workspace.getWorkspaceFolder(doc.uri)?.uri.fsPath;
+    if (root) {
+      await acpSaved(root, doc.uri.toString());
+    }
     const out = await this.message(
       `KAIROS proactive review for ${doc.fileName}: inspect the latest saved file for obvious bugs, regressions, and missing tests. Return a compact result.`,
       guide.Debug,
@@ -186,6 +191,13 @@ class Panel implements vscode.WebviewViewProvider {
   async message(text: string, system?: string) {
     const root = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
     if (!root) {return "No workspace open.";}
+
+    const merged = system ? `${system}\n\n${text}` : text;
+
+    const acp = await acpPrompt(root, this.state.model, this.state.mode, merged);
+    if (!acp.startsWith("Session bridge error:")) {
+      return acp;
+    }
 
     try {
       const state = await ensure(this.ctx, root, this.state.model);
