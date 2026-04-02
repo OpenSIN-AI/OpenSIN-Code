@@ -1,0 +1,99 @@
+{
+  "name": "kairos-vscode",
+  "displayName": "SIN Code (KAIROS)",
+  "description": "Agentic AI Coding Assistant for OpenSIN - Powered by Kilo Code & Claude Code concepts",
+  "version": "0.1.0",
+  "publisher": "opensin",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Machine Learning",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "coding-assistant",
+    "sin-code",
+    "kairos",
+    "agentic"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kairos.start",
+        "title": "Start SIN Code KAIROS",
+        "category": "KAIROS"
+      },
+      {
+        "command": "kairos.selectMode",
+        "title": "Select KAIROS Mode",
+        "category": "KAIROS"
+      },
+      {
+        "command": "kairos.selectModel",
+        "title": "Select KAIROS Model",
+        "category": "KAIROS"
+      },
+      {
+        "command": "kairos.addFileToContext",
+        "title": "Add File to KAIROS Context",
+        "category": "KAIROS"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "kairos.addFileToContext",
+          "group": "navigation"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "kairos-sidebar",
+          "title": "SIN Code",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "kairos-sidebar": [
+        {
+          "type": "webview",
+          "id": "kairos.chatView",
+          "name": "KAIROS Chat"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --no-dependencies"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "18.x",
+    "typescript": "^5.3.3",
+    "@vscode/vsce": "^2.24.0"
+  },
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "icon": "media/icon.svg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code.git",
+    "directory": "kairos-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code/issues"
+  }
+}
