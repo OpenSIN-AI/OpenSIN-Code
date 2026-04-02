@@ -1,6 +1,0 @@
-2026/03/17-18:05:24.970 e6c52 Reusing MANIFEST /Users/jeremy/dev/openAntigravity-auth-rotator/chrome_profile/Default/Local Storage/leveldb/MANIFEST-000001
-2026/03/17-18:05:24.979 e6c52 Recovering log #437
-2026/03/17-18:05:24.980 e6c52 Reusing old log /Users/jeremy/dev/openAntigravity-auth-rotator/chrome_profile/Default/Local Storage/leveldb/000437.log 
-2026/03/17-18:38:55.232 e6c52 Level-0 table #440: started
-2026/03/17-18:38:55.235 e6c52 Level-0 table #440: 24666 bytes OK
-2026/03/17-18:38:55.238 e6c52 Delete type=0 #437

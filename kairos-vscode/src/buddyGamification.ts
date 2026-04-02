@@ -25,7 +25,7 @@ export class BuddySystem {
 
     constructor() {
         this.statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-        this.statusBarItem.command = 'kairos.buddyInfo';
+        this.statusBarItem.command = 'sincode.buddyInfo';
         this.updateDisplay();
         this.statusBarItem.show();
     }
