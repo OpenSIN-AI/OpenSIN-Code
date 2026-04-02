@@ -29,6 +29,8 @@ type Msg = {
   value?: string | boolean
 }
 
+type SimoneKind = "symbol" | "refs"
+
 const guide: Record<Mode, string> = {
   Architect: "You are in Architect mode. Focus on structure, tradeoffs, plans, and design decisions before code.",
   Code: "You are in Code mode. Prefer direct implementation, minimal diffs, and concrete validation.",
@@ -144,6 +146,10 @@ class Panel implements vscode.WebviewViewProvider {
       }
       if (msg.type === "background" && msg.text) {
         web.webview.postMessage({ type: "reply", value: await this.run(`KAIROS background task: ${msg.text}`) });
+        return;
+      }
+      if (msg.type === "simone" && typeof msg.value === "string") {
+        web.webview.postMessage({ type: "reply", value: await this.simone(msg.value as SimoneKind) });
       }
     });
   }
@@ -159,9 +165,36 @@ class Panel implements vscode.WebviewViewProvider {
     const root = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
     const ref = file();
     const ctx = ref ? `\n\nCurrent file context: ${ref}` : "";
-    const out = await this.exec(`${guide[this.state.mode]}\n\n${text}${ctx}`, root);
+    const intel = this.state.mode === "Architect" || this.state.mode === "Debug" ? await this.intel() : "";
+    const out = await this.exec(`${guide[this.state.mode]}${intel}${ctx}\n\n${text}`, root);
     this.bump(1);
     return out;
+  }
+
+  async simone(kind: SimoneKind) {
+    const root = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+    const item = active();
+    if (!item) {return "No active symbol or file context for Simone.";}
+
+    const prompt = kind === "symbol"
+      ? `Use Simone MCP to find the symbol \"${item.name}\"${item.file ? ` in ${item.file}` : ""}. Return a concise result with file and line references.`
+      : `Use Simone MCP to find references for the symbol \"${item.name}\"${item.file ? ` in ${item.file}` : ""}. Return a concise result with file and line references.`;
+
+    const out = await this.side(prompt, root);
+    this.bump(2);
+    return `[Simone:${kind}] ${out}`;
+  }
+
+  async intel() {
+    const item = active();
+    if (!item) {return "";}
+
+    const root = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+    const out = await this.side(
+      `Use Simone MCP to summarize the active symbol \"${item.name}\"${item.file ? ` in ${item.file}` : ""}. Return only the most relevant symbol location and a short explanation.`,
+      root,
+    );
+    return `\n\nSimone context:\n${out}`;
   }
 
   async exec(text: string, cwd?: string) {
@@ -179,6 +212,23 @@ class Panel implements vscode.WebviewViewProvider {
       const txt = `${e.stdout ?? ""}${e.stderr ?? ""}`.trim();
       if (txt) {return txt;}
       return `CLI bridge error: ${e.message}`;
+    }
+  }
+
+  async side(text: string, cwd?: string) {
+    try {
+      const out = await exec("sincode", ["run", text], {
+        cwd,
+        maxBuffer: 1024 * 1024 * 8,
+      });
+      const txt = `${out.stdout ?? ""}${out.stderr ?? ""}`.trim();
+      if (txt) {return txt;}
+      return "No Simone output";
+    } catch (err) {
+      const e = err as Error & { stdout?: string; stderr?: string };
+      const txt = `${e.stdout ?? ""}${e.stderr ?? ""}`.trim();
+      if (txt) {return txt;}
+      return `Simone bridge error: ${e.message}`;
     }
   }
 
@@ -270,6 +320,21 @@ function file() {
   return `${ref}#L${start}-${end}`;
 }
 
+function active() {
+  const editor = vscode.window.activeTextEditor;
+  if (!editor) {return;}
+
+  const file = vscode.workspace.asRelativePath(editor.document.uri);
+  const text = editor.document.getText(editor.selection).trim();
+  if (text) {return { name: text, file };}
+
+  const range = editor.document.getWordRangeAtPosition(editor.selection.active);
+  if (!range) {return { name: file, file };}
+  const word = editor.document.getText(range).trim();
+  if (!word) {return { name: file, file };}
+  return { name: word, file };
+}
+
 function html(state: State) {
   const mode = JSON.stringify(state.mode);
   const model = JSON.stringify(state.model);
@@ -288,7 +353,7 @@ function html(state: State) {
     #meta{font-size:12px;opacity:.8;margin-bottom:8px}
     #ctl{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
     #chat{height:calc(100vh - 220px);overflow:auto;border:1px solid var(--vscode-input-border);border-radius:6px;padding:8px;margin-bottom:8px}
-    #msg,#mode,#model,#proactive,#bg{width:100%;box-sizing:border-box;padding:6px 8px;border:1px solid var(--vscode-input-border);border-radius:6px;background:var(--vscode-input-background);color:var(--vscode-input-foreground)}
+    #msg,#mode,#model,#proactive,#bg,#symbol,#refs{width:100%;box-sizing:border-box;padding:6px 8px;border:1px solid var(--vscode-input-border);border-radius:6px;background:var(--vscode-input-background);color:var(--vscode-input-foreground)}
     .m{margin:4px 0;padding:6px 8px;border-radius:6px}
     .u{background:var(--vscode-button-background);color:var(--vscode-button-foreground);margin-left:18%}
     .a{background:var(--vscode-editor-inactiveSelectionBackground);margin-right:18%}
@@ -301,6 +366,8 @@ function html(state: State) {
     <select id="model">${opts}</select>
     <button id="proactive">Toggle KAIROS</button>
     <button id="bg">Run Background Task</button>
+    <button id="symbol">Simone Symbol</button>
+    <button id="refs">Simone Refs</button>
   </div>
   <div id="chat"></div>
   <input id="msg" placeholder="Ask KAIROS..." />
@@ -312,6 +379,8 @@ function html(state: State) {
     const model = document.getElementById('model')
     const proactive = document.getElementById('proactive')
     const bg = document.getElementById('bg')
+    const symbol = document.getElementById('symbol')
+    const refs = document.getElementById('refs')
     const modev = document.getElementById('modev')
     const modelv = document.getElementById('modelv')
     const prov = document.getElementById('prov')
@@ -328,6 +397,8 @@ function html(state: State) {
     model.addEventListener('change', () => vscode.postMessage({ type:'model', value: model.value }))
     proactive.addEventListener('click', () => vscode.postMessage({ type:'proactive', value: prov.textContent !== 'on' }))
     bg.addEventListener('click', () => vscode.postMessage({ type:'background', text: 'Review the workspace for the next highest-value change.' }))
+    symbol.addEventListener('click', () => vscode.postMessage({ type:'simone', value: 'symbol' }))
+    refs.addEventListener('click', () => vscode.postMessage({ type:'simone', value: 'refs' }))
     window.addEventListener('message', e => {
       if(e.data.type==='reply') add(String(e.data.value || ''),'a')
       if(e.data.type==='state'){

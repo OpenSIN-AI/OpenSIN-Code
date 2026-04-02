@@ -15,6 +15,7 @@ This extension requires the [opencode CLI](https://opencode.ai) to be installed 
 - **KAIROS Sidebar**: Dedicated sidebar lane with Mode Selector (`Architect`, `Code`, `Debug`, `Ask`), model selector, and direct CLI bridge.
 - **Proactive Mode**: Optional KAIROS save-hook that runs a background review whenever a file is saved.
 - **BUDDY Score**: Lightweight gamification counter that tracks KAIROS usage momentum.
+- **Simone Context Lane**: Sidebar buttons for symbol and reference analysis, plus automatic Simone context injection in `Architect` and `Debug` mode.
 
 ## Support
 
