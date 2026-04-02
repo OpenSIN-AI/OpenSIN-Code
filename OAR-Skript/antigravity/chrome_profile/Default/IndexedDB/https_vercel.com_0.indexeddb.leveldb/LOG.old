@@ -1,5 +1,0 @@
-2026/02/26-17:00:04.696 25fe90 Reusing MANIFEST /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_vercel.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/02/26-17:00:04.698 25fe90 Recovering log #4
-2026/02/26-17:00:04.699 25fe90 Reusing old log /Users/jeremy/Library/Application Support/Google/Chrome/Profile 75/IndexedDB/https_vercel.com_0.indexeddb.leveldb/000004.log 
-2026/02/26-17:00:04.718 25fed2 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
-2026/02/26-17:00:04.722 25fed2 Manual compaction at level-1 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

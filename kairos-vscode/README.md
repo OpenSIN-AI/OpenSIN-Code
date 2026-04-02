@@ -1,4 +1,4 @@
-# KAIROS VS Code Extension (SIN Code)
+# SIN Code VS Code Extension (SIN Code)
 
 > Agentic AI Coding Assistant for OpenSIN — Powered by Kilo Code & Claude Code concepts
 
@@ -16,7 +16,7 @@ Switch between specialized agent modes inspired by Kilo Code:
 | **Code** | Implementation, refactoring, and production-ready code | 💻 |
 | **Debug** | Trace issues, read error logs, and suggest fixes | 🐛 |
 | **Ask** | Query and explain existing codebases without modifying | ❓ |
-| **KAIROS** | Proactive always-on mode — background analysis on file saves | ⚡ |
+| **Proactive** | Proactive always-on mode — background analysis on file saves | ⚡ |
 
 ### 🐝 Swarm Coordinator
 Dispatch parallel tasks to specialized agents:
@@ -37,7 +37,7 @@ Automatic context loading from:
 - `AGENTS.md`
 - `SIN-MEMORY.md`
 - `CLAUDE.md` (compatibility)
-- `.kairos-memory.md`
+- `.sincode-memory.md`
 
 ### 🔌 LSP Integration
 Semantic context and diagnostics via `simone-mcp`:
@@ -50,19 +50,19 @@ Semantic context and diagnostics via `simone-mcp`:
 ### From .vsix Package
 ```bash
 # Build first
-cd kairos-vscode
+cd sincode-vscode
 npm install
 npm run compile
 npx vsce package
 
 # Install
-code --install-extension kairos-vscode-0.1.0.vsix
+code --install-extension sincode-vscode-0.1.0.vsix
 ```
 
 ### Development Mode
 ```bash
 git clone git@github.com:OpenSIN-AI/OpenSIN-Code.git
-cd OpenSIN-Code/kairos-vscode
+cd OpenSIN-Code/sincode-vscode
 npm install
 
 # Open in VS Code and press F5, or:
@@ -73,11 +73,11 @@ code --extensionDevelopmentPath=$PWD
 
 | Command | Description |
 |---------|-------------|
-| `KAIROS: Start` | Open the KAIROS sidebar |
-| `KAIROS: Select Mode` | Switch between agent modes |
-| `KAIROS: Select Model` | Choose the underlying LLM |
-| `KAIROS: Dispatch Agent` | Open Swarm Coordinator panel |
-| `KAIROS: Add File to Context` | Add current file to conversation context |
+| `SIN Code: Start` | Open the SIN Code sidebar |
+| `SIN Code: Select Mode` | Switch between agent modes |
+| `SIN Code: Select Model` | Choose the underlying LLM |
+| `SIN Code: Dispatch Agent` | Open Swarm Coordinator panel |
+| `SIN Code: Add File to Context` | Add current file to conversation context |
 
 ## Architecture
 

@@ -36,10 +36,10 @@ export const AGENT_MODES: AgentMode[] = [
         icon: '❓'
     },
     {
-        id: 'kairos',
-        name: 'KAIROS',
+        id: 'proactive',
+        name: 'Proactive',
         description: 'Proactive always-on mode (Claude Code leak feature)',
-        systemPrompt: 'You are SIN Code in KAIROS Proactive Mode. Anticipate user needs, suggest improvements, and work autonomously on background tasks.',
+        systemPrompt: 'You are SIN Code in Proactive Proactive Mode. Anticipate user needs, suggest improvements, and work autonomously on background tasks.',
         icon: '⚡'
     }
 ];
