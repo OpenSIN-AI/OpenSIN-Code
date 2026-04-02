@@ -382,7 +382,7 @@ export const McpLogoutCommand = cmd({
 
 async function resolveConfigPath(baseDir: string, global = false) {
   // Check for existing config files (prefer .jsonc over .json, check .opencode/ subdirectory too)
-  const candidates = [path.join(baseDir, "opencode.json"), path.join(baseDir, "opencode.jsonc")]
+  const candidates = [path.join(baseDir, "sincode.json"), path.join(baseDir, "sincode.jsonc"), path.join(baseDir, "opencode.json"), path.join(baseDir, "opencode.jsonc")]
 
   if (!global) {
     candidates.push(path.join(baseDir, ".opencode", "opencode.json"), path.join(baseDir, ".opencode", "opencode.jsonc"))

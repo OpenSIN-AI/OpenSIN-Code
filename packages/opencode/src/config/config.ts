@@ -1011,7 +1011,7 @@ export namespace Config {
   export class Service extends ServiceMap.Service<Service, Interface>()("@opencode/Config") {}
 
   function globalConfigFile() {
-    const candidates = ["opencode.jsonc", "opencode.json", "config.json"].map((file) =>
+    const candidates = ["sincode.jsonc", "sincode.json", "opencode.jsonc", "opencode.json", "config.json"].map((file) =>
       path.join(Global.Path.config, file),
     )
     for (const file of candidates) {
@@ -1165,7 +1165,8 @@ export namespace Config {
           let result: Info = pipe(
             {},
             mergeDeep(yield* loadFile(path.join(Global.Path.config, "config.json"))),
-            mergeDeep(yield* loadFile(path.join(Global.Path.config, "opencode.json"))),
+            mergeDeep(yield* loadFile(path.join(Global.Path.config, "sincode.json"))),
+            mergeDeep(yield* loadFile(path.join(Global.Path.config, "sincode.jsonc"))),
             mergeDeep(yield* loadFile(path.join(Global.Path.config, "opencode.jsonc"))),
           )
 
@@ -1282,7 +1283,7 @@ export namespace Config {
 
           for (const dir of unique(directories)) {
             if (dir.endsWith(".opencode") || dir === Flag.OPENCODE_CONFIG_DIR) {
-              for (const file of ["opencode.json", "opencode.jsonc"]) {
+              for (const file of ["sincode.json", "sincode.jsonc", "opencode.json", "opencode.jsonc"]) {
                 const source = path.join(dir, file)
                 log.debug(`loading config from ${source}`)
                 merge(source, yield* loadFile(source))
@@ -1350,7 +1351,7 @@ export namespace Config {
           }
 
           if (existsSync(managedDir)) {
-            for (const file of ["opencode.json", "opencode.jsonc"]) {
+            for (const file of ["sincode.json", "sincode.jsonc", "opencode.json", "opencode.jsonc"]) {
               const source = path.join(managedDir, file)
               merge(source, yield* loadFile(source), "global")
             }
