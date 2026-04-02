@@ -20,9 +20,32 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:opencode.openTerminal",
+    "onCommand:opencode.openNewTerminal",
+    "onCommand:opencode.addFilepathToTerminal",
+    "onCommand:opencode.toggleKairos",
+    "onView:opencode.chat"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "opencodeSidebar",
+          "title": "opencode",
+          "icon": "images/button-light.svg"
+        }
+      ]
+    },
+    "views": {
+      "opencodeSidebar": [
+        {
+          "id": "opencode.chat",
+          "name": "KAIROS"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "opencode.openTerminal",
@@ -43,6 +66,10 @@
       {
         "command": "opencode.addFilepathToTerminal",
         "title": "Add Filepath to Terminal"
+      },
+      {
+        "command": "opencode.toggleKairos",
+        "title": "Toggle KAIROS Proactive Mode"
       }
     ],
     "menus": {

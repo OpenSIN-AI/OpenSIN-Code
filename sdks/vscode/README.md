@@ -12,6 +12,9 @@ This extension requires the [opencode CLI](https://opencode.ai) to be installed 
 - **New Session**: Use `Cmd+Shift+Esc` (Mac) or `Ctrl+Shift+Esc` (Windows/Linux) to start a new opencode terminal session, even if one is already open. You can also click the opencode button in the UI.
 - **Context Awareness**: Automatically share your current selection or tab with opencode.
 - **File Reference Shortcuts**: Use `Cmd+Option+K` (Mac) or `Alt+Ctrl+K` (Linux/Windows) to insert file references. For example, `@File#L37-42`.
+- **KAIROS Sidebar**: Dedicated sidebar lane with Mode Selector (`Architect`, `Code`, `Debug`, `Ask`), model selector, and direct CLI bridge.
+- **Proactive Mode**: Optional KAIROS save-hook that runs a background review whenever a file is saved.
+- **BUDDY Score**: Lightweight gamification counter that tracks KAIROS usage momentum.
 
 ## Support
 
