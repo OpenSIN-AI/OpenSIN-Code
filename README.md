@@ -1,23 +1,23 @@
 <div align="center">
-  <img src="assets/logo.png" alt="OpenSIN-Code" width="680" />
+  <img src="assets/logo.png" alt="SIN Code" width="680" />
   <br/><br/>
   <strong>The autonomous AI coding stack powering the OpenSIN fleet.</strong>
   <br/>
-  <em>OpenCode CLI · Antigravity Models · OMOC Swarm · A2A Agents · Skills · MCPs</em>
+  <em>SIN Code CLI · Antigravity Models · OMOC Swarm · A2A Agents · Skills · MCPs</em>
   <br/><br/>
 
-  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+  [![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
   [![OpenSIN](https://img.shields.io/badge/Platform-OpenSIN-1a1a2e)](https://opensin.ai)
   [![Bugs](https://img.shields.io/badge/Bug_Library-Issues-red)](https://github.com/OpenSIN-AI/OpenSIN-Code/issues?q=label%3Abug)
-  [![omoc-swarm](https://img.shields.io/badge/Plugin-omoc--swarm-brightgreen)](https://github.com/Delqhi/opencode-omoc-swarm)
+  [![omoc-swarm](https://img.shields.io/badge/Plugin-omoc--swarm-brightgreen)](https://github.com/OpenSIN-AI/opencode-omoc-swarm)
 
 </div>
 
 ---
 
-## What is OpenSIN-Code?
+## What is SIN Code?
 
-**OpenSIN-Code** is the **Single Source of Truth (SSOT)** for the entire OpenSIN autonomous coding stack. It is not a fork — it is an independent, modular repository that:
+**SIN Code** is the **Single Source of Truth (SSOT)** for the entire OpenSIN autonomous coding stack. It is not a fork — it is an independent, modular repository that:
 
 - Tracks upstream [anomalyco/opencode](https://github.com/anomalyco/opencode) automatically via a watcher
 - Hosts all **custom plugins, skills, MCPs, providers, tools, and wrappers** built by the OpenSIN fleet
@@ -36,7 +36,7 @@ Every module has its own `README.md` with quickstart guide and best practices.
 OpenSIN-Code/
 ├── assets/                    # Logos, images, visual assets
 ├── OpenCode/                  # Upstream opencode CLI (auto-synced from anomalyco/opencode)
-├── OC-Konfigurationen/        # Master opencode.json + system configs (SSOT)
+├── OC-Konfigurationen/        # Master sincode.json + system configs (SSOT)
 ├── OC-Plugins/                # Upstream/community plugins (oh-my-opencode, etc.)
 ├── SIN-Plugins/               # OpenSIN custom plugins (omoc-swarm, registry, state)
 ├── Provider/                  # Custom OAuth + Model Providers (Antigravity)
@@ -52,7 +52,13 @@ OpenSIN-Code/
 
 ## Quick Start
 
-### 1. Clone & Deploy
+### 1. Install SIN Code
+
+```bash
+curl -fsSL https://opensin.ai/install | bash
+```
+
+Or from source:
 
 ```bash
 git clone https://github.com/OpenSIN-AI/OpenSIN-Code.git
@@ -60,13 +66,13 @@ cd OpenSIN-Code/Watcher
 bash ssot-daemon.sh install
 ```
 
-The daemon syncs this repo into `~/.config/opencode/` and keeps it live across all machines.
+The daemon synces this repo into `~/.config/opencode/` and keeps it live across all machines.
 
 ### 2. Verify Models
 
 ```bash
-opencode run "Test" --model google/antigravity-gemini-3.1-pro
-opencode run "Test" --model google/antigravity-claude-sonnet-4-6
+sincode run "Test" --model google/antigravity-gemini-3.1-pro
+sincode run "Test" --model google/antigravity-claude-sonnet-4-6
 ```
 
 Both should respond immediately. If not, check the [Bug Library](https://github.com/OpenSIN-AI/OpenSIN-Code/issues?q=label%3Abug).
@@ -102,7 +108,7 @@ All known bugs are tracked as GitHub Issues with the `bug` label.
 
 - **Global config only** — never edit local project `.opencode/` directly; changes go here first, then get synced
 - **Tool names** must match `^[a-zA-Z0-9_-]+$` — no dots, no spaces, no special chars
-- **No direct LLM calls** in agents — always use `opencode run --format json`
+- **No direct LLM calls** in agents — always use `sincode run --format json`
 - **No Playwright/Selenium** — only `nodriver` + `webauto-nodriver-mcp` for browser automation
 
 ---
@@ -114,7 +120,7 @@ All known bugs are tracked as GitHub Issues with the `bug` label.
 | OpenSIN Platform | https://opensin.ai |
 | A2A Dashboard | https://a2a.delqhi.com |
 | Bug Tracker | https://github.com/OpenSIN-AI/OpenSIN-Code/issues |
-| omoc-swarm source | https://github.com/Delqhi/opencode-omoc-swarm |
+| omoc-swarm source | https://github.com/OpenSIN-AI/opencode-omoc-swarm |
 | Documentation | https://github.com/OpenSIN-AI/documentation |
 
 ---
