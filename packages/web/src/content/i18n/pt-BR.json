@@ -71,5 +71,11 @@
   "share.match_other": "correspondências",
   "share.result_one": "resultado",
   "share.result_other": "resultados",
-  "share.debug_key": "Chave"
+  "share.debug_key": "Chave",
+  "app.lander.ide_callout.eyebrow": "NOVA VIA IDE",
+  "app.lander.ide_callout.title": "Barra lateral KAIROS com transporte ACP-first",
+  "app.lander.ide_callout.description": "A extensão do VS Code agora tem uma via KAIROS dedicada com sessões de espaço de trabalho persistentes, ações de símbolo/referência Simone, revisões proativas ao salvar arquivos e um guia IDE real.",
+  "app.lander.ide_callout.cta.guide": "Abrir guia IDE",
+  "app.lander.ide_callout.cta.download": "Baixar VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

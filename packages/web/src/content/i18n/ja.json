@@ -71,5 +71,11 @@
   "share.match_other": "一致",
   "share.result_one": "結果",
   "share.result_other": "結果",
-  "share.debug_key": "キー"
+  "share.debug_key": "キー",
+  "app.lander.ide_callout.eyebrow": "新しいIDEレーン",
+  "app.lander.ide_callout.title": "ACPファーストトランスポート搭載のKAIROSサイドバー",
+  "app.lander.ide_callout.description": "VS Code拡張機能に専用のKAIROSレーンを追加。永続的なワークスペースセッション、Simoneシンボル/リファレンスアクション、ファイル保存時のプロアクティブレビュー、本格的なIDEガイドを備えています。",
+  "app.lander.ide_callout.cta.guide": "IDEガイドを開く",
+  "app.lander.ide_callout.cta.download": "VSIXをダウンロード",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

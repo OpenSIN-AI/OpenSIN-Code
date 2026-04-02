@@ -71,5 +71,11 @@
   "share.match_other": "matches",
   "share.result_one": "result",
   "share.result_other": "results",
-  "share.debug_key": "Key"
+  "share.debug_key": "Key",
+  "app.lander.ide_callout.eyebrow": "NEW IDE LANE",
+  "app.lander.ide_callout.title": "KAIROS sidebar with ACP-first transport",
+  "app.lander.ide_callout.description": "The VS Code extension now has a dedicated KAIROS lane with persistent workspace sessions, Simone symbol/reference actions, proactive file-save reviews, and a real IDE guide.",
+  "app.lander.ide_callout.cta.guide": "Open IDE Guide",
+  "app.lander.ide_callout.cta.download": "Download VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

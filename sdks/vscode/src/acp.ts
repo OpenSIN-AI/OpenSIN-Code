@@ -14,10 +14,22 @@ type RequestPermissionResponse = {
   outcome: { outcome: "cancelled" } | { outcome: "selected"; optionId: string }
 }
 
+type ToolEvent = {
+  kind: "tool_call" | "tool_call_update"
+  toolCallId?: string
+  toolName?: string
+  input?: Record<string, unknown>
+  status?: string
+  output?: string
+}
+
 type SessionNotification = {
   sessionId: string
   update:
     | { sessionUpdate: "agent_message_chunk"; content: { type: "text"; text: string } }
+    | { sessionUpdate: "tool_call"; toolCallId: string; toolName: string; input: Record<string, unknown> }
+    | { sessionUpdate: "tool_call_update"; toolCallId: string; status: string; output?: string }
+    | { sessionUpdate: "current_mode_update" }
     | { sessionUpdate: string }
 }
 
@@ -50,6 +62,7 @@ type State = {
   model: string
   modes: Array<{ id: string; name: string }>
   text: string
+  tools: ToolEvent[]
 }
 
 const lanes = new Map<string, State>();
@@ -57,6 +70,7 @@ const lanes = new Map<string, State>();
 export async function prompt(root: string, model: string, mode: Mode, text: string) {
   const state = await ensure(root, model);
   state.text = "";
+  state.tools = [];
   await setMode(state, mode);
   await setModel(state, model);
   const res = await state.conn.prompt({
@@ -65,6 +79,12 @@ export async function prompt(root: string, model: string, mode: Mode, text: stri
   });
   if (state.text.trim()) {return state.text.trim();}
   return `Prompt finished with stopReason=${res.stopReason}`;
+}
+
+export function getToolEvents(root: string): ToolEvent[] {
+  const state = lanes.get(root);
+  if (!state) {return [];}
+  return state.tools;
 }
 
 export async function saved(root: string, uri: string) {
@@ -170,12 +190,34 @@ async function ensure(root: string, model: string) {
     },
     sessionUpdate: async (params: SessionNotification) => {
       if (params.sessionId !== state.session) {return;}
-      const update = params.update;
-      if (update.sessionUpdate === "agent_message_chunk" && "content" in update && update.content.type === "text") {
-        state.text += update.content.text;
+      const u = params.update;
+      if (u.sessionUpdate === "agent_message_chunk" && "content" in u && u.content.type === "text") {
+        state.text += u.content.text;
       }
-      if (update.sessionUpdate === "current_mode_update") {
-        return;
+      if (u.sessionUpdate === "tool_call" && "toolCallId" in u) {
+        state.tools.push({
+          kind: "tool_call",
+          toolCallId: u.toolCallId,
+          toolName: u.toolName,
+          input: u.input,
+          status: "running",
+        });
+      }
+      if (u.sessionUpdate === "tool_call_update" && "toolCallId" in u) {
+        const prev = state.tools.find((t) => t.toolCallId === u.toolCallId);
+        if (prev) {
+          prev.status = u.status;
+          if (u.output !== undefined) {
+            prev.output = u.output;
+          }
+        } else {
+          state.tools.push({
+            kind: "tool_call_update",
+            toolCallId: u.toolCallId,
+            status: u.status,
+            output: u.output,
+          });
+        }
       }
     },
     readTextFile: async (params) => {
@@ -212,6 +254,7 @@ async function ensure(root: string, model: string) {
   state.model = model;
   state.modes = created.modes?.availableModes ?? [];
   state.text = "";
+  state.tools = [];
 
   proc.on("exit", () => {
     lanes.delete(root);

@@ -71,5 +71,11 @@
   "share.match_other": "совпадений",
   "share.result_one": "результат",
   "share.result_other": "результатов",
-  "share.debug_key": "Ключ"
+  "share.debug_key": "Ключ",
+  "app.lander.ide_callout.eyebrow": "НОВЫЙ РЕЖИМ IDE",
+  "app.lander.ide_callout.title": "Боковая панель KAIROS с транспортом ACP-first",
+  "app.lander.ide_callout.description": "Расширение VS Code теперь имеет выделенный режим KAIROS с постоянными сессиями рабочего пространства, действиями с символами/ссылками Simone, проактивными проверками при сохранении файлов и полноценным руководством по IDE.",
+  "app.lander.ide_callout.cta.guide": "Открыть руководство по IDE",
+  "app.lander.ide_callout.cta.download": "Скачать VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

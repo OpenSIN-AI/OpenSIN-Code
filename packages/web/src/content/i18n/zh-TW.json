@@ -71,5 +71,11 @@
   "share.match_other": "符合項目",
   "share.result_one": "結果",
   "share.result_other": "結果",
-  "share.debug_key": "金鑰"
+  "share.debug_key": "金鑰",
+  "app.lander.ide_callout.eyebrow": "全新 IDE 通道",
+  "app.lander.ide_callout.title": "採用 ACP 優先傳輸的 KAIROS 側邊欄",
+  "app.lander.ide_callout.description": "VS Code 擴充功能現在擁有專用的 KAIROS 通道，具備持久化工作區工作階段、Simone 符號/參考動作、主動檔案儲存審查以及真正的 IDE 指南。",
+  "app.lander.ide_callout.cta.guide": "開啟 IDE 指南",
+  "app.lander.ide_callout.cta.download": "下載 VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

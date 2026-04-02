@@ -71,5 +71,11 @@
   "share.match_other": "مطابقات",
   "share.result_one": "نتيجة",
   "share.result_other": "نتائج",
-  "share.debug_key": "المفتاح"
+  "share.debug_key": "المفتاح",
+  "app.lander.ide_callout.eyebrow": "مسار IDE جديد",
+  "app.lander.ide_callout.title": "الشريط الجانبي KAIROS مع نقل ACP أولاً",
+  "app.lander.ide_callout.description": "إضافة VS Code الآن لديها مسار KAIROS مخصص مع جلسات مساحة عمل مستمرة، إجراءات رمز/مرجع Simone، مراجعات حفظ الملفات الاستباقية، ودليل IDE حقيقي.",
+  "app.lander.ide_callout.cta.guide": "افتح دليل IDE",
+  "app.lander.ide_callout.cta.download": "تحميل VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

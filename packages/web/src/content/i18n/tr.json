@@ -71,5 +71,11 @@
   "share.match_other": "eşleşme",
   "share.result_one": "sonuç",
   "share.result_other": "sonuç",
-  "share.debug_key": "Anahtar"
+  "share.debug_key": "Anahtar",
+  "app.lander.ide_callout.eyebrow": "YENİ IDE ŞERİDİ",
+  "app.lander.ide_callout.title": "ACP öncelikli taşıma ile KAIROS kenar çubuğu",
+  "app.lander.ide_callout.description": "VS Code eklentisi artık kalıcı çalışma alanı oturumları, Simone sembol/referans eylemleri, proaktif dosya kaydetme incelemeleri ve gerçek bir IDE rehberi ile özel bir KAIROS şeridine sahip.",
+  "app.lander.ide_callout.cta.guide": "IDE Rehberini Aç",
+  "app.lander.ide_callout.cta.download": "VSIX İndir",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

@@ -71,5 +71,11 @@
   "share.match_other": "일치",
   "share.result_one": "결과",
   "share.result_other": "결과",
-  "share.debug_key": "키"
+  "share.debug_key": "키",
+  "app.lander.ide_callout.eyebrow": "새로운 IDE 레인",
+  "app.lander.ide_callout.title": "ACP 우선 전송을 지원하는 KAIROS 사이드바",
+  "app.lander.ide_callout.description": "VS Code 확장 프로그램에 전용 KAIROS 레인이 추가되었습니다. 영구 워크스페이스 세션, Simone 심볼/레퍼런스 액션, 사전 파일 저장 검토 및 실제 IDE 가이드를 제공합니다.",
+  "app.lander.ide_callout.cta.guide": "IDE 가이드 열기",
+  "app.lander.ide_callout.cta.download": "VSIX 다운로드",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

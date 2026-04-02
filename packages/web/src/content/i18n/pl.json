@@ -71,5 +71,11 @@
   "share.match_other": "dopasowania",
   "share.result_one": "wynik",
   "share.result_other": "wyniki",
-  "share.debug_key": "Klawisz"
+  "share.debug_key": "Klawisz",
+  "app.lander.ide_callout.eyebrow": "NOWY TOR IDE",
+  "app.lander.ide_callout.title": "Pasek boczny KAIROS z transportem ACP-first",
+  "app.lander.ide_callout.description": "Rozszerzenie VS Code ma teraz dedykowany tor KAIROS z trwałymi sesjami przestrzeni roboczej, akcjami symboli/referencji Simone, proaktywnymi przeglądami przy zapisywaniu plików i prawdziwym przewodnikiem IDE.",
+  "app.lander.ide_callout.cta.guide": "Otwórz przewodnik IDE",
+  "app.lander.ide_callout.cta.download": "Pobierz VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { changed as acpChanged, closed as acpClosed, focused as acpFocused, opened as acpOpened, prompt as acpPrompt, saved as acpSaved } from "./acp";
+import { changed as acpChanged, closed as acpClosed, focused as acpFocused, getToolEvents as acpToolEvents, opened as acpOpened, prompt as acpPrompt, saved as acpSaved } from "./acp";
 
 const name = "opencode";
 const view = "opencode.chat";
@@ -188,7 +188,7 @@ class Panel implements vscode.WebviewViewProvider {
       guide.Debug,
     );
     this.bump(2);
-    this.web?.webview.postMessage({ type: "reply", value: `[KAIROS] ${out}` });
+    this.web?.webview.postMessage({ type: "reply", value: out });
   }
 
   async run(text: string) {
@@ -220,8 +220,9 @@ class Panel implements vscode.WebviewViewProvider {
     const merged = system ? `${system}\n\n${text}` : text;
 
     const acp = await acpPrompt(root, this.state.model, this.state.mode, merged);
+    const tools = acpToolEvents(root);
     if (!acp.startsWith("Session bridge error:")) {
-      return acp;
+      return JSON.stringify({ text: acp, tools });
     }
 
     try {
@@ -242,9 +243,9 @@ class Panel implements vscode.WebviewViewProvider {
       const raw = await res.text();
       if (!res.ok) {return `Session API error: ${raw || res.statusText}`;}
       try {
-        return extract(JSON.parse(raw));
+        return JSON.stringify({ text: extract(JSON.parse(raw)), tools });
       } catch {
-        return raw.trim() || "No output";
+        return JSON.stringify({ text: raw.trim() || "No output", tools });
       }
     } catch (err) {
       return `Session bridge error: ${err instanceof Error ? err.message : String(err)}`;
@@ -452,6 +453,16 @@ function html(state: State) {
     .m{margin:4px 0;padding:6px 8px;border-radius:6px}
     .u{background:var(--vscode-button-background);color:var(--vscode-button-foreground);margin-left:18%}
     .a{background:var(--vscode-editor-inactiveSelectionBackground);margin-right:18%}
+    .tool-card{border:1px solid var(--vscode-input-border);border-radius:6px;margin:4px 0;padding:8px;background:var(--vscode-editorWidget-background);max-width:92%}
+    .tool-header{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+    .tool-name{font-weight:600;font-size:13px}
+    .tool-status{font-size:11px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+    .tool-status.running{background:var(--vscode-editorWarning-background);color:var(--vscode-editorWarning-foreground)}
+    .tool-status.completed{background:var(--vscode-terminal-ansiGreen);color:var(--vscode-editor-background)}
+    .tool-status.failed{background:var(--vscode-terminal-ansiRed);color:var(--vscode-editor-background)}
+    .tool-output{font-size:12px;color:var(--vscode-descriptionForeground);white-space:pre-wrap;word-break:break-word;max-height:120px;overflow:hidden;position:relative}
+    .tool-output.truncated{max-height:120px;overflow:hidden}
+    .tool-output.truncated::after{content:"...";position:absolute;bottom:0;right:0;background:linear-gradient(transparent,var(--vscode-editorWidget-background));padding-left:20px}
   </style>
 </head>
 <body>
@@ -487,6 +498,29 @@ function html(state: State) {
     modelv.textContent = model.value
     buddyv.textContent = ${buddy}
     function add(text, cls){ const d=document.createElement('div'); d.className='m '+cls; d.textContent=text; chat.appendChild(d); chat.scrollTop=chat.scrollHeight }
+    function addTool(t){
+      const card=document.createElement('div');
+      card.className='tool-card';
+      const hdr=document.createElement('div');
+      hdr.className='tool-header';
+      const nm=document.createElement('span');
+      nm.className='tool-name';
+      nm.textContent=t.toolName||t.toolCallId||'tool';
+      const st=document.createElement('span');
+      st.className='tool-status '+(t.status||'running');
+      st.textContent=t.status||'running';
+      hdr.appendChild(nm);
+      hdr.appendChild(st);
+      card.appendChild(hdr);
+      if(t.output){
+        const out=document.createElement('div');
+        out.className='tool-output'+(t.output.length>500?' truncated':'');
+        out.textContent=t.output.length>500?t.output.slice(0,500):t.output;
+        card.appendChild(out);
+      }
+      chat.appendChild(card);
+      chat.scrollTop=chat.scrollHeight;
+    }
     msg.addEventListener('keydown', e => { if(e.key==='Enter' && msg.value.trim()){ add(msg.value,'u'); vscode.postMessage({ type:'chat', text: msg.value }); msg.value='' } })
     mode.addEventListener('change', () => vscode.postMessage({ type:'mode', value: mode.value }))
     model.addEventListener('change', () => vscode.postMessage({ type:'model', value: model.value }))
@@ -495,7 +529,13 @@ function html(state: State) {
     symbol.addEventListener('click', () => vscode.postMessage({ type:'simone', value: 'symbol' }))
     refs.addEventListener('click', () => vscode.postMessage({ type:'simone', value: 'refs' }))
     window.addEventListener('message', e => {
-      if(e.data.type==='reply') add(String(e.data.value || ''),'a')
+      if(e.data.type==='reply'){
+        try{
+          const parsed=JSON.parse(e.data.value);
+          if(parsed.tools&&parsed.tools.length){parsed.tools.forEach(t=>addTool(t));}
+          if(parsed.text) add(parsed.text,'a');
+        }catch{add(String(e.data.value||''),'a');}
+      }
       if(e.data.type==='state'){
         const s = e.data.value || {}
         mode.value = s.mode || mode.value

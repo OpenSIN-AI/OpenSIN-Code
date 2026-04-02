@@ -71,5 +71,11 @@
   "share.match_other": "træf",
   "share.result_one": "resultat",
   "share.result_other": "resultater",
-  "share.debug_key": "Nøgle"
+  "share.debug_key": "Nøgle",
+  "app.lander.ide_callout.eyebrow": "NY IDE-BANE",
+  "app.lander.ide_callout.title": "KAIROS-sidepanel med ACP-first transport",
+  "app.lander.ide_callout.description": "VS Code-udvidelsen har nu en dedikeret KAIROS-bane med vedvarende arbejdsrumssessioner, Simone-symbol/reference-handlinger, proaktive filgemmegennemgange og en rigtig IDE-vejledning.",
+  "app.lander.ide_callout.cta.guide": "Åbn IDE-vejledning",
+  "app.lander.ide_callout.cta.download": "Download VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

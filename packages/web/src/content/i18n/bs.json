@@ -71,5 +71,11 @@
   "share.match_other": "podudaranja",
   "share.result_one": "rezultat",
   "share.result_other": "rezultati",
-  "share.debug_key": "Ključ"
+  "share.debug_key": "Ključ",
+  "app.lander.ide_callout.eyebrow": "NOVI IDE TRAK",
+  "app.lander.ide_callout.title": "KAIROS bočna traka sa ACP-first transportom",
+  "app.lander.ide_callout.description": "VS Code ekstenzija sada ima namjenski KAIROS traka sa trajnim sesijama radnog prostora, Simone simbol/referenca akcijama, proaktivnim pregledima pri čuvanju datoteka i pravim IDE vodičem.",
+  "app.lander.ide_callout.cta.guide": "Otvori IDE vodič",
+  "app.lander.ide_callout.cta.download": "Preuzmi VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

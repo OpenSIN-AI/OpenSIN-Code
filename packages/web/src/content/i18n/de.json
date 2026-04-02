@@ -71,5 +71,11 @@
   "share.match_other": "Treffer",
   "share.result_one": "Ergebnis",
   "share.result_other": "Ergebnisse",
-  "share.debug_key": "Schlüssel"
+  "share.debug_key": "Schlüssel",
+  "app.lander.ide_callout.eyebrow": "NEUE IDE-SPUR",
+  "app.lander.ide_callout.title": "KAIROS-Seitenleiste mit ACP-Transport",
+  "app.lander.ide_callout.description": "Die VS Code-Erweiterung hat jetzt eine dedizierte KAIROS-Spur mit persistenten Workspace-Sitzungen, Simone-Symbol/Referenz-Aktionen, proaktiven Datei-Speicher-Überprüfungen und einem echten IDE-Leitfaden.",
+  "app.lander.ide_callout.cta.guide": "IDE-Leitfaden öffnen",
+  "app.lander.ide_callout.cta.download": "VSIX herunterladen",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }

@@ -71,5 +71,11 @@
   "share.match_other": "รายการที่ตรงกัน",
   "share.result_one": "ผลลัพธ์",
   "share.result_other": "ผลลัพธ์",
-  "share.debug_key": "คีย์"
+  "share.debug_key": "คีย์",
+  "app.lander.ide_callout.eyebrow": "เลน IDE ใหม่",
+  "app.lander.ide_callout.title": "แถบด้านข้าง KAIROS พร้อมการขนส่งแบบ ACP เป็นหลัก",
+  "app.lander.ide_callout.description": "ส่วนขยาย VS Code ตอนนี้มีเลน KAIROS เฉพาะพร้อมเซสชันพื้นที่ทำงานถาวร การดำเนินการสัญลักษณ์/อ้างอิง Simone การตรวจสอบการบันทึกไฟล์เชิงรุก และคู่มือ IDE จริง",
+  "app.lander.ide_callout.cta.guide": "เปิดคู่มือ IDE",
+  "app.lander.ide_callout.cta.download": "ดาวน์โหลด VSIX",
+  "app.lander.cta.ide": "VS Code + KAIROS"
 }
