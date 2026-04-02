@@ -1,6 +1,6 @@
 {
-  "name": "kairos-vscode",
-  "displayName": "SIN Code (KAIROS)",
+  "name": "sincode-vscode",
+  "displayName": "SIN Code",
   "description": "Agentic AI Coding Assistant for OpenSIN - Powered by Kilo Code & Claude Code concepts",
   "version": "0.1.0",
   "publisher": "opensin",
@@ -16,37 +16,37 @@
     "ai",
     "coding-assistant",
     "sin-code",
-    "kairos",
+    "sin-code",
     "agentic"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "kairos.start",
-        "title": "Start SIN Code KAIROS",
-        "category": "KAIROS"
+        "command": "sincode.start",
+        "title": "Start SIN Code",
+        "category": "SIN Code"
       },
       {
-        "command": "kairos.selectMode",
-        "title": "Select KAIROS Mode",
-        "category": "KAIROS"
+        "command": "sincode.selectMode",
+        "title": "Select SIN Code Mode",
+        "category": "SIN Code"
       },
       {
-        "command": "kairos.selectModel",
-        "title": "Select KAIROS Model",
-        "category": "KAIROS"
+        "command": "sincode.selectModel",
+        "title": "Select SIN Code Model",
+        "category": "SIN Code"
       },
       {
-        "command": "kairos.addFileToContext",
-        "title": "Add File to KAIROS Context",
-        "category": "KAIROS"
+        "command": "sincode.addFileToContext",
+        "title": "Add File to SIN Code Context",
+        "category": "SIN Code"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "kairos.addFileToContext",
+          "command": "sincode.addFileToContext",
           "group": "navigation"
         }
       ]
@@ -54,18 +54,18 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "kairos-sidebar",
+          "id": "sincode-sidebar",
           "title": "SIN Code",
-          "icon": "media/icon.svg"
+          "icon": "media/icon.png"
         }
       ]
     },
     "views": {
-      "kairos-sidebar": [
+      "sincode-sidebar": [
         {
           "type": "webview",
-          "id": "kairos.chatView",
-          "name": "KAIROS Chat"
+          "id": "sincode.chatView",
+          "name": "SIN Code Chat"
         }
       ]
     }
@@ -87,7 +87,7 @@
     "color": "#1e1e1e",
     "theme": "dark"
   },
-  "icon": "media/icon.svg",
+  "icon": "media/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/OpenSIN-AI/OpenSIN-Code.git",

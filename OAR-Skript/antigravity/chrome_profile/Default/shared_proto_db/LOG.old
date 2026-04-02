@@ -1,6 +1,0 @@
-2026/03/17-18:05:26.091 e6c0e Reusing MANIFEST /Users/jeremy/dev/openAntigravity-auth-rotator/chrome_profile/Default/shared_proto_db/MANIFEST-000001
-2026/03/17-18:05:26.092 e6c0e Recovering log #7
-2026/03/17-18:05:26.094 e6c0e Reusing old log /Users/jeremy/dev/openAntigravity-auth-rotator/chrome_profile/Default/shared_proto_db/000007.log 
-2026/03/17-18:05:26.165 e6c0c Level-0 table #11: started
-2026/03/17-18:05:26.178 e6c0c Level-0 table #11: 113022 bytes OK
-2026/03/17-18:05:26.183 e6c0c Delete type=0 #7

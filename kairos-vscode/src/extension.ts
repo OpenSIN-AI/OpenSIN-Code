@@ -8,7 +8,7 @@ import { BuddySystem } from './buddyGamification';
 import { MemoryConsolidation } from './memoryConsolidation';
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('KAIROS VS Code extension is now active!');
+    console.log('SIN Code VS Code extension is now active!');
 
     // Initialize providers
     const lspProvider = new LspProvider();
@@ -24,17 +24,17 @@ export function activate(context: vscode.ExtensionContext) {
     // Register Webview Provider
     const provider = new KairosViewProvider(context.extensionUri, lspProvider, swarmCoordinator, buddySystem, memoryConsolidation);
     context.subscriptions.push(
-        vscode.window.registerWebviewViewProvider('kairos.chatView', provider)
+        vscode.window.registerWebviewViewProvider('sincode.chatView', provider)
     );
 
     // Mode Selector Status Bar
     const modeStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
-    modeStatusBar.command = 'kairos.selectMode';
+    modeStatusBar.command = 'sincode.selectMode';
     context.subscriptions.push(modeStatusBar);
 
     // Model Selector Status Bar
     const modelStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 99);
-    modelStatusBar.command = 'kairos.selectModel';
+    modelStatusBar.command = 'sincode.selectModel';
     context.subscriptions.push(modelStatusBar);
 
     // Initialize defaults
@@ -48,13 +48,13 @@ export function activate(context: vscode.ExtensionContext) {
     modelStatusBar.show();
 
     // Mode selection command
-    context.subscriptions.push(vscode.commands.registerCommand('kairos.selectMode', async () => {
+    context.subscriptions.push(vscode.commands.registerCommand('sincode.selectMode', async () => {
         const items = AGENT_MODES.map(m => ({
             label: `${m.icon} ${m.name}`,
             description: m.description,
             mode: m
         }));
-        const selected = await vscode.window.showQuickPick(items, { placeHolder: 'Select KAIROS Mode' });
+        const selected = await vscode.window.showQuickPick(items, { placeHolder: 'Select SIN Code Mode' });
         if (selected) {
             provider.setCurrentMode(selected.mode);
             modeStatusBar.text = `$(symbol-misc) ${selected.mode.name}`;
@@ -63,7 +63,7 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
     // Model selection command
-    context.subscriptions.push(vscode.commands.registerCommand('kairos.selectModel', async () => {
+    context.subscriptions.push(vscode.commands.registerCommand('sincode.selectModel', async () => {
         const models = await provider.getModels();
         const items = models.map(m => ({ label: m }));
         const selected = await vscode.window.showQuickPick(items, { placeHolder: 'Select Model' });
@@ -74,7 +74,7 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
     // Swarm Coordinator Command
-    context.subscriptions.push(vscode.commands.registerCommand('kairos.swarmDispatch', async () => {
+    context.subscriptions.push(vscode.commands.registerCommand('sincode.swarmDispatch', async () => {
         const agentItems = AVAILABLE_AGENTS.map(a => ({
             label: `${a.icon} ${a.name}`,
             description: a.description,
@@ -103,36 +103,36 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
     // Buddy Info Command
-    context.subscriptions.push(vscode.commands.registerCommand('kairos.buddyInfo', () => {
+    context.subscriptions.push(vscode.commands.registerCommand('sincode.buddyInfo', () => {
         const state = buddySystem.getState();
         vscode.window.showInformationMessage(
             `BUDDY Status:\nMood: ${state.mood}\nLevel: ${state.level}\nXP: ${state.xp}/${state.level * 100}\nLast: ${state.lastAction}`
         );
     }));
 
-    // KAIROS Proactive Mode: On-save background analysis
+    // SIN Code Proactive Mode: On-save background analysis
     context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(async (doc) => {
-        if (provider.getCurrentMode()?.id === 'kairos') {
+        if (provider.getCurrentMode()?.id === 'proactive') {
             provider.notifyModeChange(provider.getCurrentMode()!, `File saved: ${doc.fileName}. Running background analysis...`);
             try {
                 const context = await lspProvider.getSemanticContext();
-                await provider.bridge.call(`Analyze the recently saved file ${doc.fileName} for potential improvements, bugs, or security issues.\n\nContext:\n${context}`, 'kairos', () => {});
+                await provider.bridge.call(`Analyze the recently saved file ${doc.fileName} for potential improvements, bugs, or security issues.\n\nContext:\n${context}`, 'proactive', () => {});
                 buddySystem.onActionSuccess('Background analysis completed', 5);
                 provider.notifyModeChange(provider.getCurrentMode()!, `Analysis complete for ${doc.fileName}.`);
             } catch (e: any) {
                 buddySystem.onError(`Background analysis failed: ${e.message}`);
-                console.error('KAIROS background analysis failed:', e);
+                console.error('SIN Code background analysis failed:', e);
             }
         }
     }));
 
     // Context Provider: Add selected file to context
-    context.subscriptions.push(vscode.commands.registerCommand('kairos.addFileToContext', async () => {
+    context.subscriptions.push(vscode.commands.registerCommand('sincode.addFileToContext', async () => {
         const editor = vscode.window.activeTextEditor;
         if (editor) {
             provider.addFileToContext(editor.document.uri.fsPath);
             buddySystem.onActionSuccess('File added to context', 5);
-            vscode.window.showInformationMessage(`Added ${editor.document.fileName} to KAIROS context`);
+            vscode.window.showInformationMessage(`Added ${editor.document.fileName} to SIN Code context`);
         }
     }));
 
@@ -140,7 +140,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.workspace.onDidSaveTextDocument(async (doc) => {
         if (doc.fileName.includes('.test.') || doc.fileName.includes('.spec.')) {
             // Check if tests pass by running them
-            const terminal = vscode.window.createTerminal('KAIROS Test Runner');
+            const terminal = vscode.window.createTerminal('SIN Code Test Runner');
             terminal.sendText(`cd ${path.dirname(doc.fileName)} && npm test || echo "TESTS_FAILED"`);
             terminal.show();
         }
@@ -155,8 +155,8 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(gitWatcher);
 
-    let disposable = vscode.commands.registerCommand('kairos.start', () => {
-        vscode.commands.executeCommand('workbench.view.extension.kairos-sidebar');
+    let disposable = vscode.commands.registerCommand('sincode.start', () => {
+        vscode.commands.executeCommand('workbench.view.extension.sincode-sidebar');
     });
 
     context.subscriptions.push(disposable);
@@ -193,7 +193,7 @@ class KairosViewProvider implements vscode.WebviewViewProvider {
         webviewView.webview.onDidReceiveMessage(async (data) => {
             switch (data.type) {
                 case 'prompt':
-                    webviewView.webview.postMessage({ type: 'status', message: `${this.currentMode?.name || 'KAIROS'} is thinking...` });
+                    webviewView.webview.postMessage({ type: 'status', message: `${this.currentMode?.name || 'SIN Code'} is thinking...` });
                     try {
                         const fullPrompt = await this.buildFullPrompt(data.value);
                         await this.bridge.call(fullPrompt, this.currentMode?.id || 'code', (chunk) => {
@@ -255,7 +255,7 @@ class KairosViewProvider implements vscode.WebviewViewProvider {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>KAIROS Chat</title>
+                <title>SIN Code Chat</title>
                 <style>
                     body { font-family: var(--vscode-font-family); padding: 10px; color: var(--vscode-editor-foreground); background: var(--vscode-editor-background); display: flex; flex-direction: column; height: 100vh; margin: 0; box-sizing: border-box; }
                     .header { font-size: 1.2em; font-weight: bold; margin-bottom: 10px; flex-shrink: 0; display: flex; justify-content: space-between; align-items: center; }
@@ -276,14 +276,14 @@ class KairosViewProvider implements vscode.WebviewViewProvider {
             </head>
             <body>
                 <div class="header">
-                    <span>SIN Code (KAIROS)</span>
+                    <span>SIN Code</span>
                     <span class="mode-badge" id="mode-badge">Code</span>
                 </div>
                 <div class="context-files" id="context-files"></div>
                 <div class="chat-box" id="chat"></div>
                 <div id="status" class="status"></div>
                 <div class="input-area">
-                    <input type="text" class="input-box" id="input" placeholder="Ask KAIROS..." />
+                    <input type="text" class="input-box" id="input" placeholder="Ask SIN Code..." />
                     <button class="btn" id="send-btn">Send</button>
                     <button class="btn btn-cancel" id="cancel-btn" style="display:none;">Stop</button>
                 </div>

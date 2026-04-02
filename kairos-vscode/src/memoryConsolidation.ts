@@ -17,7 +17,7 @@ export class MemoryConsolidation {
      * Scan workspace for memory files (AGENTS.md, SIN-MEMORY.md, etc.)
      */
     private scanForMemoryFiles(): void {
-        const patterns = ['AGENTS.md', 'SIN-MEMORY.md', 'CLAUDE.md', '.kairos-memory.md'];
+        const patterns = ['AGENTS.md', 'SIN-MEMORY.md', 'CLAUDE.md', '.sincode-memory.md'];
         for (const pattern of patterns) {
             const filePath = path.join(this.workspaceRoot, pattern);
             if (fs.existsSync(filePath)) {
