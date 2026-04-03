@@ -195,3 +195,67 @@ export type { TurboConfig, CommandSafetyFilter as CommandSafetyFilterConfig, Aud
 // i18n
 export { I18nEngine, TranslationManager, LanguageSelector, RTLHandler, LocaleDetector } from "./i18n/index.js";
 export type { Locale, TranslationEntry, TranslationBundle, LocaleInfo, I18nConfig } from "./i18n/index.js";
+
+// Design Mode
+export {
+  UIAnnotator,
+  ElementSelector,
+  FeedbackCollector,
+  sendFeedbackToAgent,
+  DesignMode,
+  activateDesignMode,
+  deactivateDesignMode,
+  isDesignModeActive,
+} from "./design_mode/index.js";
+export type {
+  DesignModeConfig,
+  UIElement,
+  Annotation,
+  SelectionArea,
+  FeedbackPayload,
+  CoordinateClick,
+  DesignModeState,
+  ElementSelector as ElementSelectorType,
+  AnnotationStyle,
+  ScreenshotFallback,
+} from "./design_mode/index.js";
+
+// Powerup
+export {
+  LessonEngine,
+  createLessonEngine,
+  DemoRenderer,
+  createDemoRenderer,
+  ProgressTracker,
+  createProgressTracker,
+  Powerup,
+  activatePowerup,
+  deactivatePowerup,
+  isPowerupActive,
+} from "./powerup/index.js";
+export type {
+  Lesson,
+  LessonStep,
+  LessonCategory,
+  DemoAnimation,
+  DemoAction,
+  UserProgress,
+  LessonProgress,
+  PowerupConfig,
+  PowerupState,
+  Achievement,
+  StepResult,
+} from "./powerup/index.js";
+export type {
+  Lesson,
+  LessonStep,
+  LessonCategory,
+  DemoAnimation,
+  DemoAction,
+  UserProgress,
+  LessonProgress,
+  PowerupConfig,
+  PowerupState,
+  Achievement,
+  StepResult,
+} from "./powerup/index.js";
