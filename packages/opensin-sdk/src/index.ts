@@ -285,39 +285,112 @@ export type {
 } from "./context_optimizer/index.js";
 
 // Color Picker
-export { ColorPicker, ThemeApplier } from "./color_picker/index.js";
+export { ColorPicker, ThemeApplier, applyPromptBarColor, resetPromptBarColor } from "./color_picker/index.js";
+export { COLOR_PRESETS, DEFAULT_SESSION_COLOR } from "./color_picker/index.js";
 export type {
   ColorPreset,
   SessionColor,
-  ColorConfig,
-  ColorChangeEvent,
+  ColorPickerState,
+  ColorPickerConfig,
 } from "./color_picker/index.js";
 
 // Live Status
-export { StatusMonitor, StatusDisplay } from "./live_status/index.js";
+export { StatusMonitor, StatusDisplay, renderLiveStatus } from "./live_status/index.js";
 export type {
   LiveStatusSnapshot,
-  TokenUsageDelta,
+  TokenUsage,
   CostInfo,
-  LiveStatusConfig,
-  StatusDisplayOptions,
+  ModelInfo as LiveModelInfo,
+  TurnInfo,
+  StatusDisplayMode,
+  StatusMonitorConfig,
+  StreamingStatusUpdate,
 } from "./live_status/index.js";
 
-// Color Picker
-export { ColorPicker, ThemeApplier } from "./color_picker/index.js";
+// Effort Control
+export { EffortManager } from "./effort_control/index.js";
+export {
+  renderEffortStatusBar,
+  renderEffortHelp,
+  renderEffortConfirmation,
+  formatEffortForPrompt,
+} from "./effort_control/index.js";
 export type {
-  ColorPreset,
-  SessionColor,
-  ColorConfig,
-  ColorChangeEvent,
-} from "./color_picker/index.js";
+  EffortLevel,
+  EffortConfig,
+  EffortState,
+  EffortFrontmatter,
+  EffortChangeEvent,
+} from "./effort_control/index.js";
+export { EFFORT_CONFIGS } from "./effort_control/index.js";
 
-// Live Status
-export { StatusMonitor, StatusDisplay } from "./live_status/index.js";
+// Session Naming
+export { SessionNamer, AutoNamer } from "./session_naming/index.js";
 export type {
-  LiveStatusSnapshot,
-  TokenUsageDelta,
-  CostInfo,
-  LiveStatusConfig,
-  StatusDisplayOptions,
-} from "./live_status/index.js";
+  SessionName,
+  SessionNameConfig,
+  SessionNameEvent,
+  SessionNamingStrategy,
+  AutoNameRequest,
+  RenameRequest,
+} from "./session_naming/index.js";
+
+// Rate Limit Status
+export { RateLimitMonitor } from "./rate_limit_status/index.js";
+export {
+  renderRateLimitStatusline,
+  renderRateLimitBanner,
+  formatRateLimitDetails,
+} from "./rate_limit_status/index.js";
+export type {
+  RateLimitWindow,
+  RateLimitWindowInfo,
+  RateLimitStatus,
+  RateLimitConfig,
+  RateLimitEvent,
+} from "./rate_limit_status/index.js";
+export { DEFAULT_RATE_LIMIT_CONFIG } from "./rate_limit_status/index.js";
+
+// Effort Control
+export { EffortManager } from "./effort_control/index.js";
+export {
+  renderEffortStatusBar,
+  renderEffortHelp,
+  renderEffortConfirmation,
+  formatEffortForPrompt,
+} from "./effort_control/index.js";
+export type {
+  EffortLevel,
+  EffortConfig,
+  EffortState,
+  EffortFrontmatter,
+  EffortChangeEvent,
+} from "./effort_control/index.js";
+export { EFFORT_CONFIGS } from "./effort_control/index.js";
+
+// Session Naming
+export { SessionNamer, AutoNamer } from "./session_naming/index.js";
+export type {
+  SessionName,
+  SessionNameConfig,
+  SessionNameEvent,
+  SessionNamingStrategy,
+  AutoNameRequest,
+  RenameRequest,
+} from "./session_naming/index.js";
+
+// Rate Limit Status
+export { RateLimitMonitor } from "./rate_limit_status/index.js";
+export {
+  renderRateLimitStatusline,
+  renderRateLimitBanner,
+  formatRateLimitDetails,
+} from "./rate_limit_status/index.js";
+export type {
+  RateLimitWindow,
+  RateLimitWindowInfo,
+  RateLimitStatus,
+  RateLimitConfig,
+  RateLimitEvent,
+} from "./rate_limit_status/index.js";
+export { DEFAULT_RATE_LIMIT_CONFIG } from "./rate_limit_status/index.js";
