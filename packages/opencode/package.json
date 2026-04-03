@@ -1,0 +1,21 @@
+{
+  "name": "@opensin/code",
+  "version": "0.0.0",
+  "description": "SIN Code CLI — The autonomous coding CLI",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "sincode": "./dist/bin/opencode.js",
+    "sin": "./dist/bin/opencode.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "node src/bin/opencode.js",
+    "build": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "eslint src/"
+  }
+}

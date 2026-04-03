@@ -1,0 +1,21 @@
+{
+  "name": "@opensin/code",
+  "version": "0.0.0",
+  "description": "SIN Code CLI — The autonomous coding CLI powered by OpenCode",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "packages/sdk/*"
+  ],
+  "scripts": {
+    "dev": "node packages/opencode/src/bin/opencode.js",
+    "build": "npm run build --workspace=packages/opencode",
+    "test": "npm run test --workspace=packages/opencode",
+    "lint": "npm run lint --workspace=packages/opencode"
+  }
+}
