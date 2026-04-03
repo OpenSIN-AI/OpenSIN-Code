@@ -76,11 +76,16 @@
     "watch": "tsc -watch -p ./",
     "package": "vsce package --no-dependencies"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
     "@types/vscode": "^1.85.0",
     "@types/node": "18.x",
     "typescript": "^5.3.3",
-    "@vscode/vsce": "^2.24.0"
+    "@vscode/vsce": "^2.24.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
   }
 }

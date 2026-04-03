@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';">
+  <title>OpenSIN Code</title>
+  <style>body { margin: 0; padding: 0; font-family: var(--vscode-font-family); background: var(--vscode-editor-background); color: var(--vscode-editor-foreground); } @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>function acquireVsCodeApi() { return { postMessage: (m) => console.log('VSCode:', m), getState: () => null, setState: () => {} }; }</script>
+  <script src="src/App.tsx" type="module"></script>
+</body>
+</html>
