@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="assets/logo.png" alt="OpenSIN-Code" width="680" />
+  <img src="assets/logo.png" alt="SIN Code" width="680" />
   <br/><br/>
   <strong>The autonomous AI coding stack powering the OpenSIN fleet.</strong>
   <br/>
   <em>OpenCode CLI · Antigravity Models · OMOC Swarm · A2A Agents · Skills · MCPs</em>
   <br/><br/>
 
-  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+  [![License: Proprietary](https://img.shields.io/badge/License-Proprietary--SIN_Solver-red.svg)](LICENSE)
   [![OpenSIN](https://img.shields.io/badge/Platform-OpenSIN-1a1a2e)](https://opensin.ai)
   [![Bugs](https://img.shields.io/badge/Bug_Library-Issues-red)](https://github.com/OpenSIN-AI/OpenSIN-Code/issues?q=label%3Abug)
   [![omoc-swarm](https://img.shields.io/badge/Plugin-omoc--swarm-brightgreen)](https://github.com/Delqhi/opencode-omoc-swarm)
@@ -15,9 +15,9 @@
 
 ---
 
-## What is OpenSIN-Code?
+## What is SIN Code?
 
-**OpenSIN-Code** is the **Single Source of Truth (SSOT)** for the entire OpenSIN autonomous coding stack. It is not a fork — it is an independent, modular repository that:
+**SIN Code** (SIN Code CLI) is the **Single Source of Truth (SSOT)** for the entire OpenSIN autonomous coding stack. It is not a fork — it is an independent, modular repository that:
 
 - Tracks upstream [anomalyco/opencode](https://github.com/anomalyco/opencode) automatically via a watcher
 - Hosts all **custom plugins, skills, MCPs, providers, tools, and wrappers** built by the OpenSIN fleet
