@@ -6,4 +6,12 @@ export type { SessionRecord, SessionManagerOptions } from "./session.js";
 export { EventStream, EventMultiplexer, parseSSELine, streamSSE } from "./events.js";
 export type { IProvider as Provider, ProviderName } from "./providers.js";
 export { BaseProvider, OpenAIProvider, AnthropicProvider, createProvider, ProviderRegistry, ProviderError, } from "./providers.js";
+export { AutonomyLevel } from "./autonomy/index.js";
+export type { AutonomyConfig, AutonomyPermissions, AdminAutonomyPolicy, AutonomyState, AutonomyChangeEvent, } from "./autonomy/index.js";
+export { AutonomySlider } from "./autonomy/index.js";
+export { PermissionMatrix, resolvePermissions } from "./autonomy/index.js";
+export { handleAutonomyCommand, parseAutonomyCommand } from "./cli/index.js";
+export type { AutonomyCommandResult } from "./cli/index.js";
+export { StatusBarRenderer } from "./cli/index.js";
+export type { StatusBarConfig } from "./cli/index.js";
 //# sourceMappingURL=index.d.ts.map

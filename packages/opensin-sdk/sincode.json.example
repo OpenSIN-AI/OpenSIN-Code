@@ -1,0 +1,11 @@
+{
+  "name": "my-project",
+  "version": "0.1.0",
+  "autonomy": {
+    "defaultLevel": "collaborate",
+    "sessionOverrides": {},
+    "projectLevel": "collaborate"
+  },
+  "providers": [],
+  "mcpServers": []
+}

@@ -107,3 +107,21 @@ export {
   ProviderRegistry,
   ProviderError,
 } from "./providers.js";
+
+// Autonomy
+export { AutonomyLevel } from "./autonomy/index.js";
+export type {
+  AutonomyConfig,
+  AutonomyPermissions,
+  AdminAutonomyPolicy,
+  AutonomyState,
+  AutonomyChangeEvent,
+} from "./autonomy/index.js";
+export { AutonomySlider } from "./autonomy/index.js";
+export { PermissionMatrix, resolvePermissions } from "./autonomy/index.js";
+
+// CLI
+export { handleAutonomyCommand, parseAutonomyCommand } from "./cli/index.js";
+export type { AutonomyCommandResult } from "./cli/index.js";
+export { StatusBarRenderer } from "./cli/index.js";
+export type { StatusBarConfig } from "./cli/index.js";
