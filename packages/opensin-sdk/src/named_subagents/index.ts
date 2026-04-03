@@ -1,9 +1,16 @@
-export { NamedSubagentRegistry } from "./registry.js";
-export { handleAtMention } from "./mention_handler.js";
+export { SubAgentRegistry, getSubAgentRegistry, resetSubAgentRegistry } from "./registry.js";
+export {
+  extractMentions,
+  hasMention,
+  removeMentions,
+  getMentionAtPosition,
+  getMentionPrefix,
+  replaceMentionWithAgent,
+  insertMention,
+} from "./mention_handler.js";
 export type {
-  NamedSubagent,
-  SubagentConfig,
-  SubagentCategory,
-  MentionMatch,
-  RegistryOptions,
+  NamedSubAgent,
+  SubAgentMention,
+  TypeaheadSuggestion,
+  AgentRegistryConfig,
 } from "./types.js";
