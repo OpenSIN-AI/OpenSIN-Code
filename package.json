@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "opencode",
+  "name": "@opensin/code",
   "description": "AI-powered development tool",
   "private": true,
   "type": "module",
@@ -94,7 +94,7 @@
     "type": "git",
     "url": "https://github.com/anomalyco/opencode"
   },
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "prettier": {
     "semi": false,
     "printWidth": 120
