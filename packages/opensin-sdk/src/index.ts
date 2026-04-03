@@ -163,3 +163,35 @@ export type {
   LintSource,
   AutoLintSessionConfig,
 } from "./lint/index.js";
+
+// Continue My Work
+export {
+  ActionHistory,
+  ContextRestorer,
+  WorkStateSerializer,
+  ContinueMyWork,
+  continueMyWork,
+} from "./continue_work/index.js";
+export type { ActionRecord, WorkState, ContinueWorkResult } from "./continue_work/models.js";
+
+// Turbo Mode
+export { CommandSafetyFilter, AuditTrail, TurboMode, turboMode } from "./turbo/index.js";
+export type { TurboConfig, CommandSafetyFilter as CommandSafetyFilterConfig, AuditEntry, CommandResult } from "./turbo/models.js";
+
+// Continue My Work
+export {
+  ActionHistory,
+  ContextRestorer,
+  WorkStateSerializer,
+  ContinueMyWork,
+  continueMyWork,
+} from "./continue_work/index.js";
+export type { ActionRecord, WorkState, ContinueWorkResult } from "./continue_work/models.js";
+
+// Turbo Mode
+export { CommandSafetyFilter, AuditTrail, TurboMode, turboMode } from "./turbo/index.js";
+export type { TurboConfig, CommandSafetyFilter as CommandSafetyFilterConfig, AuditEntry, CommandResult } from "./turbo/models.js";
+
+// i18n
+export { I18nEngine, TranslationManager, LanguageSelector, RTLHandler, LocaleDetector } from "./i18n/index.js";
+export type { Locale, TranslationEntry, TranslationBundle, LocaleInfo, I18nConfig } from "./i18n/index.js";
