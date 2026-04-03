@@ -3,20 +3,28 @@
 ## Supported Versions
 
 | Version | Supported |
-|---|---|
-| Latest | ✅ |
+|---------|-----------|
+| 1.x.x   | ✅        |
 
 ## Reporting a Vulnerability
 
-**Please do NOT open a public issue.**
+Please report security vulnerabilities by opening a GitHub Issue with the `security` label, or contact us directly.
 
-Email: security@opensin.ai
+We will respond within 48 hours and work to resolve the issue as quickly as possible.
 
-We respond within 48 hours.
+## Security Best Practices
 
-## Security Practices
+- Never commit API keys or secrets
+- Use environment variables for sensitive data
+- Validate all inputs with Zod schemas
+- Run `bun audit` regularly
+- Keep dependencies updated via Dependabot
 
-- Guardrails scan all inputs
-- Secrets managed via environment variables
-- Sandboxing for untrusted code
-- All operations logged to OpenSIN-Ledger
+## Guardrails
+
+All agents must have:
+- Prompt injection detection
+- Jailbreak pattern detection
+- PII detection
+- Toxicity scoring
+- Sandboxing for untrusted code execution

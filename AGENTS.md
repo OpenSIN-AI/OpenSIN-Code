@@ -1,35 +1,42 @@
-# Agent: OpenSIN-Code
+# Agent: OpenSIN-Code (SIN Code CLI)
 
-**Team:** OpenSIN-AI
-**Protocol:** A2A (Agent-to-Agent)
-**Status:** Active
-**Repository:** https://github.com/OpenSIN-AI/OpenSIN-Code
+**Team:** Core Platform  
+**Protocol:** A2A + MCP  
+**Status:** Active  
+**Repo:** https://github.com/OpenSIN-AI/OpenSIN-Code  
 
 ## Capabilities
 
-OpenSIN-Code is the core code agent for the OpenSIN ecosystem, providing intelligent code generation, analysis, and refactoring capabilities.
+SIN Code is the autonomous AI coding CLI powering the OpenSIN fleet.
+
+- **Multi-Model Support** — 75+ AI models with auto-selection
+- **Simone MCP** — Built-in code intelligence server
+- **Autonomy Slider** — 3 levels: Assist, Collaborate, Autonomous
+- **Hooks System** — Pre/post-action automation
+- **Agent SDK** — Framework for custom agents
+- **Auto-Lint** — Automatic linter error fixing
+- **Custom Commands** — Repeatable workflows
+- **Loop Mode** — Prompt repetition for polling
+- **LSP Integration** — Language server support
+- **Multi-Language i18n** — 9 languages supported
 
 ## Communication
 
-- **Input:** A2A messages from orchestrator
-- **Output:** A2A messages to other agents
-- **MCP:** Standard OpenSIN MCP servers
-
-## Security
-
-- All operations logged to OpenSIN-Ledger
-- Requires authorization token
-- Guardrails enforced on all inputs/outputs
+- **Input:** CLI commands, A2A messages, MCP tools
+- **Output:** CLI output, A2A messages, MCP tool results
+- **MCP:** Simone MCP (find_symbol, find_references, replace_symbol)
 
 ## Setup
 
 ```bash
+curl -fsSL https://opensin.ai/install | bash
+# or
 git clone https://github.com/OpenSIN-AI/OpenSIN-Code.git
 cd OpenSIN-Code
-npm install
-npm start
+bun install
+bun run build
 ```
 
 ## License
 
-MIT
+MIT — Copyright (c) 2026 OpenSIN-AI

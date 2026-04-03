@@ -1,29 +1,44 @@
 # Contributing to OpenSIN-Code
 
-Thank you for your interest in contributing!
+Thank you for your interest in contributing to OpenSIN-Code!
 
-## Getting Started
+## How to Contribute
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/my-feature`
-3. Make your changes
-4. Run tests: `npm test`
-5. Commit with conventional commits: `git commit -m "feat: add my feature"`
-6. Push and open a PR
+1. **Fork** the repository
+2. **Create a branch** — `feat/your-feature`, `fix/your-bug`, `docs/your-update`
+3. **Make your changes** — follow our coding standards
+4. **Write tests** — ensure 80%+ coverage
+5. **Open a PR** — use conventional commit titles
 
-## Communication
+## Conventional Commits
 
-- Always leave screenshots for visual changes
-- Always leave a detailed PR description
-- Always review your code first
-- Always communicate in GitHub (issues or PRs)
+```
+feat: add new feature
+fix: resolve bug
+docs: update documentation
+chore: update dependencies
+test: add tests
+```
 
-## Code Style
+## Code Standards
 
-- Use TypeScript
+- Use TypeScript for all new code
+- JSDoc/TSDoc for all exported functions
+- 80%+ test coverage
+- No hardcoded secrets
 - Follow existing patterns
-- Write tests for new features
-- JSDoc on all exported functions
+
+## Pull Request Requirements
+
+- [ ] Conventional commit title
+- [ ] Linked issue
+- [ ] Description of changes
+- [ ] Tests pass
+- [ ] Lint passes
+
+## Questions?
+
+Open an issue or reach out on Discord.
 
 ## License
 
