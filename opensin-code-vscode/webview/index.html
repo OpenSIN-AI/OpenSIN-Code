@@ -10,6 +10,7 @@
 <body>
   <div id="root"></div>
   <script>function acquireVsCodeApi() { return { postMessage: (m) => console.log('VSCode:', m), getState: () => null, setState: () => {} }; }</script>
+  <script src="src/SwarmCoordinator.tsx" type="module"></script>
   <script src="src/App.tsx" type="module"></script>
 </body>
 </html>
