@@ -451,3 +451,32 @@ export type {
   RestoreResult,
 } from "./prompt_interrupt/index.js";
 export { DEFAULT_INTERRUPT_CONFIG } from "./prompt_interrupt/index.js";
+
+// Buddy - AI Companion
+export { BuddyEngine, CompanionUI } from "./buddy/index.js";
+export type {
+  BuddyState,
+  BuddyEmotion,
+  BuddyAppearance,
+  BuddyConfig,
+  BuddyTip,
+  BuddyReaction,
+} from "./buddy/index.js";
+
+// Bare Mode
+export { BareRunner, DEFAULT_BARE_CONFIG, validateBareMode } from "./bare_mode/index.js";
+export type {
+  BareModeConfig,
+  BareModeResult,
+  BareModeError,
+} from "./bare_mode/index.js";
+
+// Branch Command
+export { Brancher, BranchUI } from "./branch_command/index.js";
+export type {
+  BranchState,
+  BranchInfo,
+  BranchHistoryEntry,
+  BranchCommandResult,
+  ForkAliasResult,
+} from "./branch_command/index.js";
