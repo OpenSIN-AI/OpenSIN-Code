@@ -246,16 +246,40 @@ export type {
   Achievement,
   StepResult,
 } from "./powerup/index.js";
+
+// Named Subagents
+export {
+  SubAgentRegistry,
+  getSubAgentRegistry,
+  resetSubAgentRegistry,
+  extractMentions,
+  hasMention,
+  removeMentions,
+  getMentionAtPosition,
+  getMentionPrefix,
+  replaceMentionWithAgent,
+  insertMention,
+} from "./named_subagents/index.js";
 export type {
-  Lesson,
-  LessonStep,
-  LessonCategory,
-  DemoAnimation,
-  DemoAction,
-  UserProgress,
-  LessonProgress,
-  PowerupConfig,
-  PowerupState,
-  Achievement,
-  StepResult,
-} from "./powerup/index.js";
+  NamedSubAgent,
+  SubAgentMention,
+  TypeaheadSuggestion,
+  AgentRegistryConfig,
+} from "./named_subagents/index.js";
+
+// Context Optimizer
+export {
+  ContextAnalyzer,
+  ContextOptimizer,
+  getBuiltinTips,
+  getTipsByCategory,
+  getTipById,
+} from "./context_optimizer/index.js";
+export type {
+  ContextTool,
+  ContextMetrics,
+  ContextWarning,
+  OptimizationTip,
+  ContextAnalysis,
+  ContextOptimizerConfig,
+} from "./context_optimizer/index.js";
