@@ -1,0 +1,1 @@
+{"version":3,"file":"executor.d.ts","sourceRoot":"","sources":["../../src/hooks/executor.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,UAAU,EAAE,UAAU,EAAE,oBAAoB,EAAE,MAAM,YAAY,CAAC;AAE1E,qBAAa,YAAY;IACjB,OAAO,CACX,IAAI,EAAE,UAAU,EAChB,OAAO,EAAE,oBAAoB,EAC7B,cAAc,SAAQ,GACrB,OAAO,CAAC,UAAU,CAAC;IAyEtB,OAAO,CAAC,QAAQ;CAyBjB"}

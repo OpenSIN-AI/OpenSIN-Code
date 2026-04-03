@@ -14,4 +14,9 @@ export { handleAutonomyCommand, parseAutonomyCommand } from "./cli/index.js";
 export type { AutonomyCommandResult } from "./cli/index.js";
 export { StatusBarRenderer } from "./cli/index.js";
 export type { StatusBarConfig } from "./cli/index.js";
+export { HookEvent } from "./hooks/index.js";
+export type { HookConfig, HookDefinition, HookResult, HookExecutionContext, HooksConfig, BuiltinHookOptions, } from "./hooks/index.js";
+export { HookRegistry, HookExecutor, registerBuiltinHooks } from "./hooks/index.js";
+export { LinterAggregator, AutoFixEngine, RulesManager, AutoLintSession, createLinter, createAutoFixEngine, createRulesManager, createAutoLintSession, } from "./lint/index.js";
+export type { LintError, LintFix, LintConfig, LintResult, AutoFixConfig, RulesConfig, RuleConfig, LintEvent, LintListener, LintSeverity, LintSource, AutoLintSessionConfig, } from "./lint/index.js";
 //# sourceMappingURL=index.d.ts.map
