@@ -53,6 +53,18 @@
       {
         "command": "opensin-code.explainCode",
         "title": "\ud83c\udfdb\ufe0f OpenSIN: Explain Code"
+      },
+      {
+        "command": "opensin-code.aiFix",
+        "title": "\ud83c\udfdb\ufe0f OpenSIN: AI Fix"
+      },
+      {
+        "command": "opensin-code.aiRefactor",
+        "title": "\ud83c\udfdb\ufe0f OpenSIN: AI Refactor"
+      },
+      {
+        "command": "opensin-code.explainCode",
+        "title": "\ud83c\udfdb\ufe0f OpenSIN: Explain Code"
       }
     ],
     "menus": {
@@ -87,7 +99,9 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "package": "vsce package --no-dependencies"
+    "package": "vsce package --no-dependencies",
+    "test": "vscode-test",
+    "test:unit": "mocha --require ts-node/register test/suite/**/*.test.ts"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -99,6 +113,12 @@
     "typescript": "^5.3.3",
     "@vscode/vsce": "^2.24.0",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
+    "@types/react-dom": "^19.0.0",
+    "@vscode/test-electron": "^2.4.1",
+    "@types/mocha": "^10.0.10",
+    "@types/glob": "^8.1.0",
+    "mocha": "^10.8.2",
+    "glob": "^10.4.5",
+    "ts-node": "^10.9.2"
   }
 }
