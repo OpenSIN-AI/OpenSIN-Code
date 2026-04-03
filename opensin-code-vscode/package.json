@@ -41,6 +41,18 @@
         "command": "opensin-code.addFileToContext",
         "title": "Add File to OpenSIN-Code Context",
         "category": "OpenSIN-Code"
+      },
+      {
+        "command": "opensin-code.aiFix",
+        "title": "\ud83c\udfdb\ufe0f OpenSIN: AI Fix"
+      },
+      {
+        "command": "opensin-code.aiRefactor",
+        "title": "\ud83c\udfdb\ufe0f OpenSIN: AI Refactor"
+      },
+      {
+        "command": "opensin-code.explainCode",
+        "title": "\ud83c\udfdb\ufe0f OpenSIN: Explain Code"
       }
     ],
     "menus": {
@@ -68,7 +80,8 @@
           "name": "OpenSIN-Code Chat"
         }
       ]
-    }
+    },
+    "codeActions": []
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

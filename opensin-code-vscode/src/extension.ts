@@ -272,3 +272,125 @@ class KairosViewProvider implements vscode.WebviewViewProvider {
 }
 
 export function deactivate() {}
+
+// Code Actions Provider
+import { OpenSINCodeActionProvider } from './codeActions';
+
+export function activate(context: vscode.ExtensionContext) {
+  // ... existing activation code ...
+
+  // Register code actions provider
+  const codeActionProvider = new OpenSINCodeActionProvider();
+  context.subscriptions.push(
+    vscode.languages.registerCodeActionsProvider(
+      { pattern: '**/*.{ts,tsx,js,jsx,py,go,rs}' },
+      codeActionProvider,
+      { providedCodeActionKinds: OpenSINCodeActionProvider.providedCodeActionKinds }
+    )
+  );
+
+  // Register code action commands
+  context.subscriptions.push(
+    vscode.commands.registerCommand('opensin-code.aiFix', async (uri: vscode.Uri, diagnostic: vscode.Diagnostic) => {
+      const document = await vscode.workspace.openTextDocument(uri);
+      const range = diagnostic.range;
+      const problem = document.getText(range);
+      vscode.window.showInformationMessage(`🏛️ OpenSIN: Generating AI fix for "${problem}"...`);
+      // Send to CLI for AI processing
+      const terminal = vscode.window.createTerminal('OpenSIN AI Fix');
+      terminal.sendText(`opensin code --fix "${problem}" --file "${uri.fsPath}"`);
+      terminal.show();
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('opensin-code.aiRefactor', async (uri: vscode.Uri, range: vscode.Range, text: string) => {
+      vscode.window.showInformationMessage(`🏛️ OpenSIN: Refactoring selection...`);
+      const terminal = vscode.window.createTerminal('OpenSIN AI Refactor');
+      terminal.sendText(`opensin code --refactor "${text.substring(0, 100)}..." --file "${uri.fsPath}"`);
+      terminal.show();
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('opensin-code.explainCode', async (uri: vscode.Uri, range: vscode.Range, text: string) => {
+      const panel = vscode.window.createWebviewPanel(
+        'opensinCodeExplanation',
+        '🏛️ OpenSIN Code Explanation',
+        vscode.ViewColumn.Beside,
+        { enableScripts: true }
+      );
+      panel.webview.html = `
+        <html>
+        <body style="padding: 16px; font-family: var(--vscode-font-family); background: var(--vscode-editor-background); color: var(--vscode-editor-foreground);">
+          <h3>🏛️ Code Explanation</h3>
+          <pre style="background: var(--vscode-textBlockQuote-background); padding: 12px; border-radius: 4px; overflow-x: auto;">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+          <p><em>Send this code to OpenSIN CLI for detailed explanation:</em></p>
+          <code>opensin code --explain "${text.substring(0, 100)}..."</code>
+        </body>
+        </html>
+      `;
+    })
+  );
+}
+
+// Code Actions Provider
+import { OpenSINCodeActionProvider } from './codeActions';
+
+export function activate(context: vscode.ExtensionContext) {
+  // ... existing activation code ...
+
+  // Register code actions provider
+  const codeActionProvider = new OpenSINCodeActionProvider();
+  context.subscriptions.push(
+    vscode.languages.registerCodeActionsProvider(
+      { pattern: '**/*.{ts,tsx,js,jsx,py,go,rs}' },
+      codeActionProvider,
+      { providedCodeActionKinds: OpenSINCodeActionProvider.providedCodeActionKinds }
+    )
+  );
+
+  // Register code action commands
+  context.subscriptions.push(
+    vscode.commands.registerCommand('opensin-code.aiFix', async (uri: vscode.Uri, diagnostic: vscode.Diagnostic) => {
+      const document = await vscode.workspace.openTextDocument(uri);
+      const range = diagnostic.range;
+      const problem = document.getText(range);
+      vscode.window.showInformationMessage(`🏛️ OpenSIN: Generating AI fix for "${problem}"...`);
+      // Send to CLI for AI processing
+      const terminal = vscode.window.createTerminal('OpenSIN AI Fix');
+      terminal.sendText(`opensin code --fix "${problem}" --file "${uri.fsPath}"`);
+      terminal.show();
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('opensin-code.aiRefactor', async (uri: vscode.Uri, range: vscode.Range, text: string) => {
+      vscode.window.showInformationMessage(`🏛️ OpenSIN: Refactoring selection...`);
+      const terminal = vscode.window.createTerminal('OpenSIN AI Refactor');
+      terminal.sendText(`opensin code --refactor "${text.substring(0, 100)}..." --file "${uri.fsPath}"`);
+      terminal.show();
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('opensin-code.explainCode', async (uri: vscode.Uri, range: vscode.Range, text: string) => {
+      const panel = vscode.window.createWebviewPanel(
+        'opensinCodeExplanation',
+        '🏛️ OpenSIN Code Explanation',
+        vscode.ViewColumn.Beside,
+        { enableScripts: true }
+      );
+      panel.webview.html = `
+        <html>
+        <body style="padding: 16px; font-family: var(--vscode-font-family); background: var(--vscode-editor-background); color: var(--vscode-editor-foreground);">
+          <h3>🏛️ Code Explanation</h3>
+          <pre style="background: var(--vscode-textBlockQuote-background); padding: 12px; border-radius: 4px; overflow-x: auto;">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+          <p><em>Send this code to OpenSIN CLI for detailed explanation:</em></p>
+          <code>opensin code --explain "${text.substring(0, 100)}..."</code>
+        </body>
+        </html>
+      `;
+    })
+  );
+}
