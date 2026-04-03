@@ -394,3 +394,40 @@ export type {
   RateLimitEvent,
 } from "./rate_limit_status/index.js";
 export { DEFAULT_RATE_LIMIT_CONFIG } from "./rate_limit_status/index.js";
+
+// Copy Command
+export { CopyCommand, getCopyCommand, resetCopyCommand } from "./copy_command/index.js";
+export { ClipboardManager, getClipboardManager, resetClipboardManager } from "./copy_command/index.js";
+export type { CopyCommandConfig, CopyResult, ClipboardFormat, AssistantResponse } from "./copy_command/index.js";
+
+// Plugin State
+export { PluginStateManager, getPluginStateManager, resetPluginStateManager } from "./plugin_state/index.js";
+export { PluginStateStorage, getPluginStateStorage, resetPluginStateStorage } from "./plugin_state/index.js";
+export { KeychainManager, getKeychainManager, resetKeychainManager } from "./plugin_state/index.js";
+export type {
+  PluginState,
+  PluginStateConfig,
+  SensitiveValue,
+  KeychainBackend,
+  PluginUninstallPrompt,
+} from "./plugin_state/index.js";
+
+// Terminal Notifications
+export { TerminalNotifier, getTerminalNotifier, resetTerminalNotifier } from "./terminal_notifications/index.js";
+export {
+  detectTerminalType,
+  createProvider,
+  ITerm2Provider,
+  KittyProvider,
+  GhosttyProvider,
+  TmuxProvider,
+  UnknownProvider,
+} from "./terminal_notifications/index.js";
+export type {
+  NotificationType,
+  TerminalType,
+  TerminalNotification,
+  NotificationPreferences,
+  ProgressState,
+  TerminalCapabilities,
+} from "./terminal_notifications/index.js";
