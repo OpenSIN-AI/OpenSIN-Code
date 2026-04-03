@@ -22,6 +22,10 @@ export interface BuiltinHookOptions {
     args?: string[];
     timeout?: number;
   };
+  autoLint?: {
+    enabled?: boolean;
+    timeout?: number;
+  };
 }
 
 export function registerBuiltinHooks(
@@ -34,9 +38,9 @@ export function registerBuiltinHooks(
   if (prettierOpts.enabled !== false) {
     hooks.push({
       id: "builtin:prettier",
-      event: HookEvent.PreEdit,
+      event: HookEvent.PostEdit,
       command: "npx",
-      args: ["prettier", "--write", ...(prettierOpts.args ?? ["${OPENCODE_FILE_PATH:-.}"])],
+      args: ["prettier", "--write", ...(prettierOpts.args ?? ["${OPENSIN_HOOK_FILE:-.}"])],
       timeout: prettierOpts.timeout ?? 15000,
       onError: "continue",
       enabled: true,
@@ -47,11 +51,11 @@ export function registerBuiltinHooks(
   if (eslintOpts.enabled !== false) {
     hooks.push({
       id: "builtin:eslint",
-      event: HookEvent.PreCommit,
+      event: HookEvent.PostEdit,
       command: "npx",
-      args: ["eslint", "--fix", ...(eslintOpts.args ?? ["."])],
+      args: ["eslint", "--fix", ...(eslintOpts.args ?? ["${OPENSIN_HOOK_FILE:-.}"])],
       timeout: eslintOpts.timeout ?? 30000,
-      onError: "abort",
+      onError: "continue",
       enabled: true,
     });
   }
@@ -73,14 +77,37 @@ export function registerBuiltinHooks(
   if (typecheckOpts.enabled !== false) {
     hooks.push({
       id: "builtin:typecheck",
-      event: HookEvent.PreCommit,
+      event: HookEvent.PostEdit,
       command: "npx",
       args: ["tsc", "--noEmit", ...(typecheckOpts.args ?? [])],
       timeout: typecheckOpts.timeout ?? 30000,
-      onError: "abort",
+      onError: "continue",
       enabled: true,
     });
   }
+
+  const autoLintOpts = options?.autoLint ?? {};
+  if (autoLintOpts.enabled !== false) {
+    hooks.push({
+      id: "builtin:auto-lint",
+      event: HookEvent.PostEdit,
+      command: "npx",
+      args: ["--no", "opensin", "lint", "--fix", "${OPENSIN_HOOK_FILE:-.}"],
+      timeout: autoLintOpts.timeout ?? 45000,
+      onError: "continue",
+      enabled: true,
+    });
+  }
+
+  hooks.push({
+    id: "builtin:pre-commit-lint",
+    event: HookEvent.PreCommit,
+    command: "npx",
+    args: ["--no", "opensin", "lint"],
+    timeout: 60000,
+    onError: "abort",
+    enabled: true,
+  });
 
   registry.registerMany(hooks);
 }

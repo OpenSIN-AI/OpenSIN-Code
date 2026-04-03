@@ -137,3 +137,29 @@ export type {
   BuiltinHookOptions,
 } from "./hooks/index.js";
 export { HookRegistry, HookExecutor, registerBuiltinHooks } from "./hooks/index.js";
+
+// Lint
+export {
+  LinterAggregator,
+  AutoFixEngine,
+  RulesManager,
+  AutoLintSession,
+  createLinter,
+  createAutoFixEngine,
+  createRulesManager,
+  createAutoLintSession,
+} from "./lint/index.js";
+export type {
+  LintError,
+  LintFix,
+  LintConfig,
+  LintResult,
+  AutoFixConfig,
+  RulesConfig,
+  RuleConfig,
+  LintEvent,
+  LintListener,
+  LintSeverity,
+  LintSource,
+  AutoLintSessionConfig,
+} from "./lint/index.js";
