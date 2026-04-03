@@ -431,3 +431,23 @@ export type {
   ProgressState,
   TerminalCapabilities,
 } from "./terminal_notifications/index.js";
+
+// Prompt Interrupt and Restore
+export { InterruptHandler, PromptRestore } from "./prompt_interrupt/index.js";
+export type {
+  InterruptState,
+  InterruptConfig,
+  InterruptEvent,
+  RestoreResult,
+} from "./prompt_interrupt/index.js";
+export { DEFAULT_INTERRUPT_CONFIG } from "./prompt_interrupt/index.js";
+
+// Prompt Interrupt and Restore
+export { InterruptHandler, PromptRestore } from "./prompt_interrupt/index.js";
+export type {
+  InterruptState,
+  InterruptConfig,
+  InterruptEvent,
+  RestoreResult,
+} from "./prompt_interrupt/index.js";
+export { DEFAULT_INTERRUPT_CONFIG } from "./prompt_interrupt/index.js";
