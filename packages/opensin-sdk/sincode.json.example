@@ -7,5 +7,48 @@
     "projectLevel": "collaborate"
   },
   "providers": [],
-  "mcpServers": []
+  "mcpServers": [],
+  "hooks": {
+    "enabled": true,
+    "defaultTimeout": 30000,
+    "defaultOnError": "continue",
+    "hooks": [
+      {
+        "id": "prettier",
+        "event": "pre-edit",
+        "command": "npx",
+        "args": ["prettier", "--write", "."],
+        "timeout": 15000,
+        "onError": "continue",
+        "enabled": true
+      },
+      {
+        "id": "eslint",
+        "event": "pre-commit",
+        "command": "npx",
+        "args": ["eslint", "--fix", "."],
+        "timeout": 30000,
+        "onError": "abort",
+        "enabled": true
+      },
+      {
+        "id": "pytest",
+        "event": "post-edit",
+        "command": "pytest",
+        "args": ["-q", "--tb=short"],
+        "timeout": 60000,
+        "onError": "continue",
+        "enabled": true
+      },
+      {
+        "id": "typecheck",
+        "event": "pre-commit",
+        "command": "npx",
+        "args": ["tsc", "--noEmit"],
+        "timeout": 30000,
+        "onError": "abort",
+        "enabled": true
+      }
+    ]
+  }
 }
