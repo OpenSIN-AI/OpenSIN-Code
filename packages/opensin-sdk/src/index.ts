@@ -283,11 +283,41 @@ export type {
   ContextAnalysis,
   ContextOptimizerConfig,
 } from "./context_optimizer/index.js";
+
+// Color Picker
+export { ColorPicker, ThemeApplier } from "./color_picker/index.js";
 export type {
-  ContextTool,
-  ContextMetrics,
-  ContextWarning,
-  OptimizationTip,
-  ContextAnalysis,
-  ContextOptimizerConfig,
-} from "./context_optimizer/index.js";
+  ColorPreset,
+  SessionColor,
+  ColorConfig,
+  ColorChangeEvent,
+} from "./color_picker/index.js";
+
+// Live Status
+export { StatusMonitor, StatusDisplay } from "./live_status/index.js";
+export type {
+  LiveStatusSnapshot,
+  TokenUsageDelta,
+  CostInfo,
+  LiveStatusConfig,
+  StatusDisplayOptions,
+} from "./live_status/index.js";
+
+// Color Picker
+export { ColorPicker, ThemeApplier } from "./color_picker/index.js";
+export type {
+  ColorPreset,
+  SessionColor,
+  ColorConfig,
+  ColorChangeEvent,
+} from "./color_picker/index.js";
+
+// Live Status
+export { StatusMonitor, StatusDisplay } from "./live_status/index.js";
+export type {
+  LiveStatusSnapshot,
+  TokenUsageDelta,
+  CostInfo,
+  LiveStatusConfig,
+  StatusDisplayOptions,
+} from "./live_status/index.js";
