@@ -1,0 +1,86 @@
+{
+  "name": "opensin-code-vscode",
+  "displayName": "OpenSIN-Code",
+  "description": "Agentic AI Coding Assistant for OpenSIN - Powered by Kilo Code & Claude Code concepts",
+  "version": "0.1.0",
+  "publisher": "opensin",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Machine Learning",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "coding-assistant",
+    "sin-code",
+    "opensin-code",
+    "agentic"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "opensin-code.start",
+        "title": "Start SIN Code OpenSIN-Code",
+        "category": "OpenSIN-Code"
+      },
+      {
+        "command": "opensin-code.selectMode",
+        "title": "Select OpenSIN-Code Mode",
+        "category": "OpenSIN-Code"
+      },
+      {
+        "command": "opensin-code.selectModel",
+        "title": "Select OpenSIN-Code Model",
+        "category": "OpenSIN-Code"
+      },
+      {
+        "command": "opensin-code.addFileToContext",
+        "title": "Add File to OpenSIN-Code Context",
+        "category": "OpenSIN-Code"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "opensin-code.addFileToContext",
+          "group": "navigation"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "opensin-code-sidebar",
+          "title": "SIN Code",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "opensin-code-sidebar": [
+        {
+          "type": "webview",
+          "id": "opensin-code.chatView",
+          "name": "OpenSIN-Code Chat"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --no-dependencies"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "18.x",
+    "typescript": "^5.3.3",
+    "@vscode/vsce": "^2.24.0"
+  }
+}
