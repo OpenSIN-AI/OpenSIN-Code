@@ -1,0 +1,67 @@
+{
+  "name": "@opensin/agent-sdk",
+  "version": "0.1.0",
+  "description": "SDK for building custom agents on OpenSIN — tool registration, permissions, orchestration",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./agent": {
+      "import": "./dist/agent.js",
+      "types": "./dist/agent.d.ts"
+    },
+    "./tools": {
+      "import": "./dist/tools.js",
+      "types": "./dist/tools.d.ts"
+    },
+    "./permissions": {
+      "import": "./dist/permissions.js",
+      "types": "./dist/permissions.d.ts"
+    },
+    "./orchestrator": {
+      "import": "./dist/orchestrator.js",
+      "types": "./dist/orchestrator.d.ts"
+    },
+    "./template": {
+      "import": "./dist/template.js",
+      "types": "./dist/template.d.ts"
+    },
+    "./cli": {
+      "import": "./dist/cli/index.js",
+      "types": "./dist/cli/index.d.ts"
+    }
+  },
+  "bin": {
+    "sincode-agent": "./dist/cli/bin.js"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "opensin",
+    "agent",
+    "sdk",
+    "custom-agent",
+    "tool-registry",
+    "orchestration"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
