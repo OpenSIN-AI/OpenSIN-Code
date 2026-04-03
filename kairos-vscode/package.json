@@ -1,0 +1,180 @@
+{
+  "name": "opensin-vscode",
+  "displayName": "OpenSIN",
+  "description": "Agentic AI Coding Assistant with full A2A integration to Cloud VM fleet",
+  "version": "0.1.0",
+  "publisher": "opensin",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Machine Learning",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "coding-assistant",
+    "sin-code",
+    "sin-code",
+    "agentic"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "opensin.start",
+        "title": "Start SIN Code",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.selectMode",
+        "title": "Select SIN Code Mode",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.selectModel",
+        "title": "Select SIN Code Model",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.addFileToContext",
+        "title": "Add File to SIN Code Context",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.openMarketplace",
+        "title": "Open SIN Agent Marketplace",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.inlineChat.trigger",
+        "title": "Trigger Inline Suggestion",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.showSINZeusDashboard",
+        "title": "\ud83c\udfdb\ufe0f SIN-Zeus Dashboard",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.swarmDispatch",
+        "title": "\ud83d\udc1d Swarm to Cloud VMs",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.buddyInfo",
+        "title": "\ud83d\udc1b Buddy Status",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.mode.solo",
+        "title": "Solo \u2014 Single Agent",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.mode.swarm",
+        "title": "Swarm \u2014 OMOC-Swarm Parallel",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.mode.trio",
+        "title": "Trio \u2014 Agent + 3 Subagents",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.mode.cloud",
+        "title": "Cloud \u2014 Full A2A Fleet (SIN-Zeus)",
+        "category": "OpenSIN"
+      },
+      {
+        "command": "opensin.mode.select",
+        "title": "Select Execution Mode",
+        "category": "OpenSIN"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "opensin.addFileToContext",
+          "group": "navigation"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "opensin-sidebar",
+          "title": "OpenSIN",
+          "icon": "media/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "sincode-sidebar": [
+        {
+          "type": "webview",
+          "id": "opensin.chatView",
+          "name": "SIN Code Chat"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s",
+        "command": "opensin.mode.solo",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+w",
+        "mac": "cmd+shift+w",
+        "command": "opensin.mode.swarm",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t",
+        "command": "opensin.mode.trio",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c",
+        "command": "opensin.mode.cloud",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --no-dependencies"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "18.x",
+    "typescript": "^5.3.3",
+    "@vscode/vsce": "^2.24.0"
+  },
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code.git",
+    "directory": "opensin-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code/issues"
+  },
+  "__metadata": {
+    "installedTimestamp": 1775150507821,
+    "targetPlatform": "undefined",
+    "size": 68697
+  }
+}
