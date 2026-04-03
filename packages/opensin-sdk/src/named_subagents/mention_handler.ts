@@ -7,9 +7,10 @@ export function extractMentions(text: string): SubAgentMention[] {
   let match: RegExpExecArray | null;
 
   while ((match = MENTION_PATTERN.exec(text)) !== null) {
+    const name = match[1] ?? "";
     mentions.push({
-      agentId: match[1],
-      agentName: match[1],
+      agentId: name,
+      agentName: name,
       position: match.index,
       text: match[0],
     });

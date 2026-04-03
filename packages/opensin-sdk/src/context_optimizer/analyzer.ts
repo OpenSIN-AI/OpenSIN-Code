@@ -177,10 +177,11 @@ export class ContextAnalyzer {
 
     const redundantTools = tools.filter((t) => t.callCount > 5);
     if (redundantTools.length > 0) {
+      const top = redundantTools[0]!;
       tips.push({
         id: `tip-${tipId++}`,
         title: "Reduce repeated tool calls",
-        description: `Tools like ${redundantTools[0].name} were called ${redundantTools[0].callCount} times. Cache results when possible.`,
+        description: `Tools like ${top.name} were called ${top.callCount} times. Cache results when possible.`,
         action: "Store tool results and reuse them instead of re-calling",
         estimatedSavings: redundantTools.reduce(
           (s, t) => s + t.tokenCost * (t.callCount - 1),

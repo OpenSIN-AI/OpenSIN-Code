@@ -1,14 +1,15 @@
 export { ContextAnalyzer } from "./analyzer.js";
-export { ContextOptimizer, optimizeContext } from "./optimizer.js";
-export { generateOptimizationTips } from "./tips.js";
+export { ContextOptimizer } from "./optimizer.js";
+export {
+  getBuiltinTips,
+  getTipsByCategory,
+  getTipById,
+} from "./tips.js";
 export type {
-  ContextSnapshot,
   ContextTool,
-  MemoryEntry,
-  CapacityWarning,
-  OptimizationTip,
-  OptimizationStrategy,
   ContextMetrics,
-  OptimizerConfig,
-  OptimizationResult,
+  ContextWarning,
+  OptimizationTip,
+  ContextAnalysis,
+  ContextOptimizerConfig,
 } from "./types.js";

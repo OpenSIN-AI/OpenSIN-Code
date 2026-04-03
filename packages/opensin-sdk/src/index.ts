@@ -249,43 +249,45 @@ export type {
 
 // Named Subagents
 export {
-  NamedSubagentRegistry,
-  handleAtMention,
+  SubAgentRegistry,
+  getSubAgentRegistry,
+  resetSubAgentRegistry,
+  extractMentions,
+  hasMention,
+  removeMentions,
+  getMentionAtPosition,
+  getMentionPrefix,
+  replaceMentionWithAgent,
+  insertMention,
 } from "./named_subagents/index.js";
 export type {
-  NamedSubagent,
-  SubagentConfig,
-  SubagentCategory,
-  MentionMatch,
-  RegistryOptions,
+  NamedSubAgent,
+  SubAgentMention,
+  TypeaheadSuggestion,
+  AgentRegistryConfig,
 } from "./named_subagents/index.js";
 
 // Context Optimizer
 export {
   ContextAnalyzer,
   ContextOptimizer,
-  optimizeContext,
-  generateOptimizationTips,
+  getBuiltinTips,
+  getTipsByCategory,
+  getTipById,
 } from "./context_optimizer/index.js";
 export type {
-  ContextSnapshot,
   ContextTool,
-  MemoryEntry,
-  CapacityWarning,
-  OptimizationTip,
-  OptimizationStrategy,
   ContextMetrics,
-  OptimizerConfig,
-  OptimizationResult,
+  ContextWarning,
+  OptimizationTip,
+  ContextAnalysis,
+  ContextOptimizerConfig,
 } from "./context_optimizer/index.js";
 export type {
-  ContextSnapshot,
   ContextTool,
-  MemoryEntry,
-  CapacityWarning,
-  OptimizationTip,
-  OptimizationStrategy,
   ContextMetrics,
-  OptimizerConfig,
-  OptimizationResult,
+  ContextWarning,
+  OptimizationTip,
+  ContextAnalysis,
+  ContextOptimizerConfig,
 } from "./context_optimizer/index.js";

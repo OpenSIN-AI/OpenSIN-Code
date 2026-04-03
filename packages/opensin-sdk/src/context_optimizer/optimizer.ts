@@ -31,7 +31,7 @@ export class ContextOptimizer {
 
   getLatestAnalysis(): ContextAnalysis | null {
     return this.history.length > 0
-      ? this.history[this.history.length - 1]
+      ? this.history[this.history.length - 1] ?? null
       : null;
   }
 
