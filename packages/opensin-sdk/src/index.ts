@@ -413,3 +413,9 @@ export * from "./cli_v2/index.js";
 
 // CLI v2 Framework (from sin-claude)
 export * from "./cli_v2/index.js";
+
+// CLI v2 framework (from sin-claude)
+export * from "./cli_v2/index.js";
+
+// CLI v2 framework (from sin-claude)
+export * from "./cli_v2/index.js";
