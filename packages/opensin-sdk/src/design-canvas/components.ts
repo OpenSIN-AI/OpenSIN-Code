@@ -1,0 +1,252 @@
+/**
+ * Design Canvas Component Library — Drag-and-drop component placement
+ */
+
+import type { CanvasComponent, ComponentTemplate } from "./types.js";
+
+export const COMPONENT_TEMPLATES: ComponentTemplate[] = [
+  {
+    type: "button",
+    name: "Button",
+    icon: "⬜",
+    category: "Basic",
+    defaultWidth: 120,
+    defaultHeight: 40,
+    defaultProperties: { text: "Click me", variant: "primary", disabled: false },
+    defaultStyles: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#3b82f6",
+      color: "#ffffff",
+      borderRadius: "6px",
+      fontSize: "14px",
+      fontWeight: "500",
+      border: "none",
+      cursor: "pointer",
+    },
+    codeTemplate: `<button class="btn-primary">{{text}}</button>`,
+  },
+  {
+    type: "input",
+    name: "Text Input",
+    icon: "📝",
+    category: "Basic",
+    defaultWidth: 240,
+    defaultHeight: 40,
+    defaultProperties: { placeholder: "Enter text...", type: "text", required: false },
+    defaultStyles: {
+      padding: "8px 12px",
+      border: "1px solid #d1d5db",
+      borderRadius: "6px",
+      fontSize: "14px",
+      outline: "none",
+    },
+    codeTemplate: `<input type="{{type}}" placeholder="{{placeholder}}" class="text-input" />`,
+  },
+  {
+    type: "heading",
+    name: "Heading",
+    icon: "H",
+    category: "Typography",
+    defaultWidth: 300,
+    defaultHeight: 48,
+    defaultProperties: { text: "Heading", level: 1 },
+    defaultStyles: {
+      fontSize: "32px",
+      fontWeight: "700",
+      color: "#111827",
+      lineHeight: "1.2",
+    },
+    codeTemplate: `<h{{level}} class="heading">{{text}}</h{{level}}>`,
+  },
+  {
+    type: "paragraph",
+    name: "Paragraph",
+    icon: "¶",
+    category: "Typography",
+    defaultWidth: 400,
+    defaultHeight: 60,
+    defaultProperties: { text: "Lorem ipsum dolor sit amet." },
+    defaultStyles: {
+      fontSize: "16px",
+      color: "#6b7280",
+      lineHeight: "1.6",
+    },
+    codeTemplate: `<p class="paragraph">{{text}}</p>`,
+  },
+  {
+    type: "image",
+    name: "Image",
+    icon: "🖼",
+    category: "Media",
+    defaultWidth: 200,
+    defaultHeight: 150,
+    defaultProperties: { src: "", alt: "Image", fit: "cover" },
+    defaultStyles: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      borderRadius: "8px",
+    },
+    codeTemplate: `<img src="{{src}}" alt="{{alt}}" class="image" />`,
+  },
+  {
+    type: "card",
+    name: "Card",
+    icon: "🃏",
+    category: "Layout",
+    defaultWidth: 320,
+    defaultHeight: 200,
+    defaultProperties: { title: "Card Title", variant: "elevated" },
+    defaultStyles: {
+      backgroundColor: "#ffffff",
+      borderRadius: "12px",
+      padding: "20px",
+      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+      border: "1px solid #e5e7eb",
+    },
+    codeTemplate: `<div class="card"><h3>{{title}}</h3><slot></slot></div>`,
+  },
+  {
+    type: "container",
+    name: "Container",
+    icon: "📦",
+    category: "Layout",
+    defaultWidth: 400,
+    defaultHeight: 300,
+    defaultProperties: { direction: "column", gap: 16, align: "stretch" },
+    defaultStyles: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "16px",
+      padding: "16px",
+    },
+    codeTemplate: `<div class="container"><slot></slot></div>`,
+  },
+  {
+    type: "divider",
+    name: "Divider",
+    icon: "—",
+    category: "Layout",
+    defaultWidth: 300,
+    defaultHeight: 2,
+    defaultProperties: { orientation: "horizontal" },
+    defaultStyles: {
+      height: "1px",
+      backgroundColor: "#e5e7eb",
+      border: "none",
+    },
+    codeTemplate: `<hr class="divider" />`,
+  },
+  {
+    type: "avatar",
+    name: "Avatar",
+    icon: "👤",
+    category: "Data Display",
+    defaultWidth: 40,
+    defaultHeight: 40,
+    defaultProperties: { src: "", initials: "AB", size: "md" },
+    defaultStyles: {
+      width: "40px",
+      height: "40px",
+      borderRadius: "50%",
+      backgroundColor: "#3b82f6",
+      color: "#ffffff",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "14px",
+      fontWeight: "600",
+    },
+    codeTemplate: `<div class="avatar">{{initials}}</div>`,
+  },
+  {
+    type: "badge",
+    name: "Badge",
+    icon: "🏷",
+    category: "Data Display",
+    defaultWidth: 60,
+    defaultHeight: 24,
+    defaultProperties: { text: "New", variant: "info" },
+    defaultStyles: {
+      display: "inline-flex",
+      alignItems: "center",
+      padding: "2px 8px",
+      borderRadius: "9999px",
+      fontSize: "12px",
+      fontWeight: "500",
+      backgroundColor: "#dbeafe",
+      color: "#1e40af",
+    },
+    codeTemplate: `<span class="badge">{{text}}</span>`,
+  },
+  {
+    type: "navbar",
+    name: "Navigation Bar",
+    icon: "🧭",
+    category: "Navigation",
+    defaultWidth: 800,
+    defaultHeight: 56,
+    defaultProperties: { brand: "Brand", links: ["Home", "About", "Contact"] },
+    defaultStyles: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "0 24px",
+      backgroundColor: "#ffffff",
+      borderBottom: "1px solid #e5e7eb",
+      height: "56px",
+    },
+    codeTemplate: `<nav class="navbar"><span class="brand">{{brand}}</span><div class="links">{{links}}</div></nav>`,
+  },
+  {
+    type: "grid",
+    name: "Grid Layout",
+    icon: "⊞",
+    category: "Layout",
+    defaultWidth: 600,
+    defaultHeight: 400,
+    defaultProperties: { columns: 3, gap: 16 },
+    defaultStyles: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3, 1fr)",
+      gap: "16px",
+    },
+    codeTemplate: `<div class="grid"><slot></slot></div>`,
+  },
+];
+
+export function createComponentFromTemplate(template: ComponentTemplate, x: number, y: number): CanvasComponent {
+  return {
+    id: `comp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    type: template.type,
+    name: template.name,
+    x,
+    y,
+    width: template.defaultWidth,
+    height: template.defaultHeight,
+    rotation: 0,
+    zIndex: 1,
+    properties: { ...template.defaultProperties },
+    styles: { ...template.defaultStyles },
+    children: [],
+    parentId: null,
+    locked: false,
+    visible: true,
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  };
+}
+
+export function getTemplatesByCategory(category: string): ComponentTemplate[] {
+  return COMPONENT_TEMPLATES.filter((t) => t.category === category);
+}
+
+export function getAllCategories(): string[] {
+  return [...new Set(COMPONENT_TEMPLATES.map((t) => t.category))];
+}
+
+export function findTemplateByType(type: string): ComponentTemplate | undefined {
+  return COMPONENT_TEMPLATES.find((t) => t.type === type);
+}
