@@ -480,3 +480,97 @@ export type {
   BranchCommandResult,
   ForkAliasResult,
 } from "./branch_command/index.js";
+
+// Skills as Slash Commands (Roo Code v3.51.0)
+export {
+  SkillRegistry,
+  getSkillRegistry,
+  resetSkillRegistry,
+  SkillExecutor,
+  getSkillExecutor,
+  resetSkillExecutor,
+  FallbackEngine,
+  getFallbackEngine,
+  resetFallbackEngine,
+  parseSlashCommand,
+  isSlashCommand,
+  formatSkillHelp,
+  formatSkillUsage,
+} from "./skill_commands/index.js";
+export type {
+  SkillDefinition,
+  SkillParameter,
+  SkillParameterType,
+  SkillInvocation,
+  SkillResult,
+  SkillFallbackResult,
+  SkillRegistryConfig,
+  SkillCommand,
+  SlashCommandParseResult,
+  SkillExecutionMode,
+} from "./skill_commands/index.js";
+
+// Standalone CLI with Session Resume (Roo Code)
+export {
+  SessionManager,
+  HistoryManager,
+  StdinHandler,
+  createStandaloneCli,
+} from "./standalone_cli/index.js";
+export type {
+  CliMode,
+  CliConfig,
+  NdjsonMessage,
+  SessionRecord,
+  HistoryEntry,
+  StdinCommand,
+  SessionResumeState,
+  CliStatus,
+} from "./standalone_cli/index.js";
+
+// Skills as Slash Commands (Roo Code v3.51.0)
+export {
+  SkillRegistry,
+  getSkillRegistry,
+  resetSkillRegistry,
+  SkillExecutor,
+  getSkillExecutor,
+  resetSkillExecutor,
+  FallbackEngine,
+  getFallbackEngine,
+  resetFallbackEngine,
+  parseSlashCommand,
+  isSlashCommand,
+  formatSkillHelp,
+  formatSkillUsage,
+} from "./skill_commands/index.js";
+export type {
+  SkillDefinition,
+  SkillParameter,
+  SkillParameterType,
+  SkillInvocation,
+  SkillResult,
+  SkillFallbackResult,
+  SkillRegistryConfig,
+  SkillCommand,
+  SlashCommandParseResult,
+  SkillExecutionMode,
+} from "./skill_commands/index.js";
+
+// Standalone CLI with Session Resume (Roo Code)
+export {
+  SessionManager,
+  HistoryManager,
+  StdinHandler,
+  createStandaloneCli,
+} from "./standalone_cli/index.js";
+export type {
+  CliMode,
+  CliConfig,
+  NdjsonMessage,
+  SessionRecord,
+  HistoryEntry,
+  StdinCommand,
+  SessionResumeState,
+  CliStatus,
+} from "./standalone_cli/index.js";
