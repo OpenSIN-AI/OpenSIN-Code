@@ -62,3 +62,5 @@ SEE LICENSE IN LICENSE (Proprietary — SIN-Solver Team)
 - [AGENTS.md](AGENTS.md) — Agent configuration and behavior
 - [CONTRIBUTING.md](CONTRIBUTING.md) — Contribution guidelines
 - [SECURITY.md](SECURITY.md) — Security policy
+
+> OpenSIN connects to **100+ LLM providers** and **1000+ models** — including OpenAI, Anthropic, Google, Mistral, Groq, Cerebras, TogetherAI, Ollama, local models, and 90+ more. Bring your own API key or use our free tier.
