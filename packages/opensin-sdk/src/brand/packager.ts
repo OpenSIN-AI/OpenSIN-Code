@@ -145,7 +145,7 @@ export class MediaPackager {
       }
     )
 
-    const data = await response.json()
+    const data: any = await response.json()
     if (data.error) {
       throw new Error(`TTS generation failed: ${data.error.message}`)
     }

@@ -128,7 +128,7 @@ Write the content now:`
       }
     )
 
-    const data = await response.json()
+    const data: any = await response.json()
     if (data.error) throw new Error(`Script generation failed: ${data.error.message}`)
 
     return data.candidates?.[0]?.content?.parts?.[0]?.text || ''
@@ -150,7 +150,7 @@ Write the content now:`
       }
     )
 
-    const data = await response.json()
+    const data: any = await response.json()
     if (data.error) throw new Error(`Image generation failed: ${data.error.message}`)
 
     const parts = data.candidates?.[0]?.content?.parts || []
@@ -182,7 +182,7 @@ Write the content now:`
       }
     )
 
-    const data = await response.json()
+    const data: any = await response.json()
     if (data.error) throw new Error(`Video generation failed: ${data.error.message}`)
 
     return { path: data.name || '', prompt: enhancedPrompt }
