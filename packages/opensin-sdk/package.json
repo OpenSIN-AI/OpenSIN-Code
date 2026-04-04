@@ -51,9 +51,11 @@
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "test": "echo 'No tests yet — add test suite' && exit 0",
+    "test": "vitest run",
     "lint": "echo 'No linter configured yet' && exit 0",
-    "start": "node dist/standalone_cli/index.js"
+    "start": "node dist/standalone_cli/index.js",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [
     "opensin",
@@ -70,7 +72,9 @@
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "typescript": "^5.4.0"
+    "@vitest/coverage-v8": "^1.6.1",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
   },
   "engines": {
     "node": ">=18.0.0"
