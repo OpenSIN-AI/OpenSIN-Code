@@ -3,7 +3,9 @@
     "target": "ES2022",
     "module": "Node16",
     "moduleResolution": "Node16",
-    "lib": ["ES2022"],
+    "lib": [
+      "ES2022"
+    ],
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -20,7 +22,9 @@
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules",
     "dist",
@@ -54,6 +58,16 @@
     "src/subtask_tree",
     "src/terminal_notifications",
     "src/vim_mode",
-    "src/voice_v2"
+    "src/voice_v2",
+    "src/continue_work",
+    "src/hooks",
+    "src/i18n",
+    "src/lint",
+    "src/lsp",
+    "src/plan_act",
+    "src/powerup",
+    "src/turbo",
+    "src/index.ts",
+    "src/providers.ts"
   ]
 }

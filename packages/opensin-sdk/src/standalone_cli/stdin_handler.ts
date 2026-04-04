@@ -101,41 +101,30 @@ export class StdinHandler {
     const messages: Message[] = [{ role: 'user', content: input }];
 
     try {
-      // Get available tools
       const toolsResponse = await this.client.listTools();
       const tools = toolsResponse.tools;
 
-      // Stream the response
+      // Use non-streaming prompt (more reliable with current server)
       process.stdout.write('\n');
-      let fullContent = '';
-      let totalInput = 0;
-      let totalOutput = 0;
+      const result = await this.client.prompt(sessionId, messages, tools as ToolDefinition[]);
+      console.log(result.content);
+      this.sessionManager.addTokenUsage(result.usage.input_tokens, result.usage.output_tokens);
+    } catch (error) {
+      console.error(`\nError: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
 
-      for await (const chunk of this.client.promptStream(sessionId, messages, tools as ToolDefinition[])) {
-        if (chunk.type === 'text' && chunk.content) {
-          process.stdout.write(chunk.content);
-          fullContent += chunk.content;
-          totalOutput += chunk.content.length / 4; // rough token estimate
-        } else if (chunk.type === 'tool_use' && chunk.tool_call) {
-          process.stdout.write(`\n[Calling tool: ${chunk.tool_call.name}]\n`);
-          // Execute tool and feed result back
-          const result = await this.client.executeTool(
-            chunk.tool_call.name,
-            chunk.tool_call.input as Record<string, unknown>,
-            this.sessionManager.getState().workspace,
-            sessionId,
-          );
-          process.stdout.write(`[Tool result: ${JSON.stringify(result).slice(0, 200)}...]\n`);
-        } else if (chunk.type === 'done' && chunk.usage) {
-          totalInput = chunk.usage.input_tokens;
-          totalOutput = chunk.usage.output_tokens;
-        } else if (chunk.type === 'error' && chunk.error) {
-          process.stdout.write(`\n[Error: ${chunk.error}]\n`);
-        }
-      }
+    const messages: Message[] = [{ role: 'user', content: input }];
 
-      console.log(); // newline after streaming
-      this.sessionManager.addTokenUsage(totalInput, totalOutput);
+    try {
+      const toolsResponse = await this.client.listTools();
+      const tools = toolsResponse.tools;
+
+      // Use non-streaming prompt (more reliable with current server)
+      process.stdout.write('\n');
+      const result = await this.client.prompt(sessionId, messages, tools as ToolDefinition[]);
+      console.log(result.content);
+      this.sessionManager.addTokenUsage(result.usage.input_tokens, result.usage.output_tokens);
     } catch (error) {
       console.error(`\nError: ${error instanceof Error ? error.message : String(error)}`);
     }

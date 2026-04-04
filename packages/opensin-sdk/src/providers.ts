@@ -67,7 +67,7 @@ export class OpenSINProvider extends BaseProvider {
       throw new Error(`API error: ${response.status} ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const choice = data.choices?.[0];
     return {
       content: choice?.message?.content ?? '',
@@ -140,7 +140,7 @@ export class OpenAIProvider extends BaseProvider {
       throw new Error(`OpenAI API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const choice = data.choices?.[0];
     return {
       content: choice?.message?.content ?? '',
@@ -194,8 +194,8 @@ export class AnthropicProvider extends BaseProvider {
     tools?: ToolDefinition[],
     options?: { max_tokens?: number; temperature?: number },
   ): Promise<{ content: string; usage: TokenUsage }> {
-    const systemMessages = messages.filter(m => m.role === 'system');
-    const nonSystemMessages = messages.filter(m => m.role !== 'system');
+    const systemMessages = messages.filter(m => (m as any).role === 'system');
+    const nonSystemMessages = messages.filter(m => (m as any).role !== 'system');
 
     const response = await fetch(`${this.config.baseUrl}/messages`, {
       method: 'POST',
@@ -206,7 +206,7 @@ export class AnthropicProvider extends BaseProvider {
       },
       body: JSON.stringify({
         model: this.config.model,
-        system: systemMessages.map(m => m.content).join('\n'),
+        system: systemMessages.map(m => (m as any).content).join('\n'),
         messages: nonSystemMessages.map(m => ({ role: m.role, content: m.content })),
         tools: tools?.map(t => ({ name: t.name, description: t.description, input_schema: t.input_schema })),
         max_tokens: options?.max_tokens ?? 4096,
@@ -218,7 +218,7 @@ export class AnthropicProvider extends BaseProvider {
       throw new Error(`Anthropic API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
     const textBlock = data.content?.find((b: { type: string; text?: string }) => b.type === 'text');
     return {
       content: textBlock?.text ?? '',
