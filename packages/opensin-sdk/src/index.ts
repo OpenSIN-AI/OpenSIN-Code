@@ -565,3 +565,18 @@ export type {
   RenderedComponent,
   CanvasEvent,
 } from "./design-canvas/index.js";
+
+// Design System Integration — pre-built component libraries like Bolt.new
+export {
+  designSystemRegistry,
+  getDesignSystem,
+  listDesignSystems,
+  getComponentSpec,
+  loadDesignSystem,
+  preloadAllDesignSystems,
+  clearDesignSystemCache,
+  mergeTheme,
+  getThemeVariables,
+  generateComponent,
+  generateAllComponents,
+} from "./design-systems/index.js";
