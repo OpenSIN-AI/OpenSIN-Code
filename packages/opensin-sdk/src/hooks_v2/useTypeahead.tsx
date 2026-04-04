@@ -1270,3 +1270,4 @@ export function useTypeahead({
   // Register Autocomplete context so it appears in activeContexts for other handlers.
   // This allows Chat's resolver to see Autocomplete and defer to its bindings for up/down.
   useRegisterKeybindingContext('Autocomplete', isAutocomplete
+}
