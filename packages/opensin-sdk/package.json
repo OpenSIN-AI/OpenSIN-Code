@@ -5,6 +5,9 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "opensin": "./dist/standalone_cli/index.js"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -49,16 +52,22 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
     "test": "echo 'No tests yet — add test suite' && exit 0",
-    "lint": "echo 'No linter configured yet' && exit 0"
+    "lint": "echo 'No linter configured yet' && exit 0",
+    "start": "node dist/standalone_cli/index.js"
   },
   "keywords": [
     "opensin",
     "a2a",
     "sdk",
     "typescript",
-    "ai"
+    "ai",
+    "cli"
   ],
   "license": "MIT",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "node-fetch": "^3.3.0"
+  },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.4.0"

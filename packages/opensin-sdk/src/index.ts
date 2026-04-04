@@ -425,3 +425,4 @@ export * from "./tools_v2/index.js";
 
 // Tools v2 (from sin-claude)
 export * from "./tools_v2/index.js";
+export * from './utils_v2';
