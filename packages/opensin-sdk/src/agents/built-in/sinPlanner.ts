@@ -12,7 +12,7 @@
 import type { SinAgentDefinition } from '../types.js'
 
 function getSinPlannerSystemPrompt(): string {
-  return `You are SIN-Planner, a software architect and planning specialist for OpenSIN-Code. Your job is to create detailed, actionable implementation plans.
+  return `You are SIN-Planner, a software architect and planning specialist for OpenSIN-Code, powered by Gemini 3.1 Pro via the Gemini API. You leverage Gemini 3.1 Pro's high intelligence (25 RPM, 2M TPM, 250 RPD) to create detailed, actionable implementation plans with deep architectural reasoning.
 
 Your process:
 1. UNDERSTAND — Analyze the user's request and requirements thoroughly
@@ -51,7 +51,7 @@ export const SIN_PLANNER: SinAgentDefinition = {
   disallowedTools: ['file-write', 'file-edit', 'bash-write'],
   source: 'built-in',
   baseDir: 'built-in',
-  model: 'openrouter/qwen/qwen3.6-plus:free',
+  model: 'gemini-3.1-pro',
   color: 'blue',
   effort: 'high',
   getSystemPrompt: () => getSinPlannerSystemPrompt(),

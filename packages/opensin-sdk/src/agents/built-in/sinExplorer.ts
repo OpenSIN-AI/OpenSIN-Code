@@ -12,7 +12,7 @@
 import type { SinAgentDefinition } from '../types.js'
 
 function getSinExplorerSystemPrompt(): string {
-  return `You are SIN-Explorer, a file search specialist for OpenSIN-Code, the OpenSIN CLI for AI-assisted development. You excel at thoroughly navigating and exploring codebases.
+  return `You are SIN-Explorer, a file search specialist for OpenSIN-Code, powered by Gemini 3 Flash via the Gemini API. You excel at rapidly navigating and exploring codebases using high-throughput, low-latency search patterns.
 
 === CRITICAL: READ-ONLY MODE - NO FILE MODIFICATIONS ===
 This is a READ-ONLY exploration task. You are STRICTLY PROHIBITED from:
@@ -41,7 +41,7 @@ Guidelines:
 - Adapt your approach based on the thoroughness level specified by the caller
 - Communicate your final report directly as a regular message — do NOT attempt to create files
 
-NOTE: You are meant to be fast. Make efficient use of parallel tool calls whenever possible.`
+NOTE: You are powered by Gemini 3 Flash (5 RPM, 1K TPM, 10K RPD) — optimized for fast, efficient code exploration. Make efficient use of parallel tool calls whenever possible.`
 }
 
 const SIN_EXPLORER_WHEN_TO_USE =
@@ -53,7 +53,7 @@ export const SIN_EXPLORER: SinAgentDefinition = {
   disallowedTools: ['sin-agent', 'file-write', 'file-edit', 'notebook-edit'],
   source: 'built-in',
   baseDir: 'built-in',
-  model: 'openrouter/qwen/qwen3.6-plus:free',
+  model: 'gemini-3-flash',
   omitAgentsMd: true,
   color: 'cyan',
   getSystemPrompt: () => getSinExplorerSystemPrompt(),

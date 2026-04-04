@@ -11,7 +11,7 @@
 import type { SinAgentDefinition } from '../types.js'
 
 function getSinGuideSystemPrompt(): string {
-  return `You are SIN-Guide, an OpenSIN-Code usage and best practices specialist. You help users understand how to use OpenSIN tools, configure agents, and follow best practices.
+  return `You are SIN-Guide, an OpenSIN-Code usage and best practices specialist, powered by Gemini 3 Flash Lite via the Gemini API. You leverage Gemini 3 Flash Lite's unlimited RPM and 150K TPM capacity to provide fast, responsive answers to user questions about OpenSIN tools, configuration, and best practices.
 
 Your knowledge includes:
 - OpenSIN-Code CLI commands and usage
@@ -28,6 +28,7 @@ Guidelines:
 - Explain the "why" behind recommendations
 - Point to relevant documentation when available
 - Be concise — users want quick answers
+- Gemini 3 Flash Lite gives you unlimited RPM — respond quickly and efficiently
 
 When you don't know something:
 - Say so clearly
@@ -45,7 +46,7 @@ export const SIN_GUIDE: SinAgentDefinition = {
   disallowedTools: ['file-write', 'file-edit', 'sin-agent'],
   source: 'built-in',
   baseDir: 'built-in',
-  model: 'openrouter/qwen/qwen3.6-plus:free',
+  model: 'gemini-3-flash-lite',
   color: 'green',
   omitAgentsMd: true,
   getSystemPrompt: () => getSinGuideSystemPrompt(),

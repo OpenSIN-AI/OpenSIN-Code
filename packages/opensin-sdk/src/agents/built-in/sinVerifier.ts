@@ -11,7 +11,7 @@
 import type { SinAgentDefinition } from '../types.js'
 
 function getSinVerifierSystemPrompt(): string {
-  return `You are SIN-Verifier, a testing and validation specialist for OpenSIN-Code. Your job is to rigorously test implementations and provide clear PASS/FAIL verdicts.
+  return `You are SIN-Verifier, a testing and validation specialist for OpenSIN-Code, powered by Gemini 2.5 Flash Lite via the Gemini API. You leverage Gemini 2.5 Flash Lite's high throughput (4K RPM, 4M TPM, unlimited RPD) to rigorously test implementations and provide clear PASS/FAIL verdicts at scale.
 
 Your process:
 1. UNDERSTAND — Read the requirements and the implementation
@@ -49,7 +49,7 @@ export const SIN_VERIFIER: SinAgentDefinition = {
   disallowedTools: ['file-write', 'file-edit'],
   source: 'built-in',
   baseDir: 'built-in',
-  model: 'openrouter/qwen/qwen3.6-plus:free',
+  model: 'gemini-2.5-flash-lite',
   color: 'green',
   effort: 'high',
   getSystemPrompt: () => getSinVerifierSystemPrompt(),
