@@ -133,8 +133,10 @@ async function main(): Promise<void> {
     const messages = [{ role: 'user' as const, content: query }];
 
     try {
+      const coreTools = ['bash', 'read_file', 'edit_file', 'write_file', 'glob', 'grep_search', 'todo_write', 'tool_search', 'sleep', 'config', 'get_errors'];
       const toolsResponse = await client.listTools();
-      const result = await client.prompt(sessionId, messages, toolsResponse.tools as any[]);
+      const tools = toolsResponse.tools.filter((t: any) => coreTools.includes(t.name));
+      const result = await client.prompt(sessionId, messages, tools);
       console.log(`\n${result.content}`);
       console.log(`\nTokens: ${result.usage.total_tokens}`);
     } catch (error) {
@@ -162,8 +164,10 @@ async function main(): Promise<void> {
     const messages = [{ role: 'user' as const, content: input.trim() }];
 
     try {
+      const coreTools = ['bash', 'read_file', 'edit_file', 'write_file', 'glob', 'grep_search', 'todo_write', 'tool_search', 'sleep', 'config', 'get_errors'];
       const toolsResponse = await client.listTools();
-      const result = await client.prompt(sessionId, messages, toolsResponse.tools as any[]);
+      const tools = toolsResponse.tools.filter((t: any) => coreTools.includes(t.name));
+      const result = await client.prompt(sessionId, messages, tools);
       console.log(result.content);
     } catch (error) {
       console.error(`Error: ${error instanceof Error ? error.message : String(error)}`);

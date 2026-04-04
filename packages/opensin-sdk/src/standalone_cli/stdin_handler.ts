@@ -1,7 +1,5 @@
 /**
  * Stdin Handler — REPL loop for interactive CLI mode.
- * 
- * Handles readline input, Ctrl+C, slash commands, and pipes input to the agent loop.
  */
 
 import * as readline from 'readline';
@@ -9,7 +7,7 @@ import { OpenSINClient } from '../client.js';
 import { SessionManager } from './session_manager.js';
 import { CommandHistory } from './history.js';
 import { SlashCommand, AgentState } from './types.js';
-import { Message, StreamChunk, ToolDefinition } from '../types.js';
+import { Message, ToolDefinition } from '../types.js';
 
 export class StdinHandler {
   private rl: readline.Interface;
@@ -19,10 +17,7 @@ export class StdinHandler {
   private slashCommands: Map<string, SlashCommand> = new Map();
   private running = false;
 
-  constructor(
-    client: OpenSINClient,
-    sessionManager: SessionManager,
-  ) {
+  constructor(client: OpenSINClient, sessionManager: SessionManager) {
     this.client = client;
     this.sessionManager = sessionManager;
     this.history = new CommandHistory();
@@ -33,44 +28,27 @@ export class StdinHandler {
     });
   }
 
-  /**
-   * Register a slash command.
-   */
   registerCommand(cmd: SlashCommand): void {
     this.slashCommands.set(cmd.name, cmd);
   }
 
-  /**
-   * Start the interactive REPL loop.
-   */
   async start(): Promise<void> {
     this.running = true;
-
-    // Auto-create session if none exists
     if (!this.sessionManager.getCurrentSession()) {
       await this.sessionManager.create();
     }
-
     this.updatePrompt();
     this.showBanner();
 
     this.rl.on('line', async (line) => {
       const input = line.trim();
-      if (!input) {
-        this.updatePrompt();
-        return;
-      }
-
+      if (!input) { this.updatePrompt(); return; }
       this.history.add(input);
-
-      // Handle slash commands
       if (input.startsWith('/')) {
         await this.handleSlashCommand(input);
         this.updatePrompt();
         return;
       }
-
-      // Process user message through agent loop
       await this.processMessage(input);
       this.updatePrompt();
     });
@@ -81,32 +59,25 @@ export class StdinHandler {
       process.exit(0);
     });
 
-    // Handle Ctrl+C
     this.rl.on('SIGINT', () => {
       console.log('\nInterrupted. Type /quit to exit or continue chatting.');
       this.updatePrompt();
     });
   }
 
-  /**
-   * Process a single message through the agent loop.
-   */
   private async processMessage(input: string): Promise<void> {
     const sessionId = this.sessionManager.getCurrentSession();
     if (!sessionId) {
       console.error('No active session. Create one with /new');
       return;
     }
-
     const messages: Message[] = [{ role: 'user', content: input }];
-
     try {
+      const coreTools = ['bash', 'read_file', 'edit_file', 'write_file', 'glob', 'grep_search', 'todo_write', 'tool_search', 'sleep', 'config', 'get_errors'];
       const toolsResponse = await this.client.listTools();
-      const tools = toolsResponse.tools;
-
-      // Use non-streaming prompt (more reliable with current server)
+      const tools = toolsResponse.tools.filter((t: ToolDefinition) => coreTools.includes(t.name));
       process.stdout.write('\n');
-      const result = await this.client.prompt(sessionId, messages, tools as ToolDefinition[]);
+      const result = await this.client.prompt(sessionId, messages, tools);
       console.log(result.content);
       this.sessionManager.addTokenUsage(result.usage.input_tokens, result.usage.output_tokens);
     } catch (error) {
@@ -114,78 +85,35 @@ export class StdinHandler {
     }
   }
 
-    const messages: Message[] = [{ role: 'user', content: input }];
-
-    try {
-      const toolsResponse = await this.client.listTools();
-      const tools = toolsResponse.tools;
-
-      // Use non-streaming prompt (more reliable with current server)
-      process.stdout.write('\n');
-      const result = await this.client.prompt(sessionId, messages, tools as ToolDefinition[]);
-      console.log(result.content);
-      this.sessionManager.addTokenUsage(result.usage.input_tokens, result.usage.output_tokens);
-    } catch (error) {
-      console.error(`\nError: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  }
-
-  /**
-   * Handle a slash command.
-   */
   private async handleSlashCommand(input: string): Promise<void> {
     const parts = input.slice(1).split(' ');
     const cmdName = parts[0];
     const args = parts.slice(1).join(' ');
-
     const cmd = this.slashCommands.get(cmdName);
     if (cmd) {
-      try {
-        await cmd.handler(args);
-      } catch (error) {
+      try { await cmd.handler(args); } catch (error) {
         console.error(`Error: ${error instanceof Error ? error.message : String(error)}`);
       }
       return;
     }
-
-    // Built-in commands
     switch (cmdName) {
-      case 'help':
-        this.showHelp();
-        break;
-      case 'quit':
-      case 'exit':
-        this.rl.close();
-        break;
-      case 'clear':
-        console.clear();
-        break;
+      case 'help': this.showHelp(); break;
+      case 'quit': case 'exit': this.rl.close(); break;
+      case 'clear': console.clear(); break;
       case 'new':
         await this.sessionManager.create(args || undefined);
         console.log(`New session created: ${this.sessionManager.getCurrentSession()}`);
         break;
-      case 'sessions':
-        await this.listSessions();
-        break;
-      case 'status':
-        this.showStatus();
-        break;
+      case 'sessions': await this.listSessions(); break;
+      case 'status': this.showStatus(); break;
       case 'model':
-        if (args) {
-          this.sessionManager.setModel(args);
-          console.log(`Model set to: ${args}`);
-        } else {
-          console.log(`Current model: ${this.sessionManager.getState().model}`);
-        }
+        if (args) { this.sessionManager.setModel(args); console.log(`Model set to: ${args}`); }
+        else { console.log(`Current model: ${this.sessionManager.getState().model}`); }
         break;
-      default:
-        console.log(`Unknown command: /${cmdName}. Type /help for available commands.`);
+      default: console.log(`Unknown command: /${cmdName}. Type /help for available commands.`);
     }
   }
 
-  /**
-   * List sessions.
-   */
   private async listSessions(): Promise<void> {
     try {
       const sessions = await this.sessionManager.list();
@@ -201,9 +129,6 @@ export class StdinHandler {
     }
   }
 
-  /**
-   * Update the readline prompt.
-   */
   private updatePrompt(): void {
     const state = this.sessionManager.getState();
     const session = state.sessionId ? state.sessionId.slice(0, 8) : 'none';
@@ -211,17 +136,11 @@ export class StdinHandler {
     this.rl.prompt();
   }
 
-  /**
-   * Show the welcome banner.
-   */
   private showBanner(): void {
     console.log('\nOpenSIN CLI v0.1.0');
     console.log('Type /help for commands, /quit to exit.\n');
   }
 
-  /**
-   * Show help information.
-   */
   private showHelp(): void {
     console.log('\nAvailable commands:');
     console.log('  /help              Show this help');
@@ -232,7 +151,6 @@ export class StdinHandler {
     console.log('  /status            Show current session status');
     console.log('  /model [name]      Set or show the current model');
     console.log('  /permissions [mode] Set permission mode (auto/ask/readonly)');
-
     if (this.slashCommands.size > 0) {
       console.log('\nCustom commands:');
       for (const [name, cmd] of Array.from(this.slashCommands.entries())) {
@@ -242,9 +160,6 @@ export class StdinHandler {
     console.log();
   }
 
-  /**
-   * Show current status.
-   */
   private showStatus(): void {
     const state = this.sessionManager.getState();
     console.log('\nStatus:');
