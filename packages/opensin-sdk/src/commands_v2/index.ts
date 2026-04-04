@@ -1,5 +1,5 @@
 // OpenSIN Code - Core Commands v2
-// Auto-generated index for all integrated sin-claude commands
+// Auto-generated index for all integrated OpenSIN commands
 
 export { default as addDir } from './add-dir'
 export { default as branch } from './branch'
@@ -21,6 +21,28 @@ export { default as fast } from './fast'
 export { default as feedback } from './feedback'
 export { default as files } from './files'
 export { default as help } from './help'
+
+// Advanced Commands (Phase 2 - 20 commands)
+export { default as hooks } from './hooks'
+export { default as ide } from './ide'
+export { default as installGitHubApp } from './install-github-app'
+export { default as installSlackApp } from './install-slack-app'
+export { default as keybindings } from './keybindings'
+export { default as login } from './login'
+export { default as logout } from './logout'
+export { default as mcp } from './mcp'
+export { default as memory } from './memory'
+export { default as mobile } from './mobile'
+export { default as model } from './model'
+export { default as outputStyle } from './output-style'
+export { default as passes } from './passes'
+export { default as permissions } from './permissions'
+export { default as plan } from './plan'
+export { default as plugin } from './plugin'
+export { default as prComments } from './pr_comments'
+export { default as privacySettings } from './privacy-settings'
+export { default as rateLimitOptions } from './rate-limit-options'
+export { default as releaseNotes } from './release-notes'
 
 // Array of all commands for easy registration
 export const allCommands = [
@@ -46,4 +68,113 @@ export const allCommands = [
   feedback,
   files,
   help,
+  // Advanced Commands
+  hooks,
+  ide,
+  installGitHubApp,
+  installSlackApp,
+  keybindings,
+  login,
+  logout,
+  mcp,
+  memory,
+  mobile,
+  model,
+  outputStyle,
+  passes,
+  permissions,
+  plan,
+  plugin,
+  prComments,
+  privacySettings,
+  rateLimitOptions,
+  releaseNotes,
+]
+export { default as hooks } from './hooks'
+export { default as ide } from './ide'
+export { default as installGitHubApp } from './install-github-app'
+export { default as installSlackApp } from './install-slack-app'
+export { default as keybindings } from './keybindings'
+export { default as login } from './login'
+export { default as logout } from './logout'
+export { default as mcp } from './mcp'
+export { default as memory } from './memory'
+export { default as mobile } from './mobile'
+export { default as model } from './model'
+export { default as outputStyle } from './output-style'
+export { default as passes } from './passes'
+export { default as permissions } from './permissions'
+export { default as plan } from './plan'
+export { default as plugin } from './plugin'
+export { default as prComments } from './pr_comments'
+export { default as privacySettings } from './privacy-settings'
+export { default as rateLimitOptions } from './rate-limit-options'
+export { default as releaseNotes } from './release-notes'
+
+// Extended commands array
+export const advancedCommands = [
+  hooks,
+  ide,
+  installGitHubApp,
+  installSlackApp,
+  keybindings,
+  login,
+  logout,
+  mcp,
+  memory,
+  mobile,
+  model,
+  outputStyle,
+  passes,
+  permissions,
+  plan,
+  plugin,
+  prComments,
+  privacySettings,
+  rateLimitOptions,
+  releaseNotes,
+]
+export { default as hooks } from './hooks'
+export { default as ide } from './ide'
+export { default as installGitHubApp } from './install-github-app'
+export { default as installSlackApp } from './install-slack-app'
+export { default as keybindings } from './keybindings'
+export { default as login } from './login'
+export { default as logout } from './logout'
+export { default as mcp } from './mcp'
+export { default as memory } from './memory'
+export { default as mobile } from './mobile'
+export { default as model } from './model'
+export { default as outputStyle } from './output-style'
+export { default as passes } from './passes'
+export { default as permissions } from './permissions'
+export { default as plan } from './plan'
+export { default as plugin } from './plugin'
+export { default as prComments } from './pr_comments'
+export { default as privacySettings } from './privacy-settings'
+export { default as rateLimitOptions } from './rate-limit-options'
+export { default as releaseNotes } from './release-notes'
+
+// Extended commands array
+export const advancedCommands = [
+  hooks,
+  ide,
+  installGitHubApp,
+  installSlackApp,
+  keybindings,
+  login,
+  logout,
+  mcp,
+  memory,
+  mobile,
+  model,
+  outputStyle,
+  passes,
+  permissions,
+  plan,
+  plugin,
+  prComments,
+  privacySettings,
+  rateLimitOptions,
+  releaseNotes,
 ]
