@@ -51,6 +51,8 @@ import { SIN_TEAM_LEAD } from './built-in/sinTeamLead.js'
 import { SIN_RESEARCHER } from './built-in/sinResearcher.js'
 import { SIN_GUIDE } from './built-in/sinGuide.js'
 
+import { sinAgentRegistry } from './registry.js'
+
 export const BUILT_IN_AGENTS = [
   SIN_EXPLORER,
   SIN_PLANNER,
