@@ -16,7 +16,7 @@ OpenSIN-Code/
 ## Components
 
 ### OpenSIN CLI (`packages/opencode`)
-- AI-powered code generation via multiple LLM providers
+- AI-powered code generation via 100+ LLM providers and 1000+ models (model-agnostic architecture)
 - Subagent orchestration (explore, librarian, oracle, hephaestus, metis, momus)
 - Swarm coordination for parallel agent execution
 - Hermes dispatch for cloud execution on HF VMs
