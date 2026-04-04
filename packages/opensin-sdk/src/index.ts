@@ -458,3 +458,110 @@ export type {
   Position,
   Range,
 } from "./jetbrains/index.js";
+
+// JetBrains IDE Plugin v2 — Full IDE support like Windsurf/Kilo Code
+export {
+  JetBrainsPlugin as JetBrainsPluginV2,
+  ProtocolClient as JBProtocolClient,
+  ProtocolSerializer as JBProtocolSerializer,
+  METHODS as JB_METHODS,
+  PROTOCOL_VERSION as JB_PROTOCOL_VERSION,
+  LifecycleManager,
+  DocumentManager,
+  EditorManager,
+  ProjectManager,
+} from "./jetbrains-plugin/index.js";
+export type {
+  JetBrainsPluginInfo,
+  JetBrainsConnectionConfig,
+  JetBrainsDocumentInfo,
+  JetBrainsEditorState as JBEditorState,
+  JetBrainsProjectInfo as JBProjectInfo,
+  JetBrainsModuleInfo,
+  JetBrainsTerminalState as JBTerminalState,
+  JetBrainsActionRequest,
+  JetBrainsActionResponse,
+  JetBrainsNotification,
+  JetBrainsToolWindow,
+  JetBrainsProtocolMessage,
+  JetBrainsProtocolResponse,
+  JetBrainsEventType,
+  JetBrainsEvent,
+  JetBrainsFileChange,
+  JetBrainsLifecycleState,
+} from "./jetbrains-plugin/index.js";
+
+// CLI Agent — Terminal-based AI coding like Augment Code/Kilo Code
+export {
+  CLIAgent,
+  SessionManager as CLISessionManager,
+  ToolRegistry,
+  createBuiltinTools,
+  createDefaultConfig,
+  loadConfigFromFile,
+  saveConfigToFile,
+  mergeCommandOptions,
+  validateConfig,
+  getConfigDefaults,
+} from "./cli-agent/index.js";
+export type {
+  CLIAgentConfig,
+  CLIAgentSession,
+  CLIMessage,
+  CLIContext,
+  CLITool,
+  ToolCallRecord,
+  ToolResult,
+  TokenUsage,
+  CLICommand,
+  CLICommandOptions,
+  CLIAgentState,
+  CLIEvent,
+} from "./cli-agent/index.js";
+
+// Design Mode — UI annotation for agents like Cursor/Replit
+export {
+  DesignMode,
+  activateDesignMode,
+  deactivateDesignMode,
+  isDesignModeActive,
+  Annotator,
+  Selector,
+  FeedbackCollector,
+  sendFeedbackToAgent,
+} from "./design-mode/index.js";
+export type {
+  DesignModeConfig,
+  UIElement,
+  Annotation,
+  SelectionArea,
+  FeedbackPayload,
+  CoordinateClick,
+  DesignModeState,
+  ElementSelector,
+  AnnotationStyle,
+  ScreenshotFallback,
+  DesignModeEvent,
+} from "./design-mode/index.js";
+
+// Visual Design Canvas — Parallel design while agent builds like Replit/Bolt
+export {
+  DesignCanvas,
+  CanvasRenderer,
+  CanvasSync,
+  COMPONENT_TEMPLATES,
+  createComponentFromTemplate,
+  getTemplatesByCategory,
+  getAllCategories,
+  findTemplateByType,
+} from "./design-canvas/index.js";
+export type {
+  DesignCanvasConfig,
+  CanvasComponent,
+  CanvasState,
+  CanvasHistoryEntry,
+  ComponentTemplate,
+  CanvasSyncEvent,
+  RenderedComponent,
+  CanvasEvent,
+} from "./design-canvas/index.js";
