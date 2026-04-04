@@ -1,4 +1,4 @@
-# Agent: OpenSIN-Code
+# Agent: SIN Code
 
 **Team:** OpenSIN-AI
 **Protocol:** A2A (Agent-to-Agent)
@@ -7,7 +7,7 @@
 
 ## Capabilities
 
-OpenSIN-Code is the core code agent for the OpenSIN ecosystem, providing intelligent code generation, analysis, and refactoring capabilities.
+SIN Code is the core code agent for the SIN Solver platform, providing intelligent code generation, analysis, and refactoring capabilities.
 
 ## Communication
 
@@ -32,4 +32,4 @@ npm start
 
 ## License
 
-MIT
+Proprietary — See LICENSE file for details. Part of SIN Solver platform (https://my.openSIN.ai)
