@@ -122,3 +122,47 @@ with open('$HOME/.open-auth-rotator/openrouter/pool.json', 'w') as f:
     json.dump(pool, f, indent=2)
 "
 ```
+
+## 7. OpenSIN CLI — Build & Test
+
+**Symptoms:** Need to verify the CLI builds and tests pass.
+
+**Steps:**
+```bash
+cd packages/opensin-sdk
+npm install
+npx tsc --noEmit    # Should show 0 errors
+npx vitest run      # Should show 334/334 passing
+```
+
+## 8. OpenSIN CLI — Agent Loop Debugging
+
+**Symptoms:** Agent loop not processing tool calls or hanging.
+
+**Steps:**
+```bash
+# Check agent loop types
+cat packages/opensin-sdk/src/agent_loop/types.ts
+
+# Check NDJSON output
+node dist/standalone_cli/index.js "test query" 2>&1 | head -20
+
+# Check tool registry
+cat packages/opensin-sdk/src/agent_loop/tool_registry.ts
+
+# Check context management
+cat packages/opensin-sdk/src/agent_loop/context.ts
+```
+
+## 9. stdin_handler REPL Issues
+
+**Symptoms:** CLI REPL crashes on input or slash commands don't work.
+
+**Fix:** The stdin_handler.ts was rewritten to fix duplicate code blocks. If issues persist:
+```bash
+# Verify clean file
+wc -l packages/opensin-sdk/src/standalone_cli/stdin_handler.ts  # Should be ~189 lines
+
+# Rebuild
+cd packages/opensin-sdk && npx tsc
+```
