@@ -426,3 +426,35 @@ export * from "./tools_v2/index.js";
 // Tools v2 (from sin-claude)
 export * from "./tools_v2/index.js";
 export * from './utils_v2';
+
+// JetBrains IDE Plugin (Multi-IDE Support like Windsurf)
+export { JetBrainsPlugin, getJetBrainsPlugin, resetJetBrainsPlugin } from "./jetbrains/index.js";
+export { ProtocolClient, ProtocolMessageType, ProtocolSerializer } from "./jetbrains/index.js";
+export type {
+  JetBrainsConfig,
+  JetBrainsEditorState,
+  JetBrainsFileChange,
+  JetBrainsModule,
+  JetBrainsNotification,
+  JetBrainsProjectInfo,
+  JetBrainsTerminalState,
+  JetBrainsToolWindow,
+  Position,
+  Range,
+} from "./jetbrains/index.js";
+
+// JetBrains IDE Plugin (Multi-IDE Support like Windsurf)
+export { JetBrainsPlugin, getJetBrainsPlugin, resetJetBrainsPlugin } from "./jetbrains/index.js";
+export { ProtocolClient, ProtocolMessageType, ProtocolSerializer } from "./jetbrains/index.js";
+export type {
+  JetBrainsConfig,
+  JetBrainsEditorState,
+  JetBrainsFileChange,
+  JetBrainsModule,
+  JetBrainsNotification,
+  JetBrainsProjectInfo,
+  JetBrainsTerminalState,
+  JetBrainsToolWindow,
+  Position,
+  Range,
+} from "./jetbrains/index.js";
