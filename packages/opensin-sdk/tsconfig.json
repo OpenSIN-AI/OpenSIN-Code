@@ -66,6 +66,10 @@
     "src/plan_act",
     "src/powerup",
     "src/turbo",
-    "src/index.ts"
+    "src/index.ts",
+    "src/cli-agent",
+    "src/design-canvas",
+    "src/design-mode",
+    "src/jetbrains-plugin"
   ]
 }
