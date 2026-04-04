@@ -1,107 +1,59 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as os from 'os';
+import { describe, it, expect } from 'vitest';
 import { editFile, EditTool } from '../tools/edit.js';
-import type { SecurityContext } from '../types.js';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
 
-const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opensin-edit-test-'));
-const testContext: SecurityContext = {
-  cwd: testDir,
-  permissionMode: 'auto',
-  sandboxEnabled: false,
-};
-
-beforeAll(() => {
-  fs.writeFileSync(path.join(testDir, 'edit-me.txt'), 'Hello World\nThis is a test file\nHello World again\n');
-});
-
-afterAll(() => {
-  fs.rmSync(testDir, { recursive: true, force: true });
-});
+const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-tools-edit-'));
+const testContext = { cwd: testDir, permissionMode: 'auto' as const, sandboxEnabled: false };
 
 describe('EditTool', () => {
-  describe('editFile', () => {
-    it('should replace a string in a file', async () => {
-      const filePath = path.join(testDir, 'edit-me.txt');
-      const result = await editFile(filePath, 'Hello World', 'Goodbye World', testContext);
-      expect(result.isError).toBeFalsy();
-      expect(result.content[0].text).toContain('edited successfully');
-      expect(fs.readFileSync(filePath, 'utf8')).toContain('Goodbye World');
-    });
-
-    it('should reject when old_string equals new_string', async () => {
-      const filePath = path.join(testDir, 'edit-me.txt');
-      const result = await editFile(filePath, 'same', 'same', testContext);
-      expect(result.isError).toBe(true);
-      expect(result.errorCode).toBe(1);
-    });
-
-    it('should reject when string not found', async () => {
-      const filePath = path.join(testDir, 'edit-me.txt');
-      const result = await editFile(filePath, 'nonexistent string xyz', 'replacement', testContext);
-      expect(result.isError).toBe(true);
-      expect(result.errorCode).toBe(8);
-    });
-
-    it('should reject multiple matches without replace_all', async () => {
-      const filePath = path.join(testDir, 'multi.txt');
-      fs.writeFileSync(filePath, 'foo\nfoo\nfoo\n');
-      const result = await editFile(filePath, 'foo', 'bar', testContext);
-      expect(result.isError).toBe(true);
-      expect(result.errorCode).toBe(9);
-    });
-
-    it('should replace all occurrences with replace_all', async () => {
-      const filePath = path.join(testDir, 'multi.txt');
-      fs.writeFileSync(filePath, 'foo\nfoo\nfoo\n');
-      const result = await editFile(filePath, 'foo', 'bar', testContext, { replaceAll: true });
-      expect(result.isError).toBeFalsy();
-      expect(fs.readFileSync(filePath, 'utf8')).toBe('bar\nbar\nbar\n');
-    });
-
-    it('should handle non-existent file', async () => {
-      const result = await editFile(path.join(testDir, 'does-not-exist.txt'), 'old', 'new', testContext);
-      expect(result.isError).toBe(true);
-      expect(result.errorCode).toBe(6);
-    });
-
-    it('should include diff in output', async () => {
-      const filePath = path.join(testDir, 'edit-me.txt');
-      fs.writeFileSync(filePath, 'original content\n');
-      const result = await editFile(filePath, 'original', 'modified', testContext);
-      expect(result.isError).toBeFalsy();
-      expect(result.content[0].text).toContain('---');
-      expect(result.content[0].text).toContain('+++');
-    });
-
-    it('should include metadata', async () => {
-      const filePath = path.join(testDir, 'edit-me.txt');
-      fs.writeFileSync(filePath, 'test content\n');
-      const result = await editFile(filePath, 'test', 'edited', testContext);
-      expect(result.metadata).toBeDefined();
-      expect(result.metadata?.type).toBe('update');
-    });
+  it('should replace a string in a file', async () => {
+    const filePath = path.join(testDir, 'edit.txt');
+    fs.writeFileSync(filePath, 'hello world');
+    const result = await editFile(filePath, 'world', 'earth', testContext);
+    expect(result.isError).toBeFalsy();
+    expect(fs.readFileSync(filePath, 'utf8')).toBe('hello earth');
   });
 
-  describe('tool definition', () => {
-    it('should have correct name', () => {
-      expect(EditTool.name).toBe('edit');
-    });
+  it('should reject when string not found', async () => {
+    const filePath = path.join(testDir, 'nofind.txt');
+    fs.writeFileSync(filePath, 'hello world');
+    const result = await editFile(filePath, 'missing', 'earth', testContext);
+    expect(result.isError).toBe(true);
+    expect(result.errorCode).toBe(5);
+  });
 
-    it('should have input schema', () => {
-      expect(EditTool.inputSchema).toBeDefined();
-      expect(EditTool.inputSchema.required).toContain('file_path');
-      expect(EditTool.inputSchema.required).toContain('old_string');
-      expect(EditTool.inputSchema.required).toContain('new_string');
-    });
+  it('should reject multiple matches', async () => {
+    const filePath = path.join(testDir, 'multi.txt');
+    fs.writeFileSync(filePath, 'foo bar foo');
+    const result = await editFile(filePath, 'foo', 'baz', testContext);
+    expect(result.isError).toBe(true);
+    expect(result.errorCode).toBe(6);
+  });
 
-    it('should have a working handler', async () => {
-      const filePath = path.join(testDir, 'handler-edit.txt');
-      fs.writeFileSync(filePath, 'before');
-      const result = await EditTool.handler({ file_path: filePath, old_string: 'before', new_string: 'after' });
-      expect(result.isError).toBeFalsy();
-      expect(fs.readFileSync(filePath, 'utf8')).toBe('after');
-    });
+  it('should handle non-existent file', async () => {
+    const result = await editFile('nonexistent.txt', 'old', 'new', testContext);
+    expect(result.isError).toBe(true);
+    expect(result.errorCode).toBe(404);
+  });
+
+  it('should include metadata', async () => {
+    const filePath = path.join(testDir, 'meta.txt');
+    fs.writeFileSync(filePath, 'old');
+    const result = await editFile(filePath, 'old', 'new', testContext);
+    expect(result.isError).toBeFalsy();
+    expect(result.metadata?.filePath).toBe(filePath);
+    expect(result.metadata?.occurrences).toBe(1);
+  });
+});
+
+describe('EditTool execute', () => {
+  it('should execute via tool definition', async () => {
+    const filePath = path.join(testDir, 'exec.txt');
+    fs.writeFileSync(filePath, 'hello');
+    const result = await EditTool.execute({ file_path: `${testDir}/exec.txt`, old_string: 'hello', new_string: 'world' });
+    expect(result.isError).toBeFalsy();
+    expect(fs.readFileSync(filePath, 'utf8')).toBe('world');
   });
 });

@@ -1,15 +1,9 @@
-/**
- * @opensin/cli-tools
- * 
- * Core CLI tools for OpenSIN-Code:
- * - Bash: Command execution
- * - Read: File reading
- * - Write: File creation
- * - Edit: Search-replace
- * - Grep: Content search
- * - Glob: File pattern matching
- */
-
-export * from './types.js';
-export * from './security.js';
-export * from './tools/index.js';
+export { BashTool, executeCommand } from './tools/bash.js';
+export { ReadTool, readFile } from './tools/read.js';
+export { WriteTool, writeFile } from './tools/write.js';
+export { EditTool, editFile } from './tools/edit.js';
+export { GrepTool, grepContent } from './tools/grep.js';
+export { GlobTool, globFiles } from './tools/glob.js';
+export { isPathSafe, validateFileReadable, validateDirectoryWritable, isCommandSafe, validateFileSize } from './security.js';
+export type { ToolResult, ToolDefinition, InputSchema, PermissionCheck, SecurityContext, PathSecurityPolicy } from './types.js';
+export { DEFAULT_SECURITY_POLICY } from './types.js';

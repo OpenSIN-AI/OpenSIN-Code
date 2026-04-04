@@ -1,114 +1,75 @@
 import { describe, it, expect } from 'vitest';
-import {
-  isPathWithinWorkspace,
-  isProtectedPath,
-  isDangerousCommand,
-  validateFilePath,
-  checkCommandPermission,
-} from '../security.js';
-import type { SecurityContext } from '../types.js';
+import { isPathSafe, validateFileReadable, validateDirectoryWritable, isCommandSafe, validateFileSize } from '../security.js';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
 
-const testContext: SecurityContext = {
-  cwd: '/home/user/project',
-  permissionMode: 'auto',
-  sandboxEnabled: false,
-};
+const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-tools-security-'));
 
-describe('Security', () => {
-  describe('isPathWithinWorkspace', () => {
-    it('should allow paths within workspace', () => {
-      expect(isPathWithinWorkspace('/home/user/project/src', '/home/user/project')).toBe(true);
-    });
-
-    it('should reject paths outside workspace', () => {
-      expect(isPathWithinWorkspace('/etc/passwd', '/home/user/project')).toBe(false);
-    });
-
-    it('should allow exact workspace match', () => {
-      expect(isPathWithinWorkspace('/home/user/project', '/home/user/project')).toBe(true);
-    });
+describe('isPathSafe', () => {
+  it('allows normal paths', () => {
+    expect(isPathSafe('/tmp/test.txt').allowed).toBe(true);
   });
 
-  describe('isProtectedPath', () => {
-    it('should protect system paths', () => {
-      expect(isProtectedPath('/etc/passwd')).toBe(true);
-      expect(isProtectedPath('/etc/shadow')).toBe(true);
-      expect(isProtectedPath('/System/Library')).toBe(true);
-    });
-
-    it('should allow normal paths', () => {
-      expect(isProtectedPath('/home/user/project/src/index.ts')).toBe(false);
-      expect(isProtectedPath('/tmp/test.txt')).toBe(false);
-    });
+  it('blocks path traversal to /etc', () => {
+    const result = isPathSafe('../../../etc/shadow');
+    expect(result.allowed).toBe(false);
   });
 
-  describe('isDangerousCommand', () => {
-    it('should detect dangerous commands', () => {
-      expect(isDangerousCommand('rm -rf /')).toBe(true);
-      expect(isDangerousCommand('rm -rf /*')).toBe(true);
-      expect(isDangerousCommand('mkfs.ext4 /dev/sda')).toBe(true);
-    });
+  it('blocks denied directories', () => {
+    const result = isPathSafe('/etc/shadow');
+    expect(result.allowed).toBe(false);
+  });
+});
 
-    it('should allow safe commands', () => {
-      expect(isDangerousCommand('ls -la')).toBe(false);
-      expect(isDangerousCommand('echo hello')).toBe(false);
-      expect(isDangerousCommand('git status')).toBe(false);
-    });
+describe('validateFileReadable', () => {
+  it('returns true for existing files', () => {
+    const filePath = path.join(testDir, 'test.txt');
+    fs.writeFileSync(filePath, 'hello');
+    expect(validateFileReadable(filePath).allowed).toBe(true);
   });
 
-  describe('validateFilePath', () => {
-    it('should allow valid paths within workspace', () => {
-      const result = validateFilePath('src/index.ts', testContext);
-      expect(result.allowed).toBe(true);
-    });
+  it('returns false for non-existent files', () => {
+    const result = validateFileReadable('/nonexistent/file.txt');
+    expect(result.allowed).toBe(false);
+    expect(result.errorCode).toBe(404);
+  });
+});
 
-    it('should reject protected paths', () => {
-      const result = validateFilePath('/etc/passwd', testContext);
-      expect(result.allowed).toBe(false);
-    });
-
-    it('should reject paths with denied prefixes', () => {
-      const ctx: SecurityContext = {
-        ...testContext,
-        deniedPaths: ['node_modules'],
-      };
-      const result = validateFilePath('node_modules/pkg/index.js', ctx);
-      expect(result.allowed).toBe(false);
-    });
+describe('validateDirectoryWritable', () => {
+  it('returns true for existing directories', () => {
+    expect(validateDirectoryWritable(testDir).allowed).toBe(true);
   });
 
-  describe('checkCommandPermission', () => {
-    it('should allow safe commands', () => {
-      const result = checkCommandPermission('ls -la', testContext);
-      expect(result.allowed).toBe(true);
-    });
+  it('returns true for non-existent directories (will be created)', () => {
+    expect(validateDirectoryWritable(path.join(testDir, 'new-dir')).allowed).toBe(true);
+  });
+});
 
-    it('should reject dangerous commands', () => {
-      const result = checkCommandPermission('rm -rf /', testContext);
-      expect(result.allowed).toBe(false);
-    });
+describe('isCommandSafe', () => {
+  it('allows normal commands', () => {
+    expect(isCommandSafe('ls -la').allowed).toBe(true);
+  });
 
-    it('should reject write commands in readonly mode', () => {
-      const ctx: SecurityContext = {
-        ...testContext,
-        permissionMode: 'readonly',
-      };
-      const result = checkCommandPermission('echo test > file.txt', ctx);
-      expect(result.allowed).toBe(false);
-    });
+  it('blocks dangerous commands', () => {
+    expect(isCommandSafe('rm -rf /').allowed).toBe(false);
+  });
 
-    it('should allow write commands in auto mode', () => {
-      const result = checkCommandPermission('echo test > file.txt', testContext);
-      expect(result.allowed).toBe(true);
-    });
+  it('blocks fork bombs', () => {
+    expect(isCommandSafe(':(){:|:&};:').allowed).toBe(false);
+  });
+});
 
-    it('should reject denied commands', () => {
-      const ctx: SecurityContext = {
-        ...testContext,
-        deniedCommands: ['npm publish'],
-      };
-      const result = checkCommandPermission('npm publish', ctx);
-      expect(result.allowed).toBe(false);
-    });
+describe('validateFileSize', () => {
+  it('allows small files', () => {
+    const filePath = path.join(testDir, 'small.txt');
+    fs.writeFileSync(filePath, 'small');
+    expect(validateFileSize(filePath, 1024).allowed).toBe(true);
+  });
+
+  it('blocks large files', () => {
+    const filePath = path.join(testDir, 'large.txt');
+    fs.writeFileSync(filePath, 'x'.repeat(2000));
+    expect(validateFileSize(filePath, 1000).allowed).toBe(false);
   });
 });

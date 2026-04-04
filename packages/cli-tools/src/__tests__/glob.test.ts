@@ -1,111 +1,49 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
+import { globFiles, GlobTool } from '../tools/glob.js';
 import * as fs from 'fs';
-import * as path from 'path';
 import * as os from 'os';
-import { globSearch, GlobTool } from '../tools/glob.js';
-import type { SecurityContext } from '../types.js';
+import * as path from 'path';
 
-const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'opensin-glob-test-'));
-const testContext: SecurityContext = {
-  cwd: testDir,
-  permissionMode: 'auto',
-  sandboxEnabled: false,
-};
+const testDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cli-tools-glob-'));
+const testContext = { cwd: testDir, permissionMode: 'auto' as const, sandboxEnabled: false };
 
 beforeAll(() => {
-  // Create test file structure
+  fs.writeFileSync(path.join(testDir, 'file.ts'), 'export const a = 1;');
+  fs.writeFileSync(path.join(testDir, 'file.js'), 'const b = 2;');
   fs.mkdirSync(path.join(testDir, 'src'), { recursive: true });
-  fs.mkdirSync(path.join(testDir, 'src', 'components'), { recursive: true });
-  fs.mkdirSync(path.join(testDir, 'tests'), { recursive: true });
-  
-  fs.writeFileSync(path.join(testDir, 'src', 'index.ts'), 'export {}');
-  fs.writeFileSync(path.join(testDir, 'src', 'utils.ts'), 'export {}');
-  fs.writeFileSync(path.join(testDir, 'src', 'components', 'App.tsx'), 'export {}');
-  fs.writeFileSync(path.join(testDir, 'src', 'components', 'Button.tsx'), 'export {}');
-  fs.writeFileSync(path.join(testDir, 'tests', 'index.test.ts'), 'test()');
-  fs.writeFileSync(path.join(testDir, 'package.json'), '{}');
-  fs.writeFileSync(path.join(testDir, 'README.md'), '# Test');
-});
-
-afterAll(() => {
-  fs.rmSync(testDir, { recursive: true, force: true });
+  fs.writeFileSync(path.join(testDir, 'src', 'app.ts'), 'import {a} from "../file";');
+  fs.writeFileSync(path.join(testDir, 'src', 'app.tsx'), 'export const App = () => null;');
 });
 
 describe('GlobTool', () => {
-  describe('globSearch', () => {
-    it('should find files matching a simple pattern', async () => {
-      const result = await globSearch('*.json', testContext);
-      expect(result.isError).toBeFalsy();
-      expect(result.content[0].text).toContain('package.json');
-    });
-
-    it('should find files with recursive pattern', async () => {
-      const result = await globSearch('**/*.ts', testContext);
-      expect(result.isError).toBeFalsy();
-      expect(result.content[0].text).toContain('index.ts');
-      expect(result.content[0].text).toContain('utils.ts');
-      expect(result.content[0].text).toContain('index.test.ts');
-    });
-
-    it('should find tsx files', async () => {
-      const result = await globSearch('**/*.tsx', testContext);
-      expect(result.isError).toBeFalsy();
-      expect(result.content[0].text).toContain('App.tsx');
-      expect(result.content[0].text).toContain('Button.tsx');
-    });
-
-    it('should handle no matches', async () => {
-      const result = await globSearch('**/*.xyz', testContext);
-      expect(result.isError).toBeFalsy();
-      expect(result.content[0].text).toContain('No files found');
-    });
-
-    it('should handle empty pattern', async () => {
-      const result = await globSearch('', testContext);
-      expect(result.isError).toBe(true);
-      expect(result.errorCode).toBe(1);
-    });
-
-    it('should handle non-existent path', async () => {
-      const result = await globSearch('*.ts', testContext, { path: '/nonexistent/path' });
-      expect(result.isError).toBe(true);
-      expect(result.errorCode).toBe(3);
-    });
-
-    it('should handle path that is not a directory', async () => {
-      const result = await globSearch('*.ts', testContext, { path: path.join(testDir, 'package.json') });
-      expect(result.isError).toBe(true);
-      expect(result.errorCode).toBe(4);
-    });
-
-    it('should include metadata', async () => {
-      const result = await globSearch('**/*.ts', testContext);
-      expect(result.metadata).toBeDefined();
-      expect(result.metadata?.totalFiles).toBeGreaterThan(0);
-    });
-
-    it('should handle alternation pattern', async () => {
-      const result = await globSearch('**/*.{ts,tsx}', testContext);
-      expect(result.isError).toBeFalsy();
-      expect(result.content[0].text).toContain('.ts');
-      expect(result.content[0].text).toContain('.tsx');
-    });
+  it('should find files matching a simple pattern', async () => {
+    const result = await globFiles('*.ts', testContext, { path: testDir });
+    expect(result.isError).toBeFalsy();
+    expect(result.output).toContain('file.ts');
   });
 
-  describe('tool definition', () => {
-    it('should have correct name', () => {
-      expect(GlobTool.name).toBe('glob');
-    });
+  it('should find files with recursive pattern', async () => {
+    const result = await globFiles('**/*.ts', testContext, { path: testDir });
+    expect(result.isError).toBeFalsy();
+    expect(result.output).toContain('src/app.ts');
+  });
 
-    it('should have input schema', () => {
-      expect(GlobTool.inputSchema).toBeDefined();
-      expect(GlobTool.inputSchema.required).toContain('pattern');
-    });
+  it('should handle no matches', async () => {
+    const result = await globFiles('*.xyz', testContext, { path: testDir });
+    expect(result.isError).toBeFalsy();
+    expect(result.output).toContain('No files matched');
+  });
 
-    it('should have a working handler', async () => {
-      const result = await GlobTool.handler({ pattern: '*.json', path: testDir });
-      expect(result.isError).toBeFalsy();
-      expect(result.content[0].text).toContain('package.json');
-    });
+  it('should handle non-existent path', async () => {
+    const result = await globFiles('*.ts', testContext, { path: '/nonexistent' });
+    expect(result.isError).toBe(true);
+  });
+});
+
+describe('GlobTool execute', () => {
+  it('should execute via tool definition', async () => {
+    const result = await GlobTool.execute({ pattern: '*.ts', path: testDir });
+    expect(result.isError).toBeFalsy();
+    expect(result.output).toContain('file.ts');
   });
 });

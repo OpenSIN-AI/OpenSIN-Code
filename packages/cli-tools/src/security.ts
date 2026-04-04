@@ -1,25 +1,17 @@
 /**
  * OpenSIN CLI Tool Security
- *
- * Path validation, permission checks, and security guards for all tools.
  */
 
 import { existsSync, statSync } from 'fs';
 import { resolve, normalize, isAbsolute } from 'path';
-import type { PathSecurityPolicy, PermissionCheck } from './types.js';
+import type { PathSecurityPolicy, PermissionCheck, SecurityContext } from './types.js';
 import { DEFAULT_SECURITY_POLICY } from './types.js';
 
-/**
- * Normalize and resolve a file path safely.
- */
 export function safeResolvePath(inputPath: string, baseDir?: string): string {
   const resolved = baseDir ? resolve(baseDir, inputPath) : resolve(inputPath);
   return normalize(resolved);
 }
 
-/**
- * Check if a path is safe.
- */
 export function isPathSafe(
   filePath: string,
   policy: PathSecurityPolicy = DEFAULT_SECURITY_POLICY,
@@ -42,9 +34,6 @@ export function isPathSafe(
   return { allowed: true };
 }
 
-/**
- * Validate that a file exists and is readable.
- */
 export function validateFileReadable(filePath: string): PermissionCheck {
   try {
     const resolved = safeResolvePath(filePath);
@@ -61,9 +50,6 @@ export function validateFileReadable(filePath: string): PermissionCheck {
   }
 }
 
-/**
- * Validate that a directory exists and is writable.
- */
 export function validateDirectoryWritable(dirPath: string): PermissionCheck {
   try {
     const resolved = safeResolvePath(dirPath);
@@ -78,9 +64,6 @@ export function validateDirectoryWritable(dirPath: string): PermissionCheck {
   }
 }
 
-/**
- * Dangerous commands that are never allowed.
- */
 export const DANGEROUS_COMMANDS = new Set([
   'rm -rf /', 'rm -rf /*', ':(){:|:&};:', 'mkfs',
   'dd if=/dev/zero', 'chmod -R 777 /', 'chown -R',
@@ -102,9 +85,6 @@ export function isCommandSafe(command: string): PermissionCheck {
   return { allowed: true };
 }
 
-/**
- * Validate file size before read operations.
- */
 export function validateFileSize(
   filePath: string,
   maxSizeBytes: number = DEFAULT_SECURITY_POLICY.maxReadSizeBytes!,
