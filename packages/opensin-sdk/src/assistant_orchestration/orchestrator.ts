@@ -362,4 +362,4 @@ class AssistantRegistryImpl {
 }
 
 // Named export for the orchestrator class
-export const Orchestrator = OpenSINOrchestrator
+export { OpenSINOrchestrator as OrchestratorClass }

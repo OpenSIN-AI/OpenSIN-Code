@@ -134,6 +134,7 @@ export interface LifecycleEvent {
   assistantId: AssistantId
   state: LifecycleState
   details?: Record<string, unknown>
+  error?: string
   timestamp: number
 }
 
