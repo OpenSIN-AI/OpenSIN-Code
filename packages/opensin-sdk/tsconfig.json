@@ -54,7 +54,6 @@
     "src/plugin_state",
     "src/prompt_interrupt",
     "src/skills_v2",
-    "src/standalone_cli",
     "src/subtask_tree",
     "src/terminal_notifications",
     "src/vim_mode",
@@ -67,7 +66,6 @@
     "src/plan_act",
     "src/powerup",
     "src/turbo",
-    "src/index.ts",
-    "src/providers.ts"
+    "src/index.ts"
   ]
 }
