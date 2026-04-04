@@ -400,3 +400,9 @@ export type {
   AgentMcpServerSpec,
   HooksSetting,
 } from "./agents/index.js";
+
+// Hooks v2 (from sin-claude)
+export * from "./hooks_v2/index.js";
+
+// Hooks v2 (from sin-claude)
+export * from "./hooks_v2/index.js";
