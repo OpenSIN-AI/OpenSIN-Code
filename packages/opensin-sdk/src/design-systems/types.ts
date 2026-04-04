@@ -1,8 +1,32 @@
 /**
- * Design System Integration — type definitions
+ * Design System Integration — type definitions for pre-built component libraries like Bolt.new
  */
 
-export type DesignSystemName = "shadcn" | "material-ui" | "chakra" | "tailwind";
+export type DesignSystemName = "shadcn" | "mui" | "chakra" | "tailwind";
+
+export type ComponentCategory =
+  | "layout"
+  | "form"
+  | "feedback"
+  | "navigation"
+  | "data-display"
+  | "overlay"
+  | "typography"
+  | "media"
+  | "actions";
+
+export interface PropDefinition {
+  name: string;
+  type: string;
+  required: boolean;
+  defaultValue?: unknown;
+  description: string;
+}
+
+export interface SlotDefinition {
+  name: string;
+  description: string;
+}
 
 export interface ComponentVariant {
   name: string;
@@ -13,56 +37,99 @@ export interface ComponentVariant {
 
 export interface ComponentSpec {
   name: string;
+  category: ComponentCategory;
+  props: PropDefinition[];
+  slots?: SlotDefinition[];
+  variants?: string[];
   description: string;
-  category: string;
-  variants: ComponentVariant[];
-  defaultProps: Record<string, unknown>;
-  requiredProps: string[];
-  imports: string[];
-  template: string;
+  example: string;
+}
+
+export interface ColorTokens {
+  primary: string;
+  primaryForeground: string;
+  secondary: string;
+  secondaryForeground: string;
+  muted: string;
+  mutedForeground: string;
+  accent: string;
+  accentForeground: string;
+  destructive: string;
+  destructiveForeground: string;
+  border: string;
+  input: string;
+  ring: string;
+  background: string;
+  foreground: string;
+  card: string;
+  cardForeground: string;
+  popover: string;
+  popoverForeground: string;
+}
+
+export interface SpacingScale {
+  [key: string]: string | undefined;
+}
+
+export interface TypographyScale {
+  [key: string]: {
+    fontSize: string;
+    lineHeight: string;
+    fontWeight: string;
+    letterSpacing?: string;
+  } | undefined;
 }
 
 export interface ThemeConfig {
-  colors: {
-    primary: string;
-    secondary: string;
-    background: string;
-    foreground: string;
-    muted: string;
-    accent: string;
-    destructive: string;
-    border: string;
-  };
-  spacing: {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-  };
-  borderRadius: {
-    sm: string;
-    md: string;
-    lg: string;
-    full: string;
-  };
-  typography: {
-    fontFamily: string;
-    fontSize: {
-      xs: string;
-      sm: string;
-      base: string;
-      lg: string;
-      xl: string;
-      "2xl": string;
-    };
-    fontWeight: {
-      normal: number;
-      medium: number;
-      semibold: number;
-      bold: number;
-    };
-  };
+  colors: ColorTokens;
+  spacing: SpacingScale;
+  typography: TypographyScale;
+  borderRadius: Record<string, string>;
+  shadows: Record<string, string>;
+  breakpoints: Record<string, string>;
+}
+
+export interface ThemeCustomization {
+  colors?: Partial<ColorTokens>;
+  spacing?: Partial<SpacingScale>;
+  typography?: Partial<TypographyScale>;
+  borderRadius?: Record<string, string>;
+  shadows?: Record<string, string>;
+}
+
+export interface DesignSystemConfig {
+  name: string;
+  version: string;
+  components: ComponentSpec[];
+  theme: ThemeConfig;
+  dependencies: string[];
+}
+
+export interface DesignSystemRegistry {
+  [key: string]: DesignSystemConfig;
+}
+
+export interface GeneratedComponent {
+  componentName: string;
+  code: string;
+  language: "tsx" | "jsx" | "vue" | "svelte";
+  dependencies: string[];
+  theme: string;
+}
+
+export interface ComponentGenerationRequest {
+  componentName: string;
+  designSystem: DesignSystemName;
+  variant?: string;
+  props?: Record<string, unknown>;
+  themeOverrides?: Partial<ThemeConfig>;
+  customClassName?: string;
+}
+
+export interface ComponentGenerationResult {
+  component: GeneratedComponent;
+  warnings: string[];
+  suggestions: string[];
 }
 
 export interface DesignSystemMetadata {
@@ -80,29 +147,4 @@ export interface DesignSystem {
   theme: ThemeConfig;
   dependencies: string[];
   setupCommands: string[];
-}
-
-export interface ComponentGenerationRequest {
-  componentName: string;
-  designSystem: DesignSystemName;
-  variant?: string;
-  props?: Record<string, unknown>;
-  themeOverrides?: Partial<ThemeConfig>;
-  customClassName?: string;
-}
-
-export interface GeneratedComponent {
-  componentName: string;
-  designSystem: DesignSystemName;
-  code: string;
-  imports: string[];
-  dependencies: string[];
-  filePath: string;
-  theme: ThemeConfig;
-}
-
-export interface ComponentGenerationResult {
-  component: GeneratedComponent;
-  warnings: string[];
-  suggestions: string[];
 }

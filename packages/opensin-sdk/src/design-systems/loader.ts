@@ -1,122 +1,65 @@
-/**
- * Design System Loader — loads and validates design systems
- */
+/** Design System Loader — load and cache design system configurations */
 
-import type { DesignSystem, DesignSystemName, ThemeConfig } from "./types.js";
-import { getDesignSystemRegistry } from "./registry.js";
+import type { DesignSystemConfig, ThemeConfig, ThemeCustomization } from './types.js';
+import { designSystemRegistry, getDesignSystem } from './registry.js';
 
-export class DesignSystemLoader {
-  async load(name: DesignSystemName): Promise<DesignSystem> {
-    const registry = getDesignSystemRegistry();
-    const system = registry.get(name);
+const cache = new Map<string, DesignSystemConfig>();
 
-    if (!system) {
-      throw new Error(`Design system "${name}" not found in registry`);
-    }
-
-    await this.validate(system);
-    return system;
+export async function loadDesignSystem(name: string): Promise<DesignSystemConfig | null> {
+  if (cache.has(name)) {
+    return cache.get(name) as DesignSystemConfig;
   }
 
-  async loadAll(): Promise<DesignSystem[]> {
-    const registry = getDesignSystemRegistry();
-    const names = registry.list();
-    const systems: DesignSystem[] = [];
-
-    for (const name of names) {
-      try {
-        const system = await this.load(name);
-        systems.push(system);
-      } catch (err) {
-        console.warn(`Failed to load design system "${name}":`, err);
-      }
-    }
-
-    return systems;
+  const config = getDesignSystem(name);
+  if (!config) {
+    return null;
   }
 
-  async mergeThemes(base: DesignSystemName, overrides: Partial<ThemeConfig>): Promise<ThemeConfig> {
-    const registry = getDesignSystemRegistry();
-    const baseTheme = registry.getTheme(base);
+  cache.set(name, config);
+  return config;
+}
 
-    if (!baseTheme) {
-      throw new Error(`Base design system "${base}" not found`);
-    }
-
-    const merged: ThemeConfig = {
-      colors: { ...baseTheme.colors, ...overrides.colors },
-      spacing: { ...baseTheme.spacing, ...overrides.spacing },
-      borderRadius: { ...baseTheme.borderRadius, ...overrides.borderRadius },
-      typography: {
-        ...baseTheme.typography,
-        ...overrides.typography,
-        fontSize: { ...baseTheme.typography.fontSize, ...overrides.typography?.fontSize },
-        fontWeight: { ...baseTheme.typography.fontWeight, ...overrides.typography?.fontWeight },
-      },
-    };
-
-    return merged;
-  }
-
-  async validate(system: DesignSystem): Promise<boolean> {
-    if (!system.metadata?.name) {
-      throw new Error("Design system must have a valid metadata.name");
-    }
-
-    if (!Array.isArray(system.components)) {
-      throw new Error("Design system must have a components array");
-    }
-
-    if (!system.theme?.colors) {
-      throw new Error("Design system must have theme.colors defined");
-    }
-
-    const componentNames = new Set<string>();
-    for (const comp of system.components) {
-      if (componentNames.has(comp.name)) {
-        throw new Error(`Duplicate component name: ${comp.name}`);
-      }
-      componentNames.add(comp.name);
-
-      if (!comp.template) {
-        throw new Error(`Component ${comp.name} must have a template`);
-      }
-    }
-
-    return true;
-  }
-
-  getSetupInstructions(name: DesignSystemName): string {
-    const registry = getDesignSystemRegistry();
-    const system = registry.get(name);
-
-    if (!system) {
-      return `Design system "${name}" not found.`;
-    }
-
-    const lines = [
-      `# Setup ${system.metadata.displayName}`,
-      "",
-      "## Install dependencies",
-      "```bash",
-      ...system.setupCommands.map((cmd) => `$ ${cmd}`),
-      "```",
-      "",
-      "## Dependencies",
-      "```bash",
-      `npm install ${system.dependencies.join(" ")}`,
-      "```",
-    ];
-
-    return lines.join("\n");
+export function preloadAllDesignSystems(): void {
+  for (const name of Object.keys(designSystemRegistry)) {
+    cache.set(name, designSystemRegistry[name]);
   }
 }
 
-let loader: DesignSystemLoader | undefined;
+export function clearDesignSystemCache(): void {
+  cache.clear();
+}
 
-export function getDesignSystemLoader(): DesignSystemLoader {
-  if (!loader) {
-    loader = new DesignSystemLoader();
+export function mergeTheme(base: ThemeConfig, customization: ThemeCustomization): ThemeConfig {
+  const merged: ThemeConfig = {
+    colors: { ...base.colors, ...(customization.colors || {}) },
+    spacing: { ...base.spacing, ...(customization.spacing || {}) },
+    typography: { ...base.typography, ...(customization.typography || {}) },
+    borderRadius: { ...base.borderRadius, ...(customization.borderRadius || {}) },
+    shadows: { ...base.shadows, ...(customization.shadows || {}) },
+    breakpoints: { ...base.breakpoints },
+  };
+
+  return merged;
+}
+
+export function getThemeVariables(theme: ThemeConfig): Record<string, string> {
+  const variables: Record<string, string> = {};
+
+  for (const [key, value] of Object.entries(theme.colors)) {
+    variables[`--color-${key}`] = value;
   }
-  return loader;
+
+  for (const [key, value] of Object.entries(theme.spacing)) {
+    if (value) variables[`--spacing-${key}`] = value;
+  }
+
+  for (const [key, value] of Object.entries(theme.borderRadius)) {
+    variables[`--radius-${key}`] = value;
+  }
+
+  for (const [key, value] of Object.entries(theme.shadows)) {
+    variables[`--shadow-${key}`] = value;
+  }
+
+  return variables;
 }
