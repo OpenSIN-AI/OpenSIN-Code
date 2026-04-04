@@ -484,3 +484,454 @@ export type { ToolDefinition, ToolResult, ToolCall, ToolCategory } from './tools
 // OpenSIN Advanced Skills — Directory scanning, MCP builders, bundled skills
 export { BUNDLED_SKILLS, getBundledSkills, getBundledSkill, buildMCPSkill, buildMCPSkills, isMCPSkill, getMCPServerSkills, loadSkillsFromDirectory, loadAllSkills, matchSkill } from './skills_v2/index.js'
 export type { Skill, MCPSkillConfig, SkillMatch, SkillImprovement, SkillDirectory } from './skills_v2/index.js'
+
+// ============================================================================
+// OpenSIN Assistant Orchestration — Multi-assistant coordination and lifecycle
+// ============================================================================
+
+export type {
+  AssistantId,
+  AssistantStatus,
+  AssistantRole,
+  AssistantConfig,
+  AssistantState,
+  TaskAssignment,
+  RoutingRule,
+  RoutingDecision,
+  OrchestrationEvent,
+  OrchestrationConfig,
+  LifecycleState,
+  LifecycleTransition,
+  LifecycleEvent,
+  SpawnOptions,
+  PauseOptions,
+  ResumeOptions,
+  KillOptions,
+  AssistantRegistry,
+  TaskRouter,
+  Orchestrator,
+  OrchestratorEvents,
+} from './assistant_orchestration/index.js'
+
+export { Orchestrator, TaskRouter, createDefaultRouter, AssistantLifecycle, spawnAssistant, pauseAssistant, resumeAssistant, killAssistant, getLifecycleState, onLifecycleEvent } from './assistant_orchestration/index.js'
+
+// ============================================================================
+// OpenSIN Bootstrap System — Initialization, config loading, plugin discovery
+// ============================================================================
+
+export type {
+  PluginId,
+  PluginState,
+  ConfigSource,
+  PluginManifest,
+  ResolvedPlugin,
+  ConfigValue,
+  ConfigStore,
+  BootstrapOptions,
+  BootstrapResult,
+  PluginLoader,
+  ConfigLoader,
+  Initializer,
+  BootstrapEvent,
+} from './bootstrap_system/index.js'
+
+export { OpenSINConfigLoader, createConfigLoader, OpenSINPluginLoader, createPluginLoader, OpenSINInitializer, createInitializer } from './bootstrap_system/index.js'
+
+// ============================================================================
+// OpenSIN Bridge System — Cross-process communication and transport layer
+// ============================================================================
+
+export type {
+  MessageId,
+  SessionId,
+  TransportType,
+  ConnectionState,
+  MessageDirection,
+  BridgeMessage,
+  BridgeRequest,
+  BridgeResponse,
+  BridgeNotification,
+  BridgeError,
+  TransportConfig,
+  Transport,
+  ProtocolHandler,
+  ProtocolAdapter,
+  BridgeConfig,
+  BridgeState,
+  BridgeEvent,
+} from './bridge_system/index.js'
+
+export { StdioTransport, WebSocketTransport, HttpTransport, createTransport, OpenSINProtocol, ProtocolError, OpenSINBridge, JsonRpcAdapter, NdjsonAdapter, createBridge } from './bridge_system/index.js'
+
+// ============================================================================
+// OpenSIN CLI Framework — Command parsing, help system, execution
+// ============================================================================
+
+export type {
+  ArgType,
+  CommandOption,
+  CommandArgument,
+  CommandContext,
+  CommandHandler,
+  CommandDefinition,
+  CommandGroup,
+  ParsedCommand,
+  HelpOptions,
+  CliConfig,
+  CliResult,
+  CliEvent,
+} from './cli_framework/index.js'
+
+export { OpenSINParser, createParser, OpenSINExecutor, createExecutor, generateHelp, generateCommandHelp } from './cli_framework/index.js'
+
+// ============================================================================
+// OpenSIN Context Management — Window management, compression, persistence
+// ============================================================================
+
+export type {
+  ContextId,
+  ContextRole,
+  ContextEntry,
+  ContextWindow,
+  CompressionStrategy,
+  CompressionResult,
+  ContextStoreConfig,
+  ContextSnapshot,
+  ContextEvent,
+} from './context_mgmt/index.js'
+
+export { OpenSINContextManager, OpenSINContextCompressor, createCompressor, OpenSINContextStore, createContextStore } from './context_mgmt/index.js'
+
+// ============================================================================
+// OpenSIN Coordinator — Task scheduling, dispatch, and monitoring
+// ============================================================================
+
+export type {
+  TaskId,
+  AgentId,
+  TaskStatus,
+  TaskPriority,
+  Task,
+  AgentState,
+  ScheduleEntry,
+  DispatchResult,
+  AgentMetrics,
+  CoordinatorConfig,
+  CoordinatorEvent,
+} from './coordinator/index.js'
+
+export { OpenSINScheduler, createScheduler, OpenSINDispatcher, createDispatcher, OpenSINMonitor, createMonitor } from './coordinator/index.js'
+
+// ============================================================================
+// OpenSIN Ink Terminal UI — React-based terminal rendering
+// ============================================================================
+
+export type {
+  TextAlign,
+  BorderStyle,
+  FlexDirection,
+  FlexAlign,
+  JustifyContent,
+  TextStyle,
+  BoxStyle,
+  TerminalSize,
+  RenderContext,
+  OutputCell,
+  OutputFrame,
+  LayoutNode,
+  ComponentProps,
+  ReactNode,
+  OpenSINComponent,
+  UIEvent,
+  ThemeColors,
+} from './ink_ui/index.js'
+
+export { OPENSIN_THEME, OpenSINRenderer, createRenderer, Box, Text, Spinner, ProgressBar, List, Divider, Table, StatusBar, Input, box, text, spinner, progressBar, list, divider, table, statusBar, input, OpenSINLayoutEngine, createLayoutEngine } from './ink_ui/index.js'
+
+// ============================================================================
+// OpenSIN Assistant Orchestration — Multi-assistant coordination and lifecycle
+// ============================================================================
+
+export type {
+  AssistantId,
+  AssistantState,
+  AssistantRole,
+  AssistantPriority,
+  AssistantDescriptor,
+  TaskDescriptor,
+  TaskRoutingRule,
+  OrchestrationConfig,
+  LifecycleEvent,
+  LifecycleEventType,
+  AssistantSpawnRequest,
+  AssistantSpawnResult,
+  AssistantPauseRequest,
+  AssistantResumeRequest,
+  AssistantKillRequest,
+  TaskAssignment,
+  RoutingDecision,
+  OrchestrationState,
+} from './assistant_orchestration/index.js';
+
+export { Orchestrator } from './assistant_orchestration/index.js';
+export { TaskRouter, createDefaultRouter } from './assistant_orchestration/index.js';
+export {
+  AssistantLifecycle,
+  spawnAssistant,
+  pauseAssistant,
+  resumeAssistant,
+  killAssistant,
+} from './assistant_orchestration/index.js';
+
+// ============================================================================
+// OpenSIN Bootstrap System — Initialization, config loading, plugin discovery
+// ============================================================================
+
+export type {
+  BootstrapConfig,
+  ConfigOverride,
+  LoadedConfig,
+  ConfigSource,
+  PluginManifest,
+  PluginInfo,
+  PluginRegistry,
+  PluginLoadError,
+  BootstrapResult,
+  BootstrapHook,
+  BootstrapContext,
+  DefaultConfigEntry,
+} from './bootstrap_system/index.js';
+
+export { BootstrapInitializer, bootstrap } from './bootstrap_system/index.js';
+export { ConfigLoader } from './bootstrap_system/index.js';
+export { PluginLoader } from './bootstrap_system/index.js';
+
+// ============================================================================
+// OpenSIN Bridge System — Cross-process communication and transport layer
+// ============================================================================
+
+export type {
+  TransportType,
+  BridgeConfig,
+  BridgeMessage,
+  BridgeRequest,
+  BridgeResponse,
+  BridgeNotification,
+  BridgeError,
+  Transport,
+  ProtocolHandler,
+  AdapterConfig,
+  BridgeAdapter,
+  BridgeState,
+  BridgeStats,
+} from './bridge_system/index.js';
+
+export { createTransport } from './bridge_system/index.js';
+export { BridgeProtocol } from './bridge_system/index.js';
+export { OpenSINBridgeAdapter, createBridgeAdapter } from './bridge_system/index.js';
+
+// ============================================================================
+// OpenSIN CLI Framework — Command parsing, help system, execution
+// ============================================================================
+
+export type {
+  ArgType,
+  CliOption,
+  CliArgument,
+  CliCommand,
+  ParsedArgs,
+  CliConfig,
+  HelpSection,
+  CommandResult,
+  ParseResult,
+} from './cli_framework/index.js';
+
+export { CliParser } from './cli_framework/index.js';
+export { CliExecutor, runCli } from './cli_framework/index.js';
+export { generateHelp } from './cli_framework/index.js';
+
+// ============================================================================
+// OpenSIN Context Management — Window management, compression, persistence
+// ============================================================================
+
+export type {
+  ContextRole,
+  ContextMessage,
+  ContextWindow,
+  ContextConfig,
+  CompressionResult,
+  ContextSnapshot,
+  ContextStoreEntry,
+  ContextStore,
+  ContextStats,
+} from './context_mgmt/index.js';
+
+export { ContextManager } from './context_mgmt/index.js';
+export { ContextCompressor } from './context_mgmt/index.js';
+export { ContextStore as ContextPersistentStore } from './context_mgmt/index.js';
+
+// ============================================================================
+// OpenSIN Coordinator — Task scheduling, dispatch, and monitoring
+// ============================================================================
+
+export type {
+  TaskStatus,
+  TaskPriority,
+  AgentStatus,
+  ScheduleStrategy,
+  Task,
+  AgentDescriptor,
+  ScheduleEntry,
+  DispatchResult,
+  MonitorReport,
+  CoordinatorConfig,
+  CoordinatorState,
+} from './coordinator/index.js';
+
+export { TaskScheduler } from './coordinator/index.js';
+export { WorkDispatcher } from './coordinator/index.js';
+export { CoordinatorMonitor } from './coordinator/index.js';
+
+// ============================================================================
+// OpenSIN Assistant Orchestration — Multi-assistant coordination and lifecycle
+// ============================================================================
+
+export type {
+  AssistantId,
+  AssistantState,
+  AssistantRole,
+  AssistantPriority,
+  AssistantDescriptor,
+  TaskDescriptor,
+  TaskRoutingRule,
+  OrchestrationConfig,
+  LifecycleEvent,
+  LifecycleEventType,
+  AssistantSpawnRequest,
+  AssistantSpawnResult,
+  AssistantPauseRequest,
+  AssistantResumeRequest,
+  AssistantKillRequest,
+  TaskAssignment,
+  RoutingDecision,
+  OrchestrationState,
+} from './assistant_orchestration/index.js';
+
+export { Orchestrator } from './assistant_orchestration/index.js';
+export { TaskRouter, createDefaultRouter } from './assistant_orchestration/index.js';
+export {
+  AssistantLifecycle,
+  spawnAssistant,
+  pauseAssistant,
+  resumeAssistant,
+  killAssistant,
+} from './assistant_orchestration/index.js';
+
+// ============================================================================
+// OpenSIN Bootstrap System — Initialization, config loading, plugin discovery
+// ============================================================================
+
+export type {
+  BootstrapConfig,
+  ConfigOverride,
+  LoadedConfig,
+  ConfigSource,
+  PluginManifest,
+  PluginInfo,
+  PluginRegistry,
+  PluginLoadError,
+  BootstrapResult,
+  BootstrapHook,
+  BootstrapContext,
+  DefaultConfigEntry,
+} from './bootstrap_system/index.js';
+
+export { BootstrapInitializer, bootstrap } from './bootstrap_system/index.js';
+export { ConfigLoader } from './bootstrap_system/index.js';
+export { PluginLoader } from './bootstrap_system/index.js';
+
+// ============================================================================
+// OpenSIN Bridge System — Cross-process communication and transport layer
+// ============================================================================
+
+export type {
+  TransportType,
+  BridgeConfig,
+  BridgeMessage,
+  BridgeRequest,
+  BridgeResponse,
+  BridgeNotification,
+  BridgeError,
+  Transport,
+  ProtocolHandler,
+  AdapterConfig,
+  BridgeAdapter,
+  BridgeState,
+  BridgeStats,
+} from './bridge_system/index.js';
+
+export { createTransport } from './bridge_system/index.js';
+export { BridgeProtocol } from './bridge_system/index.js';
+export { OpenSINBridgeAdapter, createBridgeAdapter } from './bridge_system/index.js';
+
+// ============================================================================
+// OpenSIN CLI Framework — Command parsing, help system, execution
+// ============================================================================
+
+export type {
+  ArgType,
+  CliOption,
+  CliArgument,
+  CliCommand,
+  ParsedArgs,
+  CliConfig,
+  HelpSection,
+  CommandResult,
+  ParseResult,
+} from './cli_framework/index.js';
+
+export { CliParser } from './cli_framework/index.js';
+export { CliExecutor, runCli } from './cli_framework/index.js';
+export { generateHelp } from './cli_framework/index.js';
+
+// ============================================================================
+// OpenSIN Context Management — Window management, compression, persistence
+// ============================================================================
+
+export type {
+  ContextRole,
+  ContextMessage,
+  ContextWindow,
+  ContextConfig,
+  CompressionResult,
+  ContextSnapshot,
+  ContextStoreEntry,
+  ContextStore,
+  ContextStats,
+} from './context_mgmt/index.js';
+
+export { ContextManager } from './context_mgmt/index.js';
+export { ContextCompressor } from './context_mgmt/index.js';
+export { ContextStore as ContextPersistentStore } from './context_mgmt/index.js';
+
+// ============================================================================
+// OpenSIN Coordinator — Task scheduling, dispatch, and monitoring
+// ============================================================================
+
+export type {
+  TaskStatus,
+  TaskPriority,
+  AgentStatus,
+  ScheduleStrategy,
+  Task,
+  AgentDescriptor,
+  ScheduleEntry,
+  DispatchResult,
+  MonitorReport,
+  CoordinatorConfig,
+  CoordinatorState,
+} from './coordinator/index.js';
+
+export { TaskScheduler } from './coordinator/index.js';
+export { WorkDispatcher } from './coordinator/index.js';
+export { CoordinatorMonitor } from './coordinator/index.js';
