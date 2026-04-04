@@ -400,3 +400,87 @@ export type {
   AgentMcpServerSpec,
   HooksSetting,
 } from "./agents/index.js";
+
+// ============================================================================
+// OpenSIN Enhanced Features (v2)
+// ============================================================================
+
+// OpenSIN Buddy System — Enhanced companion with sprites and notifications
+export { roll, rollWithSeed, getCompanionFromStored, calculateLevel, addXP, renderSprite, spriteFrameCount, renderFace, CompanionSprite, useBuddyNotification, findBuddyTriggerPositions, getBuddyEmotionForEvent, isBuddyTeaserWindow, isBuddyLive, setNotificationManager } from './buddy_v2/index.js'
+export type { Rarity, Species, Eye, Hat, StatName, Emotion, CompanionBones, CompanionSoul, Companion, StoredCompanion } from './buddy_v2/index.js'
+export { RARITIES, SPECIES, EYES, HATS, STAT_NAMES, EMOTIONS, RARITY_WEIGHTS, RARITY_STARS, RARITY_COLORS, XP_PER_LEVEL, MAX_LEVEL } from './buddy_v2/index.js'
+
+// OpenSIN Vim Mode — Full vim keybindings for terminal editing
+export { resolveMotion, isInclusiveMotion, isLinewiseMotion } from './vim_mode/motions.js'
+export type { Cursor } from './vim_mode/motions.js'
+export { executeOperatorMotion, executeOperatorFind, executeOperatorTextObj, executeLineOp, executeX, executeReplace, executeToggleCase, executeJoin, executePaste, executeIndent, executeOpenLine, executeOperatorG, executeOperatorGg } from './vim_mode/operators.js'
+export type { OperatorContext } from './vim_mode/operators.js'
+export { findTextObject } from './vim_mode/textObjects.js'
+export type { TextObjectRange } from './vim_mode/textObjects.js'
+export { transition } from './vim_mode/transitions.js'
+export type { TransitionContext, TransitionResult } from './vim_mode/transitions.js'
+export type { Operator, FindType, TextObjScope, VimState, CommandState, PersistentState, RecordedChange } from './vim_mode/types.js'
+export { OPERATORS, SIMPLE_MOTIONS, FIND_KEYS, TEXT_OBJ_SCOPES, TEXT_OBJ_TYPES, MAX_VIM_COUNT, isOperatorKey, isTextObjScopeKey, createInitialVimState, createInitialPersistentState } from './vim_mode/types.js'
+
+// OpenSIN Advanced Keybindings — Customizable chords and context-aware bindings
+export { parseKeySequence, parseKeybindingString, formatKeybinding, keysMatch, isPrefixOf, VALID_CONTEXTS, RESERVED_SHORTCUTS, validateBinding, validateConfig, DEFAULT_KEYBINDINGS, getDefaultBindings, KeybindingResolver, useKeybinding } from './keybindings_v2/index.js'
+export type { Modifier, KeyChord, KeySequence, KeyBinding, ResolvedBinding, KeybindingConfig, BindingMatch, ConflictInfo, KeybindingContext } from './keybindings_v2/index.js'
+
+// OpenSIN Enhanced Voice — Push-to-talk with activity detection and commands
+export { isVoiceModeSupported, isVoiceModeEnabled, getVoiceModeStatus, useVoice, useVoiceIntegration } from './voice_v2/index.js'
+export type { VoiceState, VoiceConfig, VoiceTranscript, VoiceCommand, VoiceEvent } from './voice_v2/index.js'
+export { DEFAULT_VOICE_CONFIG } from './voice_v2/index.js'
+
+// OpenSIN Comprehensive Hooks — 20+ React hooks for terminal UI
+export { useApiKeyVerification, useAssistantHistory, useBackgroundTaskNavigation, useCancelRequest, useCommandQueue, useCopyOnSelect, useDiffData, useElapsedTime, useHistorySearch, useMemoryUsage, usePromptSuggestion, useRemoteSession, useScheduledTasks, useSessionBackgrounding, useTasksV2, useTerminalSize, useTextInput, useTurnDiffs, useTypeahead, useVirtualScroll } from './hooks_v2/index.js'
+export type { HookResult, PaginationState, SearchState, TerminalSize, MemoryUsage, DiffType, DiffData, TaskItem, ScheduledTask, TypeaheadOption, VirtualScrollItem } from './hooks_v2/index.js'
+
+// OpenSIN Extended Tools — 20+ additional agent tools
+export { AskUserQuestionTool, BriefTool, EnterPlanModeTool, EnterWorktreeTool, ExitPlanModeTool, ExitWorktreeTool, NotebookEditTool, REPLTool, RemoteTriggerTool, ScheduleCronTool, SendMessageTool, SkillTool, SleepTool, TaskCreateTool, TaskGetTool, TodoWriteTool, ToolSearchTool, WebFetchTool, WebSearchTool, ALL_TOOLS } from './tools_v2/index.js'
+export type { ToolDefinition, ToolResult, ToolCall, ToolCategory } from './tools_v2/index.js'
+
+// OpenSIN Advanced Skills — Directory scanning, MCP builders, bundled skills
+export { BUNDLED_SKILLS, getBundledSkills, getBundledSkill, buildMCPSkill, buildMCPSkills, isMCPSkill, getMCPServerSkills, loadSkillsFromDirectory, loadAllSkills, matchSkill } from './skills_v2/index.js'
+export type { Skill, MCPSkillConfig, SkillMatch, SkillImprovement, SkillDirectory } from './skills_v2/index.js'
+
+// ============================================================================
+// OpenSIN Enhanced Features (v2)
+// ============================================================================
+
+// OpenSIN Buddy System — Enhanced companion with sprites and notifications
+export { roll, rollWithSeed, getCompanionFromStored, calculateLevel, addXP, renderSprite, spriteFrameCount, renderFace, CompanionSprite, useBuddyNotification, findBuddyTriggerPositions, getBuddyEmotionForEvent, isBuddyTeaserWindow, isBuddyLive, setNotificationManager } from './buddy_v2/index.js'
+export type { Rarity, Species, Eye, Hat, StatName, Emotion, CompanionBones, CompanionSoul, Companion, StoredCompanion } from './buddy_v2/index.js'
+export { RARITIES, SPECIES, EYES, HATS, STAT_NAMES, EMOTIONS, RARITY_WEIGHTS, RARITY_STARS, RARITY_COLORS, XP_PER_LEVEL, MAX_LEVEL } from './buddy_v2/index.js'
+
+// OpenSIN Vim Mode — Full vim keybindings for terminal editing
+export { resolveMotion, isInclusiveMotion, isLinewiseMotion } from './vim_mode/motions.js'
+export type { Cursor } from './vim_mode/motions.js'
+export { executeOperatorMotion, executeOperatorFind, executeOperatorTextObj, executeLineOp, executeX, executeReplace, executeToggleCase, executeJoin, executePaste, executeIndent, executeOpenLine, executeOperatorG, executeOperatorGg } from './vim_mode/operators.js'
+export type { OperatorContext } from './vim_mode/operators.js'
+export { findTextObject } from './vim_mode/textObjects.js'
+export type { TextObjectRange } from './vim_mode/textObjects.js'
+export { transition } from './vim_mode/transitions.js'
+export type { TransitionContext, TransitionResult } from './vim_mode/transitions.js'
+export type { Operator, FindType, TextObjScope, VimState, CommandState, PersistentState, RecordedChange } from './vim_mode/types.js'
+export { OPERATORS, SIMPLE_MOTIONS, FIND_KEYS, TEXT_OBJ_SCOPES, TEXT_OBJ_TYPES, MAX_VIM_COUNT, isOperatorKey, isTextObjScopeKey, createInitialVimState, createInitialPersistentState } from './vim_mode/types.js'
+
+// OpenSIN Advanced Keybindings — Customizable chords and context-aware bindings
+export { parseKeySequence, parseKeybindingString, formatKeybinding, keysMatch, isPrefixOf, VALID_CONTEXTS, RESERVED_SHORTCUTS, validateBinding, validateConfig, DEFAULT_KEYBINDINGS, getDefaultBindings, KeybindingResolver, useKeybinding } from './keybindings_v2/index.js'
+export type { Modifier, KeyChord, KeySequence, KeyBinding, ResolvedBinding, KeybindingConfig, BindingMatch, ConflictInfo, KeybindingContext } from './keybindings_v2/index.js'
+
+// OpenSIN Enhanced Voice — Push-to-talk with activity detection and commands
+export { isVoiceModeSupported, isVoiceModeEnabled, getVoiceModeStatus, useVoice, useVoiceIntegration } from './voice_v2/index.js'
+export type { VoiceState, VoiceConfig, VoiceTranscript, VoiceCommand, VoiceEvent } from './voice_v2/index.js'
+export { DEFAULT_VOICE_CONFIG } from './voice_v2/index.js'
+
+// OpenSIN Comprehensive Hooks — 20+ React hooks for terminal UI
+export { useApiKeyVerification, useAssistantHistory, useBackgroundTaskNavigation, useCancelRequest, useCommandQueue, useCopyOnSelect, useDiffData, useElapsedTime, useHistorySearch, useMemoryUsage, usePromptSuggestion, useRemoteSession, useScheduledTasks, useSessionBackgrounding, useTasksV2, useTerminalSize, useTextInput, useTurnDiffs, useTypeahead, useVirtualScroll } from './hooks_v2/index.js'
+export type { HookResult, PaginationState, SearchState, TerminalSize, MemoryUsage, DiffType, DiffData, TaskItem, ScheduledTask, TypeaheadOption, VirtualScrollItem } from './hooks_v2/index.js'
+
+// OpenSIN Extended Tools — 20+ additional agent tools
+export { AskUserQuestionTool, BriefTool, EnterPlanModeTool, EnterWorktreeTool, ExitPlanModeTool, ExitWorktreeTool, NotebookEditTool, REPLTool, RemoteTriggerTool, ScheduleCronTool, SendMessageTool, SkillTool, SleepTool, TaskCreateTool, TaskGetTool, TodoWriteTool, ToolSearchTool, WebFetchTool, WebSearchTool, ALL_TOOLS } from './tools_v2/index.js'
+export type { ToolDefinition, ToolResult, ToolCall, ToolCategory } from './tools_v2/index.js'
+
+// OpenSIN Advanced Skills — Directory scanning, MCP builders, bundled skills
+export { BUNDLED_SKILLS, getBundledSkills, getBundledSkill, buildMCPSkill, buildMCPSkills, isMCPSkill, getMCPServerSkills, loadSkillsFromDirectory, loadAllSkills, matchSkill } from './skills_v2/index.js'
+export type { Skill, MCPSkillConfig, SkillMatch, SkillImprovement, SkillDirectory } from './skills_v2/index.js'
