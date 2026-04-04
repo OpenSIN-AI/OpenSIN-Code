@@ -83,7 +83,7 @@ const DEFAULT_API_KEY_HELPER_TTL = 5 * 60 * 1000
 /**
  * CCR and OpenSIN Desktop spawn the CLI with OAuth and should never fall back
  * to the user's ~/.opensin/settings.json API-key config (apiKeyHelper,
- * env.ANTHROPIC_API_KEY, env.ANTHROPIC_AUTH_TOKEN). Those settings exist for
+ * env.OPENSIN_API_KEY, env.OPENSIN_AUTH_TOKEN). Those settings exist for
  * the user's terminal CLI, not managed sessions. Without this guard, a user
  * who runs `opensin` in their terminal with an API key sees every CCD session
  * also use that key — and fail if it's stale/wrong-org.
@@ -97,18 +97,18 @@ function isManagedOAuthContext(): boolean {
 
 /** Whether we are supporting direct 1P auth. */
 // this code is closely related to getAuthTokenSource
-export function isAnthropicAuthEnabled(): boolean {
+export function isOpenSINAuthEnabled(): boolean {
   // --bare: API-key-only, never OAuth.
   if (isBareMode()) return false
 
-  // `opensin ssh` remote: ANTHROPIC_UNIX_SOCKET tunnels API calls through a
+  // `opensin ssh` remote: OPENSIN_UNIX_SOCKET tunnels API calls through a
   // local auth-injecting proxy. The launcher sets OPENSIN_CODE_OAUTH_TOKEN as a
   // placeholder iff the local side is a subscriber (so the remote includes the
   // oauth-2025 beta header to match what the proxy will inject). The remote's
-  // ~/.opensin settings (apiKeyHelper, settings.env.ANTHROPIC_API_KEY) MUST NOT
+  // ~/.opensin settings (apiKeyHelper, settings.env.OPENSIN_API_KEY) MUST NOT
   // flip this — they'd cause a header mismatch with the proxy and a bogus
   // "invalid x-api-key" from the API. See src/ssh/sshAuthProxy.ts.
-  if (process.env.ANTHROPIC_UNIX_SOCKET) {
+  if (process.env.OPENSIN_UNIX_SOCKET) {
     return !!process.env.OPENSIN_CODE_OAUTH_TOKEN
   }
 
@@ -122,23 +122,23 @@ export function isAnthropicAuthEnabled(): boolean {
   const settings = getSettings_DEPRECATED() || {}
   const apiKeyHelper = settings.apiKeyHelper
   const hasExternalAuthToken =
-    process.env.ANTHROPIC_AUTH_TOKEN ||
+    process.env.OPENSIN_AUTH_TOKEN ||
     apiKeyHelper ||
     process.env.OPENSIN_CODE_API_KEY_FILE_DESCRIPTOR
 
   // Check if API key is from an external source (not managed by /login)
-  const { source: apiKeySource } = getAnthropicApiKeyWithSource({
+  const { source: apiKeySource } = getOpenSINApiKeyWithSource({
     skipRetrievingKeyFromApiKeyHelper: true,
   })
   const hasExternalApiKey =
-    apiKeySource === 'ANTHROPIC_API_KEY' || apiKeySource === 'apiKeyHelper'
+    apiKeySource === 'OPENSIN_API_KEY' || apiKeySource === 'apiKeyHelper'
 
-  // Disable Anthropic auth if:
+  // Disable OpenSIN auth if:
   // 1. Using 3rd party services (Bedrock/Vertex/Foundry)
   // 2. User has an external API key (regardless of proxy configuration)
   // 3. User has an external auth token (regardless of proxy configuration)
   // this may cause issues if users have complex proxy / gateway "client-side creds" auth scenarios,
-  // e.g. if they want to set X-Api-Key to a gateway key but use Anthropic OAuth for the Authorization
+  // e.g. if they want to set X-Api-Key to a gateway key but use OpenSIN OAuth for the Authorization
   // if we get reports of that, we should probably add an env var to force OAuth enablement
   const shouldDisableAuth =
     is3P ||
@@ -149,7 +149,7 @@ export function isAnthropicAuthEnabled(): boolean {
 }
 
 /** Where the auth token is being sourced from, if any. */
-// this code is closely related to isAnthropicAuthEnabled
+// this code is closely related to isOpenSINAuthEnabled
 export function getAuthTokenSource() {
   // --bare: API-key-only. apiKeyHelper (from --settings) is the only
   // bearer-token-shaped source allowed. OAuth env vars, FD tokens, and
@@ -161,8 +161,8 @@ export function getAuthTokenSource() {
     return { source: 'none' as const, hasToken: false }
   }
 
-  if (process.env.ANTHROPIC_AUTH_TOKEN && !isManagedOAuthContext()) {
-    return { source: 'ANTHROPIC_AUTH_TOKEN' as const, hasToken: true }
+  if (process.env.OPENSIN_AUTH_TOKEN && !isManagedOAuthContext()) {
+    return { source: 'OPENSIN_AUTH_TOKEN' as const, hasToken: true }
   }
 
   if (process.env.OPENSIN_CODE_OAUTH_TOKEN) {
@@ -206,35 +206,35 @@ export function getAuthTokenSource() {
 }
 
 export type ApiKeySource =
-  | 'ANTHROPIC_API_KEY'
+  | 'OPENSIN_API_KEY'
   | 'apiKeyHelper'
   | '/login managed key'
   | 'none'
 
-export function getAnthropicApiKey(): null | string {
-  const { key } = getAnthropicApiKeyWithSource()
+export function getOpenSINApiKey(): null | string {
+  const { key } = getOpenSINApiKeyWithSource()
   return key
 }
 
-export function hasAnthropicApiKeyAuth(): boolean {
-  const { key, source } = getAnthropicApiKeyWithSource({
+export function hasOpenSINApiKeyAuth(): boolean {
+  const { key, source } = getOpenSINApiKeyWithSource({
     skipRetrievingKeyFromApiKeyHelper: true,
   })
   return key !== null && source !== 'none'
 }
 
-export function getAnthropicApiKeyWithSource(
+export function getOpenSINApiKeyWithSource(
   opts: { skipRetrievingKeyFromApiKeyHelper?: boolean } = {},
 ): {
   key: null | string
   source: ApiKeySource
 } {
-  // --bare: hermetic auth. Only ANTHROPIC_API_KEY env or apiKeyHelper from
+  // --bare: hermetic auth. Only OPENSIN_API_KEY env or apiKeyHelper from
   // the --settings flag. Never touches keychain, config file, or approval
   // lists. 3P (Bedrock/Vertex/Foundry) uses provider creds, not this path.
   if (isBareMode()) {
-    if (process.env.ANTHROPIC_API_KEY) {
-      return { key: process.env.ANTHROPIC_API_KEY, source: 'ANTHROPIC_API_KEY' }
+    if (process.env.OPENSIN_API_KEY) {
+      return { key: process.env.OPENSIN_API_KEY, source: 'OPENSIN_API_KEY' }
     }
     if (getConfiguredApiKeyHelper()) {
       return {
@@ -247,18 +247,18 @@ export function getAnthropicApiKeyWithSource(
     return { key: null, source: 'none' }
   }
 
-  // On homespace, don't use ANTHROPIC_API_KEY (use Console key instead)
+  // On homespace, don't use OPENSIN_API_KEY (use Console key instead)
   // https://opensin.slack.com/archives/C08428WSLKV/p1747331773214779
   const apiKeyEnv = isRunningOnHomespace()
     ? undefined
-    : process.env.ANTHROPIC_API_KEY
+    : process.env.OPENSIN_API_KEY
 
   // Always check for direct environment variable when the user ran opensin --print.
   // This is useful for CI, etc.
   if (preferThirdPartyAuthentication() && apiKeyEnv) {
     return {
       key: apiKeyEnv,
-      source: 'ANTHROPIC_API_KEY',
+      source: 'OPENSIN_API_KEY',
     }
   }
 
@@ -268,7 +268,7 @@ export function getAnthropicApiKeyWithSource(
     if (apiKeyFromFd) {
       return {
         key: apiKeyFromFd,
-        source: 'ANTHROPIC_API_KEY',
+        source: 'OPENSIN_API_KEY',
       }
     }
 
@@ -278,14 +278,14 @@ export function getAnthropicApiKeyWithSource(
       !process.env.OPENSIN_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR
     ) {
       throw new Error(
-        'ANTHROPIC_API_KEY or OPENSIN_CODE_OAUTH_TOKEN env var is required',
+        'OPENSIN_API_KEY or OPENSIN_CODE_OAUTH_TOKEN env var is required',
       )
     }
 
     if (apiKeyEnv) {
       return {
         key: apiKeyEnv,
-        source: 'ANTHROPIC_API_KEY',
+        source: 'OPENSIN_API_KEY',
       }
     }
 
@@ -295,7 +295,7 @@ export function getAnthropicApiKeyWithSource(
       source: 'none',
     }
   }
-  // Check for ANTHROPIC_API_KEY before checking the apiKeyHelper or /login-managed key
+  // Check for OPENSIN_API_KEY before checking the apiKeyHelper or /login-managed key
   if (
     apiKeyEnv &&
     getGlobalConfig().customApiKeyResponses?.approved?.includes(
@@ -304,7 +304,7 @@ export function getAnthropicApiKeyWithSource(
   ) {
     return {
       key: apiKeyEnv,
-      source: 'ANTHROPIC_API_KEY',
+      source: 'OPENSIN_API_KEY',
     }
   }
 
@@ -313,7 +313,7 @@ export function getAnthropicApiKeyWithSource(
   if (apiKeyFromFd) {
     return {
       key: apiKeyFromFd,
-      source: 'ANTHROPIC_API_KEY',
+      source: 'OPENSIN_API_KEY',
     }
   }
 
@@ -1047,7 +1047,7 @@ export function prefetchAwsCredentialsAndBedRockInfoIfSafe(): void {
   getModelStrings()
 }
 
-/** @private Use {@link getAnthropicApiKey} or {@link getAnthropicApiKeyWithSource} */
+/** @private Use {@link getOpenSINApiKey} or {@link getOpenSINApiKeyWithSource} */
 export const getApiKeyFromConfigOrMacOSKeychain = memoize(
   (): { key: string; source: ApiKeySource } | null => {
     if (isBareMode()) return null
@@ -1562,7 +1562,7 @@ async function checkAndRefreshOAuthTokenIfNeededImpl(
 }
 
 export function isOpenSINAISubscriber(): boolean {
-  if (!isAnthropicAuthEnabled()) {
+  if (!isOpenSINAuthEnabled()) {
     return false
   }
 
@@ -1609,11 +1609,11 @@ export function is1PApiCustomer(): boolean {
 }
 
 /**
- * Gets OAuth account information when Anthropic auth is enabled.
+ * Gets OAuth account information when OpenSIN auth is enabled.
  * Returns undefined when using external API keys or third-party services.
  */
 export function getOauthAccountInfo(): AccountInfo | undefined {
-  return isAnthropicAuthEnabled() ? getGlobalConfig().oauthAccount : undefined
+  return isOpenSINAuthEnabled() ? getGlobalConfig().oauthAccount : undefined
 }
 
 /**
@@ -1665,7 +1665,7 @@ export function getSubscriptionType(): SubscriptionType | null {
     return getMockSubscriptionType()
   }
 
-  if (!isAnthropicAuthEnabled()) {
+  if (!isOpenSINAuthEnabled()) {
     return null
   }
   const oauthTokens = getOpenSINAIOAuthTokens()
@@ -1700,7 +1700,7 @@ export function isProSubscriber(): boolean {
 }
 
 export function getRateLimitTier(): string | null {
-  if (!isAnthropicAuthEnabled()) {
+  if (!isOpenSINAuthEnabled()) {
     return null
   }
   const oauthTokens = getOpenSINAIOAuthTokens()
@@ -1862,7 +1862,7 @@ export type UserAccountInfo = {
 
 export function getAccountInformation() {
   const apiProvider = getAPIProvider()
-  // Only provide account info for first-party Anthropic API
+  // Only provide account info for first-party OpenSIN API
   if (apiProvider !== 'firstParty') {
     return undefined
   }
@@ -1878,7 +1878,7 @@ export function getAccountInformation() {
   } else {
     accountInfo.tokenSource = authTokenSource
   }
-  const { key: apiKey, source: apiKeySource } = getAnthropicApiKeyWithSource()
+  const { key: apiKey, source: apiKeySource } = getOpenSINApiKeyWithSource()
   if (apiKey) {
     accountInfo.apiKeySource = apiKeySource
   }
@@ -1924,11 +1924,11 @@ export async function validateForceLoginOrg(): Promise<OrgValidationResult> {
   // `opensin ssh` remote: real auth lives on the local machine and is injected
   // by the proxy. The placeholder token can't be validated against the profile
   // endpoint. The local side already ran this check before establishing the session.
-  if (process.env.ANTHROPIC_UNIX_SOCKET) {
+  if (process.env.OPENSIN_UNIX_SOCKET) {
     return { valid: true }
   }
 
-  if (!isAnthropicAuthEnabled()) {
+  if (!isOpenSINAuthEnabled()) {
     return { valid: true }
   }
 

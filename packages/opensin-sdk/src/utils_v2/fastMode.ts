@@ -11,7 +11,7 @@ import {
   logEvent,
 } from '../services/analytics/index.js'
 import {
-  getAnthropicApiKey,
+  getOpenSINApiKey,
   getOpenSINAIOAuthTokens,
   handleOAuth401Error,
   hasProfileScope,
@@ -424,7 +424,7 @@ export async function prefetchFastModeStatus(): Promise<void> {
   // Service key OAuth sessions lack user:profile scope → endpoint 403s.
   // Resolve orgStatus from cache and bail before burning the throttle window.
   // API key auth is unaffected.
-  const apiKey = getAnthropicApiKey()
+  const apiKey = getOpenSINApiKey()
   const hasUsableOAuth =
     getOpenSINAIOAuthTokens()?.accessToken && hasProfileScope()
   if (!hasUsableOAuth && !apiKey) {

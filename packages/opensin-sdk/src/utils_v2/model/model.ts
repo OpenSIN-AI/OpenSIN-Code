@@ -34,7 +34,7 @@ export type ModelName = string
 export type ModelSetting = ModelName | ModelAlias | null
 
 export function getSmallFastModel(): ModelName {
-  return process.env.ANTHROPIC_SMALL_FAST_MODEL || getDefaultHaikuModel()
+  return process.env.OPENSIN_SMALL_FAST_MODEL || getDefaultHaikuModel()
 }
 
 export function isNonCustomOpusModel(model: ModelName): boolean {
@@ -55,7 +55,7 @@ export function isNonCustomOpusModel(model: ModelName): boolean {
  * Priority order within this function:
  * 1. Model override during session (from /model command) - highest priority
  * 2. Model override at startup (from --model flag)
- * 3. ANTHROPIC_MODEL environment variable
+ * 3. OPENSIN_MODEL environment variable
  * 4. Settings (from user's saved settings)
  */
 export function getUserSpecifiedModelSetting(): ModelSetting | undefined {
@@ -66,7 +66,7 @@ export function getUserSpecifiedModelSetting(): ModelSetting | undefined {
     specifiedModel = modelOverride
   } else {
     const settings = getSettings_DEPRECATED() || {}
-    specifiedModel = process.env.ANTHROPIC_MODEL || settings.model || undefined
+    specifiedModel = process.env.OPENSIN_MODEL || settings.model || undefined
   }
 
   // Ignore the user-specified model if it's not in the availableModels allowlist.
@@ -83,7 +83,7 @@ export function getUserSpecifiedModelSetting(): ModelSetting | undefined {
  * Model Selection Priority Order:
  * 1. Model override during session (from /model command) - highest priority
  * 2. Model override at startup (from --model flag)
- * 3. ANTHROPIC_MODEL environment variable
+ * 3. OPENSIN_MODEL environment variable
  * 4. Settings (from user's saved settings)
  * 5. Built-in default
  *
@@ -103,8 +103,8 @@ export function getBestModel(): ModelName {
 
 // @[MODEL LAUNCH]: Update the default Opus model (3P providers may lag so keep defaults unchanged).
 export function getDefaultOpusModel(): ModelName {
-  if (process.env.ANTHROPIC_DEFAULT_OPUS_MODEL) {
-    return process.env.ANTHROPIC_DEFAULT_OPUS_MODEL
+  if (process.env.OPENSIN_DEFAULT_OPUS_MODEL) {
+    return process.env.OPENSIN_DEFAULT_OPUS_MODEL
   }
   // 3P providers (Bedrock, Vertex, Foundry) — kept as a separate branch
   // even when values match, since 3P availability lags firstParty and
@@ -117,8 +117,8 @@ export function getDefaultOpusModel(): ModelName {
 
 // @[MODEL LAUNCH]: Update the default Sonnet model (3P providers may lag so keep defaults unchanged).
 export function getDefaultSonnetModel(): ModelName {
-  if (process.env.ANTHROPIC_DEFAULT_SONNET_MODEL) {
-    return process.env.ANTHROPIC_DEFAULT_SONNET_MODEL
+  if (process.env.OPENSIN_DEFAULT_SONNET_MODEL) {
+    return process.env.OPENSIN_DEFAULT_SONNET_MODEL
   }
   // Default to Sonnet 4.5 for 3P since they may not have 4.6 yet
   if (getAPIProvider() !== 'firstParty') {
@@ -129,8 +129,8 @@ export function getDefaultSonnetModel(): ModelName {
 
 // @[MODEL LAUNCH]: Update the default Haiku model (3P providers may lag so keep defaults unchanged).
 export function getDefaultHaikuModel(): ModelName {
-  if (process.env.ANTHROPIC_DEFAULT_HAIKU_MODEL) {
-    return process.env.ANTHROPIC_DEFAULT_HAIKU_MODEL
+  if (process.env.OPENSIN_DEFAULT_HAIKU_MODEL) {
+    return process.env.OPENSIN_DEFAULT_HAIKU_MODEL
   }
 
   // Haiku 4.5 is available on all platforms (first-party, Foundry, Bedrock, Vertex)

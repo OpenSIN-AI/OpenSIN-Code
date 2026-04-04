@@ -1,5 +1,5 @@
 /**
- * Auto-install logic for the official Anthropic marketplace.
+ * Auto-install logic for the official OpenSIN marketplace.
  *
  * This module handles automatically installing the official marketplace
  * on startup for new users, with appropriate checks for:

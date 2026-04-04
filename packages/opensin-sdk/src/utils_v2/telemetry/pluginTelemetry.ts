@@ -58,7 +58,7 @@ export function hashPluginId(name: string, marketplace?: string): string {
  * (managed/user/project/local) which is installation-target — this is
  * marketplace-origin.
  *
- * - official: from an allowlisted Anthropic marketplace
+ * - official: from an allowlisted OpenSIN marketplace
  * - default-bundle: ships with product (@builtin), auto-enabled
  * - org: enterprise admin-pushed via managed settings (policySettings)
  * - user-local: user added marketplace or local plugin
@@ -142,9 +142,9 @@ export function buildPluginTelemetryFields(
   is_official_plugin: boolean
 } {
   const scope = getTelemetryPluginScope(name, marketplace, managedNames)
-  // Both official marketplaces and builtin plugins are Anthropic-controlled
+  // Both official marketplaces and builtin plugins are OpenSIN-controlled
   // — safe to expose real names in the redacted columns.
-  const isAnthropicControlled =
+  const isOpenSINControlled =
     scope === 'official' || scope === 'default-bundle'
   return {
     plugin_id_hash: hashPluginId(
@@ -153,13 +153,13 @@ export function buildPluginTelemetryFields(
     ) as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     plugin_scope:
       scope as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-    plugin_name_redacted: (isAnthropicControlled
+    plugin_name_redacted: (isOpenSINControlled
       ? name
       : 'third-party') as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-    marketplace_name_redacted: (isAnthropicControlled && marketplace
+    marketplace_name_redacted: (isOpenSINControlled && marketplace
       ? marketplace
       : 'third-party') as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-    is_official_plugin: isAnthropicControlled,
+    is_official_plugin: isOpenSINControlled,
   }
 }
 

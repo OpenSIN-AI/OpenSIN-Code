@@ -160,15 +160,15 @@ export function createChromeContext(
     // ListTools also filters browser_task + lightning_turn out, so external
     // users never see the tools advertised. Three independent gates.
     //
-    // Types inlined: AnthropicMessagesRequest/Response live in
+    // Types inlined: OpenSINMessagesRequest/Response live in
     // @ant/opensin-for-chrome-mcp@0.4.0 which isn't published yet. CI installs
-    // 0.3.0. The callAnthropicMessages field is also 0.4.0-only, but spreading
+    // 0.3.0. The callOpenSINMessages field is also 0.4.0-only, but spreading
     // an extra property into OpenSINForChromeContext is fine against either
     // version — 0.3.0 sees an unknown field (allowed in spread), 0.4.0 sees a
     // structurally-matching one. Once 0.4.0 is published, this can switch to
     // the package's exported types and the dep can be bumped.
     ...(process.env.USER_TYPE === 'ant' && {
-      callAnthropicMessages: async (req: {
+      callOpenSINMessages: async (req: {
         model: string
         max_tokens: number
         system: string

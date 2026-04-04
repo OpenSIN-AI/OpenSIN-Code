@@ -1,5 +1,5 @@
 import { feature } from 'bun:bundle'
-import type Anthropic from '@opensin-ai/sdk'
+import type OpenSIN from '@opensin-ai/sdk'
 import type { BetaToolUnion } from '@opensin-ai/sdk/resources/beta/messages.js'
 import { mkdir, writeFile } from 'fs/promises'
 import { dirname, join } from 'path'
@@ -62,7 +62,7 @@ const EXTERNAL_PERMISSIONS_TEMPLATE: string = feature('TRANSCRIPT_CLASSIFIER')
   ? txtRequire(require('./yolo-classifier-prompts/permissions_external.txt'))
   : ''
 
-const ANTHROPIC_PERMISSIONS_TEMPLATE: string =
+const OPENSIN_PERMISSIONS_TEMPLATE: string =
   feature('TRANSCRIPT_CLASSIFIER') && process.env.USER_TYPE === 'ant'
     ? txtRequire(require('./yolo-classifier-prompts/permissions_opensin.txt'))
     : ''
@@ -95,7 +95,7 @@ export type AutoModeRules = {
  * captured tag contents ARE the defaults. Bullet items are single-line in the
  * template; each line starting with `- ` becomes one array entry.
  * Used by `opensin auto-mode defaults`. Always returns external defaults,
- * never the Anthropic-internal template.
+ * never the OpenSIN-internal template.
  */
 export function getDefaultExternalAutoModeRules(): AutoModeRules {
   return {
@@ -457,7 +457,7 @@ export function buildTranscriptForClassifier(
  * getUserContext), the classifier proceeds without OPENSIN.md — same as
  * pre-PR behavior.
  */
-function buildOpenSINMdMessage(): Anthropic.MessageParam | null {
+function buildOpenSINMdMessage(): OpenSIN.MessageParam | null {
   const opensinMd = getCachedOpenSINMdContent()
   if (opensinMd === null) return null
   return {
@@ -488,7 +488,7 @@ export async function buildYoloSystemPrompt(
   const systemPrompt = BASE_PROMPT.replace('<permissions_template>', () =>
     usingExternal
       ? EXTERNAL_PERMISSIONS_TEMPLATE
-      : ANTHROPIC_PERMISSIONS_TEMPLATE,
+      : OPENSIN_PERMISSIONS_TEMPLATE,
   )
 
   const autoMode = getAutoModeConfig()
@@ -607,7 +607,7 @@ function parseXmlThinking(text: string): string | null {
  * Extract usage stats from an API response.
  */
 function extractUsage(
-  result: Anthropic.Beta.Messages.BetaMessage,
+  result: OpenSIN.Beta.Messages.BetaMessage,
 ): ClassifierUsage {
   return {
     inputTokens: result.usage.input_tokens,
@@ -622,7 +622,7 @@ function extractUsage(
  * non-enumerable `_request_id` property on response objects.
  */
 function extractRequestId(
-  result: Anthropic.Beta.Messages.BetaMessage,
+  result: OpenSIN.Beta.Messages.BetaMessage,
 ): string | undefined {
   return (result as { _request_id?: string | null })._request_id ?? undefined
 }
@@ -709,11 +709,11 @@ function getClassifierThinkingConfig(
  * prompt caching (1h TTL) across calls.
  */
 async function classifyYoloActionXml(
-  prefixMessages: Anthropic.MessageParam[],
+  prefixMessages: OpenSIN.MessageParam[],
   systemPrompt: string,
   userPrompt: string,
   userContentBlocks: Array<
-    Anthropic.TextBlockParam | Anthropic.ImageBlockParam
+    OpenSIN.TextBlockParam | OpenSIN.ImageBlockParam
   >,
   model: string,
   promptLengths: {
@@ -739,7 +739,7 @@ async function classifyYoloActionXml(
         ? 'xml_fast'
         : 'xml_thinking'
   const xmlSystemPrompt = replaceOutputFormatWithXml(systemPrompt)
-  const systemBlocks: Anthropic.TextBlockParam[] = [
+  const systemBlocks: OpenSIN.TextBlockParam[] = [
     {
       type: 'text' as const,
       text: xmlSystemPrompt,
@@ -758,7 +758,7 @@ async function classifyYoloActionXml(
   // Wrap all content (transcript + action) in <transcript> tags.
   // The action is the final tool_use block in the transcript.
   const wrappedContent: Array<
-    Anthropic.TextBlockParam | Anthropic.ImageBlockParam
+    OpenSIN.TextBlockParam | OpenSIN.ImageBlockParam
   > = [
     { type: 'text' as const, text: '<transcript>\n' },
     ...userContentBlocks,
@@ -1031,13 +1031,13 @@ export async function classifyYoloAction(
   const systemPrompt = await buildYoloSystemPrompt(context)
   const transcriptEntries = buildTranscriptEntries(messages)
   const opensinMdMessage = buildOpenSINMdMessage()
-  const prefixMessages: Anthropic.MessageParam[] = opensinMdMessage
+  const prefixMessages: OpenSIN.MessageParam[] = opensinMdMessage
     ? [opensinMdMessage]
     : []
 
   let toolCallsLength = actionCompact.length
   let userPromptsLength = 0
-  const userContentBlocks: Anthropic.TextBlockParam[] = []
+  const userContentBlocks: OpenSIN.TextBlockParam[] = []
   for (const entry of transcriptEntries) {
     for (const block of entry.content) {
       const serialized = toCompactBlock(block, entry.role, lookup)

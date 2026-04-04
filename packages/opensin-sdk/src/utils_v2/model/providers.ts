@@ -18,12 +18,12 @@ export function getAPIProviderForStatsig(): AnalyticsMetadata_I_VERIFIED_THIS_IS
 }
 
 /**
- * Check if ANTHROPIC_BASE_URL is a first-party Anthropic API URL.
+ * Check if OPENSIN_BASE_URL is a first-party OpenSIN API URL.
  * Returns true if not set (default API) or points to api.opensin.com
  * (or api-staging.opensin.com for ant users).
  */
-export function isFirstPartyAnthropicBaseUrl(): boolean {
-  const baseUrl = process.env.ANTHROPIC_BASE_URL
+export function isFirstPartyOpenSINBaseUrl(): boolean {
+  const baseUrl = process.env.OPENSIN_BASE_URL
   if (!baseUrl) {
     return true
   }

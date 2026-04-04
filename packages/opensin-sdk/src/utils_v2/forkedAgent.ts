@@ -45,7 +45,7 @@ import { createAgentId } from './uuid.js'
 
 /**
  * Parameters that must be identical between the fork and parent API requests
- * to share the parent's prompt cache. The Anthropic API cache key is composed of:
+ * to share the parent's prompt cache. The OpenSIN API cache key is composed of:
  * system prompt, tools, model, messages (prefix), and thinking config.
  *
  * CacheSafeParams carries the first five. Thinking config is derived from the

@@ -1,4 +1,4 @@
-import type Anthropic from '@opensin-ai/sdk'
+import type OpenSIN from '@opensin-ai/sdk'
 import type {
   BetaTool,
   BetaToolUnion,
@@ -46,7 +46,7 @@ import { isEnvTruthy } from './envUtils.js'
 import { createUserMessage } from './messages.js'
 import {
   getAPIProvider,
-  isFirstPartyAnthropicBaseUrl,
+  isFirstPartyOpenSINBaseUrl,
 } from './model/providers.js'
 import {
   getFileReadIgnorePatterns,
@@ -95,8 +95,8 @@ const SWARM_FIELDS_BY_TOOL: Record<string, string[]> = {
  */
 function filterSwarmFieldsFromSchema(
   toolName: string,
-  schema: Anthropic.Tool.InputSchema,
-): Anthropic.Tool.InputSchema {
+  schema: OpenSIN.Tool.InputSchema,
+): OpenSIN.Tool.InputSchema {
   const fieldsToRemove = SWARM_FIELDS_BY_TOOL[toolName]
   if (!fieldsToRemove || fieldsToRemove.length === 0) {
     return schema
@@ -158,7 +158,7 @@ export async function toolToAPISchema(
       'inputJSONSchema' in tool && tool.inputJSONSchema
         ? tool.inputJSONSchema
         : zodToJsonSchema(tool.inputSchema)
-    ) as Anthropic.Tool.InputSchema
+    ) as OpenSIN.Tool.InputSchema
 
     // Filter out swarm-related fields when swarms are not enabled
     // This ensures external non-EAP users don't see swarm features in the schema
@@ -198,7 +198,7 @@ export async function toolToAPISchema(
     // with OpenSIN 4.5 reject this field with 400. See GH#32742, PR #21729.
     if (
       getAPIProvider() === 'firstParty' &&
-      isFirstPartyAnthropicBaseUrl() &&
+      isFirstPartyOpenSINBaseUrl() &&
       (getFeatureValue_CACHED_MAY_BE_STALE('tengu_fgts', false) ||
         isEnvTruthy(process.env.OPENSIN_CODE_ENABLE_FINE_GRAINED_TOOL_STREAMING))
     ) {
@@ -230,7 +230,7 @@ export async function toolToAPISchema(
   }
 
   // OPENSIN_CODE_DISABLE_EXPERIMENTAL_BETAS is the kill switch for beta API
-  // shapes. Proxy gateways (ANTHROPIC_BASE_URL → LiteLLM → Bedrock) reject
+  // shapes. Proxy gateways (OPENSIN_BASE_URL → LiteLLM → Bedrock) reject
   // fields like defer_loading with "Extra inputs are not permitted". The gates
   // above each field are scattered and not all provider-aware, so this strips
   // everything not in the base-tool allowlist at the one choke point all tool

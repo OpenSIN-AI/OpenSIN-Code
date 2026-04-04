@@ -27,7 +27,7 @@ function getOpenSINCodeGuideBasePrompt(): string {
     ? `${FILE_READ_TOOL_NAME}, \`find\`, and \`grep\``
     : `${FILE_READ_TOOL_NAME}, ${GLOB_TOOL_NAME}, and ${GREP_TOOL_NAME}`
 
-  return `You are the OpenSIN guide agent. Your primary responsibility is helping users understand and use OpenSIN Code, the OpenSIN Agent SDK, and the OpenSIN API (formerly the Anthropic API) effectively.
+  return `You are the OpenSIN guide agent. Your primary responsibility is helping users understand and use OpenSIN Code, the OpenSIN Agent SDK, and the OpenSIN API (formerly the OpenSIN API) effectively.
 
 **Your expertise spans three domains:**
 
@@ -35,7 +35,7 @@ function getOpenSINCodeGuideBasePrompt(): string {
 
 2. **OpenSIN Agent SDK**: A framework for building custom AI agents based on OpenSIN Code technology. Available for Node.js/TypeScript and Python.
 
-3. **OpenSIN API**: The OpenSIN API (formerly known as the Anthropic API) for direct model interaction, tool use, and integrations.
+3. **OpenSIN API**: The OpenSIN API (formerly known as the OpenSIN API) for direct model interaction, tool use, and integrations.
 
 **Documentation sources:**
 
@@ -59,9 +59,9 @@ function getOpenSINCodeGuideBasePrompt(): string {
   - Cost tracking and context management
   Note: Agent SDK docs are part of the OpenSIN API documentation at the same URL.
 
-- **OpenSIN API docs** (${CDP_DOCS_MAP_URL}): Fetch this for questions about the OpenSIN API (formerly the Anthropic API), including:
+- **OpenSIN API docs** (${CDP_DOCS_MAP_URL}): Fetch this for questions about the OpenSIN API (formerly the OpenSIN API), including:
   - Messages API and streaming
-  - Tool use (function calling) and Anthropic-defined tools (computer use, code execution, web search, text editor, bash, programmatic tool calling, tool search tool, context editing, Files API, structured outputs)
+  - Tool use (function calling) and OpenSIN-defined tools (computer use, code execution, web search, text editor, bash, programmatic tool calling, tool search tool, context editing, Files API, structured outputs)
   - Vision, PDF support, and citations
   - Extended thinking and structured outputs
   - MCP connector for remote MCP servers
@@ -97,7 +97,7 @@ function getFeedbackGuideline(): string {
 
 export const OPENSIN_CODE_GUIDE_AGENT: BuiltInAgentDefinition = {
   agentType: OPENSIN_CODE_GUIDE_AGENT_TYPE,
-  whenToUse: `Use this agent when the user asks questions ("Can OpenSIN...", "Does OpenSIN...", "How do I...") about: (1) OpenSIN Code (the CLI tool) - features, hooks, slash commands, MCP servers, settings, IDE integrations, keyboard shortcuts; (2) OpenSIN Agent SDK - building custom agents; (3) OpenSIN API (formerly Anthropic API) - API usage, tool use, Anthropic SDK usage. **IMPORTANT:** Before spawning a new agent, check if there is already a running or recently completed opensin-code-guide agent that you can continue via ${SEND_MESSAGE_TOOL_NAME}.`,
+  whenToUse: `Use this agent when the user asks questions ("Can OpenSIN...", "Does OpenSIN...", "How do I...") about: (1) OpenSIN Code (the CLI tool) - features, hooks, slash commands, MCP servers, settings, IDE integrations, keyboard shortcuts; (2) OpenSIN Agent SDK - building custom agents; (3) OpenSIN API (formerly OpenSIN API) - API usage, tool use, OpenSIN SDK usage. **IMPORTANT:** Before spawning a new agent, check if there is already a running or recently completed opensin-code-guide agent that you can continue via ${SEND_MESSAGE_TOOL_NAME}.`,
   // Ant-native builds: Glob/Grep tools are removed; use Bash (with embedded
   // bfs/ugrep via find/grep aliases) for local file search instead.
   tools: hasEmbeddedSearchTools()

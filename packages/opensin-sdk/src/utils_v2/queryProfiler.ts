@@ -17,7 +17,7 @@
  * - query_api_streaming_start: Start of streaming API call
  * - query_tool_schema_build_start/end: Building tool schemas
  * - query_message_normalization_start/end: Normalizing messages
- * - query_client_creation_start/end: Creating Anthropic client
+ * - query_client_creation_start/end: Creating OpenSIN client
  * - query_api_request_sent: HTTP request dispatched (before await, inside retry body)
  * - query_response_headers_received: .withResponse() resolved (headers arrived)
  * - query_first_chunk_received: First streaming chunk received (TTFT)

@@ -105,7 +105,7 @@ async function getDesktopVersion(): Promise<string | null> {
     if (!localAppData) {
       return null
     }
-    const installDir = join(localAppData, 'AnthropicOpenSIN')
+    const installDir = join(localAppData, 'OpenSINOpenSIN')
     try {
       const entries = await readdir(installDir)
       const versions = entries

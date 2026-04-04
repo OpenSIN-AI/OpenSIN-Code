@@ -259,7 +259,7 @@ export function getComputerUseMCPToolOverrides(toolName: string): ComputerUseMCP
       logForDebugging(`[Computer Use MCP] ${toolName} error_kind=${telemetry.error_kind}`);
     }
 
-    // MCP content blocks → Anthropic API blocks. CU only produces text and
+    // MCP content blocks → OpenSIN API blocks. CU only produces text and
     // pre-sized JPEG (executor.ts computeTargetDims → targetImageSize), so
     // unlike the generic MCP path there's no resize needed — the MCP image
     // shape just maps to the API's base64-source shape. The package's result

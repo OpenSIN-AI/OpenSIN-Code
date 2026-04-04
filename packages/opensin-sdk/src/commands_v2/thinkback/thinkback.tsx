@@ -26,8 +26,8 @@ import { installSelectedPlugins } from '../../utils/plugins/pluginStartupCheck.j
 
 // Marketplace and plugin identifiers - varies by user type
 const INTERNAL_MARKETPLACE_NAME = 'opensin-code-marketplace';
-const INTERNAL_MARKETPLACE_REPO = 'anthropics/opensin-code-marketplace';
-const OFFICIAL_MARKETPLACE_REPO = 'anthropics/opensin-plugins-official';
+const INTERNAL_MARKETPLACE_REPO = 'opensins/opensin-code-marketplace';
+const OFFICIAL_MARKETPLACE_REPO = 'opensins/opensin-plugins-official';
 function getMarketplaceName(): string {
   return "external" === 'ant' ? INTERNAL_MARKETPLACE_NAME : OFFICIAL_MARKETPLACE_NAME;
 }

@@ -3,7 +3,7 @@
  *
  * When active, OpenSIN Code adds safety instructions to commit/PR prompts and
  * strips all attribution to avoid leaking internal model codenames, project
- * names, or other Anthropic-internal information. The model is not told what
+ * names, or other OpenSIN-internal information. The model is not told what
  * model it is.
  *
  * Activation:
@@ -41,7 +41,7 @@ export function getUndercoverInstructions(): string {
     return `## UNDERCOVER MODE — CRITICAL
 
 You are operating UNDERCOVER in a PUBLIC/OPEN-SOURCE repository. Your commit
-messages, PR titles, and PR bodies MUST NOT contain ANY Anthropic-internal
+messages, PR titles, and PR bodies MUST NOT contain ANY OpenSIN-internal
 information. Do not blow your cover.
 
 NEVER include in commit messages or PR descriptions:

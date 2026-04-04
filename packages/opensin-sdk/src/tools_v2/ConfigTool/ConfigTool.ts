@@ -238,11 +238,11 @@ export const ConfigTool = buildTool({
         '../../voice/voiceModeEnabled.js'
       )
       if (!isVoiceModeEnabled()) {
-        const { isAnthropicAuthEnabled } = await import('../../utils/auth.js')
+        const { isOpenSINAuthEnabled } = await import('../../utils/auth.js')
         return {
           data: {
             success: false,
-            error: !isAnthropicAuthEnabled()
+            error: !isOpenSINAuthEnabled()
               ? 'Voice mode requires a OpenSIN.ai account. Please run /login to sign in.'
               : 'Voice mode is not available.',
           },

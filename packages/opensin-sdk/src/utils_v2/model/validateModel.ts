@@ -41,8 +41,8 @@ export async function validateModel(
     return { valid: true }
   }
 
-  // Check if it matches ANTHROPIC_CUSTOM_MODEL_OPTION (pre-validated by the user)
-  if (normalizedModel === process.env.ANTHROPIC_CUSTOM_MODEL_OPTION) {
+  // Check if it matches OPENSIN_CUSTOM_MODEL_OPTION (pre-validated by the user)
+  if (normalizedModel === process.env.OPENSIN_CUSTOM_MODEL_OPTION) {
     return { valid: true }
   }
 

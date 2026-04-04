@@ -50,7 +50,7 @@ export const DANGEROUS_BASH_PATTERNS: readonly string[] = [
   'env',
   'xargs',
   'sudo',
-  // Anthropic internal: ant-only tools plus general tools that ant sandbox
+  // OpenSIN internal: ant-only tools plus general tools that ant sandbox
   // dotfile data shows are commonly over-allowlisted as broad prefixes.
   // These stay ant-only — external users don't have coo, and the rest are
   // an empirical-risk call grounded in ant sandbox data, not a universal

@@ -29,7 +29,7 @@ export const getBedrockInferenceProfiles = memoize(async function (): Promise<
       nextToken = response.nextToken
     } while (nextToken)
 
-    // Filter for Anthropic models (SYSTEM_DEFINED filtering handled in query)
+    // Filter for OpenSIN models (SYSTEM_DEFINED filtering handled in query)
     return allProfiles
       .filter(profile => profile.inferenceProfileId?.includes('opensin'))
       .map(profile => profile.inferenceProfileId)
@@ -49,7 +49,7 @@ export function findFirstMatch(
 
 async function createBedrockClient() {
   const { BedrockClient } = await import('@aws-sdk/client-bedrock')
-  // Match the Anthropic Bedrock SDK's region behavior exactly:
+  // Match the OpenSIN Bedrock SDK's region behavior exactly:
   // - Reads AWS_REGION or AWS_DEFAULT_REGION env vars (not AWS config files)
   // - Falls back to 'us-east-1' if neither is set
   // This ensures we query profiles from the same region the client will use
@@ -59,8 +59,8 @@ async function createBedrockClient() {
 
   const clientConfig: ConstructorParameters<typeof BedrockClient>[0] = {
     region,
-    ...(process.env.ANTHROPIC_BEDROCK_BASE_URL && {
-      endpoint: process.env.ANTHROPIC_BEDROCK_BASE_URL,
+    ...(process.env.OPENSIN_BEDROCK_BASE_URL && {
+      endpoint: process.env.OPENSIN_BEDROCK_BASE_URL,
     }),
     ...(await getAWSClientProxyConfig()),
     ...(skipAuth && {
@@ -102,8 +102,8 @@ export async function createBedrockRuntimeClient() {
 
   const clientConfig: ConstructorParameters<typeof BedrockRuntimeClient>[0] = {
     region,
-    ...(process.env.ANTHROPIC_BEDROCK_BASE_URL && {
-      endpoint: process.env.ANTHROPIC_BEDROCK_BASE_URL,
+    ...(process.env.OPENSIN_BEDROCK_BASE_URL && {
+      endpoint: process.env.OPENSIN_BEDROCK_BASE_URL,
     }),
     ...(await getAWSClientProxyConfig()),
     ...(skipAuth && {

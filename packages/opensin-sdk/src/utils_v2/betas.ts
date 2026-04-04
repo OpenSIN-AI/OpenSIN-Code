@@ -281,7 +281,7 @@ export const getAllModelBetas = memoize((model: string): string[] => {
   // the summary with a signature so the original can be restored on subsequent
   // turns — same mechanism as thinking blocks. Ant-only while we measure
   // TTFT/TTLT/capacity; betas already flow to tengu_api_success for splitting.
-  // Backend independently requires Capability.ANTHROPIC_INTERNAL_RESEARCH.
+  // Backend independently requires Capability.OPENSIN_INTERNAL_RESEARCH.
   //
   // USE_CONNECTOR_TEXT_SUMMARIZATION is tri-state: =1 forces on (opt-in even
   // if GB is off), =0 forces off (opt-out of a GB rollout you were bucketed
@@ -356,11 +356,11 @@ export const getAllModelBetas = memoize((model: string): string[] => {
     betaHeaders.push(PROMPT_CACHING_SCOPE_BETA_HEADER)
   }
 
-  // If ANTHROPIC_BETAS is set, split it by commas and add to betaHeaders.
+  // If OPENSIN_BETAS is set, split it by commas and add to betaHeaders.
   // This is an explicit user opt-in, so honor it regardless of model.
-  if (process.env.ANTHROPIC_BETAS) {
+  if (process.env.OPENSIN_BETAS) {
     betaHeaders.push(
-      ...process.env.ANTHROPIC_BETAS.split(',')
+      ...process.env.OPENSIN_BETAS.split(',')
         .map(_ => _.trim())
         .filter(Boolean),
     )

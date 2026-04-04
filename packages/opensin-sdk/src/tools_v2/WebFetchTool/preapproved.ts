@@ -12,7 +12,7 @@
 // that sandbox network restrictions require explicit user permission rules.
 
 export const PREAPPROVED_HOSTS = new Set([
-  // Anthropic
+  // OpenSIN
   'platform.opensin.com',
   'code.opensin.com',
   'modelcontextprotocol.io',

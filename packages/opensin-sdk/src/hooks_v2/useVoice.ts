@@ -1,9 +1,9 @@
-// React hook for hold-to-talk voice input using Anthropic voice_stream STT.
+// React hook for hold-to-talk voice input using OpenSIN voice_stream STT.
 //
 // Hold the keybinding to record; release to stop and submit.  Auto-repeat
 // key events reset an internal timer — when no keypress arrives within
 // RELEASE_TIMEOUT_MS the recording stops automatically.  Uses the native
-// audio module (macOS) or SoX for recording, and Anthropic's voice_stream
+// audio module (macOS) or SoX for recording, and OpenSIN's voice_stream
 // endpoint (conversation_engine) for STT.
 
 import { useCallback, useEffect, useRef, useState } from 'react'

@@ -49,7 +49,7 @@ export function isEnvDefinedFalsy(
 /**
  * --bare / OPENSIN_CODE_SIMPLE — skip hooks, LSP, plugin sync, skill dir-walk,
  * attribution, background prefetches, and ALL keychain/credential reads.
- * Auth is strictly ANTHROPIC_API_KEY env or apiKeyHelper from --settings.
+ * Auth is strictly OPENSIN_API_KEY env or apiKeyHelper from --settings.
  * Explicit CLI flags (--plugin-dir, --add-dir, --mcp-config) still honored.
  * ~30 gates across the codebase.
  *
@@ -91,7 +91,7 @@ export function parseEnvVars(
 
 /**
  * Get the AWS region with fallback to default
- * Matches the Anthropic Bedrock SDK's region behavior
+ * Matches the OpenSIN Bedrock SDK's region behavior
  */
 export function getAWSRegion(): string {
   return process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION || 'us-east-1'

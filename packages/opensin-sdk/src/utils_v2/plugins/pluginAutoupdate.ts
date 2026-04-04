@@ -6,7 +6,7 @@
  * 2. Then checks all installed plugins from those marketplaces and updates them
  *
  * Updates are non-inplace (disk-only), requiring a restart to take effect.
- * Official Anthropic marketplaces have autoUpdate enabled by default,
+ * Official OpenSIN marketplaces have autoUpdate enabled by default,
  * but users can disable it per-marketplace.
  */
 
@@ -218,7 +218,7 @@ async function updatePlugins(
  * 3. Updates installed plugins from those marketplaces
  * 4. If any plugins were updated, notifies via the registered callback
  *
- * Official Anthropic marketplaces have autoUpdate enabled by default,
+ * Official OpenSIN marketplaces have autoUpdate enabled by default,
  * but users can disable it per-marketplace in the UI.
  *
  * This function runs silently without blocking user interaction.

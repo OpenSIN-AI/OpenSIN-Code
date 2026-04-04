@@ -1,4 +1,4 @@
-import type { ContentBlockParam } from '@anthropic-ai/sdk/resources/messages.js';
+import type { ContentBlockParam } from '@opensin-ai/sdk/resources/messages.js';
 import React from 'react';
 import type { LocalJSXCommandCall, LocalJSXCommandOnDone } from '../../types/command.js';
 import { checkOverageGate, confirmOverage, launchRemoteReview } from './reviewRemote.js';

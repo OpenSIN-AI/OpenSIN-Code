@@ -344,7 +344,7 @@ export function getBranchFromSession(
 /**
  * Content for a remote session message.
  * Accepts a plain string or an array of content blocks (text, image, etc.)
- * following the Anthropic API messages spec.
+ * following the OpenSIN API messages spec.
  */
 export type RemoteMessageContent =
   | string

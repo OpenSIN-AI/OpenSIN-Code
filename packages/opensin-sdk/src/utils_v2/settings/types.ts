@@ -392,7 +392,7 @@ export const SettingsSchema = lazySchema(() =>
         .record(z.string(), z.string())
         .optional()
         .describe(
-          'Override mapping from Anthropic model ID (e.g. "opensin-opus-4-6") to provider-specific ' +
+          'Override mapping from OpenSIN model ID (e.g. "opensin-opus-4-6") to provider-specific ' +
             'model ID (e.g. a Bedrock inference profile ARN). Typically set in managed settings by ' +
             'enterprise administrators.',
         ),
@@ -902,7 +902,7 @@ export const SettingsSchema = lazySchema(() =>
             'Set true to allow; users then select servers via --channels.',
         ),
       // Org-level channel plugin allowlist. When set, REPLACES the
-      // Anthropic ledger — admin owns the trust decision. Undefined means
+      // OpenSIN ledger — admin owns the trust decision. Undefined means
       // fall back to the ledger. Plugin-only entry shape (same as the
       // ledger); server-kind entries still need the dev flag.
       allowedChannelPlugins: z
@@ -915,7 +915,7 @@ export const SettingsSchema = lazySchema(() =>
         .optional()
         .describe(
           'Teams/Enterprise allowlist of channel plugins. When set, ' +
-            'replaces the default Anthropic allowlist — admins decide which ' +
+            'replaces the default OpenSIN allowlist — admins decide which ' +
             'plugins may push inbound messages. Undefined falls back to the default. ' +
             'Requires channelsEnabled: true.',
         ),

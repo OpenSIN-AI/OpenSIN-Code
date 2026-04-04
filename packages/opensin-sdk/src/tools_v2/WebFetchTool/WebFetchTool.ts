@@ -183,7 +183,7 @@ export const WebFetchTool = buildTool({
     // currently in the tools list. Conditionally toggling this prefix based
     // on ToolSearch availability caused the tool description to flicker
     // between SDK query() calls (when ToolSearch enablement varies due to
-    // MCP tool count thresholds), invalidating the Anthropic API prompt
+    // MCP tool count thresholds), invalidating the OpenSIN API prompt
     // cache on each toggle — two consecutive cache misses per flicker event.
     return `IMPORTANT: WebFetch WILL FAIL for authenticated or private URLs. Before using this tool, check if the URL points to an authenticated service (e.g. Google Docs, Confluence, Jira, GitHub). If so, look for a specialized MCP tool that provides authenticated access.
 ${DESCRIPTION}`

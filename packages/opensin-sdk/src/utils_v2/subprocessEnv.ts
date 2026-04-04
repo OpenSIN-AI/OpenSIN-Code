@@ -3,7 +3,7 @@ import { isEnvTruthy } from './envUtils.js'
 /**
  * Env vars to strip from subprocess environments when running inside GitHub
  * Actions. This prevents prompt-injection attacks from exfiltrating secrets
- * via shell expansion (e.g., ${ANTHROPIC_API_KEY}) in Bash tool commands.
+ * via shell expansion (e.g., ${OPENSIN_API_KEY}) in Bash tool commands.
  *
  * The parent opensin process keeps these vars (needed for API calls, lazy
  * credential reads). Only child processes (bash, shell snapshot, MCP stdio, LSP, hooks) are scrubbed.
@@ -13,12 +13,12 @@ import { isEnvTruthy } from './envUtils.js'
  * expires when the workflow ends.
  */
 const GHA_SUBPROCESS_SCRUB = [
-  // Anthropic auth — opensin re-reads these per-request, subprocesses don't need them
-  'ANTHROPIC_API_KEY',
+  // OpenSIN auth — opensin re-reads these per-request, subprocesses don't need them
+  'OPENSIN_API_KEY',
   'OPENSIN_CODE_OAUTH_TOKEN',
-  'ANTHROPIC_AUTH_TOKEN',
-  'ANTHROPIC_FOUNDRY_API_KEY',
-  'ANTHROPIC_CUSTOM_HEADERS',
+  'OPENSIN_AUTH_TOKEN',
+  'OPENSIN_FOUNDRY_API_KEY',
+  'OPENSIN_CUSTOM_HEADERS',
 
   // OTLP exporter headers — documented to carry Authorization=Bearer tokens
   // for monitoring backends; read in-process by OTEL SDK, subprocesses never need them
@@ -92,7 +92,7 @@ export function subprocessEnv(): NodeJS.ProcessEnv {
   for (const k of GHA_SUBPROCESS_SCRUB) {
     delete env[k]
     // GitHub Actions auto-creates INPUT_<NAME> for `with:` inputs, duplicating
-    // secrets like INPUT_ANTHROPIC_API_KEY. No-op for vars that aren't action inputs.
+    // secrets like INPUT_OPENSIN_API_KEY. No-op for vars that aren't action inputs.
     delete env[`INPUT_${k}`]
   }
   return env

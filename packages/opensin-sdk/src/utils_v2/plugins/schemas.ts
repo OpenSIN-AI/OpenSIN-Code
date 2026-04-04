@@ -13,7 +13,7 @@ import { lazySchema } from '../lazySchema.js'
  */
 
 /**
- * Official marketplace names that are reserved for Anthropic/OpenSIN official use.
+ * Official marketplace names that are reserved for OpenSIN/OpenSIN official use.
  * These names are allowed ONLY for official marketplaces and blocked for third parties.
  */
 export const ALLOWED_OFFICIAL_MARKETPLACE_NAMES = new Set([
@@ -37,7 +37,7 @@ const NO_AUTO_UPDATE_OFFICIAL_MARKETPLACES = new Set(['knowledge-work-plugins'])
 /**
  * Check if auto-update is enabled for a marketplace.
  * Uses the stored value if set, otherwise defaults based on whether
- * it's an official Anthropic marketplace (true) or not (false).
+ * it's an official OpenSIN marketplace (true) or not (false).
  * Official marketplaces in NO_AUTO_UPDATE_OFFICIAL_MARKETPLACES are excluded
  * from the auto-update default.
  *
@@ -58,7 +58,7 @@ export function isMarketplaceAutoUpdate(
 }
 
 /**
- * Pattern to detect names that impersonate official Anthropic/OpenSIN marketplaces.
+ * Pattern to detect names that impersonate official OpenSIN/OpenSIN marketplaces.
  *
  * Matches names containing variations like:
  * - "official" combined with "opensin" or "opensin" (e.g., "official-opensin-plugins")
@@ -79,7 +79,7 @@ export const BLOCKED_OFFICIAL_NAME_PATTERN =
 const NON_ASCII_PATTERN = /[^\u0020-\u007E]/
 
 /**
- * Check if a marketplace name impersonates an official Anthropic/OpenSIN marketplace.
+ * Check if a marketplace name impersonates an official OpenSIN/OpenSIN marketplace.
  *
  * @param name - The marketplace name to check
  * @returns true if the name is blocked (impersonates official), false if allowed
@@ -101,7 +101,7 @@ export function isBlockedOfficialName(name: string): boolean {
 }
 
 /**
- * The official GitHub organization for Anthropic marketplaces.
+ * The official GitHub organization for OpenSIN marketplaces.
  * Reserved names must come from this org.
  */
 export const OFFICIAL_GITHUB_ORG = 'opensins'
@@ -110,7 +110,7 @@ export const OFFICIAL_GITHUB_ORG = 'opensins'
  * Validate that a marketplace with a reserved name comes from the official source.
  *
  * Reserved names (in ALLOWED_OFFICIAL_MARKETPLACE_NAMES) can only be used by
- * marketplaces from the official Anthropic GitHub organization.
+ * marketplaces from the official OpenSIN GitHub organization.
  *
  * @param name - The marketplace name
  * @param source - The marketplace source configuration
@@ -132,7 +132,7 @@ export function validateOfficialNameSource(
     // Verify the repo is from the official org
     const repo = source.repo || ''
     if (!repo.toLowerCase().startsWith(`${OFFICIAL_GITHUB_ORG}/`)) {
-      return `The name '${name}' is reserved for official Anthropic marketplaces. Only repositories from 'github.com/${OFFICIAL_GITHUB_ORG}/' can use this name.`
+      return `The name '${name}' is reserved for official OpenSIN marketplaces. Only repositories from 'github.com/${OFFICIAL_GITHUB_ORG}/' can use this name.`
     }
     return null // Valid: reserved name from official GitHub source
   }
@@ -142,18 +142,18 @@ export function validateOfficialNameSource(
     const url = source.url.toLowerCase()
     // Check for HTTPS URL format: https://github.com/opensins/...
     // or SSH format: git@github.com:opensins/...
-    const isHttpsAnthropics = url.includes('github.com/opensins/')
-    const isSshAnthropics = url.includes('git@github.com:opensins/')
+    const isHttpsOpenSINs = url.includes('github.com/opensins/')
+    const isSshOpenSINs = url.includes('git@github.com:opensins/')
 
-    if (isHttpsAnthropics || isSshAnthropics) {
+    if (isHttpsOpenSINs || isSshOpenSINs) {
       return null // Valid: reserved name from official git URL
     }
 
-    return `The name '${name}' is reserved for official Anthropic marketplaces. Only repositories from 'github.com/${OFFICIAL_GITHUB_ORG}/' can use this name.`
+    return `The name '${name}' is reserved for official OpenSIN marketplaces. Only repositories from 'github.com/${OFFICIAL_GITHUB_ORG}/' can use this name.`
   }
 
   // Reserved names must come from GitHub (either 'github' or 'git' source)
-  return `The name '${name}' is reserved for official Anthropic marketplaces and can only be used with GitHub sources from the '${OFFICIAL_GITHUB_ORG}' organization.`
+  return `The name '${name}' is reserved for official OpenSIN marketplaces and can only be used with GitHub sources from the '${OFFICIAL_GITHUB_ORG}' organization.`
 }
 
 /**
@@ -234,7 +234,7 @@ const MarketplaceNameSchema = lazySchema(() =>
     )
     .refine(name => !isBlockedOfficialName(name), {
       message:
-        'Marketplace name impersonates an official Anthropic/OpenSIN marketplace',
+        'Marketplace name impersonates an official OpenSIN/OpenSIN marketplace',
     })
     .refine(name => name.toLowerCase() !== 'inline', {
       message:

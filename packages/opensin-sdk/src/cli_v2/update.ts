@@ -138,7 +138,7 @@ export async function update() {
         writeToStdout('\n')
         writeToStdout('To update, run:\n')
         writeToStdout(
-          chalk.bold('  winget upgrade Anthropic.OpenSINCode') + '\n',
+          chalk.bold('  winget upgrade OpenSIN.OpenSINCode') + '\n',
         )
       } else {
         writeToStdout('OpenSIN is up to date!\n')

@@ -431,11 +431,11 @@ export async function cleanupOldDebugLogs(): Promise<CleanupResult> {
 const ONE_DAY_MS = 24 * 60 * 60 * 1000
 
 /**
- * Clean up old npm cache entries for Anthropic packages.
+ * Clean up old npm cache entries for OpenSIN packages.
  * This helps reduce disk usage since we publish many dev versions per day.
  * Only runs once per day for Ant users.
  */
-export async function cleanupNpmCacheForAnthropicPackages(): Promise<void> {
+export async function cleanupNpmCacheForOpenSINPackages(): Promise<void> {
   const markerPath = join(getOpenSINConfigHomeDir(), '.npm-cache-cleanup')
 
   try {
@@ -466,7 +466,7 @@ export async function cleanupNpmCacheForAnthropicPackages(): Promise<void> {
     const cacache = await import('cacache')
     const cutoff = startTime - ONE_DAY_MS
 
-    // Stream index entries and collect all Anthropic package entries.
+    // Stream index entries and collect all OpenSIN package entries.
     // Previous implementation used cacache.verify() which does a full
     // integrity check + GC of the ENTIRE cache — O(all content blobs).
     // On large caches this took 60+ seconds and blocked the event loop.
@@ -597,6 +597,6 @@ export async function cleanupOldMessageFilesInBackground(): Promise<void> {
     logEvent('tengu_worktree_cleanup', { removed: removedWorktrees })
   }
   if (process.env.USER_TYPE === 'ant') {
-    await cleanupNpmCacheForAnthropicPackages()
+    await cleanupNpmCacheForOpenSINPackages()
   }
 }

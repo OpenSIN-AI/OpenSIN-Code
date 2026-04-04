@@ -100,7 +100,7 @@ const TEAMMATE_ENV_VARS = [
   'OPENSIN_CODE_USE_VERTEX',
   'OPENSIN_CODE_USE_FOUNDRY',
   // Custom API endpoint
-  'ANTHROPIC_BASE_URL',
+  'OPENSIN_BASE_URL',
   // Config directory override
   'OPENSIN_CONFIG_DIR',
   // CCR marker — teammates need this for CCR-aware code paths. Auth finds

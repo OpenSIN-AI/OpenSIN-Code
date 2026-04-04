@@ -1,4 +1,4 @@
-import type Anthropic from '@opensin-ai/sdk'
+import type OpenSIN from '@opensin-ai/sdk'
 import type { BetaToolUnion } from '@opensin-ai/sdk/resources/beta/messages.js'
 import {
   getLastApiCompletionTimestamp,
@@ -13,18 +13,18 @@ import {
 import { logEvent } from '../services/analytics/index.js'
 import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from '../services/analytics/metadata.js'
 import { getAPIMetadata } from '../services/api/opensin.js'
-import { getAnthropicClient } from '../services/api/client.js'
+import { getOpenSINClient } from '../services/api/client.js'
 import { getModelBetas, modelSupportsStructuredOutputs } from './betas.js'
 import { computeFingerprint } from './fingerprint.js'
 import { normalizeModelStringForAPI } from './model/model.js'
 
-type MessageParam = Anthropic.MessageParam
-type TextBlockParam = Anthropic.TextBlockParam
-type Tool = Anthropic.Tool
-type ToolChoice = Anthropic.ToolChoice
-type BetaMessage = Anthropic.Beta.Messages.BetaMessage
-type BetaJSONOutputFormat = Anthropic.Beta.Messages.BetaJSONOutputFormat
-type BetaThinkingConfigParam = Anthropic.Beta.Messages.BetaThinkingConfigParam
+type MessageParam = OpenSIN.MessageParam
+type TextBlockParam = OpenSIN.TextBlockParam
+type Tool = OpenSIN.Tool
+type ToolChoice = OpenSIN.ToolChoice
+type BetaMessage = OpenSIN.Beta.Messages.BetaMessage
+type BetaJSONOutputFormat = OpenSIN.Beta.Messages.BetaJSONOutputFormat
+type BetaThinkingConfigParam = OpenSIN.Beta.Messages.BetaThinkingConfigParam
 
 export type SideQueryOptions = {
   /** Model to use for the query */
@@ -121,7 +121,7 @@ export async function sideQuery(opts: SideQueryOptions): Promise<BetaMessage> {
     stop_sequences,
   } = opts
 
-  const client = await getAnthropicClient({
+  const client = await getOpenSINClient({
     maxRetries,
     model,
     source: 'side_query',
