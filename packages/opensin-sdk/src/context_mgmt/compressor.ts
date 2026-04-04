@@ -22,21 +22,21 @@ export class OpenSINContextCompressor {
 
     switch (strategy) {
       case 'truncate':
-        return this.truncate(entries, maxTokens, start)
+        return this.truncate(entries, maxTokens, start, originalTokens)
       case 'summarize':
-        return this.summarize(entries, maxTokens, start)
+        return this.summarize(entries, maxTokens, start, originalTokens)
       case 'sliding_window':
-        return this.slidingWindow(entries, maxTokens, start)
+        return this.slidingWindow(entries, maxTokens, start, originalTokens)
       case 'priority_based':
-        return this.priorityBased(entries, maxTokens, start)
+        return this.priorityBased(entries, maxTokens, start, originalTokens)
       case 'hybrid':
-        return this.hybrid(entries, maxTokens, start)
+        return this.hybrid(entries, maxTokens, start, originalTokens)
       default:
-        return this.priorityBased(entries, maxTokens, start)
+        return this.priorityBased(entries, maxTokens, start, originalTokens)
     }
   }
 
-  private truncate(entries: ContextEntry[], maxTokens: number, start: number): CompressionResult {
+  private truncate(entries: ContextEntry[], maxTokens: number, start: number, originalTokens: number): CompressionResult {
     let currentTokens = 0
     const kept: ContextEntry[] = []
     let removed = 0
@@ -64,7 +64,7 @@ export class OpenSINContextCompressor {
     }
   }
 
-  private summarize(entries: ContextEntry[], maxTokens: number, start: number): CompressionResult {
+  private summarize(entries: ContextEntry[], maxTokens: number, start: number, originalTokens: number): CompressionResult {
     const systemEntries = entries.filter((e) => e.role === 'system')
     const recentEntries = entries.slice(-Math.min(10, entries.length))
     const otherEntries = entries.filter(
@@ -105,7 +105,7 @@ export class OpenSINContextCompressor {
     }
   }
 
-  private slidingWindow(entries: ContextEntry[], maxTokens: number, start: number): CompressionResult {
+  private slidingWindow(entries: ContextEntry[], maxTokens: number, start: number, originalTokens: number): CompressionResult {
     const systemEntries = entries.filter((e) => e.role === 'system')
     const systemTokens = systemEntries.reduce((s, e) => s + e.tokenCount, 0)
     const availableTokens = maxTokens - systemTokens
@@ -138,7 +138,7 @@ export class OpenSINContextCompressor {
     }
   }
 
-  private priorityBased(entries: ContextEntry[], maxTokens: number, start: number): CompressionResult {
+  private priorityBased(entries: ContextEntry[], maxTokens: number, start: number, originalTokens: number): CompressionResult {
     const sorted = [...entries].sort((a, b) => b.priority - a.priority)
     const kept: ContextEntry[] = []
     let currentTokens = 0
@@ -167,7 +167,7 @@ export class OpenSINContextCompressor {
     }
   }
 
-  private hybrid(entries: ContextEntry[], maxTokens: number, start: number): CompressionResult {
+  private hybrid(entries: ContextEntry[], maxTokens: number, start: number, originalTokens: number): CompressionResult {
     const systemEntries = entries.filter((e) => e.role === 'system')
     const systemTokens = systemEntries.reduce((s, e) => s + e.tokenCount, 0)
     const availableTokens = maxTokens - systemTokens
@@ -176,7 +176,7 @@ export class OpenSINContextCompressor {
     const highTokens = highPriority.reduce((s, e) => s + e.tokenCount, 0)
 
     if (highTokens > availableTokens) {
-      return this.priorityBased(entries, maxTokens, start)
+      return this.priorityBased(entries, maxTokens, start, originalTokens)
     }
 
     const remainingTokens = availableTokens - highTokens
