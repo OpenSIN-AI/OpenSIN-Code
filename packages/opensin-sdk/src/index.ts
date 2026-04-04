@@ -338,3 +338,65 @@ export type {
   RateLimitEvent,
 } from "./rate_limit_status/index.js";
 export { DEFAULT_RATE_LIMIT_CONFIG } from "./rate_limit_status/index.js";
+
+// A2A SIN Agents
+export {
+  sinAgentRegistry,
+  registerBuiltInAgents,
+  registerAllAgents,
+  BUILT_IN_AGENTS,
+  SIN_EXPLORER,
+  SIN_PLANNER,
+  SIN_VERIFIER,
+  SIN_CREATOR,
+  SIN_IMAGE_GEN,
+  SIN_VIDEO_GEN,
+  SIN_TEAM_LEAD,
+  SIN_RESEARCHER,
+  SIN_GUIDE,
+} from "./agents/index.js";
+export type {
+  SinAgentDefinition,
+  SpawnedAgent,
+  SpawnAgentRequest,
+  SpawnAgentResult,
+  AgentColorName,
+  AgentSource,
+  AgentIsolation,
+  AgentMemory,
+  AgentModel,
+  PermissionMode,
+  AgentMcpServerSpec,
+  HooksSetting,
+} from "./agents/index.js";
+
+// A2A SIN Agents
+export {
+  sinAgentRegistry,
+  registerBuiltInAgents,
+  registerAllAgents,
+  BUILT_IN_AGENTS,
+  SIN_EXPLORER,
+  SIN_PLANNER,
+  SIN_VERIFIER,
+  SIN_CREATOR,
+  SIN_IMAGE_GEN,
+  SIN_VIDEO_GEN,
+  SIN_TEAM_LEAD,
+  SIN_RESEARCHER,
+  SIN_GUIDE,
+} from "./agents/index.js";
+export type {
+  SinAgentDefinition,
+  SpawnedAgent,
+  SpawnAgentRequest,
+  SpawnAgentResult,
+  AgentColorName,
+  AgentSource,
+  AgentIsolation,
+  AgentMemory,
+  AgentModel,
+  PermissionMode,
+  AgentMcpServerSpec,
+  HooksSetting,
+} from "./agents/index.js";
