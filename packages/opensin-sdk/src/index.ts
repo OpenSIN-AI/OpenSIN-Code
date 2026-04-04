@@ -408,7 +408,6 @@ export * from "./hooks_v2/index.js";
 export * from "./hooks_v2/index.js";
 
 // Ink UI Framework (from sin-claude)
-export * from "./ink_v2/index.js";
 
 // Ink UI Framework (from sin-claude)
 export * from "./ink_v2/index.js";
