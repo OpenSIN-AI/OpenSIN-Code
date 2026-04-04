@@ -401,13 +401,9 @@ export type {
   HooksSetting,
 } from "./agents/index.js";
 
-// Hooks v2 (from sin-claude)
-export * from "./hooks_v2/index.js";
 
 // Hooks v2 (from sin-claude)
 export * from "./hooks_v2/index.js";
-
-// Ink UI Framework (from sin-claude)
 
 // Ink UI Framework (from sin-claude)
 export * from "./ink_v2/index.js";
