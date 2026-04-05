@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "repo": "OpenSIN-AI/OpenSIN-Code",
+  "lastUpdated": "2026-04-05T20:00:00Z",
+
+  "governance": {
+    "description": "Repo governance rules for OpenSIN-Code — the autonomous OpenSIN CLI",
+    "enforcement": "fail-closed",
+    "branchProtection": {
+      "main": {
+        "requirePullRequest": true,
+        "requireApprovals": 1,
+        "dismissStaleReviews": true,
+        "requireCodeOwnerReview": true,
+        "requireStatusChecks": ["build", "test"],
+        "enforceAdmins": false
+      }
+    }
+  },
+
+  "inboundRules": {
+    "description": "Rules for accepting external work into this repo",
+    "failClosed": true,
+    "rules": [
+      {
+        "id": "no-raw-payloads",
+        "rule": "No raw external payloads inside repos",
+        "enforcement": "All external payloads MUST be normalized to work_item schema before storage"
+      },
+      {
+        "id": "issue-first",
+        "rule": "No accepted inbound work without GitHub issue creation/update",
+        "enforcement": "Every work_item MUST create or update a GitHub issue before any branch/PR work begins"
+      },
+      {
+        "id": "pr-watcher-required",
+        "rule": "No PR-based repo without watcher config + runnable watcher entrypoint",
+        "enforcement": "PR watcher MUST be configured and executable before accepting PRs"
+      },
+      {
+        "id": "platform-verification",
+        "rule": "No platform activation without registry entry, signature/cursor verification, dedupe, and issue mapping",
+        "enforcement": "Platforms MUST pass all verification gates before activation"
+      }
+    ]
+  },
+
+  "codeQuality": {
+    "lintRequired": true,
+    "testRequired": true,
+    "minCoverage": 80,
+    "typeCheckRequired": true,
+    "noConsoleLog": true,
+    "noHardcodedSecrets": true
+  },
+
+  "commitRules": {
+    "conventionalCommits": true,
+    "signedCommits": false,
+    "maxCommitsPerPR": 10,
+    "requireIssueReference": true
+  },
+
+  "prRules": {
+    "requireDescription": true,
+    "requireTestingEvidence": true,
+    "requireScreenshots": true,
+    "maxFilesPerPR": 50,
+    "maxLinesPerPR": 500,
+    "requireSelfReview": false,
+    "autoMergeOnApproval": false
+  },
+
+  "securityRules": {
+    "secretScanning": true,
+    "dependabotAlerts": true,
+    "codeScanning": false,
+    "noCredentialsInCode": true,
+    "noCredentialsInLogs": true,
+    "requireEnvValidation": true
+  },
+
+  "documentationRules": {
+    "requireReadmeUpdate": true,
+    "requireChangelogUpdate": true,
+    "requireApiDocsUpdate": true,
+    "visualEvidenceRequired": true
+  },
+
+  "releaseRules": {
+    "semanticVersioning": true,
+    "requireChangelog": true,
+    "requireReleaseNotes": true,
+    "autoTagOnMerge": false
+  }
+}

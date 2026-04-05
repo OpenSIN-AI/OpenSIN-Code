@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "lastUpdated": "2026-04-05T20:00:00Z",
+  "description": "Platform registry for inbound work intake — all external platforms that can send work to OpenSIN-Code",
+
+  "platforms": {
+    "github": {
+      "id": "github",
+      "name": "GitHub",
+      "type": "webhook",
+      "status": "active",
+      "capabilities": ["issue", "pr", "comment", "review"],
+      "authentication": {
+        "type": "oauth2",
+        "scopes": ["repo", "read:user"],
+        "webhookSecret": "env:GITHUB_WEBHOOK_SECRET"
+      },
+      "intake": {
+        "webhookPath": "/webhooks/github",
+        "pollingEnabled": false,
+        "normalizationScript": "scripts/normalize-github.mjs"
+      },
+      "deduplication": {
+        "strategy": "cursor-based",
+        "cursorField": "issue.number",
+        "cursorStorage": "supabase:sin_platform_cursors"
+      },
+      "signatureVerification": {
+        "enabled": true,
+        "algorithm": "sha256",
+        "headerName": "x-hub-signature-256"
+      },
+      "issueMapping": {
+        "autoCreate": true,
+        "labelMapping": {
+          "bug": ["bug", "high-priority"],
+          "enhancement": ["enhancement", "medium-priority"],
+          "feature": ["feature", "medium-priority"]
+        },
+        "priorityMapping": {
+          "critical": "critical",
+          "high": "high",
+          "medium": "medium",
+          "low": "low"
+        }
+      }
+    },
+    "n8n": {
+      "id": "n8n",
+      "name": "n8n Workflow Engine",
+      "type": "webhook",
+      "status": "active",
+      "capabilities": ["workflow-trigger", "task-dispatch"],
+      "authentication": {
+        "type": "api-key",
+        "headerName": "X-N8N-API-KEY",
+        "apiKeyEnv": "N8N_API_KEY"
+      },
+      "intake": {
+        "webhookPath": "/webhooks/n8n",
+        "pollingEnabled": false,
+        "normalizationScript": "scripts/normalize-n8n.mjs"
+      },
+      "deduplication": {
+        "strategy": "execution-id",
+        "cursorField": "executionId",
+        "cursorStorage": "supabase:sin_platform_cursors"
+      },
+      "signatureVerification": {
+        "enabled": false
+      },
+      "issueMapping": {
+        "autoCreate": true,
+        "defaultLabels": ["n8n", "automation"]
+      }
+    },
+    "telegram": {
+      "id": "telegram",
+      "name": "Telegram (A2A-SIN-TelegramBot)",
+      "type": "polling",
+      "status": "active",
+      "capabilities": ["message", "command", "alert"],
+      "authentication": {
+        "type": "bot-token",
+        "tokenEnv": "TELEGRAM_BOT_TOKEN"
+      },
+      "intake": {
+        "webhookPath": null,
+        "pollingEnabled": true,
+        "pollIntervalSeconds": 5,
+        "normalizationScript": "scripts/normalize-telegram.mjs"
+      },
+      "deduplication": {
+        "strategy": "message-id",
+        "cursorField": "update_id",
+        "cursorStorage": "supabase:sin_platform_cursors"
+      },
+      "signatureVerification": {
+        "enabled": false
+      },
+      "issueMapping": {
+        "autoCreate": true,
+        "defaultLabels": ["telegram", "alert"]
+      }
+    }
+  },
+
+  "globalSettings": {
+    "maxPayloadSizeBytes": 1048576,
+    "requestTimeoutSeconds": 30,
+    "retryAttempts": 3,
+    "retryDelaySeconds": 5,
+    "deadLetterQueue": "supabase:sin_dead_letter_queue",
+    "auditLog": "supabase:sin_audit_log"
+  }
+}

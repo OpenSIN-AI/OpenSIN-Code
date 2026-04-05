@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "repo": "OpenSIN-AI/OpenSIN-Code",
+  "lastUpdated": "2026-04-05T20:00:00Z",
+  "description": "PR Watcher configuration for OpenSIN-Code",
+  "watcher": {
+    "enabled": true,
+    "entrypoint": "scripts/watch-pr-feedback.sh",
+    "pollIntervalSeconds": 60,
+    "maxConcurrentReviews": 3,
+    "timeoutSeconds": 300
+  },
+  "triggers": {
+    "onPRCreated": {
+      "enabled": true,
+      "actions": ["create-github-issue", "assign-reviewers", "run-automated-checks"]
+    },
+    "onPRUpdated": {
+      "enabled": true,
+      "actions": ["re-run-automated-checks", "update-issue-status"]
+    },
+    "onPRMerged": {
+      "enabled": true,
+      "actions": ["close-linked-issue", "update-changelog", "notify-team"]
+    },
+    "onPRClosed": {
+      "enabled": true,
+      "actions": ["update-issue-status", "log-closure-reason"]
+    }
+  },
+  "automatedChecks": {
+    "build": { "enabled": true, "command": "npm run build", "timeoutSeconds": 120 },
+    "test": { "enabled": true, "command": "npm test", "timeoutSeconds": 300 },
+    "lint": { "enabled": true, "command": "npm run lint", "timeoutSeconds": 60 },
+    "typecheck": { "enabled": true, "command": "npm run typecheck", "timeoutSeconds": 60 }
+  },
+  "reviewAgents": {
+    "code-reviewer": { "enabled": true, "focus": "General code quality, CLAUDE.md compliance, bug detection", "confidenceThreshold": 80 },
+    "test-analyzer": { "enabled": true, "focus": "Test coverage quality and completeness", "minCoverage": 80 },
+    "silent-failure-hunter": { "enabled": true, "focus": "Error handling and silent failures", "severityThreshold": "medium" },
+    "type-design-analyzer": { "enabled": true, "focus": "Type design quality and invariants", "minScore": 7 }
+  },
+  "feedback": {
+    "collectAutomatically": true,
+    "postToPR": true,
+    "updateLinkedIssue": true,
+    "notifyOnFailure": true,
+    "notificationChannels": ["github", "telegram"]
+  },
+  "failClosed": {
+    "blockMergeOnFailedChecks": true,
+    "blockMergeOnMissingReview": true,
+    "blockMergeOnSecurityIssues": true,
+    "requireAllChecksGreen": true
+  }
+}

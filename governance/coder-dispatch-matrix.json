@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "repo": "OpenSIN-AI/OpenSIN-Code",
+  "lastUpdated": "2026-04-05T20:00:00Z",
+  "description": "Capability-based routing matrix for dispatching tasks to specialized A2A Coder Agents",
+
+  "agents": {
+    "A2A-SIN-Code-Database": {
+      "capabilities": ["database", "migration", "schema", "sql", "supabase", "postgresql"],
+      "labels": ["database", "migration", "schema"],
+      "priority": "high",
+      "maxConcurrentTasks": 3,
+      "fallback": "A2A-SIN-Code-Integration"
+    },
+    "A2A-SIN-Code-Integration": {
+      "capabilities": ["integration", "api", "mcp", "a2a", "webhook", "plugin"],
+      "labels": ["integration", "api", "mcp", "a2a"],
+      "priority": "high",
+      "maxConcurrentTasks": 5,
+      "fallback": "A2A-SIN-Backend"
+    },
+    "A2A-SIN-Code-AI": {
+      "capabilities": ["ai", "ml", "model", "prompt", "agent", "skill"],
+      "labels": ["ai", "ml", "agent", "skill"],
+      "priority": "medium",
+      "maxConcurrentTasks": 3,
+      "fallback": "A2A-SIN-Code-Integration"
+    },
+    "A2A-SIN-Frontend": {
+      "capabilities": ["frontend", "ui", "ux", "design", "css", "react", "component", "ink", "terminal"],
+      "labels": ["frontend", "ui", "design", "component"],
+      "priority": "high",
+      "maxConcurrentTasks": 5,
+      "fallback": "A2A-SIN-Code-Integration"
+    },
+    "A2A-SIN-Backend": {
+      "capabilities": ["backend", "server", "api", "service", "worker", "n8n"],
+      "labels": ["backend", "server", "service"],
+      "priority": "high",
+      "maxConcurrentTasks": 5,
+      "fallback": null
+    }
+  },
+
+  "routingRules": [
+    {
+      "id": "plugin-tasks",
+      "condition": { "labels_include": ["plugin"], "title_contains": ["plugin", "hook", "skill", "command", "agent"] },
+      "assignTo": "A2A-SIN-Code-Integration",
+      "priority": "high"
+    },
+    {
+      "id": "ui-tasks",
+      "condition": { "labels_include": ["ui", "frontend"], "title_contains": ["component", "dialog", "spinner", "wizard", "diff", "animation"] },
+      "assignTo": "A2A-SIN-Frontend",
+      "priority": "high"
+    },
+    {
+      "id": "ai-tasks",
+      "condition": { "labels_include": ["ai", "agent"], "title_contains": ["agent", "skill", "prompt", "model", "context"] },
+      "assignTo": "A2A-SIN-Code-AI",
+      "priority": "medium"
+    },
+    {
+      "id": "tool-tasks",
+      "condition": { "labels_include": ["tool"], "title_contains": ["tool", "bash", "file", "grep", "edit"] },
+      "assignTo": "A2A-SIN-Code-Integration",
+      "priority": "high"
+    },
+    {
+      "id": "command-tasks",
+      "condition": { "labels_include": ["command"], "title_contains": ["command", "slash", "ultraplan", "thinkback", "teleport", "rewind", "doctor"] },
+      "assignTo": "A2A-SIN-Code-Integration",
+      "priority": "high"
+    },
+    {
+      "id": "service-tasks",
+      "condition": { "labels_include": ["service"], "title_contains": ["service", "memory", "sync", "dream", "voice"] },
+      "assignTo": "A2A-SIN-Backend",
+      "priority": "medium"
+    },
+    {
+      "id": "testing-tasks",
+      "condition": { "labels_include": ["testing"], "title_contains": ["test", "coverage", "benchmark", "e2e"] },
+      "assignTo": "A2A-SIN-Code-Integration",
+      "priority": "medium"
+    },
+    {
+      "id": "governance-tasks",
+      "condition": { "labels_include": ["governance"], "title_contains": ["governance", "pr-watcher", "inbound", "registry"] },
+      "assignTo": "A2A-SIN-Backend",
+      "priority": "critical"
+    }
+  ],
+
+  "healthMonitoring": {
+    "enabled": true,
+    "checkIntervalSeconds": 30,
+    "maxRetries": 3,
+    "retryDelaySeconds": 10,
+    "circuitBreaker": {
+      "failureThreshold": 5,
+      "resetTimeoutSeconds": 300
+    }
+  },
+
+  "fallbackStrategy": {
+    "onAgentUnavailable": "route-to-fallback",
+    "onAllAgentsUnavailable": "queue-and-notify",
+    "notificationChannels": ["github", "telegram"],
+    "maxQueueSize": 100,
+    "queueTimeoutMinutes": 60
+  }
+}

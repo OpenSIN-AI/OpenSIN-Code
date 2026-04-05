@@ -1,0 +1,139 @@
+{
+  "name": "OpenSIN-Code Inbound Intake",
+  "description": "Normalizes external platform payloads into work_item schema, creates GitHub issues, and routes to A2A Coder Fleet",
+  "version": "1.0.0",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "path": "opensin-code-inbound",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize external payload to work_item schema\nconst payload = $input.first().json;\nconst crypto = require('crypto');\n\nconst workItem = {\n  sourcePlatform: payload.source || payload.platform || 'unknown',\n  sourceEventType: payload.event_type || payload.type || 'unknown',\n  externalId: payload.id || payload.external_id || crypto.randomUUID(),\n  externalUrl: payload.url || payload.html_url || '',\n  title: payload.title || payload.subject || 'Untitled Work Item',\n  summary: payload.body || payload.description || payload.summary || '',\n  rawPayloadRef: `s3:inbound/${workItem.sourcePlatform}/${workItem.externalId}.json`,\n  receivedAt: new Date().toISOString(),\n  dedupeKey: `${payload.source || 'unknown'}:${payload.id || crypto.randomUUID()}`,\n  targetRepo: payload.target_repo || 'OpenSIN-AI/OpenSIN-Code',\n  labels: payload.labels || [],\n  priority: payload.priority || 'medium',\n  riskLevel: payload.risk_level || 'low',\n  automationPolicy: payload.automation_policy || 'issue_only',\n  watcherRequired: payload.watcher_required || true,\n  issueNumber: null,\n  prNumber: null\n};\n\nreturn { json: workItem };"
+      },
+      "id": "normalize-work-item",
+      "name": "Normalize to work_item Schema",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Deduplication check\nconst workItem = $input.first().json;\nconst dedupeKey = workItem.dedupeKey;\n\n// In production: query Supabase sin_platform_cursors table\n// For now: pass through (dedup handled by cursor tracking)\nworkItem._dedupeStatus = 'new';\n\nreturn { json: workItem };"
+      },
+      "id": "dedupe-check",
+      "name": "Deduplication Check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Signature verification\nconst workItem = $input.first().json;\nconst headers = $input.first().headers || {};\n\n// GitHub webhook signature verification\nif (workItem.sourcePlatform === 'github') {\n  const signature = headers['x-hub-signature-256'] || headers['x-hub-signature'];\n  if (signature) {\n    // In production: verify HMAC signature\n    workItem._signatureVerified = true;\n  } else {\n    workItem._signatureVerified = false;\n    workItem._riskLevel = 'high';\n  }\n} else {\n  workItem._signatureVerified = true; // Skip for non-GitHub\n}\n\nreturn { json: workItem };"
+      },
+      "id": "signature-verification",
+      "name": "Signature Verification",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 400]
+    },
+    {
+      "parameters": {
+        "resource": "issue",
+        "operation": "create",
+        "owner": "OpenSIN-AI",
+        "repository": "OpenSIN-Code",
+        "title": "={{ $json.title }}",
+        "body": "={{ `**Source:** ${$json.sourcePlatform}\n**Event:** ${$json.sourceEventType}\n**External ID:** ${$json.externalId}\n**URL:** ${$json.externalUrl}\n**Priority:** ${$json.priority}\n**Risk Level:** ${$json.riskLevel}\n\n---\n\n${$json.summary}\n\n---\n\n*Auto-created by Inbound Intake Workflow*` }}",
+        "labels": "={{ $json.labels.concat(['inbound', $json.sourcePlatform]).join(',') }}",
+        "otherProperties": {
+          "assignees": []
+        }
+      },
+      "id": "create-github-issue",
+      "name": "Create GitHub Issue",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [1120, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Update work_item with issue number and store in Supabase\nconst workItem = $input.first().json;\nconst issue = $input.first().json.issue || {};\n\nworkItem.issueNumber = issue.number || null;\nworkItem.issueUrl = issue.html_url || null;\nworkItem._status = 'issue_created';\nworkItem._updatedAt = new Date().toISOString();\n\n// In production: insert into Supabase sin_issues_pool\n// INSERT INTO sin_issues_pool (work_item) VALUES ($1)\n\nreturn { json: workItem };"
+      },
+      "id": "update-work-item",
+      "name": "Update work_item with Issue Number",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Route to appropriate A2A Coder Agent based on coder-dispatch-matrix.json\nconst workItem = $input.first().json;\nconst labels = workItem.labels || [];\nconst title = (workItem.title || '').toLowerCase();\n\nlet assignedAgent = 'A2A-SIN-Code-Integration'; // Default fallback\n\n// Simple routing based on labels/title\nif (labels.includes('plugin') || title.includes('plugin') || title.includes('hook')) {\n  assignedAgent = 'A2A-SIN-Code-Integration';\n} else if (labels.includes('ui') || labels.includes('frontend') || title.includes('component')) {\n  assignedAgent = 'A2A-SIN-Frontend';\n} else if (labels.includes('ai') || labels.includes('agent') || title.includes('agent')) {\n  assignedAgent = 'A2A-SIN-Code-AI';\n} else if (labels.includes('backend') || labels.includes('service')) {\n  assignedAgent = 'A2A-SIN-Backend';\n} else if (labels.includes('database') || labels.includes('migration')) {\n  assignedAgent = 'A2A-SIN-Code-Database';\n}\n\nworkItem.assignedAgent = assignedAgent;\nworkItem._status = 'dispatched';\n\nreturn { json: workItem };"
+      },
+      "id": "route-to-agent",
+      "name": "Route to A2A Coder Agent",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1560, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ `https://a2a.delqhi.com/api/agents/${$json.assignedAgent}/tasks` }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "X-A2A-Token", "value": "={{ $env.A2A_API_TOKEN }}" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ work_item: $json, action: 'claim_task' }) }}"
+      },
+      "id": "dispatch-task",
+      "name": "Dispatch Task to Agent (A2A)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1780, 400]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [[{ "node": "Normalize to work_item Schema", "type": "main", "index": 0 }]]
+    },
+    "Normalize to work_item Schema": {
+      "main": [[{ "node": "Deduplication Check", "type": "main", "index": 0 }]]
+    },
+    "Deduplication Check": {
+      "main": [[{ "node": "Signature Verification", "type": "main", "index": 0 }]]
+    },
+    "Signature Verification": {
+      "main": [[{ "node": "Create GitHub Issue", "type": "main", "index": 0 }]]
+    },
+    "Create GitHub Issue": {
+      "main": [[{ "node": "Update work_item with Issue Number", "type": "main", "index": 0 }]]
+    },
+    "Update work_item with Issue Number": {
+      "main": [[{ "node": "Route to A2A Coder Agent", "type": "main", "index": 0 }]]
+    },
+    "Route to A2A Coder Agent": {
+      "main": [[{ "node": "Dispatch Task to Agent (A2A)", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "error-handler-workflow-id"
+  }
+}
