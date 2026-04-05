@@ -116,7 +116,7 @@ export class ModelAnnouncer {
 
   isToolUseCapable(modelId?: string): boolean {
     const info = this.getModelInfo(modelId);
-    return info?.capabilities.includes('tool-use') || info?.capabilities.includes('function-calling') ?? false;
+    const caps = info?.capabilities || []; return caps.includes('tool-use') || caps.includes('function-calling');
   }
 
   getContextWindow(modelId?: string): number {

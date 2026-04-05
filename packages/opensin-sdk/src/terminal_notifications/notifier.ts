@@ -44,7 +44,7 @@ export class NotificationManager {
 
   async init(): Promise<void> {
     await this.loadConfig();
-    await this.initProviders();
+    await this.initComponents();
   }
 
   private async loadConfig(): Promise<void> {

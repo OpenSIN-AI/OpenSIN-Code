@@ -316,35 +316,6 @@ export class ProfileManager {
     return anyDeleted;
   }
 
-    this.profiles.set(profile.name, { ...profile, source: 'project' });
-  }
-
-  async deleteProfile(name: string): Promise<boolean> {
-    if (BUILTIN_PROFILES[name]) return false;
-
-    const agentDirs = [
-      path.join(this.projectDir, '.opensin', 'agents'),
-      path.join(this.projectDir, '.opencode', 'agents'),
-      path.join(this.projectDir, '.kilo', 'agents'),
-    ];
-
-    let anyDeleted = false;
-    for (const dir of agentDirs) {
-      const filePath = path.join(dir, `${name}.md`);
-      try {
-        await fs.unlink(filePath);
-        anyDeleted = true;
-      } catch {
-        // File doesn't exist in this dir
-      }
-    }
-
-    if (anyDeleted) {
-      this.profiles.delete(name);
-    }
-    return anyDeleted;
-  }
-
   private toAgentMarkdown(profile: Omit<AgentProfile, 'source'>): string {
     let frontmatter = '---\n';
     frontmatter += `description: ${profile.description}\n`;
