@@ -61,7 +61,244 @@ export function createBuiltinTools(workspacePath: string): CLITool[] {
     createSearchFilesTool(workspacePath),
     createGitStatusTool(workspacePath),
     createGitDiffTool(workspacePath),
+    createProfileTool(workspacePath),
   ];
+}
+
+function createProfileTool(workspacePath: string): CLITool {
+  return {
+    name: "profile",
+    description: "Manage agent profiles. Actions: list, switch, create, delete, show, current",
+    parameters: {
+      type: "object",
+      properties: {
+        action: { type: "string", enum: ["list", "switch", "create", "delete", "show", "current"], description: "Action to perform" },
+        name: { type: "string", description: "Profile name" },
+        description: { type: "string", description: "Profile description" },
+        prompt: { type: "string", description: "Profile system prompt" },
+        mode: { type: "string", enum: ["primary", "subagent", "all"] },
+        model: { type: "string", description: "Model to pin" },
+        temperature: { type: "number" },
+        color: { type: "string" },
+      },
+      required: ["action"],
+    },
+    requiresApproval: false,
+    execute: async (params) => {
+      try {
+        const { createProfileManager } = await import("../agent_profiles/manager.js");
+        const pm = createProfileManager(workspacePath);
+        await pm.init();
+
+        const action = params.action as string;
+        const name = params.name as string;
+
+        switch (action) {
+          case "list": {
+            const profiles = pm.listProfiles();
+            const active = pm.getActiveProfile();
+            const lines = profiles.map(p => {
+              const marker = p.name === active ? " ◀ ACTIVE" : "";
+              const sourceTag = p.source === "builtin" ? "[built-in]" : `[${p.source}]`;
+              return `${p.name} ${sourceTag} — ${p.description}${marker}`;
+            });
+            return { success: true, output: `Available profiles:\n\n${lines.join("\n")}` };
+          }
+          case "current": {
+            const active = pm.getActiveProfile();
+            const resolution = pm.resolveProfile();
+            if (!resolution) return { success: false, output: "No active profile.", error: "No profile" };
+            const p = resolution.profile;
+            const info = [
+              `Active profile: ${p.name}`,
+              `Description: ${p.description}`,
+              `Mode: ${p.mode}`,
+              `Source: ${p.source}`,
+              p.model ? `Model: ${p.model}` : null,
+              p.color ? `Color: ${p.color}` : null,
+            ].filter(Boolean).join("\n");
+            return { success: true, output: info };
+          }
+          case "switch": {
+            if (!name) return { success: false, output: "Usage: profile switch <name>", error: "Missing name" };
+            const ok = pm.setActiveProfile(name);
+            if (!ok) return { success: false, output: `Profile "${name}" not found.`, error: "Not found" };
+            return { success: true, output: `Switched to profile: ${name}` };
+          }
+          case "show": {
+            if (!name) return { success: false, output: "Usage: profile show <name>", error: "Missing name" };
+            const profile = pm.getProfile(name);
+            if (!profile) return { success: false, output: `Profile "${name}" not found.`, error: "Not found" };
+            const details = [
+              `Name: ${profile.name}`,
+              `Description: ${profile.description}`,
+              `Mode: ${profile.mode}`,
+              `Source: ${profile.source}`,
+              profile.model ? `Model: ${profile.model}` : null,
+              profile.temperature ? `Temperature: ${profile.temperature}` : null,
+              profile.color ? `Color: ${profile.color}` : null,
+              "",
+              "Prompt:",
+              profile.prompt,
+            ].filter(Boolean).join("\n");
+            return { success: true, output: details };
+          }
+          case "create": {
+            if (!name || !params.prompt) return { success: false, output: "Usage: profile create <name> --prompt \"system prompt\"", error: "Missing params" };
+            const fs = await import("node:fs/promises");
+            const path = await import("node:path");
+            const agentsDir = path.join(workspacePath, ".opensin", "agents");
+            await fs.mkdir(agentsDir, { recursive: true });
+            const filePath = path.join(agentsDir, `${name}.md`);
+            let content = "---\n";
+            content += `description: ${params.description || ""}\n`;
+            content += `mode: ${params.mode || "all"}\n`;
+            if (params.model) content += `model: ${params.model}\n`;
+            if (params.temperature) content += `temperature: ${params.temperature}\n`;
+            if (params.color) content += `color: ${params.color}\n`;
+            content += "---\n\n";
+            content += params.prompt as string;
+            await fs.writeFile(filePath, content, "utf-8");
+            return { success: true, output: `Created profile: ${name}\nSaved to: .opensin/agents/${name}.md` };
+          }
+          case "delete": {
+            if (!name) return { success: false, output: "Usage: profile delete <name>", error: "Missing name" };
+            const fs = await import("node:fs/promises");
+            const path = await import("node:path");
+            const filePath = path.join(workspacePath, ".opensin", "agents", `${name}.md`);
+            try {
+              await fs.unlink(filePath);
+              return { success: true, output: `Deleted profile: ${name}` };
+            } catch {
+              return { success: false, output: `Cannot delete "${name}". Built-in profiles cannot be deleted.`, error: "Cannot delete" };
+            }
+          }
+          default:
+            return { success: false, output: `Unknown action: ${action}. Use: list, switch, create, delete, show, current`, error: "Unknown action" };
+        }
+      } catch (e) {
+        return { success: false, output: "", error: (e as Error).message };
+      }
+    },
+  };
+}
+
+function createProfileTool(workspacePath: string): CLITool {
+  return {
+    name: "profile",
+    description: "Manage agent profiles. Actions: list, switch, create, delete, show, current",
+    parameters: {
+      type: "object",
+      properties: {
+        action: { type: "string", enum: ["list", "switch", "create", "delete", "show", "current"], description: "Action to perform" },
+        name: { type: "string", description: "Profile name" },
+        description: { type: "string", description: "Profile description" },
+        prompt: { type: "string", description: "Profile system prompt" },
+        mode: { type: "string", enum: ["primary", "subagent", "all"] },
+        model: { type: "string", description: "Model to pin" },
+        temperature: { type: "number" },
+        color: { type: "string" },
+      },
+      required: ["action"],
+    },
+    requiresApproval: false,
+    execute: async (params) => {
+      try {
+        const { createProfileManager } = await import("../agent_profiles/manager.js");
+        const pm = createProfileManager(workspacePath);
+        await pm.init();
+
+        const action = params.action as string;
+        const name = params.name as string;
+
+        switch (action) {
+          case "list": {
+            const profiles = pm.listProfiles();
+            const active = pm.getActiveProfile();
+            const lines = profiles.map(p => {
+              const marker = p.name === active ? " ◀ ACTIVE" : "";
+              const sourceTag = p.source === "builtin" ? "[built-in]" : `[${p.source}]`;
+              return `${p.name} ${sourceTag} — ${p.description}${marker}`;
+            });
+            return { success: true, output: `Available profiles:\n\n${lines.join("\n")}` };
+          }
+          case "current": {
+            const active = pm.getActiveProfile();
+            const resolution = pm.resolveProfile();
+            if (!resolution) return { success: false, output: "No active profile.", error: "No profile" };
+            const p = resolution.profile;
+            const info = [
+              `Active profile: ${p.name}`,
+              `Description: ${p.description}`,
+              `Mode: ${p.mode}`,
+              `Source: ${p.source}`,
+              p.model ? `Model: ${p.model}` : null,
+              p.color ? `Color: ${p.color}` : null,
+            ].filter(Boolean).join("\n");
+            return { success: true, output: info };
+          }
+          case "switch": {
+            if (!name) return { success: false, output: "Usage: profile switch <name>", error: "Missing name" };
+            const ok = pm.setActiveProfile(name);
+            if (!ok) return { success: false, output: `Profile "${name}" not found.`, error: "Not found" };
+            return { success: true, output: `Switched to profile: ${name}` };
+          }
+          case "show": {
+            if (!name) return { success: false, output: "Usage: profile show <name>", error: "Missing name" };
+            const profile = pm.getProfile(name);
+            if (!profile) return { success: false, output: `Profile "${name}" not found.`, error: "Not found" };
+            const details = [
+              `Name: ${profile.name}`,
+              `Description: ${profile.description}`,
+              `Mode: ${profile.mode}`,
+              `Source: ${profile.source}`,
+              profile.model ? `Model: ${profile.model}` : null,
+              profile.temperature ? `Temperature: ${profile.temperature}` : null,
+              profile.color ? `Color: ${profile.color}` : null,
+              "",
+              "Prompt:",
+              profile.prompt,
+            ].filter(Boolean).join("\n");
+            return { success: true, output: details };
+          }
+          case "create": {
+            if (!name || !params.prompt) return { success: false, output: "Usage: profile create <name> --prompt \"system prompt\"", error: "Missing params" };
+            const fs = await import("node:fs/promises");
+            const path = await import("node:path");
+            const agentsDir = path.join(workspacePath, ".opensin", "agents");
+            await fs.mkdir(agentsDir, { recursive: true });
+            const filePath = path.join(agentsDir, `${name}.md`);
+            let content = "---\n";
+            content += `description: ${params.description || ""}\n`;
+            content += `mode: ${params.mode || "all"}\n`;
+            if (params.model) content += `model: ${params.model}\n`;
+            if (params.temperature) content += `temperature: ${params.temperature}\n`;
+            if (params.color) content += `color: ${params.color}\n`;
+            content += "---\n\n";
+            content += params.prompt as string;
+            await fs.writeFile(filePath, content, "utf-8");
+            return { success: true, output: `Created profile: ${name}\nSaved to: .opensin/agents/${name}.md` };
+          }
+          case "delete": {
+            if (!name) return { success: false, output: "Usage: profile delete <name>", error: "Missing name" };
+            const fs = await import("node:fs/promises");
+            const path = await import("node:path");
+            const filePath = path.join(workspacePath, ".opensin", "agents", `${name}.md`);
+            try {
+              await fs.unlink(filePath);
+              return { success: true, output: `Deleted profile: ${name}` };
+            } catch {
+              return { success: false, output: `Cannot delete "${name}". Built-in profiles cannot be deleted.`, error: "Cannot delete" };
+            }
+          }
+          default:
+            return { success: false, output: `Unknown action: ${action}. Use: list, switch, create, delete, show, current`, error: "Unknown action" };
+        }
+      } catch (e) {
+        return { success: false, output: "", error: (e as Error).message };
+      }
+    },
+  };
 }
 
 function createReadFileTool(workspacePath: string): CLITool {
