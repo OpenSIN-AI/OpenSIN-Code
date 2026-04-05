@@ -620,3 +620,8 @@ export * from './opentelemetry/index.js';
 export * from './skills/shell_strategy.js';
 export * from './plugins/model_announcer.js';
 export * from './snippets/index.js';
+// Agent Profiles — Multi-agent persona system (Kilo Code compatible)
+export * from './agent_profiles/index.js';
+
+// Agent Profiles — Multi-agent persona system (Kilo Code compatible)
+export * from './agent_profiles/index.js';

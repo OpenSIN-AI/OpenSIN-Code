@@ -55,3 +55,9 @@ export * from './testing/TestingPermissionTool';
 export * from './types';
 export * from './tools';
 export * from './utils';
+
+// Profile Management
+export * from './ProfileTool/ProfileTool';
+
+// Profile Management
+export * from './ProfileTool/ProfileTool';
