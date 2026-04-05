@@ -21,6 +21,7 @@ export class SessionManager {
       updatedAt: new Date().toISOString(),
       messages: [{ role: 'user', content: initialMessage }],
       cwd: process.cwd(),
+      seq: Date.now(),
     };
     await this.save(session);
     return session;
@@ -52,7 +53,9 @@ export class SessionManager {
         try {
           const sa = JSON.parse(a.mtime);
           const sb = JSON.parse(b.mtime);
-          return (sb.updatedAt || '').localeCompare(sa.updatedAt || '');
+          const timeCmp = (sb.updatedAt || '').localeCompare(sa.updatedAt || '');
+          if (timeCmp !== 0) return timeCmp;
+          return (sb.seq || 0) - (sa.seq || 0);
         } catch {
           return 0;
         }

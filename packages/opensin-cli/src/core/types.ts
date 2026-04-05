@@ -43,6 +43,7 @@ export interface Session {
   messages: Message[];
   cwd: string;
   model?: string;
+  seq?: number;
   toolState?: {
     pending_tools: string[];
     completed_tools: string[];

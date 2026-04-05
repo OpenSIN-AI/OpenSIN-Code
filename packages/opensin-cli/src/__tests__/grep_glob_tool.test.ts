@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { GlobTool } from '../tools/glob.js';
 import { GrepTool } from '../tools/grep.js';
 import { writeFile, rm, mkdir } from 'node:fs/promises';
@@ -18,7 +18,7 @@ describe('GlobTool & GrepTool', () => {
   });
 
   afterEach(async () => {
-    await rm(testDir, { recursive: true, force: true });
+    try { await rm(testDir, { recursive: true, force: true }); } catch {}
   });
 
   describe('GlobTool', () => {
