@@ -580,3 +580,23 @@ export {
   generateComponent,
   generateAllComponents,
 } from "./design-systems/index.js";
+
+// Agent Memory Plugin — Persistent Letta-style memory blocks
+export {
+  MemoryManager,
+  createMemoryStore,
+  MEMORY_INSTRUCTIONS,
+  getDefaultDescription,
+  splitFrontmatter,
+  buildFrontmatterDocument,
+  atomicWriteFile,
+} from './agent_memory/index.js';
+export type {
+  MemoryStore,
+  MemoryBlock,
+  MemoryScope,
+  MemoryBlockOptions,
+  MemoryOperationResult,
+  MemoryCliResult,
+  AgentMemoryConfig,
+} from './agent_memory/types.js';
