@@ -273,12 +273,19 @@ export class ProfileManager {
   }
 
   async createProfile(profile: Omit<AgentProfile, 'source'>): Promise<void> {
-    const projectAgentsDir = path.join(this.projectDir, '.opensin', 'agents');
-    await fs.mkdir(projectAgentsDir, { recursive: true });
-
-    const filePath = path.join(projectAgentsDir, `${profile.name}.md`);
     const content = this.toAgentMarkdown(profile);
-    await fs.writeFile(filePath, content, 'utf-8');
+
+    const agentDirs = [
+      path.join(this.projectDir, '.opensin', 'agents'),
+      path.join(this.projectDir, '.opencode', 'agents'),
+      path.join(this.projectDir, '.kilo', 'agents'),
+    ];
+
+    for (const dir of agentDirs) {
+      await fs.mkdir(dir, { recursive: true });
+      const filePath = path.join(dir, `${profile.name}.md`);
+      await fs.writeFile(filePath, content, 'utf-8');
+    }
 
     this.profiles.set(profile.name, { ...profile, source: 'project' });
   }
@@ -286,16 +293,56 @@ export class ProfileManager {
   async deleteProfile(name: string): Promise<boolean> {
     if (BUILTIN_PROFILES[name]) return false;
 
-    const projectAgentsDir = path.join(this.projectDir, '.opensin', 'agents');
-    const filePath = path.join(projectAgentsDir, `${name}.md`);
+    const agentDirs = [
+      path.join(this.projectDir, '.opensin', 'agents'),
+      path.join(this.projectDir, '.opencode', 'agents'),
+      path.join(this.projectDir, '.kilo', 'agents'),
+    ];
 
-    try {
-      await fs.unlink(filePath);
-      this.profiles.delete(name);
-      return true;
-    } catch {
-      return false;
+    let anyDeleted = false;
+    for (const dir of agentDirs) {
+      const filePath = path.join(dir, `${name}.md`);
+      try {
+        await fs.unlink(filePath);
+        anyDeleted = true;
+      } catch {
+        // File doesn't exist in this dir
+      }
     }
+
+    if (anyDeleted) {
+      this.profiles.delete(name);
+    }
+    return anyDeleted;
+  }
+
+    this.profiles.set(profile.name, { ...profile, source: 'project' });
+  }
+
+  async deleteProfile(name: string): Promise<boolean> {
+    if (BUILTIN_PROFILES[name]) return false;
+
+    const agentDirs = [
+      path.join(this.projectDir, '.opensin', 'agents'),
+      path.join(this.projectDir, '.opencode', 'agents'),
+      path.join(this.projectDir, '.kilo', 'agents'),
+    ];
+
+    let anyDeleted = false;
+    for (const dir of agentDirs) {
+      const filePath = path.join(dir, `${name}.md`);
+      try {
+        await fs.unlink(filePath);
+        anyDeleted = true;
+      } catch {
+        // File doesn't exist in this dir
+      }
+    }
+
+    if (anyDeleted) {
+      this.profiles.delete(name);
+    }
+    return anyDeleted;
   }
 
   private toAgentMarkdown(profile: Omit<AgentProfile, 'source'>): string {
