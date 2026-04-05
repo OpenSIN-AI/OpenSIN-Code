@@ -1,0 +1,16 @@
+{
+  "name": "sin-feature-dev",
+  "version": "1.0.0",
+  "description": "7-Phase Feature Development mit Multi-Agent Workflow für OpenSIN-Code",
+  "author": "OpenSIN-AI",
+  "license": "MIT",
+  "type": "plugin",
+  "commands": ["commands/feature-dev.md"],
+  "agents": ["agents/code-explorer.md", "agents/code-architect.md", "agents/code-reviewer.md"],
+  "config": {
+    "parallelAgents": true,
+    "maxExplorers": 3,
+    "maxArchitects": 3,
+    "maxReviewers": 3
+  }
+}

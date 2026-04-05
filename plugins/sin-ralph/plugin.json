@@ -1,0 +1,21 @@
+{
+  "name": "sin-ralph",
+  "version": "1.0.0",
+  "description": "Stop-Hook-basierter iterativer Self-Referential Loop für OpenSIN-Code",
+  "author": "OpenSIN-AI",
+  "license": "MIT",
+  "type": "plugin",
+  "commands": [
+    "commands/ralph-loop.md",
+    "commands/cancel-ralph.md",
+    "commands/ralph-help.md"
+  ],
+  "hooks": {
+    "Stop": "hooks/stop-hook.ts"
+  },
+  "config": {
+    "stateFile": ".opensin/ralph-state.json",
+    "defaultMaxIterations": 50,
+    "completionPromiseMarker": "<promise>COMPLETE</promise>"
+  }
+}
