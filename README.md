@@ -5,6 +5,7 @@
 ## Features
 
 - **AI-Powered Coding**: Autonomous code generation, refactoring, and debugging
+- **OpenSIN Bridge**: Chrome Extension mit 39 MCP Tools, besser als Antigravity
 - **sinInChrome Integration**: Browser automation via MCP (13 actions, 7 browsers)
 - **sin-computer-use Integration**: macOS GUI automation (screen capture, input, app management)
 - **MCP Server**: Full Model Context Protocol support
