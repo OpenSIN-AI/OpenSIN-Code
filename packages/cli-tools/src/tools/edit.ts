@@ -117,7 +117,7 @@ export const EditTool: ToolDefinition = {
   name: 'edit',
   description: 'Edit a file by replacing a specific string with new content. Requires the file to exist and the old_string to match exactly. Use replace_all to replace multiple occurrences.',
   inputSchema: editInputSchema,
-  handler: async (input: Record<string, unknown>): Promise<ToolResult> => {
+  execute: async (input: Record<string, unknown>): Promise<ToolResult> => {
     return editFile(input.file_path as string, input.old_string as string, input.new_string as string, { cwd: process.cwd(), permissionMode: 'auto', sandboxEnabled: false }, { replaceAll: input.replace_all as boolean | undefined });
   },
 };

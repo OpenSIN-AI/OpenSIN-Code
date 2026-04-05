@@ -58,7 +58,7 @@ export const WriteTool: ToolDefinition = {
   name: 'write',
   description: 'Create a new file or overwrite an existing file with the given content. Parent directories are created automatically.',
   inputSchema: writeInputSchema,
-  handler: async (input: Record<string, unknown>): Promise<ToolResult> => {
+  execute: async (input: Record<string, unknown>): Promise<ToolResult> => {
     return writeFile(input.file_path as string, input.content as string, { cwd: process.cwd(), permissionMode: 'auto', sandboxEnabled: false });
   },
 };

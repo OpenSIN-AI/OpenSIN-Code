@@ -78,7 +78,7 @@ export const GlobTool: ToolDefinition = {
   name: 'glob',
   description: 'Find files matching a glob pattern. Supports ** for recursive matching, * for wildcard, and {a,b} for alternation. Use to quickly locate files by name pattern.',
   inputSchema: globInputSchema,
-  handler: async (input: Record<string, unknown>): Promise<ToolResult> => {
+  execute: async (input: Record<string, unknown>): Promise<ToolResult> => {
     return globSearch(input.pattern as string, { cwd: process.cwd(), permissionMode: 'auto', sandboxEnabled: false }, {
       path: input.path as string | undefined, caseSensitive: input.case_sensitive as boolean | undefined, headLimit: input.head_limit as number | undefined,
     });

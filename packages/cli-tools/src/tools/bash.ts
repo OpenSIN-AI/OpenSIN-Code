@@ -78,7 +78,7 @@ export const BashTool: ToolDefinition = {
   name: 'bash',
   description: 'Execute a shell command with security checks and timeout handling. Use for running CLI tools, scripts, git operations, package managers, and any terminal command.',
   inputSchema: bashInputSchema,
-  handler: async (input: Record<string, unknown>): Promise<ToolResult> => {
+  execute: async (input: Record<string, unknown>): Promise<ToolResult> => {
     return executeCommand(input.command as string, { cwd: process.cwd(), permissionMode: 'auto', sandboxEnabled: false }, { timeout: input.timeout as number | undefined, cwd: input.cwd as string | undefined });
   },
 };

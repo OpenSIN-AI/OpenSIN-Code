@@ -132,7 +132,7 @@ export const GrepTool: ToolDefinition = {
   name: 'grep',
   description: 'Search file contents using regular expressions. Supports filtering by glob patterns, case-insensitive search, and multiple output modes (content, files_with_matches, count).',
   inputSchema: grepInputSchema,
-  handler: async (input: Record<string, unknown>): Promise<ToolResult> => {
+  execute: async (input: Record<string, unknown>): Promise<ToolResult> => {
     return grepSearch(input.pattern as string, { cwd: process.cwd(), permissionMode: 'auto', sandboxEnabled: false }, {
       path: input.path as string | undefined, glob: input.glob as string | undefined,
       outputMode: input.output_mode as 'content' | 'files_with_matches' | 'count' | undefined,

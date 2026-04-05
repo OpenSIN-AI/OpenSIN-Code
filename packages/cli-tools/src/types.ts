@@ -19,7 +19,7 @@ export interface ToolDefinition {
     additionalProperties?: boolean;
     [key: string]: unknown;
   };
-  handler: (input: Record<string, unknown>) => Promise<ToolResult>;
+  execute: (input: Record<string, unknown>) => Promise<ToolResult>;
 }
 
 export interface PermissionCheck {

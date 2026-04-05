@@ -98,7 +98,7 @@ export const ReadTool: ToolDefinition = {
   name: 'read',
   description: 'Read the contents of a file with optional offset and limit for large files. Shows line numbers and supports partial reads.',
   inputSchema: readInputSchema,
-  handler: async (input: Record<string, unknown>): Promise<ToolResult> => {
+  execute: async (input: Record<string, unknown>): Promise<ToolResult> => {
     return readFile(input.file_path as string, { cwd: process.cwd(), permissionMode: 'auto', sandboxEnabled: false }, { offset: input.offset as number | undefined, limit: input.limit as number | undefined });
   },
 };
