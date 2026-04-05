@@ -1,6 +1,6 @@
 # SIN Code VS Code Extension
 
-> **Agentic AI Coding Assistant for OpenSIN** — Powered by Kilo Code & Claude Code concepts
+> **Agentic AI Coding Assistant for OpenSIN** — Powered by Kilo Code & OpenCode concepts
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![License](https://img.shields.io/badge/license-Proprietary-green)
@@ -65,7 +65,7 @@ Full-featured chat panel in the VS Code sidebar with:
 Automatic context loading from project memory files. SIN Code scans for and consolidates:
 - `AGENTS.md` — Agent instructions and project conventions
 - `SIN-MEMORY.md` — Persistent session memory
-- `CLAUDE.md` — Compatibility with Claude Code projects
+- `SIN.md` — Compatibility with OpenCode projects
 - `.sincode-memory.md` — Hidden memory file
 
 Memory files are **watched for changes** and context is automatically refreshed. New memory entries can be appended programmatically with timestamps.
@@ -404,7 +404,7 @@ npm run package    # vsce package --no-dependencies
 | `lspProvider.ts` | Extracts diagnostics, symbols, and cursor context |
 | `swarmCoordinator.ts` | Dispatches tasks to oh-my-opencode agents via CLI |
 | `buddyGamification.ts` | Status bar pet with XP, levels, moods, and event reactions |
-| `memoryConsolidation.ts` | Watches and consolidates AGENTS.md, SIN-MEMORY.md, CLAUDE.md |
+| `memoryConsolidation.ts` | Watches and consolidates AGENTS.md, SIN-MEMORY.md, SIN.md |
 | `inlineChat.ts` | InlineCompletionItemProvider for ghost-text completions |
 | `codeActions.ts` | CodeActionProvider with Fix/Refactor/Explain/Generate Tests |
 | `agentMarketplace.ts` | Webview panel for browsing and installing agents |

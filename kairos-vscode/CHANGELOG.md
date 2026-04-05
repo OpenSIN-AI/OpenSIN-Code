@@ -22,7 +22,7 @@ Initial release of the SIN Code VS Code Extension — an agentic AI coding assis
   - **Proactive** (⚡) — Always-on background analysis on file saves
 - **Mode Selector** — Status bar item (left) for quick mode switching via Quick Pick
 - **Model Selector** — Status bar item (left) for choosing the underlying LLM; auto-fetches models from `~/.config/opencode/` config
-- **Memory Consolidation** — Automatic loading and watching of `AGENTS.md`, `SIN-MEMORY.md`, `CLAUDE.md`, and `.sincode-memory.md` with live context refresh on file changes
+- **Memory Consolidation** — Automatic loading and watching of `AGENTS.md`, `SIN-MEMORY.md`, `SIN.md`, and `.sincode-memory.md` with live context refresh on file changes
 - **LSP Integration** — Semantic context extraction including real-time diagnostics (errors/warnings), symbol extraction via `simone-mcp`, and cursor-aware word context
 - **File Context Management** — Add files to conversation context via command palette or editor context menu
 - **CLI Bridge** — Robust `opencode run --format json` integration with streaming JSON parsing, stderr forwarding, and process cancellation
