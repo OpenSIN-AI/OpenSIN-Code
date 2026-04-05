@@ -86,6 +86,7 @@ export const ProfileTool: ToolDefinition = {
   async execute(input: Record<string, unknown>): Promise<ToolResult> {
     const { action, name, description, prompt, mode, model, temperature, color, permission } = input as ProfileInput;
     const pm = getProfileManager();
+    await pm.init();
 
     try {
       switch (action) {
