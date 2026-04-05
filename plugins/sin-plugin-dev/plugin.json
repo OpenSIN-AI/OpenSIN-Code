@@ -1,0 +1,21 @@
+{
+  "name": "sin-plugin-dev",
+  "version": "1.0.0",
+  "description": "Plugin Development Toolkit für OpenSIN-Code — 7 Skills + 8-Phase Create-Plugin Workflow",
+  "author": "OpenSIN-AI",
+  "license": "MIT",
+  "type": "plugin",
+  "commands": ["commands/create-plugin.md", "commands/plugin-help.md"],
+  "skills": [
+    "skills/hook-development/SKILL.md",
+    "skills/mcp-integration/SKILL.md",
+    "skills/plugin-structure/SKILL.md",
+    "skills/plugin-settings/SKILL.md",
+    "skills/command-development/SKILL.md",
+    "skills/agent-development/SKILL.md",
+    "skills/skill-development/SKILL.md"
+  ],
+  "hooks": {
+    "SessionStart": "hooks/init-hooks.ts"
+  }
+}
