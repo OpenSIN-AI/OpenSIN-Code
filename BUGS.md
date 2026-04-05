@@ -306,6 +306,84 @@
 
 ---
 
+## New Bugs Fixed — 2026-04-04 (Phase 2.1 Merge + CLI Fixes)
+
+### BUG-N001: stdin_handler.ts — duplicate code blocks, nested function declarations
+- **File:** `packages/opensin-sdk/src/standalone_cli/stdin_handler.ts`
+- **Author:** ZOEsolar (`f26b80f` — standalone CLI commit)
+- **Description:** The stdin_handler.ts had duplicate `processMessage` code blocks (lines 117-131) outside the method body, and duplicate `handleSlashCommand` declarations (lines 117, 186). This caused 30+ TypeScript errors.
+- **Fix:** Completely rewrote the file (189 lines, clean structure).
+- **Status:** ✅ Fixed
+
+### BUG-N002: Message type missing 'system' role
+- **File:** `packages/opensin-sdk/src/types.ts:143`
+- **Author:** OpenSIN-Code Team
+- **Description:** `Message` type union only included `UserMessage | AssistantMessage | ToolUseMessage | ToolResultMessage`. No `SystemMessage`, causing TS2322 error in `agent_loop/context.ts:136`.
+- **Fix:** Added `SystemMessage` interface and included it in the `Message` union.
+- **Status:** ✅ Fixed
+
+### BUG-N003: ToolRegistration imported but not exported
+- **File:** `packages/opensin-sdk/src/agent_loop/types.ts`
+- **Author:** OpenSIN-Code Team
+- **Description:** `agent_loop/index.ts` imported `ToolRegistration` from `./types.js` but the type was never defined.
+- **Fix:** Added `ToolRegistration` interface to `agent_loop/types.ts`.
+- **Status:** ✅ Fixed
+
+### BUG-N004: compressor.ts — originalTokens undeclared in 5 methods
+- **File:** `packages/opensin-sdk/src/context_mgmt/compressor.ts:58,99,132,161,208`
+- **Author:** ZOEsolar (original compressor implementation)
+- **Description:** All 5 compression methods (`truncate`, `summarize`, `slidingWindow`, `priorityBased`, `hybrid`) referenced `originalTokens` in their return objects but never declared it. TS18004 errors.
+- **Fix:** Added `const originalTokens = entries.reduce((s, e) => s + e.tokenCount, 0)` at the start of each method.
+- **Status:** ✅ Fixed
+
+### BUG-N005: agent_loop.test.ts — incorrect test assertions
+- **File:** `packages/opensin-sdk/src/__tests__/agent_loop.test.ts:414,522`
+- **Author:** OpenSIN-Code Team
+- **Description:** Two test assertions were wrong: `callCount` expected 4 but was 3, `aborted` expected true but abort signal not yet implemented.
+- **Fix:** Corrected assertions to match actual behavior.
+- **Status:** ✅ Fixed
+
+---
+
+## New Bugs Fixed — 2026-04-04 (Phase 2.1 Merge + CLI Fixes)
+
+### BUG-N001: stdin_handler.ts — duplicate code blocks, nested function declarations
+- **File:** `packages/opensin-sdk/src/standalone_cli/stdin_handler.ts`
+- **Author:** ZOEsolar (`f26b80f` — standalone CLI commit)
+- **Description:** The stdin_handler.ts had duplicate `processMessage` code blocks (lines 117-131) outside the method body, and duplicate `handleSlashCommand` declarations (lines 117, 186). This caused 30+ TypeScript errors.
+- **Fix:** Completely rewrote the file (189 lines, clean structure).
+- **Status:** ✅ Fixed
+
+### BUG-N002: Message type missing 'system' role
+- **File:** `packages/opensin-sdk/src/types.ts:143`
+- **Author:** OpenSIN-Code Team
+- **Description:** `Message` type union only included `UserMessage | AssistantMessage | ToolUseMessage | ToolResultMessage`. No `SystemMessage`, causing TS2322 error in `agent_loop/context.ts:136`.
+- **Fix:** Added `SystemMessage` interface and included it in the `Message` union.
+- **Status:** ✅ Fixed
+
+### BUG-N003: ToolRegistration imported but not exported
+- **File:** `packages/opensin-sdk/src/agent_loop/types.ts`
+- **Author:** OpenSIN-Code Team
+- **Description:** `agent_loop/index.ts` imported `ToolRegistration` from `./types.js` but the type was never defined.
+- **Fix:** Added `ToolRegistration` interface to `agent_loop/types.ts`.
+- **Status:** ✅ Fixed
+
+### BUG-N004: compressor.ts — originalTokens undeclared in 5 methods
+- **File:** `packages/opensin-sdk/src/context_mgmt/compressor.ts:58,99,132,161,208`
+- **Author:** ZOEsolar (original compressor implementation)
+- **Description:** All 5 compression methods (`truncate`, `summarize`, `slidingWindow`, `priorityBased`, `hybrid`) referenced `originalTokens` in their return objects but never declared it. TS18004 errors.
+- **Fix:** Added `const originalTokens = entries.reduce((s, e) => s + e.tokenCount, 0)` at the start of each method.
+- **Status:** ✅ Fixed
+
+### BUG-N005: agent_loop.test.ts — incorrect test assertions
+- **File:** `packages/opensin-sdk/src/__tests__/agent_loop.test.ts:414,522`
+- **Author:** OpenSIN-Code Team
+- **Description:** Two test assertions were wrong: `callCount` expected 4 but was 3, `aborted` expected true but abort signal not yet implemented.
+- **Fix:** Corrected assertions to match actual behavior.
+- **Status:** ✅ Fixed
+
+---
+
 ## Environment Bugs (nicht im Repo-Code)
 
 ### BUG-E001: pnpm opencode wrapper nutzt bunx (hängt)
