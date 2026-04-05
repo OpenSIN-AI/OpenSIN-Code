@@ -2,103 +2,100 @@
  * OpenSIN CLI Tool Security
  */
 
-import { existsSync, statSync } from 'fs';
-import { resolve, normalize, isAbsolute } from 'path';
-import type { PathSecurityPolicy, PermissionCheck, SecurityContext } from './types.js';
-import { DEFAULT_SECURITY_POLICY } from './types.js';
-
-export function safeResolvePath(inputPath: string, baseDir?: string): string {
-  const resolved = baseDir ? resolve(baseDir, inputPath) : resolve(inputPath);
-  return normalize(resolved);
-}
-
-export function isPathSafe(
-  filePath: string,
-  policy: PathSecurityPolicy = DEFAULT_SECURITY_POLICY,
-): PermissionCheck {
-  const resolved = safeResolvePath(filePath);
-
-  if (filePath.includes('..') && !isAbsolute(filePath)) {
-    const resolvedCheck = safeResolvePath(filePath);
-    if (resolvedCheck.includes('/etc/') || resolvedCheck.includes('/root/')) {
-      return { allowed: false, reason: 'Path traversal detected: ' + filePath + ' resolves to ' + resolvedCheck, errorCode: 403 };
-    }
-  }
-
-  for (const denied of policy.deniedDirs || []) {
-    if (resolved.startsWith(denied)) {
-      return { allowed: false, reason: 'Access to ' + denied + ' is denied by security policy', errorCode: 403 };
-    }
-  }
-
-  return { allowed: true };
-}
-
-export function validateFileReadable(filePath: string): PermissionCheck {
-  try {
-    const resolved = safeResolvePath(filePath);
-    if (!existsSync(resolved)) {
-      return { allowed: false, reason: 'File does not exist: ' + resolved, errorCode: 404 };
-    }
-    const stats = statSync(resolved);
-    if (!stats.isFile() && !stats.isSymbolicLink()) {
-      return { allowed: false, reason: 'Not a regular file: ' + resolved, errorCode: 400 };
-    }
-    return { allowed: true };
-  } catch (err) {
-    return { allowed: false, reason: 'Cannot access file: ' + (err instanceof Error ? err.message : String(err)), errorCode: 500 };
-  }
-}
-
-export function validateDirectoryWritable(dirPath: string): PermissionCheck {
-  try {
-    const resolved = safeResolvePath(dirPath);
-    if (!existsSync(resolved)) return { allowed: true };
-    const stats = statSync(resolved);
-    if (!stats.isDirectory()) {
-      return { allowed: false, reason: 'Not a directory: ' + resolved, errorCode: 400 };
-    }
-    return { allowed: true };
-  } catch (err) {
-    return { allowed: false, reason: 'Cannot access directory: ' + (err instanceof Error ? err.message : String(err)), errorCode: 500 };
-  }
-}
+import * as path from 'path';
+import * as fs from 'fs';
+import type { PermissionCheck, SecurityContext } from './types.js';
 
 export const DANGEROUS_COMMANDS = new Set([
-  'rm -rf /', 'rm -rf /*', ':(){:|:&};:', 'mkfs',
-  'dd if=/dev/zero', 'chmod -R 777 /', 'chown -R',
+  'rm -rf /', 'rm -rf /*', 'mkfs', 'dd if=', '> /dev/sda',
+  'chmod -R 777 /', 'chmod -R 777 /*', 'chown -R', ':(){:|:&};:',
 ]);
 
-export function isCommandSafe(command: string): PermissionCheck {
-  const trimmed = command.trim();
+export const PROTECTED_PATHS = [
+  '/etc/passwd', '/etc/shadow', '/etc/sudoers', '/etc/ssh',
+  '/root/.ssh', '/System', '/usr/bin', '/usr/sbin', '/usr/lib',
+  '/bin', '/sbin', '/lib',
+];
+
+export function isPathWithinWorkspace(filePath: string, workspace: string): boolean {
+  const resolvedFile = path.resolve(filePath);
+  const resolvedWorkspace = path.resolve(workspace);
+  return resolvedFile.startsWith(resolvedWorkspace + path.sep) || resolvedFile === resolvedWorkspace;
+}
+
+export function isProtectedPath(filePath: string): boolean {
+  const resolved = path.resolve(filePath);
+  return PROTECTED_PATHS.some(p => resolved.startsWith(p + path.sep) || resolved === p);
+}
+
+export function isDangerousCommand(command: string): boolean {
+  const normalized = command.trim().toLowerCase();
   for (const dangerous of DANGEROUS_COMMANDS) {
-    if (trimmed.includes(dangerous)) {
-      return { allowed: false, reason: 'Command contains dangerous operation: ' + dangerous, errorCode: 403 };
+    if (normalized.includes(dangerous.toLowerCase())) return true;
+  }
+  const patterns = [
+    /^rm\s+(-[a-zA-Z]*r[a-zA-Z]*f[a-zA-Z]*|-[a-zA-Z]*f[a-zA-Z]*r[a-zA-Z]*)\s+\/\s*$/,
+    /^rm\s+(-[a-zA-Z]*r[a-zA-Z]*f[a-zA-Z]*|-[a-zA-Z]*f[a-zA-Z]*r[a-zA-Z]*)\s+\/\*\s*$/,
+    /:\(\)\{\s*:\|:\s*&\s*\}\s*;/,
+    />\s*\/dev\/sda/, />\s*\/dev\/hd/, /mkfs\./,
+  ];
+  for (const pattern of patterns) {
+    if (pattern.test(normalized)) return true;
+  }
+  return false;
+}
+
+export function validateFilePath(filePath: string, context: SecurityContext): PermissionCheck {
+  let resolved: string;
+  try { resolved = path.resolve(context.cwd, filePath); } catch {
+    return { allowed: false, reason: 'Invalid path: ' + filePath, errorCode: 1 };
+  }
+  if (resolved.includes('..') && !isPathWithinWorkspace(resolved, context.cwd)) {
+    return { allowed: false, reason: 'Path traversal detected: ' + filePath, errorCode: 2 };
+  }
+  if (isProtectedPath(resolved)) {
+    return { allowed: false, reason: 'Access to protected path denied: ' + resolved, errorCode: 3 };
+  }
+  if (context.deniedPaths) {
+    for (const denied of context.deniedPaths) {
+      if (resolved.startsWith(path.resolve(context.cwd, denied))) {
+        return { allowed: false, reason: 'Path is in a denied directory: ' + resolved, errorCode: 4 };
+      }
     }
-  }
-  if (/:\(\)\{.*\|.*&.*\};/.test(trimmed)) {
-    return { allowed: false, reason: 'Fork bomb pattern detected', errorCode: 403 };
-  }
-  if (/rm\s+(-[a-zA-Z]*r[a-zA-Z]*f|-[a-zA-Z]*f[a-zA-Z]*r)\s+\/\s*$/.test(trimmed)) {
-    return { allowed: false, reason: 'Cannot remove root directory', errorCode: 403 };
   }
   return { allowed: true };
 }
 
-export function validateFileSize(
-  filePath: string,
-  maxSizeBytes: number = DEFAULT_SECURITY_POLICY.maxReadSizeBytes!,
-): PermissionCheck {
-  try {
-    const resolved = safeResolvePath(filePath);
-    const stats = statSync(resolved);
-    if (stats.size > maxSizeBytes) {
-      const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
-      const maxMB = (maxSizeBytes / (1024 * 1024)).toFixed(2);
-      return { allowed: false, reason: 'File too large: ' + sizeMB + ' MB exceeds maximum of ' + maxMB + ' MB', errorCode: 413 };
+export function checkCommandPermission(command: string, context: SecurityContext): PermissionCheck {
+  if (context.permissionMode === 'readonly') {
+    const writeCommands = ['>', '>>', 'tee', 'cat >', 'echo >', 'sed -i', 'cp ', 'mv ', 'rm ', 'mkdir ', 'touch '];
+    for (const wc of writeCommands) {
+      if (command.includes(wc)) {
+        return { allowed: false, reason: 'Write operations not allowed in readonly mode', errorCode: 5 };
+      }
     }
-    return { allowed: true };
-  } catch (err) {
-    return { allowed: false, reason: 'Cannot stat file: ' + (err instanceof Error ? err.message : String(err)), errorCode: 500 };
+  }
+  if (isDangerousCommand(command)) {
+    return { allowed: false, reason: 'Command contains dangerous pattern: ' + command, errorCode: 6 };
+  }
+  if (context.deniedCommands) {
+    for (const denied of context.deniedCommands) {
+      if (command.startsWith(denied)) {
+        return { allowed: false, reason: 'Command is denied: ' + command, errorCode: 7 };
+      }
+    }
+  }
+  return { allowed: true };
+}
+
+export async function ensureDirectoryExists(dirPath: string, context: SecurityContext): Promise<{ success: boolean; error?: string }> {
+  const resolved = path.resolve(context.cwd, dirPath);
+  const permission = validateFilePath(resolved, context);
+  if (!permission.allowed) return { success: false, error: permission.reason };
+  try {
+    if (!fs.existsSync(resolved)) fs.mkdirSync(resolved, { recursive: true });
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: 'Failed to create directory: ' + (error instanceof Error ? error.message : String(error)) };
   }
 }

@@ -3,24 +3,23 @@
  */
 
 export interface ToolResult {
-  output: string;
-  isError: boolean;
+  content: Array<{ type: string; text: string }>;
+  isError?: boolean;
   errorCode?: number;
   metadata?: Record<string, unknown>;
-}
-
-export interface InputSchema {
-  type: 'object';
-  properties: Record<string, unknown>;
-  required?: string[];
-  additionalProperties?: boolean;
 }
 
 export interface ToolDefinition {
   name: string;
   description: string;
-  inputSchema: InputSchema;
-  execute: (input: Record<string, unknown>) => Promise<ToolResult>;
+  inputSchema: {
+    type: string;
+    properties: Record<string, unknown>;
+    required?: string[];
+    additionalProperties?: boolean;
+    [key: string]: unknown;
+  };
+  handler: (input: Record<string, unknown>) => Promise<ToolResult>;
 }
 
 export interface PermissionCheck {
@@ -32,23 +31,9 @@ export interface PermissionCheck {
 export interface SecurityContext {
   cwd: string;
   permissionMode: 'auto' | 'ask' | 'readonly';
+  allowedPaths?: string[];
+  deniedPaths?: string[];
   sandboxEnabled: boolean;
+  allowedCommands?: string[];
+  deniedCommands?: string[];
 }
-
-export interface PathSecurityPolicy {
-  deniedDirs?: string[];
-  maxReadSizeBytes?: number;
-  maxWriteSizeBytes?: number;
-}
-
-export const DEFAULT_SECURITY_POLICY: PathSecurityPolicy = {
-  deniedDirs: [
-    '/etc/shadow',
-    '/etc/passwd',
-    '/etc/sudoers',
-    '/root/.ssh',
-    '/var/log',
-  ],
-  maxReadSizeBytes: 10 * 1024 * 1024,
-  maxWriteSizeBytes: 50 * 1024 * 1024,
-};
