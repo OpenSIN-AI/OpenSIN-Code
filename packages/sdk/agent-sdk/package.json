@@ -47,7 +47,7 @@
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "test": "echo 'No tests yet — add test suite' && exit 0",
+    "test": "vitest run",
     "lint": "echo 'No linter configured yet' && exit 0"
   },
   "keywords": [
@@ -59,9 +59,13 @@
     "orchestration"
   ],
   "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "typescript": "^5.4.0"
+    "typescript": "^5.4.0",
+    "vitest": "^4.1.2"
   },
   "engines": {
     "node": ">=18.0.0"
