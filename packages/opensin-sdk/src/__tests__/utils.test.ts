@@ -33,47 +33,87 @@ describe('Utils v2 Module', () => {
 
     it('should re-export format module', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './format'");
+      expect(content).toMatch(/from\s+['"]\.\/format(\.js)?['"]/);
     });
 
     it('should re-export array module', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './array'");
+      expect(content).toMatch(/from\s+['"]\.\/array(\.js)?['"]/);
     });
 
     it('should re-export CircularBuffer', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './CircularBuffer'");
+      expect(content).toMatch(/from\s+['"]\.\/CircularBuffer(\.js)?['"]/);
     });
 
     it('should re-export config module', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './config'");
+      expect(content).toMatch(/from\s+['"]\.\/config(\.js)?['"]/);
     });
 
     it('should re-export git module', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './git'");
+      expect(content).toMatch(/from\s+['"]\.\/git(\.js)?['"]/);
     });
 
     it('should re-export json module', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './json'");
+      expect(content).toMatch(/from\s+['"]\.\/json(\.js)?['"]/);
     });
 
     it('should re-export markdown module', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './markdown'");
+      expect(content).toMatch(/from\s+['"]\.\/markdown(\.js)?['"]/);
     });
 
     it('should re-export path module', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './path'");
+      expect(content).toMatch(/from\s+['"]\.\/path(\.js)?['"]/);
     });
 
     it('should re-export stream module', () => {
       const content = readIndexContent();
-      expect(content).toContain("from './stream'");
+      expect(content).toMatch(/from\s+['"]\.\/stream(\.js)?['"]/);
+    });
+
+    it('should re-export array module', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/from\s+['"]\.\/array(\.js)?['"]/);
+    });
+
+    it('should re-export CircularBuffer', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/from\s+['"]\.\/CircularBuffer(\.js)?['"]/);
+    });
+
+    it('should re-export config module', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/from\s+['"]\.\/config(\.js)?['"]/);
+    });
+
+    it('should re-export git module', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/from\s+['"]\.\/git(\.js)?['"]/);
+    });
+
+    it('should re-export json module', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/from\s+['"]\.\/json(\.js)?['"]/);
+    });
+
+    it('should re-export markdown module', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/from\s+['"]\.\/markdown(\.js)?['"]/);
+    });
+
+    it('should re-export path module', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/from\s+['"]\.\/path(\.js)?['"]/);
+    });
+
+    it('should re-export stream module', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/from\s+['"]\.\/stream(\.js)?['"]/);
     });
   });
 

@@ -120,37 +120,67 @@ describe('Components v2 Module', () => {
 
     it('should export diff components', () => {
       const content = readIndexContent();
-      expect(content).toContain("'./diff'");
+      expect(content).toMatch(/['"]\.\/diff(\.js)?['"]/);
     });
 
     it('should export permission components', () => {
       const content = readIndexContent();
-      expect(content).toContain("'./permissions'");
+      expect(content).toMatch(/['"]\.\/permissions(\.js)?['"]/);
     });
 
     it('should export MCP components', () => {
       const content = readIndexContent();
-      expect(content).toContain("'./mcp'");
+      expect(content).toMatch(/['"]\.\/mcp(\.js)?['"]/);
     });
 
     it('should export task components', () => {
       const content = readIndexContent();
-      expect(content).toContain("'./tasks'");
+      expect(content).toMatch(/['"]\.\/tasks(\.js)?['"]/);
     });
 
     it('should export skill components', () => {
       const content = readIndexContent();
-      expect(content).toContain("'./skills'");
+      expect(content).toMatch(/['"]\.\/skills(\.js)?['"]/);
     });
 
     it('should export memory components', () => {
       const content = readIndexContent();
-      expect(content).toContain("'./memory'");
+      expect(content).toMatch(/['"]\.\/memory(\.js)?['"]/);
     });
 
     it('should export agent components', () => {
       const content = readIndexContent();
-      expect(content).toContain("'./agents'");
+      expect(content).toMatch(/['"]\.\/agents(\.js)?['"]/);
+    });
+
+    it('should export permission components', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/['"]\.\/permissions(\.js)?['"]/);
+    });
+
+    it('should export MCP components', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/['"]\.\/mcp(\.js)?['"]/);
+    });
+
+    it('should export task components', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/['"]\.\/tasks(\.js)?['"]/);
+    });
+
+    it('should export skill components', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/['"]\.\/skills(\.js)?['"]/);
+    });
+
+    it('should export memory components', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/['"]\.\/memory(\.js)?['"]/);
+    });
+
+    it('should export agent components', () => {
+      const content = readIndexContent();
+      expect(content).toMatch(/['"]\.\/agents(\.js)?['"]/);
     });
   });
 

@@ -121,7 +121,7 @@ describe('Hooks v2 Module', () => {
 
     it('should export types module', () => {
       const content = readIndexContent();
-      expect(content).toContain("'./types'");
+      expect(content).toMatch(/['"]\.\/types(\.js)?['"]/);
     });
 
     it('should export notification hooks from notifs directory', () => {
