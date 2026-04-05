@@ -1,2 +1,2 @@
-export { MemoryFileSelector } from './MemoryFileSelector';
-export { MemoryUpdateNotification } from './MemoryUpdateNotification';
+export { MemoryFileSelector } from './MemoryFileSelector.js';
+export { MemoryUpdateNotification } from './MemoryUpdateNotification.js';

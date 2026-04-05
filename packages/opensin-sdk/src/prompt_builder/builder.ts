@@ -1,5 +1,5 @@
-import { PromptTemplate, PromptSection, PromptContext } from './types';
-import { injectContext } from './context_injector';
+import { PromptTemplate, PromptSection, PromptContext } from './types.js';
+import { injectContext } from './context_injector.js';
 
 export class PromptBuilder {
   private templates: PromptTemplate[];

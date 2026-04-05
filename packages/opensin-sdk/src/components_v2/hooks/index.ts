@@ -1,6 +1,7 @@
-export { HooksConfigMenu } from './HooksConfigMenu';
-export { PromptDialog } from './PromptDialog';
-export { SelectEventMode } from './SelectEventMode';
-export { SelectHookMode } from './SelectHookMode';
-export { SelectMatcherMode } from './SelectMatcherMode';
-export { ViewHookMode } from './ViewHookMode';
+export { HooksConfigMenu } from './HooksConfigMenu.js';
+export { PromptDialog } from './PromptDialog.js';
+export { SelectEventMode } from './SelectEventMode.js';
+export { SelectHookMode } from './SelectHookMode.js';
+export { SelectMatcherMode } from './SelectMatcherMode.js';
+export { ViewHookMode } from './ViewHookMode.js';
+ViewHookMode.js';

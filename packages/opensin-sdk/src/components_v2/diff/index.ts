@@ -1,3 +1,3 @@
-export { DiffDetailView } from './DiffDetailView';
-export { DiffDialog } from './DiffDialog';
-export { DiffFileList } from './DiffFileList';
+export { DiffDetailView } from './DiffDetailView.js';
+export { DiffDialog } from './DiffDialog.js';
+export { DiffFileList } from './DiffFileList.js';

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { SkillDefinition } from './types';
-import { loadSkillFile } from './loader';
+import { SkillDefinition } from './types.js';
+import { loadSkillFile } from './loader.js';
 
 export function discoverSkillsInDirectory(dirPath: string, source: 'project' | 'global' | 'bundled'): SkillDefinition[] {
   const skills: SkillDefinition[] = [];

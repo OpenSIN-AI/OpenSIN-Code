@@ -1,4 +1,4 @@
-import { AuditEntry } from './types';
+import { AuditEntry } from './types.js';
 
 export class AuditLogger {
   private entries: AuditEntry[];

@@ -1,4 +1,4 @@
-import { StatusBarState, ThemeConfig } from './types';
+import { StatusBarState, ThemeConfig } from './types.js';
 
 const DEFAULT_THEME: ThemeConfig = {
   dark: true,

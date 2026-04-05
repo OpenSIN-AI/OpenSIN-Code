@@ -1,1 +1,1 @@
-export { Grove } from './Grove';
+export { Grove } from './Grove.js';

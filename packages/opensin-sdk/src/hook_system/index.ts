@@ -1,3 +1,3 @@
-export { HookRegistry } from './registry';
-export { executeHook } from './executor';
-export type { HookEvent, HookResult, HookDefinition } from './types';
+export { HookRegistry } from './registry.js';
+export { executeHook } from './executor.js';
+export type { HookEvent, HookResult, HookDefinition } from './types.js';

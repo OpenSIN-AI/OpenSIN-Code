@@ -1,4 +1,4 @@
-import { PromptSection } from './types';
+import { PromptSection } from './types.js';
 
 export function optimizeSections(sections: PromptSection[], maxTokens: number): PromptSection[] {
   const sorted = [...sections].sort((a, b) => b.priority - a.priority);

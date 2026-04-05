@@ -1,9 +1,9 @@
 import { spawn } from 'child_process';
-import { HookDefinition, HookResult } from './types';
+import { HookDefinition, HookResult } from './types.js';
 
 export async function executeHook(hook: HookDefinition, context?: Record<string, unknown>): Promise<HookResult> {
   return new Promise((resolve) => {
-    const env = { ...process.env, OPENCODE_HOOK_ID: hook.id };
+    const env: Record<string, string> = { ...process.env, OPENCODE_HOOK_ID: hook.id };
     if (context) {
       env.OPENCODE_HOOK_CONTEXT = JSON.stringify(context);
     }

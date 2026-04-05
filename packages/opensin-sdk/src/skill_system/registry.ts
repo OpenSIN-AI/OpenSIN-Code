@@ -1,5 +1,5 @@
-import { SkillDefinition } from './types';
-import { discoverGlobalSkills, discoverProjectSkills } from './discovery';
+import { SkillDefinition } from './types.js';
+import { discoverGlobalSkills, discoverProjectSkills } from './discovery.js';
 
 export class SkillRegistry {
   private skills: Map<string, SkillDefinition> = new Map();
