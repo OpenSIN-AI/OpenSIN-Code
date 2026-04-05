@@ -1,104 +1,52 @@
-# Contributing to OpenSIN Code
+# Contributing to OpenSIN-Code
 
-Thank you for your interest in contributing to OpenSIN Code! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to OpenSIN-Code!
 
-## Code of Conduct
-
-This project follows our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to abide by its terms.
-
-## How to Contribute
-
-### Reporting Bugs
-
-- Search existing issues first to avoid duplicates
-- Use the bug report template
-- Include: steps to reproduce, expected behavior, actual behavior, environment details
-- Attach screenshots or logs when applicable
-
-### Suggesting Features
-
-- Open a feature request issue with the `enhancement` label
-- Describe the problem your feature solves
-- Provide examples of how the feature should work
-
-### Pull Requests
+## Getting Started
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/your-feature-name`
-3. Make your changes with clear, descriptive commits
-4. Ensure all tests pass: `npm test`
-5. Ensure TypeScript compiles: `npx tsc --noEmit`
-6. Push to your fork and submit a pull request
-7. Link your PR to the relevant issue
-
-### Commit Messages
-
-Follow conventional commits:
-- `feat:` — new feature
-- `fix:` — bug fix
-- `docs:` — documentation changes
-- `style:` — formatting, no code change
-- `refactor:` — code restructuring, no functional change
-- `test:` — adding or updating tests
-- `chore:` — maintenance tasks
-
-### Branch Naming
-
-- `feat/short-description` — new features
-- `fix/short-description` — bug fixes
-- `docs/short-description` — documentation
-- `refactor/short-description` — refactoring
-
-## Development Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/OpenSIN-AI/OpenSIN-Code.git
-cd OpenSIN-Code
-
-# Install dependencies
-npm install
-
-# Build all packages
-npm run build
-
-# Run tests
-npm test
-```
-
-## Project Structure
-
-```
-packages/
-  opensin-cli/      — CLI coding agent
-  opensin-sdk/      — SDK for building agents
-  kairos-vscode/    — VS Code extension
-  opensin-code-vscode/ — VS Code integration
-```
+2. Create a feature branch: `git checkout -b feat/my-feature`
+3. Make your changes
+4. Run tests: `npm test`
+5. Run typecheck: `npm run typecheck`
+6. Commit and push: `git commit -m "feat: description" && git push`
+7. Open a Pull Request
 
 ## Code Style
 
-- TypeScript strict mode enabled
-- ESLint rules enforced
-- Prettier for formatting
-- No `any` types without justification
-- All public APIs must have JSDoc comments
+- TypeScript with strict mode enabled
+- No `any` types — use proper type definitions
+- No `as unknown as` casts — use type guards
+- All functions must have return types
+- Use single quotes for strings
+- 2-space indentation
 
 ## Testing
 
-- Unit tests with Vitest
-- Integration tests for CLI commands
-- E2E tests for critical flows
-- Minimum 80% coverage target
+- All new features require tests
+- Run `npm test` before submitting a PR
+- Minimum 80% code coverage for new code
 
-## Release Process
+## Commit Messages
 
-1. Bump version in `package.json`
-2. Update `CHANGELOG.md`
-3. Create a release tag: `git tag -a v0.x.0 -m "Release v0.x.0"`
-4. Push tag: `git push origin v0.x.0`
-5. GitHub Actions handles the rest
+Follow conventional commits:
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation
+- `test:` test changes
+- `refactor:` code refactoring
+- `chore:` maintenance
 
-## Questions?
+## Pull Request Process
 
-Open an issue with the `question` label or reach out on our community channels.
+1. Ensure all tests pass
+2. Update documentation if needed
+3. Request review from maintainers
+4. PRs require at least 1 approval before merge
+
+## Reporting Issues
+
+- Use the issue templates
+- Include reproduction steps
+- Include expected vs actual behavior
+- Include environment info (Node.js version, OS)

@@ -11,18 +11,14 @@
 We take security seriously. If you discover a vulnerability in OpenSIN Code, please follow these steps:
 
 1. **DO NOT** open a public issue
-2. Email: `security@opensin.ai` (or use GitHub Security Advisories)
-3. Include:
-   - Description of the vulnerability
-   - Steps to reproduce
-   - Potential impact
-   - Suggested fix (if any)
+2. Use GitHub Security Advisories or email `security@opensin.ai`
+3. Include: description of the vulnerability, steps to reproduce, potential impact, suggested fix
 
 ## Response Timeline
 
 - **Initial response:** Within 48 hours
 - **Assessment:** Within 5 business days
-- **Fix deployment:** Depends on severity (critical: 7 days, high: 14 days, medium: 30 days)
+- **Fix deployment:** Critical: 7 days, High: 14 days, Medium: 30 days
 
 ## Security Best Practices
 
