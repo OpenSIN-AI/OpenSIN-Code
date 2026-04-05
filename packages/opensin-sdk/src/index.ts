@@ -601,4 +601,22 @@ export type {
   MemoryStore,
   MemoryBlock,
   MemoryScope,
-} from "./memory/index.js";\nexport * from './context_pruning/index.js';\n\nexport * from './envsitter/index.js';\n\nexport * from './ai_search/index.js';\n\nexport * from './handoff/index.js';\n\nexport * from './safety_net/index.js';\n\nexport * from './context_analysis/index.js';\n
+} from "./memory/index.js";\nexport * from './context_pruning/index.js';
+
+export * from './envsitter/index.js';
+
+export * from './ai_search/index.js';
+
+export * from './handoff/index.js';
+
+export * from './safety_net/index.js';
+
+export * from './context_analysis/index.js';
+
+// New modules from awesome-opencode comparison
+export * from './terminal_notifications/index.js';
+export * from './wakatime/index.js';
+export * from './opentelemetry/index.js';
+export * from './skills/shell_strategy.js';
+export * from './plugins/model_announcer.js';
+export * from './snippets/index.js';

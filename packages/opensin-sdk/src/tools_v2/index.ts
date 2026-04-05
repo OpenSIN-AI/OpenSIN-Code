@@ -40,6 +40,10 @@ export * from './ToolSearchTool/ToolSearchTool';
 export * from './WebFetchTool/WebFetchTool';
 export * from './WebSearchTool/WebSearchTool';
 
+// New modules from awesome-opencode comparison
+export * from './SnipTool/index.js';
+export * from './MorphFastApplyTool/index.js';
+
 // Re-export shared utilities
 export * from './shared/gitOperationTracking';
 export * from './shared/spawnMultiAgent';
