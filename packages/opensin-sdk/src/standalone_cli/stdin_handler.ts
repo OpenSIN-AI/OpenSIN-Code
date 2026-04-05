@@ -8,6 +8,17 @@ import { SessionManager } from './session_manager.js';
 import { CommandHistory } from './history.js';
 import { SlashCommand, AgentState } from './types.js';
 import { Message, ToolDefinition } from '../types.js';
+import { MemoryManager } from '../agent_memory/index.js';
+import {
+  handleMemoryList,
+  handleMemoryAdd,
+  handleMemoryEdit,
+  handleMemoryDelete,
+  handleMemorySearch,
+  handleMemoryGet,
+  showMemoryHelp,
+} from '../agent_memory/cli_commands.js';
+
 
 export class StdinHandler {
   private rl: readline.Interface;
@@ -15,12 +26,19 @@ export class StdinHandler {
   private sessionManager: SessionManager;
   private history: CommandHistory;
   private slashCommands: Map<string, SlashCommand> = new Map();
+  private memoryManager: MemoryManager | null = null;
+
   private running = false;
 
   constructor(client: OpenSINClient, sessionManager: SessionManager) {
     this.client = client;
     this.sessionManager = sessionManager;
     this.history = new CommandHistory();
+    this.memoryManager = new MemoryManager({
+      projectDirectory: process.cwd(),
+    });
+    this.memoryManager.initialize().catch(() => {});
+
     this.rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
@@ -110,7 +128,53 @@ export class StdinHandler {
         if (args) { this.sessionManager.setModel(args); console.log(`Model set to: ${args}`); }
         else { console.log(`Current model: ${this.sessionManager.getState().model}`); }
         break;
+      case 'memory':
+        await this.handleMemoryCommand(args);
+        break;
       default: console.log(`Unknown command: /${cmdName}. Type /help for available commands.`);
+    }
+  }
+
+
+  private async handleMemoryCommand(args: string): Promise<void> {
+    if (!this.memoryManager) {
+      console.error('Memory system not initialized.');
+      return;
+    }
+
+    const parts = args.trim().split(/\s+/);
+    const subCmd = parts[0] || 'help';
+    const subArgs = parts.slice(1).join(' ');
+
+    try {
+      let result: string;
+      switch (subCmd) {
+        case 'list':
+          result = await handleMemoryList(this.memoryManager, subArgs);
+          break;
+        case 'get':
+          result = await handleMemoryGet(this.memoryManager, subArgs);
+          break;
+        case 'add':
+          result = await handleMemoryAdd(this.memoryManager, subArgs);
+          break;
+        case 'edit':
+          result = await handleMemoryEdit(this.memoryManager, subArgs);
+          break;
+        case 'delete':
+          result = await handleMemoryDelete(this.memoryManager, subArgs);
+          break;
+        case 'search':
+          result = await handleMemorySearch(this.memoryManager, subArgs);
+          break;
+        case 'help':
+        default:
+          result = showMemoryHelp();
+          break;
+      }
+      console.log(result);
+    } catch (error) {
+      console.error(`Memory error: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -150,6 +214,7 @@ export class StdinHandler {
     console.log('  /sessions          List all sessions');
     console.log('  /status            Show current session status');
     console.log('  /model [name]      Set or show the current model');
+    console.log('  /memory [subcmd]   Manage agent memory (list/add/edit/delete/search)');
     console.log('  /permissions [mode] Set permission mode (auto/ask/readonly)');
     if (this.slashCommands.size > 0) {
       console.log('\nCustom commands:');
