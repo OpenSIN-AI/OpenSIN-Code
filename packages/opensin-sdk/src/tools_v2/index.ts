@@ -61,3 +61,9 @@ export * from './ProfileTool/ProfileTool';
 
 // Profile Management
 export * from './ProfileTool/ProfileTool';
+
+// Hermes Memory — unified memory system
+export * from '../hermes_memory/index.js';
+
+// Hermes Memory — unified memory system
+export * from '../hermes_memory/index.js';

@@ -62,6 +62,7 @@ export function createBuiltinTools(workspacePath: string): CLITool[] {
     createGitStatusTool(workspacePath),
     createGitDiffTool(workspacePath),
     createProfileTool(workspacePath),
+    createMemoryTool(workspacePath),
   ];
 }
 
@@ -578,6 +579,116 @@ function createGitDiffTool(workspacePath: string): CLITool {
           maxBuffer: 10 * 1024 * 1024,
         });
         return { success: true, output: output.trim() || "No changes" };
+      } catch (e) {
+        return { success: false, output: "", error: (e as Error).message };
+      }
+    },
+  };
+}
+
+function createMemoryTool(workspacePath: string): CLITool {
+  return {
+    name: "memory",
+    description: "Save durable information to persistent memory that survives across sessions. Shared between OpenSIN-Code CLI and sin-hermes-agent-main. Actions: add, replace, remove, read. Targets: memory (personal notes), user (user profile).",
+    parameters: {
+      type: "object",
+      properties: {
+        action: { type: "string", enum: ["add", "replace", "remove", "read"], description: "Action to perform" },
+        target: { type: "string", enum: ["memory", "user"], description: "Which store: memory or user" },
+        content: { type: "string", description: "Entry content for add/replace" },
+        old_text: { type: "string", description: "Substring to identify entry for replace/remove" },
+      },
+      required: ["action", "target"],
+    },
+    requiresApproval: false,
+    execute: async (params) => {
+      try {
+        const { MemoryStore, createMemoryStore } = await import("../hermes_memory/index.js");
+        const store = createMemoryStore();
+        await store.loadFromDisk();
+
+        const action = params.action as string;
+        const target = (params.target as string) || "memory";
+        const content = params.content as string;
+        const oldText = params.old_text as string;
+
+        let result;
+        switch (action) {
+          case "add":
+            if (!content) return { success: false, output: "", error: "Content required for add" };
+            result = await store.add(target, content);
+            break;
+          case "replace":
+            if (!oldText || !content) return { success: false, output: "", error: "old_text and content required for replace" };
+            result = await store.replace(target, oldText, content);
+            break;
+          case "remove":
+            if (!oldText) return { success: false, output: "", error: "old_text required for remove" };
+            result = await store.remove(target, oldText);
+            break;
+          case "read":
+            const entries = target === "user" ? store.userEntries : store.memoryEntries;
+            result = { success: true, target, entries, entry_count: entries.length, usage: `${store.charCount(target).toLocaleString()}/${store.charLimit(target).toLocaleString()} chars` };
+            break;
+          default:
+            return { success: false, output: "", error: `Unknown action: ${action}. Use: add, replace, remove, read` };
+        }
+        return { success: result.success, output: JSON.stringify(result, null, 2), error: result.success ? undefined : result.error };
+      } catch (e) {
+        return { success: false, output: "", error: (e as Error).message };
+      }
+    },
+  };
+}
+
+function createMemoryTool(workspacePath: string): CLITool {
+  return {
+    name: "memory",
+    description: "Save durable information to persistent memory that survives across sessions. Shared between OpenSIN-Code CLI and sin-hermes-agent-main. Actions: add, replace, remove, read. Targets: memory (personal notes), user (user profile).",
+    parameters: {
+      type: "object",
+      properties: {
+        action: { type: "string", enum: ["add", "replace", "remove", "read"], description: "Action to perform" },
+        target: { type: "string", enum: ["memory", "user"], description: "Which store: memory or user" },
+        content: { type: "string", description: "Entry content for add/replace" },
+        old_text: { type: "string", description: "Substring to identify entry for replace/remove" },
+      },
+      required: ["action", "target"],
+    },
+    requiresApproval: false,
+    execute: async (params) => {
+      try {
+        const { MemoryStore, createMemoryStore } = await import("../hermes_memory/index.js");
+        const store = createMemoryStore();
+        await store.loadFromDisk();
+
+        const action = params.action as string;
+        const target = (params.target as string) || "memory";
+        const content = params.content as string;
+        const oldText = params.old_text as string;
+
+        let result;
+        switch (action) {
+          case "add":
+            if (!content) return { success: false, output: "", error: "Content required for add" };
+            result = await store.add(target, content);
+            break;
+          case "replace":
+            if (!oldText || !content) return { success: false, output: "", error: "old_text and content required for replace" };
+            result = await store.replace(target, oldText, content);
+            break;
+          case "remove":
+            if (!oldText) return { success: false, output: "", error: "old_text required for remove" };
+            result = await store.remove(target, oldText);
+            break;
+          case "read":
+            const entries = target === "user" ? store.userEntries : store.memoryEntries;
+            result = { success: true, target, entries, entry_count: entries.length, usage: `${store.charCount(target).toLocaleString()}/${store.charLimit(target).toLocaleString()} chars` };
+            break;
+          default:
+            return { success: false, output: "", error: `Unknown action: ${action}. Use: add, replace, remove, read` };
+        }
+        return { success: result.success, output: JSON.stringify(result, null, 2), error: result.success ? undefined : result.error };
       } catch (e) {
         return { success: false, output: "", error: (e as Error).message };
       }

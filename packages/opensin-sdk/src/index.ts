@@ -625,3 +625,6 @@ export * from './agent_profiles/index.js';
 
 // Agent Profiles — Multi-agent persona system (Kilo Code compatible)
 export * from './agent_profiles/index.js';
+
+// Hermes Memory — unified memory system (shared with sin-hermes-agent-main)
+export * from "./hermes_memory/index.js";
