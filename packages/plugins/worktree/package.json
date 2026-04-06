@@ -1,0 +1,16 @@
+{
+  "name": "@opensin/plugin-worktree",
+  "version": "0.1.0",
+  "description": "Git worktree management for SIN Code CLI",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "import": "./dist/index.js", "types": "./dist/index.d.ts" } },
+  "files": ["dist", "src"],
+  "scripts": { "build": "tsc", "dev": "tsc --watch", "typecheck": "tsc --noEmit", "clean": "rm -rf dist" },
+  "author": "OpenSIN-AI",
+  "license": "Apache-2.0",
+  "repository": { "type": "git", "url": "https://github.com/OpenSIN-AI/OpenSIN-Code.git", "directory": "packages/plugins/worktree" },
+  "dependencies": { "@opensin/plugin-sdk": "file:../../plugin-sdk" },
+  "devDependencies": { "@types/node": "^20.0.0", "typescript": "^5.0.0" }
+}
