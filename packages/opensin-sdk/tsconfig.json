@@ -81,12 +81,12 @@
     "src/api",
     "src/cli-agent",
     "src/commands",
-    "src/tools",
+    "src/lint",
+    "src/live_status",
+    "src/lsp",
     "src/runtime",
     "src/mcp",
     "src/plan_act",
-    "src/lint",
-    "src/live_status",
-    "src/lsp"
+    "src/tools"
   ]
 }

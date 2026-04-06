@@ -10,60 +10,24 @@ export interface HookRunResult {
   messages: string[];
 }
 
-export function formatHookWarning(
-  command: string,
-  code: number,
-  message?: string,
-  stderr?: string
-): string {
-  return `Hook \`${command}\` exited with code ${code}${message ? `: ${message}` : ''}${stderr ? `\nstderr: ${stderr}` : ''}`;
+export function formatHookWarning(command: string, code: number, message?: string, stderr?: string): string {
+  return `Hook \`${command}\` exited with code ${code}${message ? `: ${message}` : ''}`;
 }
 
-export async function runShellCommand(
-  shellCommand: string,
-  shellArgs: string[],
-  env: Record<string, string>
-): Promise<HookCommandOutcome> {
+export async function runShellCommand(shellCommand: string, shellArgs: string[], env: Record<string, string>): Promise<HookCommandOutcome> {
   return new Promise<HookCommandOutcome>((resolve) => {
-    const child = spawn(shellCommand || 'sh', shellArgs, {
-      env,
-      stdio: ['pipe', 'pipe', 'pipe'],
-    });
-
+    const child = spawn(shellCommand || 'sh', shellArgs, { env, stdio: ['pipe', 'pipe', 'pipe'] });
     let stdout = '';
     let stderr = '';
-
-    if (child.stdout) {
-      child.stdout.on('data', (data) => { stdout += data.toString(); });
-    }
-    if (child.stderr) {
-      child.stderr.on('data', (data) => { stderr += data.toString(); });
-    }
-
+    if (child.stdout) child.stdout.on('data', (d) => { stdout += d.toString(); });
+    if (child.stderr) child.stderr.on('data', (d) => { stderr += d.toString(); });
     child.on('close', (code) => {
-      const message = stdout.trim() || undefined;
-      if (code === 0) {
-        resolve({ type: 'allow', message });
-      } else if (code === 2) {
-        resolve({ type: 'deny', message });
-      } else if (code !== null) {
-        resolve({
-          type: 'warn',
-          message: formatHookWarning(shellCommand, code, message, stderr),
-        });
-      } else {
-        resolve({
-          type: 'warn',
-          message: `Hook \`${shellCommand}\` terminated by signal`,
-        });
-      }
+      if (code === 0) resolve({ type: 'allow', message: stdout.trim() || undefined });
+      else if (code === 2) resolve({ type: 'deny', message: stdout.trim() || undefined });
+      else resolve({ type: 'warn', message: formatHookWarning(shellCommand, code ?? -1, stdout.trim() || undefined, stderr) });
     });
-
     child.on('error', (error) => {
-      resolve({
-        type: 'warn',
-        message: `Hook \`${shellCommand}\` failed to start: ${error.message}`,
-      });
+      resolve({ type: 'warn', message: `Hook failed to start: ${error.message}` });
     });
   });
 }

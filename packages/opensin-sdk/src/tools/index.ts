@@ -100,39 +100,6 @@ const bashSchema = z.object({
   dangerouslyDisableSandbox: z.boolean().optional(),
 });
 
-// DISABLED: async function executeGlob(pattern: string, searchPath?: string): Promise<string[]> {
-//   // // glob disabled - requires fast-glob package // Fixed: glob not in path
-//   const fs = await import('fs/promises');
-//   const path = await import('path');
-  
-  const basePath = searchPath || process.cwd();
-  const matches: string[] = [];
-  
-  try {
-    const files = await fs.readdir(basePath, { withFileTypes: true });
-    const searchPattern = pattern.replace(/^\*\*/g, '**').replace(/\*/g, '*');
-    
-    for (const file of files) {
-      const fullPath = path.join(basePath, file.name);
-      const relativePath = path.relative(basePath, fullPath);
-      
-      if (file.isDirectory() && !file.name.startsWith('.') && !file.name.includes('node_modules')) {
-        const subMatches = await executeGlob(pattern, fullPath);
-        matches.push(...subMatches);
-      } else if (file.isFile()) {
-        const regex = new RegExp('^' + searchPattern.replace(/\*/g, '.*').replace(/\?/g, '.') + '$');
-        if (regex.test(file.name) || searchPattern === file.name || searchPattern === '*') {
-          matches.push(relativePath);
-        }
-      }
-    }
-  } catch {
-    return [];
-  }
-  
-  return matches.slice(0, 100);
-}
-
 async function executeGrep(
   pattern: string,
   searchPath?: string,
