@@ -1,0 +1,52 @@
+{
+  "name": "@opensin/plugin-sdk",
+  "version": "0.1.0",
+  "description": "Plugin SDK for SIN Code CLI — TypeScript-based OpenCode fork with plugins",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./test": {
+      "import": "./dist/test/index.js",
+      "types": "./dist/test/index.d.ts"
+    }
+  },
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "sin-cli",
+    "plugin-sdk",
+    "typescript",
+    "ai-coding",
+    "opencode"
+  ],
+  "author": "OpenSIN-AI",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code.git",
+    "directory": "packages/plugin-sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenSIN-AI/OpenSIN-Code/issues"
+  },
+  "homepage": "https://docs.opensin.ai",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  }
+}
