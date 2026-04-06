@@ -101,7 +101,7 @@ const bashSchema = z.object({
 });
 
 // DISABLED: async function executeGlob(pattern: string, searchPath?: string): Promise<string[]> {
-//   const { glob } = await import('path');
+//   // const { glob } = await import('path'); // Fixed: glob not in path
 //   const fs = await import('fs/promises');
 //   const path = await import('path');
   

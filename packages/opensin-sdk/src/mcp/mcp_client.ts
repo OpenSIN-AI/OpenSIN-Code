@@ -1,3 +1,4 @@
+type JSONValue = string | number | boolean | null | { [key: string]: JSONValue } | JSONValue[];
 import type { JSONValue } from "../types";
 import type { 
   McpServerConfig, 

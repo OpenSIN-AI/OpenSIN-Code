@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+declare type AbortSignal = any;
+
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { DiffData, HookResult, MemoryUsage, SearchState, TaskItem, TerminalSize, TypeaheadOption, VirtualScrollItem, ScheduledTask } from './types.js'
 

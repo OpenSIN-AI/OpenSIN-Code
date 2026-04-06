@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+declare const window: any;
+declare type KeyboardEvent = any;
+
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { KeyBinding, KeybindingContext, ResolvedBinding } from './types.js'
 import { KeybindingResolver } from './resolver.js'

@@ -17,7 +17,8 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "types": [
-      "node"
+      "node",
+      "bun"
     ],
     "noEmitOnError": false
   },
@@ -28,19 +29,7 @@
     "src/__tests__",
     "src/archived",
     "src/powerup",
-    "src/runtime",
-    "src/tools",
     "src/standalone_cli",
-    "src/mcp",
-    "src/plan_act",
-    "src/lsp",
-    "src/lint",
-    "src/live_status",
-    "src/keybindings_v2",
-    "src/jetbrains",
-    "src/jetbrains-plugin",
-    "src/ink_v2",
-    "src/hooks_v2",
     "src/skills_v2",
     "src/buddy_v2",
     "src/commands_v2",
@@ -86,6 +75,18 @@
     "src/terminal_ui",
     "src/api",
     "src/cli-agent",
-    "src/commands"
+    "src/commands",
+    "src/hooks_v2",
+    "src/tools",
+    "src/ink_v2",
+    "src/runtime",
+    "src/mcp",
+    "src/plan_act",
+    "src/lsp",
+    "src/live_status",
+    "src/lint",
+    "src/jetbrains",
+    "src/jetbrains-plugin",
+    "src/keybindings_v2"
   ]
 }
