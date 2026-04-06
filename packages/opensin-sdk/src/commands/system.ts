@@ -54,7 +54,7 @@ export const systemCommands: CommandSpec[] = [
     name: 'status',
     aliases: [],
     description: 'Status',
-    argumentHint: null,
+    argumentHint: undefined,
     resumeSupported: true,
     category: CommandCategory.System,
     handler: handleStatus,

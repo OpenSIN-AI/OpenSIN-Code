@@ -100,10 +100,10 @@ const bashSchema = z.object({
   dangerouslyDisableSandbox: z.boolean().optional(),
 });
 
-async function executeGlob(pattern: string, searchPath?: string): Promise<string[]> {
-  const { glob } = await import('path');
-  const fs = await import('fs/promises');
-  const path = await import('path');
+// DISABLED: async function executeGlob(pattern: string, searchPath?: string): Promise<string[]> {
+//   const { glob } = await import('path');
+//   const fs = await import('fs/promises');
+//   const path = await import('path');
   
   const basePath = searchPath || process.cwd();
   const matches: string[] = [];

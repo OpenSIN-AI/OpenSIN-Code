@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+declare const window: any;
+declare const localStorage: any;
+
 import type {
   Achievement,
   LessonProgress,

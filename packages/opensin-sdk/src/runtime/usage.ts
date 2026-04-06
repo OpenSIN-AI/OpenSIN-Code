@@ -24,7 +24,7 @@ export class UsageTracker {
     this.totalCacheRead += usage.cacheReadInputTokens;
   }
 
-  turns(): number {
+  getTurns(): number {
     return this.turns;
   }
 

@@ -190,7 +190,7 @@ function normalizeStreamEvent(
             index,
             content_block: {
               type: "text",
-              text: (contentBlock.text as string) ?? "",
+              text: (contentBlock!.text as string) ?? "",
             },
           },
         };
@@ -236,7 +236,7 @@ function normalizeStreamEvent(
             index,
             delta: {
               type: "text_delta",
-              text: (delta.text as string) ?? "",
+              text: (delta!.text as string) ?? "",
             },
           },
         };

@@ -68,7 +68,7 @@ export class AlwaysAllowPrompter implements PermissionPrompter {
 }
 
 export class AlwaysDenyPrompter implements PermissionPrompter {
-  constructor(private reason: string = 'denied');
+  constructor(private reason: string = 'denied') {}
   decide(_request: PermissionRequest): PermissionPromptDecision {
     return { type: 'deny', reason: this.reason };
   }
