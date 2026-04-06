@@ -1,0 +1,9 @@
+{
+  "name": "sin-hookify",
+  "version": "0.1.0",
+  "description": "Easily create hooks to prevent unwanted behaviors by analyzing conversation patterns",
+  "author": {
+    "name": "OpenSIN Team",
+    "email": "team@opensin.ai"
+  }
+}

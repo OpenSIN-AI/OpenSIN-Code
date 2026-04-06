@@ -602,11 +602,11 @@ export type {
   MemoryBlock,
   MemoryScope,
 } from "./memory/index.js";
-export * from './context_pruning/index.js';\n
-export * from './envsitter/index.js';\n
-export * from './ai_search/index.js';\n
-export * from './handoff/index.js';\n
-export * from './safety_net/index.js';\n
+export * from './context_pruning/index.js';
+export * from './envsitter/index.js';
+export * from './ai_search/index.js';
+export * from './handoff/index.js';
+export * from './safety_net/index.js';
 export * from './context_analysis/index.js';
 
 

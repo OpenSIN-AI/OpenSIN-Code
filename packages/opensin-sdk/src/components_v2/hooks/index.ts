@@ -4,4 +4,3 @@ export { SelectEventMode } from './SelectEventMode.js';
 export { SelectHookMode } from './SelectHookMode.js';
 export { SelectMatcherMode } from './SelectMatcherMode.js';
 export { ViewHookMode } from './ViewHookMode.js';
-ViewHookMode.js';

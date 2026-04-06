@@ -22,5 +22,3 @@ export * from './SedEditPermissionRequest.js';
 export * from './SkillPermissionRequest.js';
 export * from './WebFetchPermissionRequest.js';
 export * from './rules.js';
-rt * from './WebFetchPermissionRequest.js';
-export * from './rules.js';

@@ -1,0 +1,9 @@
+{
+  "name": "sin-plugin-dev",
+  "version": "1.0.0",
+  "description": "Comprehensive plugin development toolkit with skills for hooks, MCP integration, structure, settings, and AI-assisted agent creation",
+  "author": {
+    "name": "OpenSIN Team",
+    "email": "team@opensin.ai"
+  }
+}
