@@ -1,21 +1,47 @@
 /**
- * LSP Client — JSON-RPC LSP client implementation (Sin-branded).
+ * LSP Server Integration — manages LSP server lifecycle (Sin-branded).
  */
 
 import { spawn, ChildProcess } from "child_process";
 import * as url from "url";
 import * as path from "path";
-import {
-  LspError,
-  LspErrorCode,
-  LspServerConfig,
-  SymbolLocation,
-  ServerCapabilities,
-  InitializeResult,
-} from "./types.js";
+import { LspClient, LspError, LspServerConfig, SymbolLocation } from "./types.js";
 import { Position, Diagnostic } from "vscode-languageserver-protocol";
 
-interface TextDocumentItem {
+interface ServerCapabilities {
+  definitionProvider?: boolean;
+  referencesProvider?: boolean;
+  textDocumentSync?: number;
+  publishDiagnostics?: { relatedInformation?: boolean };
+}
+
+interface InitializeResult {
+  capabilities: ServerCapabilities;
+}
+
+interface InitializeParams {
+  processId: number;
+  rootUri: string;
+  rootPath: string;
+  workspaceFolders: Array<{ uri: string; name: string }>;
+  initializationOptions: unknown;
+  capabilities: {
+    textDocument?: {
+      publishDiagnostics?: { relatedInformation?: boolean };
+      definition?: { linkSupport?: boolean };
+      references?: Record<string, unknown>;
+    };
+    workspace?: {
+      configuration?: boolean;
+      workspaceFolders?: boolean;
+    };
+    general?: {
+      positionEncodings?: string[];
+    };
+  };
+}
+
+export interface TextDocumentItem {
   uri: string;
   languageId: string;
   version: number;
@@ -50,7 +76,7 @@ interface ReferencesParams {
   context: { includeDeclaration: boolean };
 }
 
-export class LspClient {
+export class LspServer {
   private config: LspServerConfig;
   private process: ChildProcess | null = null;
   private pendingRequests: Map<number, (result: unknown) => void> = new Map();
@@ -62,10 +88,10 @@ export class LspClient {
   private initializedResolve: (() => void) | null = null;
   private initializedReject: ((err: Error) => void) | null = null;
 
-  static async connect(config: LspServerConfig): Promise<LspClient> {
-    const client = new LspClient(config);
-    await client.initialize();
-    return client;
+  static async start(config: LspServerConfig): Promise<LspServer> {
+    const server = new LspServer(config);
+    await server.initialize();
+    return server;
   }
 
   private constructor(config: LspServerConfig) {
@@ -86,21 +112,21 @@ export class LspClient {
       this.process = spawn(this.config.command, this.config.args, spawnOptions);
 
       if (!this.process.stdin || !this.process.stdout || !this.process.stderr) {
-        reject(LspError.protocol("Missing LSP stdin/stdout/stderr pipes"));
+        reject(new LspError("PROTOCOL", "Missing LSP stdin/stdout/stderr pipes"));
         return;
       }
 
       this.process.stdout.on("data", (data: Buffer) => this.handleData(data));
       this.process.stderr.on("data", (data: Buffer) => {
-        console.error("[Sin LSP stderr]", data.toString());
+        console.error("[LSP stderr]", data.toString());
       });
 
       this.process.on("error", (err) => {
-        reject(LspError.protocol(`Process error: ${err.message}`));
+        reject(new LspError("PROTOCOL", `Process error: ${err.message}`));
       });
 
       this.process.on("exit", (code) => {
-        console.log(`[Sin LSP process exited with code ${code}]`);
+        console.log(`[LSP process exited with code ${code}]`);
       });
 
       this.sendInitialize();
@@ -137,7 +163,7 @@ export class LspClient {
       const message = JSON.parse(body);
       this.handleMessage(message);
     } catch (err) {
-      console.error("[Sin LSP] Failed to parse message:", err);
+      console.error("[LSP] Failed to parse message:", err);
     }
 
     if (this.messageBuffer.length > 0) {
@@ -152,7 +178,7 @@ export class LspClient {
       if (pending) {
         this.pendingRequests.delete(id);
         if ("error" in message) {
-          pending(LspError.protocol(JSON.stringify(message.error)));
+          pending(new LspError("PROTOCOL", JSON.stringify(message.error)));
         } else {
           pending(message.result);
         }
@@ -191,14 +217,14 @@ export class LspClient {
       await new Promise<void>((resolve, reject) => {
         this.initializedResolve = resolve;
         this.initializedReject = reject;
-        setTimeout(() => reject(LspError.protocol("Initialization timeout")), 10000);
+        setTimeout(() => reject(new LspError("PROTOCOL", "Initialization timeout")), 10000);
       });
     }
 
     const id = this.nextRequestId++;
     return new Promise((resolve, reject) => {
       this.pendingRequests.set(id, (result) => {
-        if (result instanceof LspError) {
+        if (result instanceof Error) {
           reject(result);
         } else {
           resolve(result as T);
@@ -219,7 +245,7 @@ export class LspClient {
       setTimeout(() => {
         if (this.pendingRequests.has(id)) {
           this.pendingRequests.delete(id);
-          reject(LspError.protocol(`Request ${method} timed out`));
+          reject(new LspError("PROTOCOL", `Request ${method} timed out`));
         }
       }, 30000);
     });
@@ -240,7 +266,7 @@ export class LspClient {
   private sendInitialize(): void {
     const workspaceUri = pathToFileUrl(this.config.workspaceRoot);
 
-    const params = {
+    const params: InitializeParams = {
       processId: process.pid,
       rootUri: workspaceUri,
       rootPath: this.config.workspaceRoot,
@@ -285,8 +311,7 @@ export class LspClient {
   async ensureDocumentOpen(filePath: string): Promise<void> {
     if (this.isDocumentOpen(filePath)) return;
 
-    const fs = require("fs");
-    const contents = fs.readFileSync(filePath, "utf-8");
+    const contents = require("fs").readFileSync(filePath, "utf-8");
     await this.openDocument(filePath, contents);
   }
 
@@ -361,7 +386,7 @@ export class LspClient {
   ): Promise<SymbolLocation[]> {
     await this.ensureDocumentOpen(filePath);
 
-    const response = await this.sendRequest<SymbolLocation[] | null>(
+    const response = await this.sendRequest<SymbolLocation[] | { uri: string; range: { start: Position; end: Position } }[] | null>(
       "textDocument/definition",
       {
         textDocument: { uri: pathToFileUrl(filePath) },
@@ -371,13 +396,20 @@ export class LspClient {
 
     if (!response) return [];
 
-    return response
-      .map((loc) => {
-        const filePath = fileUrlToPath(loc.uri);
-        if (!filePath) return null;
-        return { path: filePath, range: loc.range };
-      })
-      .filter((loc): loc is SymbolLocation => loc !== null);
+    if (Array.isArray(response)) {
+      return response
+        .map((loc) => {
+          if ("uri" in loc) {
+            const filePath = fileUrlToPath(loc.uri);
+            if (!filePath) return null;
+            return { path: filePath, range: loc.range };
+          }
+          return null;
+        })
+        .filter((loc): loc is SymbolLocation => loc !== null);
+    }
+
+    return [];
   }
 
   async findReferences(
@@ -424,6 +456,14 @@ export class LspClient {
       this.process.kill();
       this.process = null;
     }
+  }
+
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+
+  getConfig(): LspServerConfig {
+    return this.config;
   }
 }
 
