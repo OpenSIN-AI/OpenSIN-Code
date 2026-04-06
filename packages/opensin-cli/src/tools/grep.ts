@@ -1,5 +1,5 @@
 import { readFileSync, existsSync, statSync } from 'node:fs';
-import { resolve, relative } from 'node:path';
+import { resolve } from 'node:path';
 import { ToolDefinition, ToolExecutionResult } from '../core/types.js';
 import { truncate } from '../utils/helpers.js';
 
@@ -9,13 +9,14 @@ export class GrepTool implements ToolDefinition {
   parameters = {
     type: 'object',
     properties: {
-      pattern: { type: 'string', description: 'Regex pattern to search for' },
+      pattern: { type: 'string', description: 'Search pattern (literal string or regex)' },
       path: { type: 'string', description: 'Directory or file to search in (default: current directory)' },
       include: { type: 'string', description: 'Glob pattern for files to include (e.g., "*.ts")' },
       exclude: { type: 'string', description: 'Glob pattern for files to exclude' },
       outputMode: { type: 'string', enum: ['content', 'files_with_matches', 'count'], description: 'Output mode', default: 'content' },
       contextLines: { type: 'number', description: 'Lines of context before/after match', default: 0 },
       maxResults: { type: 'number', description: 'Maximum number of results', default: 100 },
+      useRegex: { type: 'boolean', description: 'Treat pattern as regex (default: false, uses literal match)', default: false },
     },
     required: ['pattern'],
   };
@@ -28,9 +29,21 @@ export class GrepTool implements ToolDefinition {
     const outputMode = (input.outputMode as string) || 'content';
     const contextLines = (input.contextLines as number) || 0;
     const maxResults = (input.maxResults as number) || 100;
+    const useRegex = (input.useRegex as boolean) || false;
 
     if (!existsSync(searchPath)) {
       return { output: `Path not found: ${searchPath}`, isError: true };
+    }
+
+    let regex: RegExp;
+    try {
+      if (useRegex) {
+        regex = new RegExp(pattern, 'gi');
+      } else {
+        regex = new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      }
+    } catch (e: any) {
+      return { output: `Invalid regex pattern: ${e.message}`, isError: true };
     }
 
     try {
@@ -42,12 +55,11 @@ export class GrepTool implements ToolDefinition {
       });
 
       const filteredFiles = files.filter((f) => {
-        if (include && !matchesGlob(f, include)) return false;
-        if (exclude && matchesGlob(f, exclude)) return false;
+        if (include && !safeGlobMatch(f, include)) return false;
+        if (exclude && safeGlobMatch(f, exclude)) return false;
         return true;
       });
 
-      const regex = new RegExp(pattern, 'gi');
       const results: Array<{ file: string; line: number; content: string }> = [];
       const fileCounts: Record<string, number> = {};
 
@@ -61,8 +73,8 @@ export class GrepTool implements ToolDefinition {
           const lines = content.split('\n');
 
           for (let i = 0; i < lines.length; i++) {
+            regex.lastIndex = 0;
             if (regex.test(lines[i])) {
-              regex.lastIndex = 0;
               fileCounts[file] = (fileCounts[file] || 0) + 1;
 
               if (outputMode === 'content' && results.length < maxResults) {
@@ -99,11 +111,16 @@ export class GrepTool implements ToolDefinition {
   }
 }
 
-function matchesGlob(filePath: string, pattern: string): boolean {
-  const regex = pattern
-    .replace(/\*\*/g, '___DOUBLE___')
+function safeGlobMatch(filePath: string, pattern: string): boolean {
+  const regexStr = pattern
+    .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+    .replace(/\*\*/g, '\x00DOUBLE\x00')
     .replace(/\*/g, '[^/]*')
-    .replace(/___DOUBLE___/g, '.*')
+    .replace(/\x00DOUBLE\x00/g, '.*')
     .replace(/\?/g, '.');
-  return new RegExp(`^${regex}$`).test(filePath);
+  try {
+    return new RegExp(`^${regexStr}$`).test(filePath);
+  } catch {
+    return false;
+  }
 }

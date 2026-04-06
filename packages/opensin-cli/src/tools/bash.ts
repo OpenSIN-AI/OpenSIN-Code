@@ -1,13 +1,20 @@
-import { exec } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { ToolDefinition, ToolExecutionResult } from '../core/types.js';
 import { maskSecrets, truncate } from '../utils/helpers.js';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
+
+const DANGEROUS_COMMANDS = [
+  /\brm\s+(-rf?|--no-preserve-root)\s+\/\s*$/,
+  /\bmkfs\b/,
+  /\bdd\s+.*of=\/dev\//,
+  /:\(\)\s*\{\s*:\|:\s*&\s*\}\s*;/,
+];
 
 export class BashTool implements ToolDefinition {
   name = 'Bash';
-  description = 'Execute shell commands. Supports background mode with &. Use with caution.';
+  description = 'Execute shell commands. Supports background mode. Dangerous commands are blocked.';
   parameters = {
     type: 'object',
     properties: {
@@ -23,28 +30,27 @@ export class BashTool implements ToolDefinition {
     const timeout = (input.timeout as number) || 120;
     const background = input.background as boolean || false;
 
+    for (const pattern of DANGEROUS_COMMANDS) {
+      if (pattern.test(command)) {
+        return { output: `Blocked dangerous command: ${command}`, isError: true };
+      }
+    }
+
     if (background) {
-      exec(command, { timeout: timeout * 1000 }).unref();
-      return {
-        output: `Command started in background: ${command}`,
-        metadata: { background: true },
-      };
+      execFile('/bin/sh', ['-c', command], { timeout: timeout * 1000 }).unref();
+      return { output: `Command started in background: ${command}`, metadata: { background: true } };
     }
 
     try {
-      const { stdout, stderr } = await execAsync(command, {
+      const { stdout, stderr } = await execFileAsync('/bin/sh', ['-c', command], {
         timeout: timeout * 1000,
         maxBuffer: 1024 * 1024,
       });
 
       let output = stdout;
-      if (stderr) {
-        output += stderr;
-      }
-
+      if (stderr) output += stderr;
       output = maskSecrets(output);
       output = truncate(output, 50000);
-
       return { output, metadata: { exitCode: 0 } };
     } catch (error: unknown) {
       const err = error as { stdout?: string; stderr?: string; code?: number };
@@ -53,7 +59,6 @@ export class BashTool implements ToolDefinition {
       if (err.stderr) output += err.stderr;
       output = maskSecrets(output || String(error));
       output = truncate(output, 50000);
-
       return { output, isError: true, metadata: { exitCode: err.code ?? 1 } };
     }
   }
