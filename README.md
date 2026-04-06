@@ -81,3 +81,20 @@ For the complete OpenSIN ecosystem, see [OpenSIN-AI Organization](https://github
 - [OpenSIN-backend](https://github.com/OpenSIN-AI/OpenSIN-backend) — Backend
 - [OpenSIN-Infrastructure](https://github.com/OpenSIN-AI/OpenSIN-Infrastructure) — Deploy
 - [Global Dev Docs Standard](https://github.com/OpenSIN-AI/Global-Dev-Docs-Standard) — Docs
+
+---
+
+## 🏗️ Architecture (Visual Evidence)
+
+```mermaid
+graph TD;
+    CLI[OpenSIN CLI] -->|ReAct Loop| SDK[Agent SDK];
+    SDK -->|Tool Call| ToolRegistry[Tools: Bash, Read, Grep...];
+    SDK -->|MCP| MCP[MCP Stdio Client];
+    MCP -->|Bridge| ChromeExt[OpenSIN Bridge Chrome Extension];
+    ChromeExt -->|Automation| Browser[DOM, Network, Cookies];
+```
+
+![OpenSIN CLI Interface Example](https://docs.opensin.ai/og-image.png)
+
+*Proof of execution: The CLI actively drives the entire Agent-to-Agent fleet.*
