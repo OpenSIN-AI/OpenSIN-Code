@@ -1,33 +1,18 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "Node16",
-    "moduleResolution": "Node16",
-    "lib": [
-      "ES2022"
-    ],
     "outDir": "./dist",
     "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "jsx": "react-jsx"
+    "types": ["node", "bun"]
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts"
+    "src/__tests__",
+    "src/utils_v2/**/*",
+    "src/voice_v2/**/*",
+    "src/mcp_v2/**/*",
+    "src/auth_v2/**/*"
   ]
 }
