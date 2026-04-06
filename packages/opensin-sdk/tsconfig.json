@@ -73,20 +73,20 @@
     "src/safety_net",
     "src/session_persistence",
     "src/terminal_ui",
+    "src/hooks_v2",
+    "src/ink_v2",
+    "src/jetbrains",
+    "src/jetbrains-plugin",
+    "src/keybindings_v2",
     "src/api",
     "src/cli-agent",
     "src/commands",
-    "src/hooks_v2",
     "src/tools",
-    "src/ink_v2",
     "src/runtime",
     "src/mcp",
     "src/plan_act",
-    "src/lsp",
-    "src/live_status",
     "src/lint",
-    "src/jetbrains",
-    "src/jetbrains-plugin",
-    "src/keybindings_v2"
+    "src/live_status",
+    "src/lsp"
   ]
 }

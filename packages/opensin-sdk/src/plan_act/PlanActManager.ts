@@ -8,7 +8,7 @@ import {
   PlanStatus,
   PlanActState,
   ExecutionEntry,
-} from './types.js';
+} from './types';
 
 export class PlanActManager {
   private state: PlanActState;

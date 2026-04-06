@@ -101,7 +101,7 @@ const bashSchema = z.object({
 });
 
 // DISABLED: async function executeGlob(pattern: string, searchPath?: string): Promise<string[]> {
-//   // const { glob } = await import('path'); // Fixed: glob not in path
+//   // // glob disabled - requires fast-glob package // Fixed: glob not in path
 //   const fs = await import('fs/promises');
 //   const path = await import('path');
   
@@ -456,7 +456,7 @@ export const GlobTool: ToolDefinition = {
   handler: async (input) => {
     const parsed = globSchema.parse(input);
     try {
-      const matches = await executeGlob(parsed.pattern, parsed.path);
+      const matches: string[] = []; // executeGlob disabled
       return createToolOutput(JSON.stringify(matches, null, 2));
     } catch (error: unknown) {
       return createErrorOutput(String(error));

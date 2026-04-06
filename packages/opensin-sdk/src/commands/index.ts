@@ -37,7 +37,7 @@ export const allCommands: CommandSpec[] = [
   ...systemCommands,
 ];
 
-export function parseCommand(input: string): ParsedCommand | null {
+export function parseCommand(input: string): ParsedCommand | undefined {
   const trimmed = input.trim();
   if (!trimmed.startsWith('/')) return null;
 
@@ -49,7 +49,7 @@ export function parseCommand(input: string): ParsedCommand | null {
   return { name, args: args || undefined };
 }
 
-export function findCommand(input: string): CommandSpec | null {
+export function findCommand(input: string): CommandSpec | undefined {
   const parsed = parseCommand(input);
   if (!parsed) return null;
 
@@ -58,7 +58,7 @@ export function findCommand(input: string): CommandSpec | null {
       (cmd) =>
         cmd.name === parsed.name ||
         cmd.aliases.map((a) => a.toLowerCase()).includes(parsed.name!)
-    ) || null
+    ) || undefined
   );
 }
 
@@ -76,7 +76,7 @@ export function suggestCommands(input: string, limit = 5): string[] {
         : cmd.name.includes(normalized) || cmd.aliases.some((a) => a.toLowerCase().includes(normalized)) ? 2
         : null;
 
-      return match !== null ? { cmd, score: match } : null;
+      return match !== undefined ? { cmd, score: match } : null;
     })
     .filter((x): x is { cmd: CommandSpec; score: number } => x !== null)
     .sort((a, b) => a.score - b.score)
