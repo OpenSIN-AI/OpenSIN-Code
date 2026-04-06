@@ -5,6 +5,11 @@ import { WriteTool } from './write.js';
 import { EditTool } from './edit.js';
 import { GrepTool } from './grep.js';
 import { GlobTool } from './glob.js';
+import { WebFetchTool } from './web_fetch.js';
+import { WebSearchTool } from './web_search.js';
+import { TodoWriteTool } from './todo_write.js';
+import { WorktreeTool } from './worktree.js';
+import { PlanModeTool } from './plan_mode.js';
 
 export class ToolRegistry {
   private tools = new Map<string, ToolDefinition>();
@@ -48,6 +53,11 @@ export class ToolRegistry {
     this.register(new EditTool());
     this.register(new GrepTool());
     this.register(new GlobTool());
+    this.register(new WebFetchTool());
+    this.register(new WebSearchTool());
+    this.register(new TodoWriteTool());
+    this.register(new WorktreeTool());
+    this.register(new PlanModeTool());
   }
 }
 
@@ -57,3 +67,8 @@ export { WriteTool } from './write.js';
 export { EditTool } from './edit.js';
 export { GrepTool } from './grep.js';
 export { GlobTool } from './glob.js';
+export { WebFetchTool } from './web_fetch.js';
+export { WebSearchTool } from './web_search.js';
+export { TodoWriteTool } from './todo_write.js';
+export { WorktreeTool } from './worktree.js';
+export { PlanModeTool } from './plan_mode.js';
