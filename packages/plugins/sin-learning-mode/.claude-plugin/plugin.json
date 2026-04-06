@@ -1,0 +1,9 @@
+{
+  "name": "sin-learning-mode",
+  "version": "1.0.0",
+  "description": "Interactive learning mode that requests meaningful code contributions at decision points",
+  "author": {
+    "name": "OpenSIN-Code",
+    "email": "opensin@ai"
+  }
+}

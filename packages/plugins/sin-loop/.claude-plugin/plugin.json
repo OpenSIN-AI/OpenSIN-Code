@@ -1,0 +1,9 @@
+{
+  "name": "sin-loop",
+  "version": "1.0.0",
+  "description": "Ralph Wiggum technique - continuous self-referential AI loops for interactive iterative development. Run OpenSIN-Code in a while-true loop with the same prompt until task completion.",
+  "author": {
+    "name": "OpenSIN-Code",
+    "email": "opensin@ai"
+  }
+}

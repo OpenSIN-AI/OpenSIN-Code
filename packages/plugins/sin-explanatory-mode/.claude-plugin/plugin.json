@@ -1,0 +1,9 @@
+{
+  "name": "sin-explanatory-mode",
+  "version": "1.0.0",
+  "description": "Adds educational insights about implementation choices and codebase patterns",
+  "author": {
+    "name": "OpenSIN-Code",
+    "email": "opensin@ai"
+  }
+}

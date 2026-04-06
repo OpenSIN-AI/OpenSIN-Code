@@ -1,0 +1,9 @@
+{
+  "name": "sin-agent-sdk-dev",
+  "version": "1.0.0",
+  "description": "Comprehensive plugin for creating and verifying OpenSIN Agent SDK applications in Python and TypeScript",
+  "author": {
+    "name": "OpenSIN-Code",
+    "email": "opensin@ai"
+  }
+}
