@@ -14,7 +14,8 @@ on:
 
 jobs:
   dispatch:
-    runs-on: ubuntu-latest
+    # Self-hosted OCI runner — zero billing, ARM64, always-free Oracle Cloud
+    runs-on: [self-hosted, linux, arm64, oci]
     timeout-minutes: 2
     steps:
       - name: Dispatch CI to n8n OCI Runner
