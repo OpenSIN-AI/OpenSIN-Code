@@ -1,0 +1,9 @@
+{
+  "name": "sin-agent-sdk-dev",
+  "description": "Sin Agent SDK Development Plugin",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ashwin Bhat",
+    "email": "ashwin@opensin-ai.com"
+  }
+}

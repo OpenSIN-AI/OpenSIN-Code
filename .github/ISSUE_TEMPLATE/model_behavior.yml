@@ -20,7 +20,7 @@ body:
       label: Preflight Checklist
       description: Please confirm before submitting
       options:
-        - label: I have searched [existing issues](https://github.com/anthropics/opensin-code/issues?q=is%3Aissue%20state%3Aopen%20label%3Amodel) for similar behavior reports
+        - label: I have searched [existing issues](https://github.com/opensin-ai/opensin-code/issues?q=is%3Aissue%20state%3Aopen%20label%3Amodel) for similar behavior reports
           required: true
         - label: This report does NOT contain sensitive information (API keys, passwords, etc.)
           required: true
@@ -51,7 +51,7 @@ body:
       placeholder: |
         I asked: "Update the README.md file to add installation instructions"
         
-        Or I ran: `opencode "fix the bug in auth.js"`
+        Or I ran: `opensin "fix the bug in auth.js"`
     validations:
       required: true
       
@@ -184,7 +184,7 @@ body:
     id: version
     attributes:
       label: OpenSIN Code Version
-      description: Run `opencode --version` and paste the output
+      description: Run `opensin --version` and paste the output
       placeholder: "e.g., 1.0.123 (OpenSIN Code)"
     validations:
       required: true

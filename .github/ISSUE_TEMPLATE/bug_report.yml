@@ -10,8 +10,8 @@ body:
         Thanks for taking the time to report this bug! Please fill out the sections below to help us understand and fix the issue.
         
         Before submitting, please check:
-        - You're using the [latest version](https://www.npmjs.com/package/opensin-code?activeTab=versions) of OpenSIN Code (`opencode --version`) 
-        - This issue hasn't already been reported by searching [existing issues](https://github.com/anthropics/opensin-code/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug).
+        - You're using the [latest version](https://www.npmjs.com/package/@opensin-ai/opensin-code?activeTab=versions) of OpenSIN Code (`opensin --version`) 
+        - This issue hasn't already been reported by searching [existing issues](https://github.com/opensin-ai/opensin-code/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug).
         - This is a bug, not a feature request or support question
         
   - type: checkboxes
@@ -20,7 +20,7 @@ body:
       label: Preflight Checklist
       description: Please confirm before submitting
       options:
-        - label: I have searched [existing issues](https://github.com/anthropics/opensin-code/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug) and this hasn't been reported yet
+        - label: I have searched [existing issues](https://github.com/opensin-ai/opensin-code/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug) and this hasn't been reported yet
           required: true
         - label: This is a single bug report (please file separate reports for different bugs)
           required: true
@@ -74,7 +74,7 @@ body:
            def hello():
                print("test")
            ```
-        2. Run `opencode "add type hints to test.py"`
+        2. Run `opensin "add type hints to test.py"`
         3. When prompted for file access, accept
         4. Error appears: "Unable to parse..."
         
@@ -120,7 +120,7 @@ body:
     id: version
     attributes:
       label: OpenSIN Code Version
-      description: Run `opencode --version` and paste the output
+      description: Run `opensin --version` and paste the output
       placeholder: "e.g., 1.0.123 (OpenSIN Code)"
     validations:
       required: true
@@ -131,7 +131,7 @@ body:
       label: Platform
       description: Which API platform are you using?
       options:
-        - Anthropic API
+        - OpenSIN API
         - AWS Bedrock
         - Google Vertex AI
         - OpenAI API

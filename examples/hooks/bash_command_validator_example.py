@@ -6,7 +6,7 @@ This hook runs as a PreToolUse hook for the Bash tool.
 It validates bash commands against a set of rules before execution.
 In this case it changes grep calls to using rg.
 
-Read more about hooks here: https://docs.anthropic.com/en/docs/claude-code/hooks
+Read more about hooks here: https://docs.opensin-ai.com/en/docs/opensin-code/hooks
 
 Make sure to change your path to your actual script.
 
@@ -32,6 +32,7 @@ import json
 import re
 import sys
 
+# Define validation rules as a list of (regex pattern, message) tuples
 _VALIDATION_RULES = [
     (
         r"^grep\b(?!.*\|)",
@@ -57,6 +58,7 @@ def main():
         input_data = json.load(sys.stdin)
     except json.JSONDecodeError as e:
         print(f"Error: Invalid JSON input: {e}", file=sys.stderr)
+        # Exit code 1 shows stderr to the user but not to Sin
         sys.exit(1)
 
     tool_name = input_data.get("tool_name", "")
@@ -73,6 +75,7 @@ def main():
     if issues:
         for message in issues:
             print(f"• {message}", file=sys.stderr)
+        # Exit code 2 blocks tool call and shows stderr to Sin
         sys.exit(2)
 
 

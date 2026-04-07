@@ -2,7 +2,7 @@
 
 Example OpenSIN Code settings files, primarily intended for organization-wide deployments. Use these are starting points — adjust them to fit your needs.
 
-These may be applied at any level of the settings hierarchy, though certain properties only take effect if specified in enterprise settings (e.g. `strictKnownMarketplaces`, `allowManagedHooksOnly`, `allowManagedPermissionRulesOnly`).
+These may be applied at any level of the [settings hierarchy](https://code.sin.com/docs/en/settings#settings-files), though certain properties only take effect if specified in enterprise settings (e.g. `strictKnownMarketplaces`, `allowManagedHooksOnly`, `allowManagedPermissionRulesOnly`).
 
 
 ## Configuration Examples
@@ -25,3 +25,7 @@ These may be applied at any level of the settings hierarchy, though certain prop
 - Settings files must be valid JSON
 - Before deploying configuration files to your organization, test them locally by applying to `managed-settings.json`, `settings.json` or `settings.local.json`
 - The `sandbox` property only applies to the `Bash` tool; it does not apply to other tools (like Read, Write, WebSearch, WebFetch, MCPs), hooks, or internal commands
+
+## Full Documentation
+
+See https://code.sin.com/docs/en/settings for complete documentation on all available managed settings.

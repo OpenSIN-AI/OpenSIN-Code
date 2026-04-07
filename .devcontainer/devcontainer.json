@@ -16,9 +16,9 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "opensin-ai.opensin-code",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "ms-vscode-remote.remote-containers",
         "eamodio.gitlens"
       ],
       "settings": {
@@ -43,11 +43,11 @@
   "remoteUser": "node",
   "mounts": [
     "source=opensin-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
-    "source=opensin-code-config-${devcontainerId},target=/home/node/.opensin,type=volume"
+    "source=opensin-code-config-${devcontainerId},target=/home/node/.sin,type=volume"
   ],
   "containerEnv": {
     "NODE_OPTIONS": "--max-old-space-size=4096",
-    "OPENSIN_CONFIG_DIR": "/home/node/.opensin",
+    "SIN_CONFIG_DIR": "/home/node/.sin",
     "POWERLEVEL9K_DISABLE_GITSTATUS": "true"
   },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",

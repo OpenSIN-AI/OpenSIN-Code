@@ -17,7 +17,7 @@ body:
     attributes:
       label: Preflight Checklist
       options:
-        - label: I have searched [existing requests](https://github.com/anthropics/opensin-code/issues?q=is%3Aissue%20label%3Aenhancement) and this feature hasn't been requested yet
+        - label: I have searched [existing requests](https://github.com/opensin-ai/opensin-code/issues?q=is%3Aissue%20label%3Aenhancement) and this feature hasn't been requested yet
           required: true
         - label: This is a single feature request (not multiple features)
           required: true
@@ -46,7 +46,7 @@ body:
         How would you like this to work? Describe the ideal user experience.
         Be specific about how you'd interact with this feature.
       placeholder: |
-        I'd like to be able to run `opencode --workspace project1,project2` to...
+        I'd like to be able to run `opensin --workspace project1,project2` to...
         
         There should be a command or setting that allows...
         

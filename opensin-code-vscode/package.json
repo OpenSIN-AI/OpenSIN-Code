@@ -1,0 +1,62 @@
+{
+  "name": "opensin-code-vscode",
+  "displayName": "OpenSIN Code",
+  "description": "Agentic AI Coding Assistant — Powered by OpenSIN",
+  "version": "0.1.0",
+  "publisher": "opensin-ai",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Machine Learning", "Programming Languages", "AI"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "opensin.dispatch", "title": "Dispatch Task to OpenSIN Agent", "category": "OpenSIN" },
+      { "command": "opensin.status", "title": "Show OpenSIN Status", "category": "OpenSIN" },
+      { "command": "opensin.health", "title": "Run OpenSIN Health Check", "category": "OpenSIN" },
+      { "command": "opensin.swarm.create", "title": "Create Agent Swarm", "category": "OpenSIN" },
+      { "command": "opensin.swarm.status", "title": "Show Swarm Status", "category": "OpenSIN" },
+      { "command": "opensin.memory.consolidate", "title": "Consolidate Session Memory", "category": "OpenSIN" },
+      { "command": "opensin.mode.toggle", "title": "Toggle Agent Mode", "category": "OpenSIN" },
+      { "command": "opensin.buddy.toggle", "title": "Toggle Buddy Companion", "category": "OpenSIN" },
+      { "command": "opensin.cli.start", "title": "Start OpenSIN CLI Session", "category": "OpenSIN" },
+      { "command": "opensin.lsp.restart", "title": "Restart LSP Server", "category": "OpenSIN" }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "opensin-panel", "title": "OpenSIN", "icon": "$(brain)" }
+      ]
+    },
+    "views": {
+      "opensin-panel": [
+        { "id": "opensin.running", "name": "Running Tasks" },
+        { "id": "opensin.swarm", "name": "Agent Swarm" },
+        { "id": "opensin.buddy", "name": "Buddy Companion" },
+        { "id": "opensin.memory", "name": "Session Memory" }
+      ]
+    },
+    "configuration": {
+      "title": "OpenSIN Code",
+      "properties": {
+        "opensin.maxParallel": { "type": "number", "default": 3, "description": "Maximum parallel agent tasks" },
+        "opensin.maxRetries": { "type": "number", "default": 3, "description": "Maximum retries for failed tasks" },
+        "opensin.healthInterval": { "type": "number", "default": 60, "description": "Health check interval in seconds" },
+        "opensin.timeout": { "type": "number", "default": 600, "description": "Task timeout in seconds" },
+        "opensin.apiEndpoint": { "type": "string", "default": "http://92.5.60.87:4100/v1", "description": "OpenSIN API endpoint (OCI Proxy)" },
+        "opensin.defaultAgent": { "type": "string", "default": "explore", "description": "Default agent for task dispatch" },
+        "opensin.buddyEnabled": { "type": "boolean", "default": false, "description": "Enable Buddy companion" },
+        "opensin.memoryAutoConsolidate": { "type": "boolean", "default": true, "description": "Auto-consolidate memory on session end" }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "18.x",
+    "typescript": "^5.3.3",
+    "@vscode/vsce": "^2.24.0"
+  }
+}

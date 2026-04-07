@@ -23,4 +23,4 @@
 - `code-reviewer` — Reviews for bugs and quality
 
 ## Portiert aus
-sin-claude/claude-code-main/plugins/feature-dev/
+sin-sin/opensin-code-main/plugins/feature-dev/
