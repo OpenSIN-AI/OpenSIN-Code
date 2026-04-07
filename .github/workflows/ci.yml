@@ -12,6 +12,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  statuses: write   # required: post commit status (pending → success/failure)
+  contents: read    # required: checkout / clone
+
 jobs:
   dispatch:
     # Self-hosted OCI runner — zero billing, ARM64, always-free Oracle Cloud
