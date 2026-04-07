@@ -1,4 +1,10 @@
-name: CI/CD Pipeline
+name: CI → n8n OCI Runner
+
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  ZERO BILLING CI — delegates all work to n8n on OCI VM          ║
+# ║  Runner cost: ~2s (curl only) instead of 10+ min paid runners   ║
+# ║  Build/test/lint runs on: OCI VM via n8n @ n8n.delqhi.com       ║
+# ╚══════════════════════════════════════════════════════════════════╝
 
 on:
   push:
@@ -7,71 +13,13 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  dispatch:
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Dispatch CI to n8n OCI Runner
+        uses: OpenSIN-AI/sin-github-action@main
         with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
-      - run: npm run typecheck
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
-      - run: npm test -- --coverage
-      - name: Upload coverage
-        uses: codecov/codecov-action@v4
-        with:
-          file: ./coverage/lcov.info
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: npm ci
-      - run: npm run lint
-
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npm audit --production
-
-  plugin-validation:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Validate plugin manifests
-        run: |
-          for plugin in plugins/*/plugin.json; do
-            echo "Validating $plugin..."
-            node -e "JSON.parse(require('fs').readFileSync('$plugin', 'utf8'))"
-          done
-
-  governance-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check governance files
-        run: |
-          test -f governance/repo-governance.json
-          test -f governance/pr-watcher.json
-          test -f governance/coder-dispatch-matrix.json
-          test -f platforms/registry.json
-          test -f n8n-workflows/inbound-intake.json
-          test -f scripts/watch-pr-feedback.sh
-          echo "All governance files present ✅"
+          n8n_webhook_url: ${{ secrets.N8N_CI_WEBHOOK_URL }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pipeline: all
