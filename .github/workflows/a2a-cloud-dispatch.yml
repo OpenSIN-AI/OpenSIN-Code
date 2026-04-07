@@ -3,7 +3,7 @@ name: Cloud Coder Dispatch Bridge
 on:
   schedule:
     - cron: "*/5 * * * *"
-  workflow_dispatch:
+  workflow_dispatch: {}
   issue_comment:
     types: [created]
 
@@ -36,7 +36,7 @@ jobs:
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
           sudo apt update && sudo apt install gh -y
 
-       - name: Dispatch Open Issues
+      - name: Dispatch Open Issues
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -44,7 +44,6 @@ jobs:
           echo "🚀 Cloud Coder Dispatch Bridge"
           echo "================================"
 
-          # Get open issues without 'dispatched' label
           ISSUES=$(gh issue list --state open --limit 50 --json number,title,labels --jq '.[] | select(.labels | map(.name) | index("dispatched") | not) | "\(.number)|\(.title)"')
 
           if [ -z "$ISSUES" ]; then
@@ -58,7 +57,6 @@ jobs:
             echo ""
             echo "📌 Dispatching Issue #$NUMBER: $TITLE"
 
-            # Auto-assign agent type based on title
             AGENT="fullstack"
             TITLE_LOWER=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]')
 
@@ -74,26 +72,12 @@ jobs:
               AGENT="frontend"
             fi
 
-            # Create branch name
             SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | cut -c1-40)
             BRANCH="feat/issue-${NUMBER}-${SLUG}"
 
-            # Add dispatched label
             gh issue edit "$NUMBER" --add-label "dispatched,cloud-coder" 2>/dev/null || true
 
-            # Post dispatch comment
-            BODY="## 🤖 Cloud Coder Dispatched
-
-| Field | Value |
-|-------|-------|
-| **Agent** | $AGENT |
-| **Branch** | \`$BRANCH\` |
-| **Priority** | high |
-| **Dispatched** | $(date -u +%Y-%m-%dT%H:%M:%SZ) |
-| **Dispatcher** | GitHub Action |
-
-⏳ Cloud Coder: Clone repo, checkout branch, implement, commit, push, create PR."
-            gh issue comment "$NUMBER" --body "$BODY"
+            gh issue comment "$NUMBER" --body "## 🤖 Cloud Coder Dispatched\n\n| Field | Value |\n|-------|-------|\n| **Agent** | $AGENT |\n| **Branch** | \`$BRANCH\` |\n| **Priority** | high |\n| **Dispatched** | $(date -u +%Y-%m-%dT%H:%M:%SZ) |\n| **Dispatcher** | GitHub Action |\n\n⏳ Cloud Coder: Clone repo, checkout branch, implement, commit, push, create PR."
 
             echo "  ✅ Dispatched as $AGENT → $BRANCH"
           done <<< "$ISSUES"
