@@ -28,7 +28,12 @@ export class A2AClient {
       });
 
       if (!response.ok) {
-        throw new Error(`A2A Protocol Error: ${response.status} ${response.statusText}`);
+        let errorMsg = `${response.status} ${response.statusText}`;
+        try {
+          const errBody = await response.json();
+          if (errBody?.error) errorMsg = errBody.error;
+        } catch {}
+        throw new Error(`A2A Protocol Error: ${errorMsg}`);
       }
 
       return (await response.json()) as A2ATaskResponse;
