@@ -1,14 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
 
-interface AuthRequest extends Request {
-  user?: {
-    id: string;
-    email: string;
-  };
+// Augment Express Request to include user property
+declare module 'express' {
+  interface Request {
+    user?: {
+      id: string;
+      email: string;
+    };
+  }
 }
 
 export function authMiddleware(
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ): void {
