@@ -27,4 +27,4 @@ jobs:
         with:
           n8n_webhook_url: ${{ secrets.N8N_CI_WEBHOOK_URL }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          pipeline: build
+          pipeline: all
