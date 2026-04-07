@@ -36,7 +36,7 @@ jobs:
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
           sudo apt update && sudo apt install gh -y
 
-      - name: Dispatch Open Issues
+       - name: Dispatch Open Issues
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -82,7 +82,7 @@ jobs:
             gh issue edit "$NUMBER" --add-label "dispatched,cloud-coder" 2>/dev/null || true
 
             # Post dispatch comment
-            gh issue comment "$NUMBER" --body "## 🤖 Cloud Coder Dispatched
+            BODY="## 🤖 Cloud Coder Dispatched
 
 | Field | Value |
 |-------|-------|
@@ -93,6 +93,7 @@ jobs:
 | **Dispatcher** | GitHub Action |
 
 ⏳ Cloud Coder: Clone repo, checkout branch, implement, commit, push, create PR."
+            gh issue comment "$NUMBER" --body "$BODY"
 
             echo "  ✅ Dispatched as $AGENT → $BRANCH"
           done <<< "$ISSUES"
