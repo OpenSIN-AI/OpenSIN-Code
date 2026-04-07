@@ -41,3 +41,6 @@ temp/
 *.omoc-events.jsonl
 *.omoc-memory.json
 *.omoc-reservations.json
+.sin-plugin/
+.turbo/
+package-lock.json
