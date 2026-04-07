@@ -35,7 +35,7 @@ export class A2AClient {
             errorMsg = (errBody as any).error;
           }
         } catch {}
-        throw new Error(`A2A Protocol Error: ${errorMsg}`);
+        throw new Error(errorMsg);
       }
 
       return (await response.json()) as A2ATaskResponse;
