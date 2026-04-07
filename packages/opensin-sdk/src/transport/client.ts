@@ -31,7 +31,9 @@ export class A2AClient {
         let errorMsg = `${response.status} ${response.statusText}`;
         try {
           const errBody = await response.json();
-          if (errBody?.error) errorMsg = errBody.error;
+          if (errBody && typeof errBody === 'object' && 'error' in errBody) {
+            errorMsg = (errBody as any).error;
+          }
         } catch {}
         throw new Error(`A2A Protocol Error: ${errorMsg}`);
       }
