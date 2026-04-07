@@ -15,4 +15,4 @@ Stop-Hook-basierter iterativer Self-Referential Loop für OpenSIN-Code.
 - `/ralph-help` — Show help
 
 ## Portiert aus
-sin-claude/claude-code-main/plugins/ralph-wiggum/
+opensin-ai/opensin-code/plugins/sin-ralph/

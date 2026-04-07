@@ -1,7 +1,7 @@
 /**
  * sin-ralph — Stop Hook for Ralph Loop
  * Intercepts exit attempts and re-feeds the prompt until completion
- * Portiert aus sin-claude/claude-code-main/plugins/ralph-wiggum/
+ * Portiert aus opensin-ai/opensin-code/plugins/sin-ralph/
  */
 
 import * as fs from 'fs';
