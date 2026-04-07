@@ -4,11 +4,6 @@ on:
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
-    inputs:
-      issue_numbers:
-        description: "Comma-separated issue numbers to dispatch (empty = all open)"
-        required: false
-        default: ""
   issue_comment:
     types: [created]
 
