@@ -1,14 +1,15 @@
-import { Router, Request, Response } from 'express';
+import * as express from 'express';
 import { AppState, SessionEvent, ErrorResponse } from '../types';
 
-export function streamingRouter(state: AppState): Router {
-  const router = Router();
+export function streamingRouter(state: AppState): express.Router {
+  const router = express.Router();
 
-  router.get('/sessions/:id/events', (req: Request, res: Response) => {
-    const session = state.sessions.get(req.params.id);
+  router.get('/sessions/:id/events', (req: express.Request, res: express.Response) => {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const session = state.sessions.get(id);
     
     if (!session) {
-      res.status(404).json({ error: `session '${req.params.id}' not found` } as ErrorResponse);
+      res.status(404).json({ error: `session '${id}' not found` } as ErrorResponse);
       return;
     }
 

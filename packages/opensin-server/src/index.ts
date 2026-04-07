@@ -1,4 +1,7 @@
-import express, { Request, Response, NextFunction } from 'express';
+import * as express from 'express';
+type Request = express.Request;
+type Response = express.Response;
+type NextFunction = express.NextFunction;
 import cors from 'cors';
 
 import { createAppState, AppState, ErrorResponse } from './types';
@@ -10,7 +13,7 @@ import { authMiddleware } from './middleware/auth';
 import { loggingMiddleware } from './middleware/logging';
 
 function createApp(state: AppState) {
-  const app = express();
+  const app = express() as express.Application;
 
   app.use(express.json());
   app.use(cors());
@@ -22,11 +25,11 @@ function createApp(state: AppState) {
   app.use('/tools', toolsRouter());
   app.use('/api', streamingRouter(state));
 
-  app.get('/health', (_req: Request, res: Response) => {
+  app.get('/health', (_req: express.Request, res: express.Response) => {
     res.json({ status: 'ok', timestamp: Date.now() });
   });
 
-  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: Error, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
     console.error('Unhandled error:', err);
     res.status(500).json({ error: 'Internal server error' } as ErrorResponse);
   });

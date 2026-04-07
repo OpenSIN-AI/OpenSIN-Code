@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import * as express from 'express';
 
 // Augment Express Request to include user property
 declare module 'express' {
@@ -10,11 +10,11 @@ declare module 'express' {
   }
 }
 
-export function authMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void {
+export const authMiddleware: express.RequestHandler = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): void => {
   const authHeader = req.headers.authorization;
 
   if (req.path.startsWith('/auth/login') || req.path === '/health') {

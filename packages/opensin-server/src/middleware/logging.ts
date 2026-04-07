@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from 'express';
+import * as express from 'express';
 
-export function loggingMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void {
+export const loggingMiddleware: express.RequestHandler = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): void => {
   const start = Date.now();
 
   res.on('finish', () => {

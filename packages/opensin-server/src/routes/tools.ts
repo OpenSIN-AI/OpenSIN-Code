@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import * as express from 'express';
 import { ErrorResponse } from '../types';
 
 interface ToolRequest {
@@ -11,10 +11,10 @@ interface ToolResponse {
   error?: string;
 }
 
-export function toolsRouter() {
-  const router = Router();
+export function toolsRouter(): express.Router {
+  const router = express.Router();
 
-  router.post('/execute', (req: Request, res: Response) => {
+  router.post('/execute', (req: express.Request, res: express.Response) => {
     const toolRequest = req.body as ToolRequest;
     
     if (!toolRequest.name) {
@@ -38,7 +38,7 @@ export function toolsRouter() {
     }
   });
 
-  router.get('/list', (_req: Request, res: Response) => {
+  router.get('/list', (_req: express.Request, res: express.Response) => {
     res.json({
       tools: [
         { name: 'bash', description: 'Execute shell commands' },

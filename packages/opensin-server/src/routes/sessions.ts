@@ -1,4 +1,4 @@
-import express, { Request, Response, Router } from 'express';
+import * as express from 'express';
 import {
   AppState,
   CreateSessionResponse,
@@ -10,13 +10,12 @@ import {
   unixTimestampMillis,
   userMessage,
   Session,
-  SessionEvent,
 } from '../types';
 
-export function createSessionRouter(state: AppState): Router {
+export function createSessionRouter(state: AppState): express.Router {
   const router = express.Router();
 
-  router.post('/', (req: Request, res: Response) => {
+  router.post('/', (req: express.Request, res: express.Response) => {
     const sessionId = allocateSessionId(state);
     const session: Session = {
       id: sessionId,
@@ -31,7 +30,7 @@ export function createSessionRouter(state: AppState): Router {
     res.status(201).json({ sessionId } as CreateSessionResponse);
   });
 
-  router.get('/', (_req: Request, res: Response) => {
+  router.get('/', (_req: express.Request, res: express.Response) => {
     const sessions = Array.from(state.sessions.values()).map((session) => ({
       id: session.id,
       createdAt: session.createdAt,
@@ -41,10 +40,11 @@ export function createSessionRouter(state: AppState): Router {
     res.json({ sessions } as ListSessionsResponse);
   });
 
-  router.get('/:id', (req: Request, res: Response) => {
-    const session = state.sessions.get(req.params.id);
+  router.get('/:id', (req: express.Request, res: express.Response) => {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const session = state.sessions.get(id);
     if (!session) {
-      res.status(404).json({ error: `session '${req.params.id}' not found` } as ErrorResponse);
+      res.status(404).json({ error: `session '${id}' not found` } as ErrorResponse);
       return;
     }
     res.json({
@@ -54,10 +54,11 @@ export function createSessionRouter(state: AppState): Router {
     } as SessionDetailsResponse);
   });
 
-  router.post('/:id/message', (req: Request, res: Response) => {
-    const session = state.sessions.get(req.params.id);
+  router.post('/:id/message', (req: express.Request, res: express.Response) => {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const session = state.sessions.get(id);
     if (!session) {
-      res.status(404).json({ error: `session '${req.params.id}' not found` } as ErrorResponse);
+      res.status(404).json({ error: `session '${id}' not found` } as ErrorResponse);
       return;
     }
     const payload = req.body as SendMessageRequest;
