@@ -1,0 +1,107 @@
+name: Cloud Coder Dispatch Bridge
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      issue_numbers:
+        description: "Comma-separated issue numbers to dispatch (empty = all open)"
+        required: false
+        default: ""
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  contents: read
+  actions: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: |
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '/dispatch'))
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install GitHub CLI
+        run: |
+          type -p curl >/dev/null || sudo apt install curl -y
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update && sudo apt install gh -y
+
+      - name: Dispatch Open Issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "🚀 Cloud Coder Dispatch Bridge"
+          echo "================================"
+
+          # Get open issues without 'dispatched' label
+          ISSUES=$(gh issue list --state open --limit 50 --json number,title,labels --jq '.[] | select(.labels | map(.name) | index("dispatched") | not) | "\(.number)|\(.title)"')
+
+          if [ -z "$ISSUES" ]; then
+            echo "✅ All open issues are already dispatched"
+            exit 0
+          fi
+
+          echo "📦 Found $(echo "$ISSUES" | wc -l) issues to dispatch"
+
+          while IFS='|' read -r NUMBER TITLE; do
+            echo ""
+            echo "📌 Dispatching Issue #$NUMBER: $TITLE"
+
+            # Auto-assign agent type based on title
+            AGENT="fullstack"
+            TITLE_LOWER=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]')
+
+            if echo "$TITLE_LOWER" | grep -qE "plugin|hookify|feature-dev|pr-review|plugin-dev|ralph"; then
+              AGENT="plugin"
+            elif echo "$TITLE_LOWER" | grep -qE "command|ultraplan|thinkback|bughunter|teleport"; then
+              AGENT="command"
+            elif echo "$TITLE_LOWER" | grep -qE "tool|repl|snip|ctx"; then
+              AGENT="tool"
+            elif echo "$TITLE_LOWER" | grep -qE "service|backend|flag"; then
+              AGENT="backend"
+            elif echo "$TITLE_LOWER" | grep -qE "ui|ux|frontend|wizard|dialog"; then
+              AGENT="frontend"
+            fi
+
+            # Create branch name
+            SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | cut -c1-40)
+            BRANCH="feat/issue-${NUMBER}-${SLUG}"
+
+            # Add dispatched label
+            gh issue edit "$NUMBER" --add-label "dispatched,cloud-coder" 2>/dev/null || true
+
+            # Post dispatch comment
+            gh issue comment "$NUMBER" --body "## 🤖 Cloud Coder Dispatched
+
+| Field | Value |
+|-------|-------|
+| **Agent** | $AGENT |
+| **Branch** | \`$BRANCH\` |
+| **Priority** | high |
+| **Dispatched** | $(date -u +%Y-%m-%dT%H:%M:%SZ) |
+| **Dispatcher** | GitHub Action |
+
+⏳ Cloud Coder: Clone repo, checkout branch, implement, commit, push, create PR."
+
+            echo "  ✅ Dispatched as $AGENT → $BRANCH"
+          done <<< "$ISSUES"
+
+          echo ""
+          echo "================================"
+          echo "✅ Dispatch Bridge Complete"
