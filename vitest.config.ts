@@ -4,7 +4,12 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['packages/**/*.test.ts', 'packages/**/*.spec.ts'],
+    include: [
+      'packages/**/*.test.ts',
+      'packages/**/*.spec.ts',
+      'packages/**/src/__tests__/**/*.test.ts',
+      'packages/**/src/__tests__/**/*.spec.ts'
+    ],
     exclude: ['**/node_modules/**', '**/dist/**', '**/missing/**'],
     coverage: {
       provider: 'v8',
@@ -30,7 +35,6 @@ export default defineConfig({
         lines: 80,
         statements: 80,
       },
-    },
-    setupFiles: ['<rootDir>/tests/setup.ts'],
+    }
   },
 });

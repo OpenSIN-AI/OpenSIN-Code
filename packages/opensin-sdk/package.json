@@ -51,7 +51,7 @@
     "dev": "tsc --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "test": "vitest run",
+    "test": "vitest run --config src/__tests__/vitest.config.ts",
     "lint": "echo 'No linter configured yet' && exit 0",
     "start": "node dist/standalone_cli/index.js",
     "test:watch": "vitest",
