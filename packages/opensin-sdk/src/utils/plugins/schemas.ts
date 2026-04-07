@@ -142,10 +142,10 @@ export function validateOfficialNameSource(
     const url = source.url.toLowerCase()
     // Check for HTTPS URL format: https://github.com/opensin-ais/...
     // or SSH format: git@github.com:opensin-ais/...
-    const isHttpsOpenSIN-AIs = url.includes('github.com/opensin-ais/')
-    const isSshOpenSIN-AIs = url.includes('git@github.com:opensin-ais/')
+    const isHttpsOpenSINAIs = url.includes('github.com/opensin-ais/')
+    const isSshOpenSINAIs = url.includes('git@github.com:opensin-ais/')
 
-    if (isHttpsOpenSIN-AIs || isSshOpenSIN-AIs) {
+    if (isHttpsOpenSINAIs || isSshOpenSINAIs) {
       return null // Valid: reserved name from official git URL
     }
 

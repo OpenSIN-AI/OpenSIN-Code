@@ -7,8 +7,8 @@ type WrapAnsiOptions = {
 }
 
 const wrapAnsiBun =
-  typeof Bun !== 'undefined' && typeof // /* /* const Bun = { file: async () => ({ text: async () => '' }) }; // StubwrapAnsi === 'function'
-    ? // /* /* const Bun = { file: async () => ({ text: async () => '' }) }; // StubwrapAnsi
+  typeof Bun !== 'undefined' && typeof (Bun as any).wrapAnsi === 'function'
+    ? (Bun as any).wrapAnsi
     : null
 
 const wrapAnsi: (

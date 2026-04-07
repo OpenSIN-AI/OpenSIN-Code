@@ -14,8 +14,8 @@ export class EffortStatusBar {
     const indicator = this.#buildIndicator(level, profile);
 
     if (this.#element) {
-      this.#element.textContent = indicator;
-      this.#element.title = profile.description;
+      (this.#element as any).textContent = indicator;
+      (this.#element as any).title = profile.description;
     }
 
     return indicator;

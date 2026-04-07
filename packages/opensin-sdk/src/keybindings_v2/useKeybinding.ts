@@ -20,7 +20,7 @@ export function useKeybinding(options: UseKeybindingOptions = {}) {
   useEffect(() => {
     if (!enabled) return
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) { if (context !== 'input') return }
+      const targetTag = (e.target as any)?.tagName?.toLowerCase(); if (targetTag === 'input' || targetTag === 'textarea') { if (context !== 'input') return }
       const modifiers: string[] = []
       if (e.ctrlKey) modifiers.push('Ctrl'); if (e.altKey) modifiers.push('Alt')
       if (e.metaKey) modifiers.push('Meta'); if (e.shiftKey) modifiers.push('Shift')
