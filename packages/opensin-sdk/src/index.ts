@@ -6,6 +6,10 @@
 export { AgentLoop, createAgentLoop, AgentLoopContext } from './agent_loop';
 export type { AgentLoopConfig, AgentLoopResult, ToolHandler } from './agent_loop';
 
+// CLI Agent
+export { CLIAgent, SessionManager, ToolRegistry, createBuiltinTools } from './cli-agent';
+export type { CLIAgentConfig, CLIAgentSession, CLIMessage, CLIContext, CLITool, ToolCallRecord, ToolResult as CLIToolResult, CLICommand, CLICommandOptions, CLIAgentState, CLIEvent } from './cli-agent';
+
 // Model Routing
 export { SmartModelRouter } from './model_routing';
 export type { ModelConfig, RoutingConfig, RoutingDecision, TaskComplexity } from './model_routing';
@@ -52,3 +56,31 @@ export type { SkillMetadata, SkillDefinition, SkillRegistryOptions } from './ski
 // A2A Transport Layer
 export { A2AServer, A2AClient } from './transport';
 export type { A2ATaskPayload, A2ATaskResponse, A2AHealthCheck } from './transport';
+
+// Heartbeat System
+export { HeartbeatSystem, createHeartbeatSystem } from './heartbeat';
+export type { HeartbeatConfig, HeartbeatState, HeartbeatEvent, HeartbeatStatus, QueuedTask, TaskResult, TaskProcessor, TaskQueuePoller } from './heartbeat';
+
+// Failover Model Router
+export { FailoverRouter, createFailoverRouter, OPENSIN_MODELS, DEFAULT_CHAINS } from './model_routing/failover';
+export type { FailoverModelConfig, FailoverChain, FailoverResult, FailoverEvent } from './model_routing/failover';
+
+// Cron Scheduler
+export { CronScheduler, createCronScheduler, parseCronExpression, getNextExecution } from './cron';
+export type { CronTask, CronExecution, CronExecutor, CronEvent } from './cron';
+
+// Approval Hooks
+export { ApprovalHooks, createApprovalHooks, DEFAULT_RULES as DEFAULT_APPROVAL_RULES } from './approval';
+export type { ApprovalRule, ApprovalRequest, ApprovalDecision, ApprovalEvent, RiskLevel, ApprovalCondition } from './approval';
+
+// Agent Orchestrator
+export { AgentOrchestrator, createOrchestrator } from './orchestrator';
+export type { OrchestratorConfig, OrchestratorState, OrchestratorEvent, OrchestratorCallback } from './orchestrator';
+
+// V2 Modules (experimental)
+export * from './hooks_v2';
+export * from './ink_v2';
+export * from './cli_v2';
+export * from './tools_v2';
+export * from './utils_v2';
+export * from './components_v2';

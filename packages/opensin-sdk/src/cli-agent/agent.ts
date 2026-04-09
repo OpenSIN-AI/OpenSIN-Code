@@ -16,11 +16,13 @@ import type {
 import { SessionManager } from "./session.js";
 import { ToolRegistry, createBuiltinTools } from "./tools.js";
 import { createDefaultConfig, validateConfig } from "./config.js";
+import { createOrchestrator, type AgentOrchestrator } from "../orchestrator/index.js";
 
 export class CLIAgent {
   private config: CLIAgentConfig;
   private sessionManager: SessionManager;
   private toolRegistry: ToolRegistry;
+  private orchestrator: AgentOrchestrator;
   private eventListeners: Set<(event: CLIEvent) => void> = new Set();
   private state: CLIAgentState;
   private approvalQueue: ToolCallRecord[] = [];
@@ -31,6 +33,7 @@ export class CLIAgent {
     this.config = createDefaultConfig(config);
     this.sessionManager = new SessionManager();
     this.toolRegistry = new ToolRegistry();
+    this.orchestrator = createOrchestrator();
     this.state = {
       session: this.sessionManager.createSession(this.config),
       config: this.config,
@@ -212,6 +215,10 @@ export class CLIAgent {
     return this.toolRegistry.list();
   }
 
+  getOrchestrator(): AgentOrchestrator {
+    return this.orchestrator;
+  }
+
   private async generateAssistantResponse(userInput: string, files?: string[]): Promise<void> {
     this.state.isStreaming = true;
 
@@ -226,6 +233,16 @@ export class CLIAgent {
 
     const context = this.buildContextString(files);
     const prompt = this.buildPrompt(context, userInput);
+
+    const routing = this.orchestrator.routeModel(prompt, {
+      requiresToolUse: true,
+      preferSpeed: this.config.batchMode,
+      requiresLongContext: Boolean(files && files.length > 3),
+    });
+
+    this.config.model = routing.selectedModel.id;
+    this.config.provider = routing.selectedModel.provider;
+    this.state.config = this.config;
 
     const response = await this.callLLM(prompt);
     assistantMessage.content = response;
@@ -245,11 +262,27 @@ export class CLIAgent {
       const tool = this.toolRegistry.get(toolCall.toolName);
       if (!tool) continue;
 
-      const needsApproval = tool.requiresApproval && !this.config.autoApproveTools.includes(toolCall.toolName);
+      const policy = await this.orchestrator.evaluateAction(toolCall.toolName, toolCall.parameters);
 
-      if (needsApproval && this.config.interactive) {
+      const needsApproval = tool.requiresApproval && !this.config.autoApproveTools.includes(toolCall.toolName);
+      const blockedByPolicy = !policy.approved;
+
+      if ((needsApproval || blockedByPolicy) && this.config.interactive) {
         this.approvalQueue.push(toolCall);
         this.emit({ type: "approval:required", toolCall });
+        continue;
+      }
+
+      if (blockedByPolicy) {
+        toolCall.approved = false;
+        toolCall.result = {
+          success: false,
+          output: "",
+          error: `Tool call blocked by policy (${policy.riskLevel})`,
+          exitCode: 1,
+        };
+        this.sessionManager.addToolCall(this.config.sessionId, toolCall);
+        this.emit({ type: "tool:error", toolCall, error: toolCall.result.error ?? "Tool call blocked by policy" });
         continue;
       }
 
