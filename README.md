@@ -2,6 +2,17 @@
 
 > The autonomous OpenSIN CLI with full browser & computer-use capabilities.
 
+## 🚨 CI/CD MANDAT — ABSOLUTES VERBOT FÜR NORMALE GITHUB ACTIONS
+
+**NIEMALS normale GitHub Actions Runner von GitHub nutzen!** GitHub Actions Billing blockiert unsere Pipelines. Dieses Repository nutzt **ausschließlich** n8n + sin-github-action für CI/CD. Alle Builds laufen auf dem kostenlosen OCI VM (Oracle Cloud Always-Free).
+
+- **GitHub Action:** `OpenSIN-AI/sin-github-action` (curl-only, ~2s)
+- **n8n Webhook:** `http://92.5.60.87:5678/webhook/opensin-ci`
+- **CI Runner:** `opensin-ci-runner.py` als systemd Service auf OCI VM
+- **Vollständige Doku:** [docs.opensin.ai/best-practices/ci-cd-n8n](https://docs.opensin.ai/best-practices/ci-cd-n8n)
+
+**Setup für Repos:** Secret `N8N_CI_WEBHOOK_URL` setzen und `.github/workflows/ci.yml` aus der Doku übernehmen. Keine selbstgeschriebenen GitHub Workflows mit `runs-on: ubuntu-latest` für Build/Test/Lint — immer nur den Delegator verwenden!
+
 ## Features
 
 - **AI-Powered Coding**: Autonomous code generation, refactoring, and debugging
@@ -65,6 +76,12 @@ Full documentation: **[docs.opensin.ai](https://docs.opensin.ai)**
 | Browser Automation | [sinInChrome](https://docs.opensin.ai/sin-in-chrome) |
 | Computer Use | [sin-computer-use](https://docs.opensin.ai/sin-computer-use) |
 | API Reference | [API](https://docs.opensin.ai/api/overview) |
+
+## 🧭 OpenSIN-AI Agent Roadmap
+
+- Feature spec: [OpenSIN-overview/docs/opensin-ai-agent-feature-spec.md](https://github.com/OpenSIN-AI/OpenSIN-overview/blob/main/docs/opensin-ai-agent-feature-spec.md)
+- Comparison guide: [OpenSIN-documentation/docs/guide/opensin-ai-agent-features.md](https://github.com/OpenSIN-AI/OpenSIN-documentation/blob/main/docs/guide/opensin-ai-agent-features.md)
+- This repo now ships the orchestrator-aware OpenSIN-Code runtime and CLI surface.
 
 ## 📚 Documentation
 
