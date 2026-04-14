@@ -6,7 +6,7 @@
 
 BRAIN_CLI="/Users/jeremy/dev/global-brain/src/cli.js"
 BRAIN_ROOT="/Users/jeremy/dev/global-brain"
-PROJECT_ID="OpenSIN-Code-new"
+PROJECT_ID="OpenSIN-Code"
 SESSION_ID="session-$(date +%s)"
 
 # Extract knowledge from the session transcript (runs LLM extraction)
@@ -22,7 +22,7 @@ if [ -n "$PROJECT_ROOT" ]; then
     --root "$BRAIN_ROOT" \
     --project "$PROJECT_ID" \
     --project-root "$PROJECT_ROOT" \
-    2>/dev/null
+  2>/dev/null
 fi
 
 # SIN-BRAIN: Auto-sync after every chat turn — no manual intervention needed
