@@ -3,9 +3,9 @@
 # Loads active context from the persistent brain and injects it
 # into the current OpenCode session as a system-level preamble.
 
-BRAIN_CLI="/Users/jeremy/dev/OpenSIN-Code/src/cli.js"
-BRAIN_ROOT="/Users/jeremy/dev/OpenSIN-Code"
-PROJECT_ID="OpenSIN-Code"
+BRAIN_CLI="/Users/jeremy/dev/global-brain/src/cli.js"
+BRAIN_ROOT="/Users/jeremy/dev/global-brain"
+PROJECT_ID="OpenSIN-Code-clone"
 GOAL_ID="default-goal"
 GOAL_DESC="Continue development"
 
