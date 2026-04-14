@@ -1,0 +1,151 @@
+# ==============================================================================
+# OpenSIN-Code CI/CD — Delegated to n8n via sin-github-action
+# ==============================================================================
+# REPLACES: 15 individual GitHub Actions workflows with ONE dispatcher:
+#   - a2a-cloud-dispatch.yml
+#   - auto-close-duplicates.yml
+#   - backfill-duplicate-comments.yml
+#   - ci.yml
+#   - issue-lifecycle-comment.yml
+#   - issue-opened-dispatch.yml
+#   - issue-triage.yml
+#   - lock-closed-issues.yml
+#   - log-issue-events.yml
+#   - non-write-users-check.yml
+#   - opensin-dedupe-issues.yml
+#   - opensin-issue-triage.yml
+#   - opensin.yml
+#   - remove-autoclose-label.yml
+#   - sweep.yml
+#
+# ARCHITECTURE:
+#   GitHub Event → sin-github-action (curl, ~2s) → n8n @ n8n.delqhi.com
+#   → n8n routes to correct pipeline → OCI VM executes → posts status back
+#
+# WHY:
+#   - 70% of individual workflows were failing
+#   - GitHub Actions billing costs money
+#   - n8n on OCI VM is always-free, unlimited
+#   - Single point of maintenance instead of 15 scattered workflows
+#
+# HOW IT WORKS:
+#   Each trigger event dispatches to n8n with a pipeline name.
+#   n8n workflow (opensin-ci-pipeline.json) routes to the correct handler.
+#   n8n posts commit/issue status back via GitHub API.
+# ==============================================================================
+
+name: 'OpenSIN CI → n8n'
+
+on:
+  # Code events → build/test/lint pipelines
+  push:
+    branches: [main, 'feat/**', 'fix/**']
+  pull_request:
+    branches: [main]
+
+  # Issue events → triage/dispatch pipelines
+  issues:
+    types: [opened, reopened, edited, labeled, unlabeled, closed, commented]
+
+  # PR events → review/dispatch pipelines
+  pull_request_target:
+    types: [opened, reopened, edited, labeled, unlabeled, closed, ready_for_review]
+
+  # Status dispatch → n8n updates back
+  check_run:
+    types: [completed]
+
+  # Discussion events → community pipeline
+  discussion:
+    types: [created, answered]
+
+  # Release events → deploy pipeline
+  release:
+    types: [published]
+
+  # Schedule → maintenance pipeline
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      pipeline:
+        description: 'Pipeline to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - build
+          - test
+          - lint
+          - security
+          - issue-triage
+          - issue-dispatch
+          - pr-review
+          - sweep
+          - maintenance
+
+jobs:
+  # ============================================================================
+  # Route: Code Events → build pipeline
+  # ============================================================================
+  dispatch-code:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: OpenSIN-AI/sin-github-action@main
+        with:
+          n8n_webhook_url: ${{ secrets.N8N_CI_WEBHOOK_URL }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pipeline: ${{ github.event_name == 'push' && 'build' || 'test' }}
+
+  # ============================================================================
+  # Route: Issue Events → issue pipeline
+  # ============================================================================
+  dispatch-issues:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: OpenSIN-AI/sin-github-action@main
+        with:
+          n8n_webhook_url: ${{ secrets.N8N_CI_WEBHOOK_URL }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pipeline: |
+            ${{
+              github.event.action == 'opened' && 'issue-triage' ||
+              github.event.action == 'commented' && 'issue-lifecycle' ||
+              github.event.action == 'labeled' && 'issue-dispatch' ||
+              'issue-triage'
+            }}
+
+  # ============================================================================
+  # Route: PR Events → pr-review pipeline
+  # ============================================================================
+  dispatch-pr:
+    if: github.event_name == 'pull_request_target'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: OpenSIN-AI/sin-github-action@main
+        with:
+          n8n_webhook_url: ${{ secrets.N8N_CI_WEBHOOK_URL }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pipeline: pr-review
+
+  # ============================================================================
+  # Route: Scheduled & Manual → maintenance/sweep
+  # ============================================================================
+  dispatch-maintenance:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: OpenSIN-AI/sin-github-action@main
+        with:
+          n8n_webhook_url: ${{ secrets.N8N_CI_WEBHOOK_URL }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pipeline: ${{ inputs.pipeline || 'maintenance' }}
