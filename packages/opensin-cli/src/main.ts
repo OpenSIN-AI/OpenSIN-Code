@@ -303,40 +303,62 @@ export async function runRepl(
   };
 
   const app = new SessionApp(config);
-  const editor = new LineEditor('> ', getSlashCommandCompletions());
+  const editor = new LineEditor('> ', getSlashCommandCompletisions());
 
   console.log(app.startupBanner());
 
-  while (true) {
-    const outcome = await editor.readLine();
-    
-    if (outcome === ReadOutcome.Submit) {
-      const input = ((outcome as any).text || '').trim();
-      if (!input) continue;
-      if (input === '/exit' || input === '/quit') {
+  // Auto-termination after 1 hour of inactivity
+  const IDLE_TIMEOUT_MS = 60 * 60 * 1000;
+  let idleTimer: NodeJS.Timeout;
+
+  const resetIdleTimer = () => {
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      console.log('\n[Idle timeout] No activity for 1 hour. Shutting down gracefully...');
+      try { app.persistSession().catch(() => {}); } catch (e) {}
+      process.exit(0);
+    }, IDLE_TIMEOUT_MS);
+  };
+
+  resetIdleTimer();
+
+  try {
+    while (true) {
+      const outcome = await editor.readLine();
+      
+      if (outcome === ReadOutcome.Submit) {
+        const input = ((outcome as any).text || '').trim();
+        if (!input) continue;
+        if (input === '/exit' || input === '/quit') {
+          await app.persistSession();
+          break;
+        }
+
+        const command = parseSlashCommandInput(input);
+        if (command) {
+          const shouldPersist = await app.handleReplCommand(command);
+          if (shouldPersist) {
+            await app.persistSession();
+          }
+          resetIdleTimer();
+          continue;
+        }
+
+        editor.pushHistory(input);
+        await app.runPrompt(input, process.stdout);
+        resetIdleTimer();
+        continue;
+      } else if (outcome === ReadOutcome.Cancel) {
+        resetIdleTimer();
+        continue;
+      } else if (outcome === ReadOutcome.Exit) {
         await app.persistSession();
         break;
       }
-
-      const command = parseSlashCommandInput(input);
-      if (command) {
-        const shouldPersist = await app.handleReplCommand(command);
-        if (shouldPersist) {
-          await app.persistSession();
-        }
-        continue;
-      }
-
-      editor.pushHistory(input);
-      await app.runPrompt(input, process.stdout);
-      continue;
-    } else if (outcome === ReadOutcome.Cancel) {
-      continue;
-    } else if (outcome === ReadOutcome.Exit) {
-      await app.persistSession();
       break;
     }
-    break;
+  } finally {
+    if (idleTimer) clearTimeout(idleTimer);
   }
 }
 
