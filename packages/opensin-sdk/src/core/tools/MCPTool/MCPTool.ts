@@ -1,14 +1,14 @@
 import { z } from 'zod/v4'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import type { PermissionResult } from '../../utils/permissions/PermissionResult.js'
-import { isOutputLineTruncated } from '../../utils/terminal.js'
-import { DESCRIPTION, PROMPT } from './prompt.js'
+import { buildTool, type ToolDef } from '../../Tool'
+import { lazySchema } from '../../utils/lazySchema'
+import type { PermissionResult } from '../../utils/permissions/PermissionResult'
+import { isOutputLineTruncated } from '../../utils/terminal'
+import { DESCRIPTION, PROMPT } from './prompt'
 import {
   renderToolResultMessage,
   renderToolUseMessage,
   renderToolUseProgressMessage,
-} from './UI.js'
+} from './UI'
 
 // Allow any input object since MCP tools define their own schemas
 export const inputSchema = lazySchema(() => z.object({}).passthrough())
@@ -22,7 +22,7 @@ type OutputSchema = ReturnType<typeof outputSchema>
 export type Output = z.infer<OutputSchema>
 
 // Re-export MCPProgress from centralized types to break import cycles
-export type { MCPProgress } from '../../types/tools.js'
+export type { MCPProgress } from '../../types/tools'
 
 export const MCPTool = buildTool({
   isMcp: true,

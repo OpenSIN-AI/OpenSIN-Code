@@ -1,24 +1,24 @@
-import { setMainLoopModelOverride } from '../bootstrap/state.js'
+import { setMainLoopModelOverride } from '../bootstrap/state'
 import {
   clearApiKeyHelperCache,
   clearAwsCredentialsCache,
   clearGcpCredentialsCache,
-} from '../utils/auth.js'
-import { getGlobalConfig, saveGlobalConfig } from '../utils/config.js'
-import { toError } from '../utils/errors.js'
-import { logError } from '../utils/log.js'
-import { applyConfigEnvironmentVariables } from '../utils/managedEnv.js'
+} from '../utils/auth'
+import { getGlobalConfig, saveGlobalConfig } from '../utils/config'
+import { toError } from '../utils/errors'
+import { logError } from '../utils/log'
+import { applyConfigEnvironmentVariables } from '../utils/managedEnv'
 import {
   permissionModeFromString,
   toExternalPermissionMode,
-} from '../utils/permissions/PermissionMode.js'
+} from '../utils/permissions/PermissionMode'
 import {
   notifyPermissionModeChanged,
   notifySessionMetadataChanged,
   type SessionExternalMetadata,
-} from '../utils/sessionState.js'
-import { updateSettingsForSource } from '../utils/settings/settings.js'
-import type { AppState } from './AppStateStore.js'
+} from '../utils/sessionState'
+import { updateSettingsForSource } from '../utils/settings/settings'
+import type { AppState } from './AppStateStore'
 
 // Inverse of the push below — restore on worker restart.
 export function externalMetadataToAppState(

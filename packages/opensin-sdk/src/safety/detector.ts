@@ -1,4 +1,4 @@
-import type { SafetyCheck } from './types.js'
+import type { SafetyCheck } from './types'
 
 const DESTRUCTIVE_PATTERNS = [
   { regex: /\brm\s+(-rf?|--no-preserve-root)?\s*\/?/i, risk: 'critical' as const, reason: 'File/directory deletion' },

@@ -20,41 +20,41 @@
 
 import axios from 'axios'
 import { writeFile } from 'fs/promises'
-import isEqual from 'lodash-es/isEqual.js'
-import memoize from 'lodash-es/memoize.js'
+import isEqual from 'lodash-es/isEqual'
+import memoize from 'lodash-es/memoize'
 import { basename, dirname, isAbsolute, join, resolve, sep } from 'path'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import { logForDebugging } from '../debug.js'
-import { isEnvTruthy } from '../envUtils.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import { logForDebugging } from '../debug'
+import { isEnvTruthy } from '../envUtils'
 import {
   ConfigParseError,
   errorMessage,
   getErrnoCode,
   isENOENT,
   toError,
-} from '../errors.js'
-import { execFileNoThrow, execFileNoThrowWithCwd } from '../execFileNoThrow.js'
-import { getFsImplementation } from '../fsOperations.js'
-import { gitExe } from '../git.js'
-import { logError } from '../log.js'
+} from '../errors'
+import { execFileNoThrow, execFileNoThrowWithCwd } from '../execFileNoThrow'
+import { getFsImplementation } from '../fsOperations'
+import { gitExe } from '../git'
+import { logError } from '../log'
 import {
   getInitialSettings,
   getSettingsForSource,
   updateSettingsForSource,
-} from '../settings/settings.js'
-import type { SettingsJson } from '../settings/types.js'
+} from '../settings/settings'
+import type { SettingsJson } from '../settings/types'
 import {
   jsonParse,
   jsonStringify,
   writeFileSync_DEPRECATED,
-} from '../slowOperations.js'
+} from '../slowOperations'
 import {
   getAddDirEnabledPlugins,
   getAddDirExtraMarketplaces,
-} from './addDirPluginSettings.js'
-import { markPluginVersionOrphaned } from './cacheUtils.js'
-import { classifyFetchError, logPluginFetch } from './fetchTelemetry.js'
-import { removeAllPluginsForMarketplace } from './installedPluginsManager.js'
+} from './addDirPluginSettings'
+import { markPluginVersionOrphaned } from './cacheUtils'
+import { classifyFetchError, logPluginFetch } from './fetchTelemetry'
+import { removeAllPluginsForMarketplace } from './installedPluginsManager'
 import {
   extractHostFromSource,
   formatSourceForDisplay,
@@ -62,19 +62,19 @@ import {
   getStrictKnownMarketplaces,
   isSourceAllowedByPolicy,
   isSourceInBlocklist,
-} from './marketplaceHelpers.js'
+} from './marketplaceHelpers'
 import {
   OFFICIAL_MARKETPLACE_NAME,
   OFFICIAL_MARKETPLACE_SOURCE,
-} from './officialMarketplace.js'
-import { fetchOfficialMarketplaceFromGcs } from './officialMarketplaceGcs.js'
+} from './officialMarketplace'
+import { fetchOfficialMarketplaceFromGcs } from './officialMarketplaceGcs'
 import {
   deletePluginDataDir,
   getPluginSeedDirs,
   getPluginsDirectory,
-} from './pluginDirectories.js'
-import { parsePluginIdentifier } from './pluginIdentifier.js'
-import { deletePluginOptions } from './pluginOptionsStorage.js'
+} from './pluginDirectories'
+import { parsePluginIdentifier } from './pluginIdentifier'
+import { deletePluginOptions } from './pluginOptionsStorage'
 import {
   isLocalMarketplaceSource,
   type KnownMarketplace,
@@ -85,7 +85,7 @@ import {
   type PluginMarketplaceEntry,
   PluginMarketplaceSchema,
   validateOfficialNameSource,
-} from './schemas.js'
+} from './schemas'
 
 /**
  * Result of loading and caching a marketplace

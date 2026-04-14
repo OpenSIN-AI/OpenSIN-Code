@@ -1,23 +1,23 @@
 import axios from 'axios'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { getOauthAccountInfo, isConsumerSubscriber } from 'src/utils/auth.js'
-import { logForDebugging } from 'src/utils/debug.js'
-import { gracefulShutdown } from 'src/utils/gracefulShutdown.js'
-import { isEssentialTrafficOnly } from 'src/utils/privacyLevel.js'
-import { writeToStderr } from 'src/utils/process.js'
-import { getOauthConfig } from '../../constants/oauth.js'
-import { getGlobalConfig, saveGlobalConfig } from '../../utils/config.js'
+} from 'src/services/analytics/index'
+import { getOauthAccountInfo, isConsumerSubscriber } from 'src/utils/auth'
+import { logForDebugging } from 'src/utils/debug'
+import { gracefulShutdown } from 'src/utils/gracefulShutdown'
+import { isEssentialTrafficOnly } from 'src/utils/privacyLevel'
+import { writeToStderr } from 'src/utils/process'
+import { getOauthConfig } from '../../constants/oauth'
+import { getGlobalConfig, saveGlobalConfig } from '../../utils/config'
 import {
   getAuthHeaders,
   getUserAgent,
   withOAuth401Retry,
-} from '../../utils/http.js'
-import { logError } from '../../utils/log.js'
-import { getClaudeCodeUserAgent } from '../../utils/userAgent.js'
+} from '../../utils/http'
+import { logError } from '../../utils/log'
+import { getClaudeCodeUserAgent } from '../../utils/userAgent'
 
 // Cache expiration: 24 hours
 const GROVE_CACHE_EXPIRATION_MS = 24 * 60 * 60 * 1000

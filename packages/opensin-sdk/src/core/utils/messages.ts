@@ -13,31 +13,31 @@ import type {
   ToolUseBlockParam,
 } from '@anthropic-ai/sdk/resources/index.mjs'
 import { randomUUID, type UUID } from 'crypto'
-import isObject from 'lodash-es/isObject.js'
-import last from 'lodash-es/last.js'
+import isObject from 'lodash-es/isObject'
+import last from 'lodash-es/last'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata.js'
-import type { AgentId } from 'src/types/ids.js'
-import { companionIntroText } from '../buddy/prompt.js'
-import { NO_CONTENT_MESSAGE } from '../constants/messages.js'
-import { OUTPUT_STYLE_CONFIG } from '../constants/outputStyles.js'
-import { isAutoMemoryEnabled } from '../memdir/paths.js'
+} from 'src/services/analytics/index'
+import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata'
+import type { AgentId } from 'src/types/ids'
+import { companionIntroText } from '../buddy/prompt'
+import { NO_CONTENT_MESSAGE } from '../constants/messages'
+import { OUTPUT_STYLE_CONFIG } from '../constants/outputStyles'
+import { isAutoMemoryEnabled } from '../memdir/paths'
 import {
   checkStatsigFeatureGate_CACHED_MAY_BE_STALE,
   getFeatureValue_CACHED_MAY_BE_STALE,
-} from '../services/analytics/growthbook.js'
+} from '../services/analytics/growthbook'
 import {
   getImageTooLargeErrorMessage,
   getPdfInvalidErrorMessage,
   getPdfPasswordProtectedErrorMessage,
   getPdfTooLargeErrorMessage,
   getRequestTooLargeErrorMessage,
-} from '../services/api/errors.js'
-import type { AnyObject, Progress } from '../Tool.js'
-import { isConnectorTextBlock } from '../types/connectorText.js'
+} from '../services/api/errors'
+import type { AnyObject, Progress } from '../Tool'
+import { isConnectorTextBlock } from '../types/connectorText'
 import type {
   AssistantMessage,
   AttachmentMessage,
@@ -70,20 +70,20 @@ import type {
   TombstoneMessage,
   ToolUseSummaryMessage,
   UserMessage,
-} from '../types/message.js'
-import { isAdvisorBlock } from './advisor.js'
-import { isAgentSwarmsEnabled } from './agentSwarmsEnabled.js'
-import { count } from './array.js'
+} from '../types/message'
+import { isAdvisorBlock } from './advisor'
+import { isAgentSwarmsEnabled } from './agentSwarmsEnabled'
+import { count } from './array'
 import {
   type Attachment,
   type HookAttachment,
   type HookPermissionDecisionAttachment,
   memoryHeader,
-} from './attachments.js'
-import { quote } from './bash/shellQuote.js'
-import { formatNumber, formatTokens } from './format.js'
-import { getPewterLedgerVariant } from './planModeV2.js'
-import { jsonStringify } from './slowOperations.js'
+} from './attachments'
+import { quote } from './bash/shellQuote'
+import { formatNumber, formatTokens } from './format'
+import { getPewterLedgerVariant } from './planModeV2'
+import { jsonStringify } from './slowOperations'
 
 // Hook attachments that have a hookName field (excludes HookPermissionDecisionAttachment)
 type HookAttachmentWithName = Exclude<
@@ -102,76 +102,76 @@ import type {
 import type {
   HookEvent,
   SDKAssistantMessageError,
-} from 'src/entrypoints/agentSdkTypes.js'
-import { EXPLORE_AGENT } from 'src/tools/AgentTool/built-in/exploreAgent.js'
-import { PLAN_AGENT } from 'src/tools/AgentTool/built-in/planAgent.js'
-import { areExplorePlanAgentsEnabled } from 'src/tools/AgentTool/builtInAgents.js'
-import { AGENT_TOOL_NAME } from 'src/tools/AgentTool/constants.js'
-import { ASK_USER_QUESTION_TOOL_NAME } from 'src/tools/AskUserQuestionTool/prompt.js'
-import { BashTool } from 'src/tools/BashTool/BashTool.js'
-import { ExitPlanModeV2Tool } from 'src/tools/ExitPlanModeTool/ExitPlanModeV2Tool.js'
-import { FileEditTool } from 'src/tools/FileEditTool/FileEditTool.js'
+} from 'src/entrypoints/agentSdkTypes'
+import { EXPLORE_AGENT } from 'src/tools/AgentTool/built-in/exploreAgent'
+import { PLAN_AGENT } from 'src/tools/AgentTool/built-in/planAgent'
+import { areExplorePlanAgentsEnabled } from 'src/tools/AgentTool/builtInAgents'
+import { AGENT_TOOL_NAME } from 'src/tools/AgentTool/constants'
+import { ASK_USER_QUESTION_TOOL_NAME } from 'src/tools/AskUserQuestionTool/prompt'
+import { BashTool } from 'src/tools/BashTool/BashTool'
+import { ExitPlanModeV2Tool } from 'src/tools/ExitPlanModeTool/ExitPlanModeV2Tool'
+import { FileEditTool } from 'src/tools/FileEditTool/FileEditTool'
 import {
   FILE_READ_TOOL_NAME,
   MAX_LINES_TO_READ,
-} from 'src/tools/FileReadTool/prompt.js'
-import { FileWriteTool } from 'src/tools/FileWriteTool/FileWriteTool.js'
-import { GLOB_TOOL_NAME } from 'src/tools/GlobTool/prompt.js'
-import { GREP_TOOL_NAME } from 'src/tools/GrepTool/prompt.js'
-import type { DeepImmutable } from 'src/types/utils.js'
-import { getStrictToolResultPairing } from '../bootstrap/state.js'
-import type { SpinnerMode } from '../components/Spinner.js'
+} from 'src/tools/FileReadTool/prompt'
+import { FileWriteTool } from 'src/tools/FileWriteTool/FileWriteTool'
+import { GLOB_TOOL_NAME } from 'src/tools/GlobTool/prompt'
+import { GREP_TOOL_NAME } from 'src/tools/GrepTool/prompt'
+import type { DeepImmutable } from 'src/types/utils'
+import { getStrictToolResultPairing } from '../bootstrap/state'
+import type { SpinnerMode } from '../components/Spinner'
 import {
   COMMAND_ARGS_TAG,
   COMMAND_MESSAGE_TAG,
   COMMAND_NAME_TAG,
   LOCAL_COMMAND_CAVEAT_TAG,
   LOCAL_COMMAND_STDOUT_TAG,
-} from '../constants/xml.js'
-import { DiagnosticTrackingService } from '../services/diagnosticTracking.js'
+} from '../constants/xml'
+import { DiagnosticTrackingService } from '../services/diagnosticTracking'
 import {
   findToolByName,
   type Tool,
   type Tools,
   toolMatchesName,
-} from '../Tool.js'
+} from '../Tool'
 import {
   FileReadTool,
   type Output as FileReadToolOutput,
-} from '../tools/FileReadTool/FileReadTool.js'
-import { SEND_MESSAGE_TOOL_NAME } from '../tools/SendMessageTool/constants.js'
-import { TASK_CREATE_TOOL_NAME } from '../tools/TaskCreateTool/constants.js'
-import { TASK_OUTPUT_TOOL_NAME } from '../tools/TaskOutputTool/constants.js'
-import { TASK_UPDATE_TOOL_NAME } from '../tools/TaskUpdateTool/constants.js'
-import type { PermissionMode } from '../types/permissions.js'
-import { normalizeToolInput, normalizeToolInputForAPI } from './api.js'
-import { getCurrentProjectConfig } from './config.js'
-import { logAntError, logForDebugging } from './debug.js'
-import { stripIdeContextTags } from './displayTags.js'
-import { hasEmbeddedSearchTools } from './embeddedTools.js'
-import { formatFileSize } from './format.js'
-import { validateImagesForAPI } from './imageValidation.js'
-import { safeParseJSON } from './json.js'
-import { logError, logMCPDebug } from './log.js'
-import { normalizeLegacyToolName } from './permissions/permissionRuleParser.js'
+} from '../tools/FileReadTool/FileReadTool'
+import { SEND_MESSAGE_TOOL_NAME } from '../tools/SendMessageTool/constants'
+import { TASK_CREATE_TOOL_NAME } from '../tools/TaskCreateTool/constants'
+import { TASK_OUTPUT_TOOL_NAME } from '../tools/TaskOutputTool/constants'
+import { TASK_UPDATE_TOOL_NAME } from '../tools/TaskUpdateTool/constants'
+import type { PermissionMode } from '../types/permissions'
+import { normalizeToolInput, normalizeToolInputForAPI } from './api'
+import { getCurrentProjectConfig } from './config'
+import { logAntError, logForDebugging } from './debug'
+import { stripIdeContextTags } from './displayTags'
+import { hasEmbeddedSearchTools } from './embeddedTools'
+import { formatFileSize } from './format'
+import { validateImagesForAPI } from './imageValidation'
+import { safeParseJSON } from './json'
+import { logError, logMCPDebug } from './log'
+import { normalizeLegacyToolName } from './permissions/permissionRuleParser'
 import {
   getPlanModeV2AgentCount,
   getPlanModeV2ExploreAgentCount,
   isPlanModeInterviewPhaseEnabled,
-} from './planModeV2.js'
-import { escapeRegExp } from './stringUtils.js'
-import { isTodoV2Enabled } from './tasks.js'
+} from './planModeV2'
+import { escapeRegExp } from './stringUtils'
+import { isTodoV2Enabled } from './tasks'
 
 // Lazy import to avoid circular dependency (teammateMailbox -> teammate -> ... -> messages)
-function getTeammateMailbox(): typeof import('./teammateMailbox.js') {
+function getTeammateMailbox(): typeof import('./teammateMailbox') {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require('./teammateMailbox.js')
+  return require('./teammateMailbox')
 }
 
 import {
   isToolReferenceBlock,
   isToolSearchEnabledOptimistic,
-} from './toolSearch.js'
+} from './toolSearch'
 
 const MEMORY_CORRECTION_HINT =
   "\n\nNote: The user's next message may contain a correction or preference. Pay close attention — if they explain what went wrong or how they'd prefer you to work, consider saving that to memory for future sessions."
@@ -2351,7 +2351,7 @@ export function normalizeMessagesForAPI(
   if (feature('HISTORY_SNIP') && process.env.NODE_ENV !== 'test') {
     const { isSnipRuntimeEnabled } =
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      require('../services/compact/snipCompact.js') as typeof import('../services/compact/snipCompact.js')
+      require('../services/compact/snipCompact') as typeof import('../services/compact/snipCompact')
     if (isSnipRuntimeEnabled()) {
       for (let i = 0; i < sanitized.length; i++) {
         if (sanitized[i]!.type === 'user') {
@@ -2421,7 +2421,7 @@ export function mergeUserMessages(a: UserMessage, b: UserMessage): UserMessage {
     // for all ants.
     const { isSnipRuntimeEnabled } =
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      require('../services/compact/snipCompact.js') as typeof import('../services/compact/snipCompact.js')
+      require('../services/compact/snipCompact') as typeof import('../services/compact/snipCompact')
     if (isSnipRuntimeEnabled()) {
       return {
         ...a,
@@ -4149,7 +4149,7 @@ You have exited auto mode. The user may now want to interact more directly. You 
       if (feature('HISTORY_SNIP')) {
         const { SNIP_NUDGE_TEXT } =
           // eslint-disable-next-line @typescript-eslint/no-require-imports
-          require('../services/compact/snipCompact.js') as typeof import('../services/compact/snipCompact.js')
+          require('../services/compact/snipCompact') as typeof import('../services/compact/snipCompact')
         return wrapMessagesInSystemReminder([
           createUserMessage({
             content: SNIP_NUDGE_TEXT,
@@ -4648,7 +4648,7 @@ export function getMessagesAfterCompactBoundary<
   if (!options?.includeSnipped && feature('HISTORY_SNIP')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
     const { projectSnippedView } =
-      require('../services/compact/snipProjection.js') as typeof import('../services/compact/snipProjection.js')
+      require('../services/compact/snipProjection') as typeof import('../services/compact/snipProjection')
     /* eslint-enable @typescript-eslint/no-require-imports */
     return projectSnippedView(sliced as Message[]) as T[]
   }

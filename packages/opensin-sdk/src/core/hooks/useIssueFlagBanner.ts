@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react'
-import { BASH_TOOL_NAME } from '../tools/BashTool/toolName.js'
-import type { Message } from '../types/message.js'
-import { getUserMessageText } from '../utils/messages.js'
+import { BASH_TOOL_NAME } from '../tools/BashTool/toolName'
+import type { Message } from '../types/message'
+import { getUserMessageText } from '../utils/messages'
 
 const EXTERNAL_COMMAND_PATTERNS = [
   /\bcurl\b/,

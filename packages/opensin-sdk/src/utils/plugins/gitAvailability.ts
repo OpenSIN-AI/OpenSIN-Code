@@ -5,8 +5,8 @@
  * provides a memoized check to determine if git is available on the system.
  */
 
-import memoize from 'lodash-es/memoize.js'
-import { which } from '../which.js'
+import memoize from 'lodash-es/memoize'
+import { which } from '../which'
 
 /**
  * Check if a command is available in PATH.

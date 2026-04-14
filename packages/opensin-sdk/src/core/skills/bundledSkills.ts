@@ -2,11 +2,11 @@ import type { ContentBlockParam } from '@anthropic-ai/sdk/resources/index.mjs'
 import { constants as fsConstants } from 'fs'
 import { mkdir, open } from 'fs/promises'
 import { dirname, isAbsolute, join, normalize, sep as pathSep } from 'path'
-import type { ToolUseContext } from '../Tool.js'
-import type { Command } from '../types/command.js'
-import { logForDebugging } from '../utils/debug.js'
-import { getBundledSkillsRoot } from '../utils/permissions/filesystem.js'
-import type { HooksSettings } from '../utils/settings/types.js'
+import type { ToolUseContext } from '../Tool'
+import type { Command } from '../types/command'
+import { logForDebugging } from '../utils/debug'
+import { getBundledSkillsRoot } from '../utils/permissions/filesystem'
+import type { HooksSettings } from '../utils/settings/types'
 
 /**
  * Definition for a bundled skill that ships with the CLI.

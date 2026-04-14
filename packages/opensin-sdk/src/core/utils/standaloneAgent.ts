@@ -7,8 +7,8 @@
  * precedence.
  */
 
-import type { AppState } from '../state/AppState.js'
-import { getTeamName } from './teammate.js'
+import type { AppState } from '../state/AppState'
+import { getTeamName } from './teammate'
 
 /**
  * Returns the standalone agent name if set and not a swarm teammate.

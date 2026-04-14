@@ -1,5 +1,5 @@
-import type { SettingSource } from 'src/utils/settings/constants.js'
-import type { AgentDefinition } from '../../tools/AgentTool/loadAgentsDir.js'
+import type { SettingSource } from 'src/utils/settings/constants'
+import type { AgentDefinition } from '../../tools/AgentTool/loadAgentsDir'
 
 export const AGENT_PATHS = {
   FOLDER_NAME: '.opensin',

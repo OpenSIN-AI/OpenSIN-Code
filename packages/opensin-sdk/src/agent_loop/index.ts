@@ -4,9 +4,9 @@
  * Core agent loop: Query input → API call → Tool execution → Response loop.
  */
 
-export { AgentLoop, createAgentLoop } from './agent_loop.js';
-export { AgentLoopContext, estimateMessageTokens, estimateTotalTokens } from './context.js';
-export { ToolRegistry, createToolRegistry, type ToolHandler } from './tool_registry.js';
+export { AgentLoop, createAgentLoop } from './agent_loop';
+export { AgentLoopContext, estimateMessageTokens, estimateTotalTokens } from './context';
+export { ToolRegistry, createToolRegistry, type ToolHandler } from './tool_registry';
 export {
   toNDJSONLine,
   emitNDJSON,
@@ -14,7 +14,7 @@ export {
   parseNDJSONLine,
   parseNDJSONStream,
   streamNDJSON,
-} from './ndjson.js';
+} from './ndjson';
 
 export type {
   AgentEvent,
@@ -27,6 +27,6 @@ export type {
   LLMCaller,
   LLMStreamCallback,
   AgentLoopResult,
-} from './types.js';
+} from './types';
 
-export { DEFAULT_AGENT_LOOP_CONFIG } from './types.js';
+export { DEFAULT_AGENT_LOOP_CONFIG } from './types';

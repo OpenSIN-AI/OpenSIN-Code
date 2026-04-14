@@ -1,6 +1,6 @@
-// highlight.js's type defs carry `/// <reference lib="dom" />`. SSETransport,
+// highlight's type defs carry `/// <reference lib="dom" />`. SSETransport,
 // mcp/client, ssh, dumpPrompts use DOM types (TextDecodeOptions, RequestInfo)
-// that only typecheck because this file's `typeof import('highlight.js')` pulls
+// that only typecheck because this file's `typeof import('highlight')` pulls
 // lib.dom in. tsconfig has lib: ["ESNext"] only — fixing the actual DOM-type
 // deps is a separate sweep; this ref preserves the status quo.
 /// <reference lib="dom" />
@@ -18,13 +18,13 @@ export type CliHighlight = {
 // faulted in.
 let cliHighlightPromise: Promise<CliHighlight | null> | undefined
 
-let loadedGetLanguage: typeof import('highlight.js').getLanguage | undefined
+let loadedGetLanguage: typeof import('highlight').getLanguage | undefined
 
 async function loadCliHighlight(): Promise<CliHighlight | null> {
   try {
     const cliHighlight = await import('cli-highlight')
     // cache hit — cli-highlight already loaded highlight.js
-    const highlightJs = await import('highlight.js')
+    const highlightJs = await import('highlight')
     loadedGetLanguage = highlightJs.getLanguage
     return {
       highlight: cliHighlight.highlight,
@@ -42,7 +42,7 @@ export function getCliHighlightPromise(): Promise<CliHighlight | null> {
 
 /**
  * eg. "foo/bar.ts" → "TypeScript". Awaits the shared cli-highlight load,
- * then reads highlight.js's language registry. All callers are telemetry
+ * then reads highlight's language registry. All callers are telemetry
  * (OTel counter attributes, permission-dialog unary events) — none block
  * on this, they fire-and-forget or the consumer already handles Promise<string>.
  */

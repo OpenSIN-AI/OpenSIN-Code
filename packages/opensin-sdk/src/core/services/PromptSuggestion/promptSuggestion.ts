@@ -1,30 +1,30 @@
-import { getIsNonInteractiveSession } from '../../bootstrap/state.js'
-import type { AppState } from '../../state/AppState.js'
-import type { Message } from '../../types/message.js'
-import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled.js'
-import { count } from '../../utils/array.js'
-import { isEnvDefinedFalsy, isEnvTruthy } from '../../utils/envUtils.js'
-import { toError } from '../../utils/errors.js'
+import { getIsNonInteractiveSession } from '../../bootstrap/state'
+import type { AppState } from '../../state/AppState'
+import type { Message } from '../../types/message'
+import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled'
+import { count } from '../../utils/array'
+import { isEnvDefinedFalsy, isEnvTruthy } from '../../utils/envUtils'
+import { toError } from '../../utils/errors'
 import {
   type CacheSafeParams,
   createCacheSafeParams,
   runForkedAgent,
-} from '../../utils/forkedAgent.js'
-import type { REPLHookContext } from '../../utils/hooks/postSamplingHooks.js'
-import { logError } from '../../utils/log.js'
+} from '../../utils/forkedAgent'
+import type { REPLHookContext } from '../../utils/hooks/postSamplingHooks'
+import { logError } from '../../utils/log'
 import {
   createUserMessage,
   getLastAssistantMessage,
-} from '../../utils/messages.js'
-import { getInitialSettings } from '../../utils/settings/settings.js'
-import { isTeammate } from '../../utils/teammate.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook.js'
+} from '../../utils/messages'
+import { getInitialSettings } from '../../utils/settings/settings'
+import { isTeammate } from '../../utils/teammate'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
-import { currentLimits } from '../claudeAiLimits.js'
-import { isSpeculationEnabled, startSpeculation } from './speculation.js'
+} from '../analytics/index'
+import { currentLimits } from '../claudeAiLimits'
+import { isSpeculationEnabled, startSpeculation } from './speculation'
 
 let currentAbortController: AbortController | null = null
 

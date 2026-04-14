@@ -21,27 +21,27 @@
 import { mkdir, readdir, readFile, unlink, writeFile } from 'fs/promises'
 import { join } from 'path'
 import { z } from 'zod/v4'
-import { logForDebugging } from '../debug.js'
-import { getErrnoCode } from '../errors.js'
-import { lazySchema } from '../lazySchema.js'
-import * as lockfile from '../lockfile.js'
-import { logError } from '../log.js'
-import type { PermissionUpdate } from '../permissions/PermissionUpdateSchema.js'
-import { jsonParse, jsonStringify } from '../slowOperations.js'
+import { logForDebugging } from '../debug'
+import { getErrnoCode } from '../errors'
+import { lazySchema } from '../lazySchema'
+import * as lockfile from '../lockfile'
+import { logError } from '../log'
+import type { PermissionUpdate } from '../permissions/PermissionUpdateSchema'
+import { jsonParse, jsonStringify } from '../slowOperations'
 import {
   getAgentId,
   getAgentName,
   getTeammateColor,
   getTeamName,
-} from '../teammate.js'
+} from '../teammate'
 import {
   createPermissionRequestMessage,
   createPermissionResponseMessage,
   createSandboxPermissionRequestMessage,
   createSandboxPermissionResponseMessage,
   writeToMailbox,
-} from '../teammateMailbox.js'
-import { getTeamDir, readTeamFileAsync } from './teamHelpers.js'
+} from '../teammateMailbox'
+import { getTeamDir, readTeamFileAsync } from './teamHelpers'
 
 /**
  * Full request schema for a permission request from a worker to the leader

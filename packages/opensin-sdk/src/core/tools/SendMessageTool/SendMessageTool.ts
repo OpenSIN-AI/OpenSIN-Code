@@ -1,29 +1,29 @@
 import { feature } from 'bun:bundle'
 import { z } from 'zod/v4'
-import { isReplBridgeActive } from '../../bootstrap/state.js'
-import { getReplBridgeHandle } from '../../bridge/replBridgeHandle.js'
-import type { Tool, ToolUseContext } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { findTeammateTaskByAgentId } from '../../tasks/InProcessTeammateTask/InProcessTeammateTask.js'
+import { isReplBridgeActive } from '../../bootstrap/state'
+import { getReplBridgeHandle } from '../../bridge/replBridgeHandle'
+import type { Tool, ToolUseContext } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
+import { findTeammateTaskByAgentId } from '../../tasks/InProcessTeammateTask/InProcessTeammateTask'
 import {
   isLocalAgentTask,
   queuePendingMessage,
-} from '../../tasks/LocalAgentTask/LocalAgentTask.js'
-import { isMainSessionTask } from '../../tasks/LocalMainSessionTask.js'
-import { toAgentId } from '../../types/ids.js'
-import { generateRequestId } from '../../utils/agentId.js'
-import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { errorMessage } from '../../utils/errors.js'
-import { truncate } from '../../utils/format.js'
-import { gracefulShutdown } from '../../utils/gracefulShutdown.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { parseAddress } from '../../utils/peerAddress.js'
-import { semanticBoolean } from '../../utils/semanticBoolean.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import type { BackendType } from '../../utils/swarm/backends/types.js'
-import { TEAM_LEAD_NAME } from '../../utils/swarm/constants.js'
-import { readTeamFileAsync } from '../../utils/swarm/teamHelpers.js'
+} from '../../tasks/LocalAgentTask/LocalAgentTask'
+import { isMainSessionTask } from '../../tasks/LocalMainSessionTask'
+import { toAgentId } from '../../types/ids'
+import { generateRequestId } from '../../utils/agentId'
+import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled'
+import { logForDebugging } from '../../utils/debug'
+import { errorMessage } from '../../utils/errors'
+import { truncate } from '../../utils/format'
+import { gracefulShutdown } from '../../utils/gracefulShutdown'
+import { lazySchema } from '../../utils/lazySchema'
+import { parseAddress } from '../../utils/peerAddress'
+import { semanticBoolean } from '../../utils/semanticBoolean'
+import { jsonStringify } from '../../utils/slowOperations'
+import type { BackendType } from '../../utils/swarm/backends/types'
+import { TEAM_LEAD_NAME } from '../../utils/swarm/constants'
+import { readTeamFileAsync } from '../../utils/swarm/teamHelpers'
 import {
   getAgentId,
   getAgentName,
@@ -31,17 +31,17 @@ import {
   getTeamName,
   isTeamLead,
   isTeammate,
-} from '../../utils/teammate.js'
+} from '../../utils/teammate'
 import {
   createShutdownApprovedMessage,
   createShutdownRejectedMessage,
   createShutdownRequestMessage,
   writeToMailbox,
-} from '../../utils/teammateMailbox.js'
-import { resumeAgentBackground } from '../AgentTool/resumeAgent.js'
-import { SEND_MESSAGE_TOOL_NAME } from './constants.js'
-import { DESCRIPTION, getPrompt } from './prompt.js'
-import { renderToolResultMessage, renderToolUseMessage } from './UI.js'
+} from '../../utils/teammateMailbox'
+import { resumeAgentBackground } from '../AgentTool/resumeAgent'
+import { SEND_MESSAGE_TOOL_NAME } from './constants'
+import { DESCRIPTION, getPrompt } from './prompt'
+import { renderToolResultMessage, renderToolUseMessage } from './UI'
 
 const StructuredMessage = lazySchema(() =>
   z.discriminatedUnion('type', [
@@ -756,7 +756,7 @@ export const SendMessageTool: Tool<InputSchema, SendMessageToolOutput> =
           }
           /* eslint-disable @typescript-eslint/no-require-imports */
           const { postInterClaudeMessage } =
-            require('../../bridge/peerSessions.js') as typeof import('../../bridge/peerSessions.js')
+            require('../../bridge/peerSessions') as typeof import('../../bridge/peerSessions')
           /* eslint-enable @typescript-eslint/no-require-imports */
           const result = await postInterClaudeMessage(
             addr.target,
@@ -775,7 +775,7 @@ export const SendMessageTool: Tool<InputSchema, SendMessageToolOutput> =
         if (addr.scheme === 'uds') {
           /* eslint-disable @typescript-eslint/no-require-imports */
           const { sendToUdsSocket } =
-            require('../../utils/udsClient.js') as typeof import('../../utils/udsClient.js')
+            require('../../utils/udsClient') as typeof import('../../utils/udsClient')
           /* eslint-enable @typescript-eslint/no-require-imports */
           try {
             await sendToUdsSocket(addr.target, input.message)

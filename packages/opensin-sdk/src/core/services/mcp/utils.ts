@@ -1,21 +1,21 @@
 import { createHash } from 'crypto'
 import { join } from 'path'
-import { getIsNonInteractiveSession } from '../../bootstrap/state.js'
-import type { Command } from '../../commands.js'
-import type { AgentMcpServerInfo } from '../../components/mcp/types.js'
-import type { Tool } from '../../Tool.js'
-import type { AgentDefinition } from '../../tools/AgentTool/loadAgentsDir.js'
-import { getCwd } from '../../utils/cwd.js'
-import { getGlobalClaudeFile } from '../../utils/env.js'
-import { isSettingSourceEnabled } from '../../utils/settings/constants.js'
+import { getIsNonInteractiveSession } from '../../bootstrap/state'
+import type { Command } from '../../commands'
+import type { AgentMcpServerInfo } from '../../components/mcp/types'
+import type { Tool } from '../../Tool'
+import type { AgentDefinition } from '../../tools/AgentTool/loadAgentsDir'
+import { getCwd } from '../../utils/cwd'
+import { getGlobalClaudeFile } from '../../utils/env'
+import { isSettingSourceEnabled } from '../../utils/settings/constants'
 import {
   getSettings_DEPRECATED,
   hasSkipDangerousModePermissionPrompt,
-} from '../../utils/settings/settings.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { getEnterpriseMcpFilePath, getMcpConfigByName } from './config.js'
-import { mcpInfoFromString } from './mcpStringUtils.js'
-import { normalizeNameForMCP } from './normalization.js'
+} from '../../utils/settings/settings'
+import { jsonStringify } from '../../utils/slowOperations'
+import { getEnterpriseMcpFilePath, getMcpConfigByName } from './config'
+import { mcpInfoFromString } from './mcpStringUtils'
+import { normalizeNameForMCP } from './normalization'
 import {
   type ConfigScope,
   ConfigScopeSchema,
@@ -27,7 +27,7 @@ import {
   type McpWebSocketServerConfig,
   type ScopedMcpServerConfig,
   type ServerResource,
-} from './types.js'
+} from './types'
 
 /**
  * Filters tools by MCP server name

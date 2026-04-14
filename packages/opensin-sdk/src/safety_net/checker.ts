@@ -4,8 +4,8 @@
  * Catches destructive git and filesystem commands before execution.
  */
 
-import type { SafetyRule, SafetyCheck } from './types.js';
-import { DEFAULT_SAFETY_RULES } from './types.js';
+import type { SafetyRule, SafetyCheck } from './types';
+import { DEFAULT_SAFETY_RULES } from './types';
 
 export class SafetyChecker {
   private rules: SafetyRule[];

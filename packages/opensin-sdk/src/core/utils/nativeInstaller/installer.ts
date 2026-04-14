@@ -33,35 +33,35 @@ import { basename, delimiter, dirname, join, resolve } from 'path'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { getMaxVersion, shouldSkipVersion } from '../autoUpdater.js'
-import { registerCleanup } from '../cleanupRegistry.js'
-import { getGlobalConfig, saveGlobalConfig } from '../config.js'
-import { logForDebugging } from '../debug.js'
-import { getCurrentInstallationType } from '../doctorDiagnostic.js'
-import { env } from '../env.js'
-import { envDynamic } from '../envDynamic.js'
-import { isEnvTruthy } from '../envUtils.js'
-import { errorMessage, getErrnoCode, isENOENT, toError } from '../errors.js'
-import { execFileNoThrowWithCwd } from '../execFileNoThrow.js'
-import { getShellType } from '../localInstaller.js'
-import * as lockfile from '../lockfile.js'
-import { logError } from '../log.js'
-import { gt, gte } from '../semver.js'
+} from 'src/services/analytics/index'
+import { getMaxVersion, shouldSkipVersion } from '../autoUpdater'
+import { registerCleanup } from '../cleanupRegistry'
+import { getGlobalConfig, saveGlobalConfig } from '../config'
+import { logForDebugging } from '../debug'
+import { getCurrentInstallationType } from '../doctorDiagnostic'
+import { env } from '../env'
+import { envDynamic } from '../envDynamic'
+import { isEnvTruthy } from '../envUtils'
+import { errorMessage, getErrnoCode, isENOENT, toError } from '../errors'
+import { execFileNoThrowWithCwd } from '../execFileNoThrow'
+import { getShellType } from '../localInstaller'
+import * as lockfile from '../lockfile'
+import { logError } from '../log'
+import { gt, gte } from '../semver'
 import {
   filterClaudeAliases,
   getShellConfigPaths,
   readFileLines,
   writeFileLines,
-} from '../shellConfig.js'
-import { sleep } from '../sleep.js'
+} from '../shellConfig'
+import { sleep } from '../sleep'
 import {
   getUserBinDir,
   getXDGCacheHome,
   getXDGDataHome,
   getXDGStateHome,
-} from '../xdg.js'
-import { downloadVersion, getLatestVersion } from './download.js'
+} from '../xdg'
+import { downloadVersion, getLatestVersion } from './download'
 import {
   acquireProcessLifetimeLock,
   cleanupStaleLocks,
@@ -69,7 +69,7 @@ import {
   isPidBasedLockingEnabled,
   readLockContent,
   withLock,
-} from './pidLock.js'
+} from './pidLock'
 
 export const VERSION_RETENTION_COUNT = 2
 
@@ -1454,7 +1454,7 @@ async function isNpmSymlink(executablePath: string): Promise<boolean> {
   // checking npm prefix isn't guaranteed to work, as prefix can change
   // and users may set --prefix manually when installing
   // thus we use this heuristic:
-  return targetPath.endsWith('.js') || targetPath.includes('node_modules')
+  return targetPath.endsWith('') || targetPath.includes('node_modules')
 }
 
 /**

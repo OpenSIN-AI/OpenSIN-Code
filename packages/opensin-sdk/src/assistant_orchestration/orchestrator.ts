@@ -21,9 +21,9 @@ import type {
   KillOptions,
   Orchestrator,
   OrchestratorEvents,
-} from './types.js'
-import { AssistantLifecycle } from './lifecycle.js'
-import { TaskRouter, createDefaultRouter } from './routing.js'
+} from './types'
+import { AssistantLifecycle } from './lifecycle'
+import { TaskRouter, createDefaultRouter } from './routing'
 
 const DEFAULT_CONFIG: OrchestrationConfig = {
   maxConcurrentAssistants: 10,

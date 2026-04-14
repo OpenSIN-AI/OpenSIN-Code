@@ -13,10 +13,10 @@
 import { feature } from 'bun:bundle'
 import { context as otelContext, type Span, trace } from '@opentelemetry/api'
 import { AsyncLocalStorage } from 'async_hooks'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import type { AssistantMessage, UserMessage } from '../../types/message.js'
-import { isEnvDefinedFalsy, isEnvTruthy } from '../envUtils.js'
-import { getTelemetryAttributes } from '../telemetryAttributes.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import type { AssistantMessage, UserMessage } from '../../types/message'
+import { isEnvDefinedFalsy, isEnvTruthy } from '../envUtils'
+import { getTelemetryAttributes } from '../telemetryAttributes'
 import {
   addBetaInteractionAttributes,
   addBetaLLMRequestAttributes,
@@ -26,7 +26,7 @@ import {
   isBetaTracingEnabled,
   type LLMRequestNewContext,
   truncateContent,
-} from './betaSessionTracing.js'
+} from './betaSessionTracing'
 import {
   endInteractionPerfettoSpan,
   endLLMRequestPerfettoSpan,
@@ -37,7 +37,7 @@ import {
   startLLMRequestPerfettoSpan,
   startToolPerfettoSpan,
   startUserInputPerfettoSpan,
-} from './perfettoTracing.js'
+} from './perfettoTracing'
 
 // Re-export for callers
 export type { Span }

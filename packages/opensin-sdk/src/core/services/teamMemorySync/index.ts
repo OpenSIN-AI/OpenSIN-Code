@@ -33,31 +33,31 @@ import {
   CLAUDE_AI_PROFILE_SCOPE,
   getOauthConfig,
   OAUTH_BETA_HEADER,
-} from '../../constants/oauth.js'
+} from '../../constants/oauth'
 import {
   getTeamMemPath,
   PathTraversalError,
   validateTeamMemKey,
-} from '../../memdir/teamMemPaths.js'
-import { count } from '../../utils/array.js'
+} from '../../memdir/teamMemPaths'
+import { count } from '../../utils/array'
 import {
   checkAndRefreshOAuthTokenIfNeeded,
   getClaudeAIOAuthTokens,
-} from '../../utils/auth.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { classifyAxiosError } from '../../utils/errors.js'
-import { getGithubRepo } from '../../utils/git.js'
+} from '../../utils/auth'
+import { logForDebugging } from '../../utils/debug'
+import { classifyAxiosError } from '../../utils/errors'
+import { getGithubRepo } from '../../utils/git'
 import {
   getAPIProvider,
   isFirstPartyAnthropicBaseUrl,
-} from '../../utils/model/providers.js'
-import { sleep } from '../../utils/sleep.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { getClaudeCodeUserAgent } from '../../utils/userAgent.js'
-import { logEvent } from '../analytics/index.js'
-import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from '../analytics/metadata.js'
-import { getRetryDelay } from '../api/withRetry.js'
-import { scanForSecrets } from './secretScanner.js'
+} from '../../utils/model/providers'
+import { sleep } from '../../utils/sleep'
+import { jsonStringify } from '../../utils/slowOperations'
+import { getClaudeCodeUserAgent } from '../../utils/userAgent'
+import { logEvent } from '../analytics/index'
+import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from '../analytics/metadata'
+import { getRetryDelay } from '../api/withRetry'
+import { scanForSecrets } from './secretScanner'
 import {
   type SkippedSecretFile,
   TeamMemoryDataSchema,
@@ -66,7 +66,7 @@ import {
   type TeamMemorySyncPushResult,
   type TeamMemorySyncUploadResult,
   TeamMemoryTooManyEntriesSchema,
-} from './types.js'
+} from './types'
 
 const TEAM_MEMORY_SYNC_TIMEOUT_MS = 30_000
 // Per-entry size cap — server default from anthropic/anthropic#293258.
@@ -850,7 +850,7 @@ export async function pullTeamMemory(
 
   const filesWritten = await writeRemoteEntriesToLocal(entries)
   if (filesWritten > 0) {
-    const { clearMemoryFileCaches } = await import('../../utils/claudemd.js')
+    const { clearMemoryFileCaches } = await import('../../utils/claudemd')
     clearMemoryFileCaches()
   }
   logForDebugging(`team-memory-sync: pulled ${filesWritten} files`, {

@@ -1,14 +1,14 @@
 import { feature } from 'bun:bundle'
-import { logForDebugging } from '../utils/debug.js'
-import { errorMessage } from '../utils/errors.js'
-import { getDefaultSonnetModel } from '../utils/model/model.js'
-import { sideQuery } from '../utils/sideQuery.js'
-import { jsonParse } from '../utils/slowOperations.js'
+import { logForDebugging } from '../utils/debug'
+import { errorMessage } from '../utils/errors'
+import { getDefaultSonnetModel } from '../utils/model/model'
+import { sideQuery } from '../utils/sideQuery'
+import { jsonParse } from '../utils/slowOperations'
 import {
   formatMemoryManifest,
   type MemoryHeader,
   scanMemoryFiles,
-} from './memoryScan.js'
+} from './memoryScan'
 
 export type RelevantMemory = {
   path: string
@@ -66,7 +66,7 @@ export async function findRelevantMemories(
   if (feature('MEMORY_SHAPE_TELEMETRY')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
     const { logMemoryRecallShape } =
-      require('./memoryShapeTelemetry.js') as typeof import('./memoryShapeTelemetry.js')
+      require('./memoryShapeTelemetry') as typeof import('./memoryShapeTelemetry')
     /* eslint-enable @typescript-eslint/no-require-imports */
     logMemoryRecallShape(memories, selected)
   }

@@ -1,14 +1,14 @@
 import { createHash } from 'crypto'
 import { readFileSync, realpathSync, statSync } from 'fs'
 import { open, readFile, realpath, stat } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { basename, dirname, join, resolve, sep } from 'path'
-import { hasBinaryExtension, isBinaryContent } from '../constants/files.js'
-import { getCwd } from './cwd.js'
-import { logForDebugging } from './debug.js'
-import { logForDiagnosticsNoPII } from './diagLogs.js'
-import { execFileNoThrow } from './execFileNoThrow.js'
-import { getFsImplementation } from './fsOperations.js'
+import { hasBinaryExtension, isBinaryContent } from '../constants/files'
+import { getCwd } from './cwd'
+import { logForDebugging } from './debug'
+import { logForDiagnosticsNoPII } from './diagLogs'
+import { execFileNoThrow } from './execFileNoThrow'
+import { getFsImplementation } from './fsOperations'
 import {
   getCachedBranch,
   getCachedDefaultBranch,
@@ -17,10 +17,10 @@ import {
   getWorktreeCountFromFs,
   isShallowClone as isShallowCloneFs,
   resolveGitDir,
-} from './git/gitFilesystem.js'
-import { logError } from './log.js'
-import { memoizeWithLRU } from './memoize.js'
-import { whichSync } from './which.js'
+} from './git/gitFilesystem'
+import { logError } from './log'
+import { memoizeWithLRU } from './memoize'
+import { whichSync } from './which'
 
 const GIT_ROOT_NOT_FOUND = Symbol('git-root-not-found')
 
@@ -502,7 +502,7 @@ export async function getGitState(): Promise<GitRepoState | null> {
 }
 
 export async function getGithubRepo(): Promise<string | null> {
-  const { parseGitRemote } = await import('./detectRepository.js')
+  const { parseGitRemote } = await import('./detectRepository')
   const remoteUrl = await getRemoteUrl()
   if (!remoteUrl) {
     logForDebugging('Local GitHub repo: unknown')

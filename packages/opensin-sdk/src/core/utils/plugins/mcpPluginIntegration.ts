@@ -1,15 +1,15 @@
 import { join } from 'path'
-import { expandEnvVarsInString } from '../../services/mcp/envExpansion.js'
+import { expandEnvVarsInString } from '../../services/mcp/envExpansion'
 import {
   type McpServerConfig,
   McpServerConfigSchema,
   type ScopedMcpServerConfig,
-} from '../../services/mcp/types.js'
-import type { LoadedPlugin, PluginError } from '../../types/plugin.js'
-import { logForDebugging } from '../debug.js'
-import { errorMessage, isENOENT } from '../errors.js'
-import { getFsImplementation } from '../fsOperations.js'
-import { jsonParse } from '../slowOperations.js'
+} from '../../services/mcp/types'
+import type { LoadedPlugin, PluginError } from '../../types/plugin'
+import { logForDebugging } from '../debug'
+import { errorMessage, isENOENT } from '../errors'
+import { getFsImplementation } from '../fsOperations'
+import { jsonParse } from '../slowOperations'
 import {
   isMcpbSource,
   loadMcpbFile,
@@ -18,14 +18,14 @@ import {
   type UserConfigSchema,
   type UserConfigValues,
   validateUserConfig,
-} from './mcpbHandler.js'
-import { getPluginDataDir } from './pluginDirectories.js'
+} from './mcpbHandler'
+import { getPluginDataDir } from './pluginDirectories'
 import {
   getPluginStorageId,
   loadPluginOptions,
   substitutePluginVariables,
   substituteUserConfigVariables,
-} from './pluginOptionsStorage.js'
+} from './pluginOptionsStorage'
 
 /**
  * Load MCP servers from an MCPB file

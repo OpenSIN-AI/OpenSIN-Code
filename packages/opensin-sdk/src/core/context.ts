@@ -1,21 +1,21 @@
 import { feature } from 'bun:bundle'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import {
   getAdditionalDirectoriesForClaudeMd,
   setCachedClaudeMdContent,
-} from './bootstrap/state.js'
-import { getLocalISODate } from './constants/common.js'
+} from './bootstrap/state'
+import { getLocalISODate } from './constants/common'
 import {
   filterInjectedMemoryFiles,
   getClaudeMds,
   getMemoryFiles,
-} from './utils/claudemd.js'
-import { logForDiagnosticsNoPII } from './utils/diagLogs.js'
-import { isBareMode, isEnvTruthy } from './utils/envUtils.js'
-import { execFileNoThrow } from './utils/execFileNoThrow.js'
-import { getBranch, getDefaultBranch, getIsGit, gitExe } from './utils/git.js'
-import { shouldIncludeGitInstructions } from './utils/gitSettings.js'
-import { logError } from './utils/log.js'
+} from './utils/claudemd'
+import { logForDiagnosticsNoPII } from './utils/diagLogs'
+import { isBareMode, isEnvTruthy } from './utils/envUtils'
+import { execFileNoThrow } from './utils/execFileNoThrow'
+import { getBranch, getDefaultBranch, getIsGit, gitExe } from './utils/git'
+import { shouldIncludeGitInstructions } from './utils/gitSettings'
+import { logError } from './utils/log'
 
 const MAX_STATUS_CHARS = 2000
 

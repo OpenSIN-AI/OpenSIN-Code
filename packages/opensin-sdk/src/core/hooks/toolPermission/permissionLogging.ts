@@ -5,17 +5,17 @@ import { feature } from 'bun:bundle'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata.js'
-import { getCodeEditToolDecisionCounter } from '../../bootstrap/state.js'
-import type { Tool as ToolType, ToolUseContext } from '../../Tool.js'
-import { getLanguageName } from '../../utils/cliHighlight.js'
-import { SandboxManager } from '../../utils/sandbox/sandbox-adapter.js'
-import { logOTelEvent } from '../../utils/telemetry/events.js'
+} from 'src/services/analytics/index'
+import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata'
+import { getCodeEditToolDecisionCounter } from '../../bootstrap/state'
+import type { Tool as ToolType, ToolUseContext } from '../../Tool'
+import { getLanguageName } from '../../utils/cliHighlight'
+import { SandboxManager } from '../../utils/sandbox/sandbox-adapter'
+import { logOTelEvent } from '../../utils/telemetry/events'
 import type {
   PermissionApprovalSource,
   PermissionRejectionSource,
-} from './PermissionContext.js'
+} from './PermissionContext'
 
 type PermissionLogContext = {
   tool: ToolType

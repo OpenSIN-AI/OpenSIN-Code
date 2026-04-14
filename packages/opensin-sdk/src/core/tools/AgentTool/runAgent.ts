@@ -1,34 +1,34 @@
 import { feature } from 'bun:bundle'
 import type { UUID } from 'crypto'
 import { randomUUID } from 'crypto'
-import uniqBy from 'lodash-es/uniqBy.js'
-import { logForDebugging } from 'src/utils/debug.js'
-import { getProjectRoot, getSessionId } from '../../bootstrap/state.js'
-import { getCommand, getSkillToolCommands, hasCommand } from '../../commands.js'
+import uniqBy from 'lodash-es/uniqBy'
+import { logForDebugging } from 'src/utils/debug'
+import { getProjectRoot, getSessionId } from '../../bootstrap/state'
+import { getCommand, getSkillToolCommands, hasCommand } from '../../commands'
 import {
   DEFAULT_AGENT_PROMPT,
   enhanceSystemPromptWithEnvDetails,
-} from '../../constants/prompts.js'
-import type { QuerySource } from '../../constants/querySource.js'
-import { getSystemContext, getUserContext } from '../../context.js'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
-import { query } from '../../query.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import { getDumpPromptsPath } from '../../services/api/dumpPrompts.js'
-import { cleanupAgentTracking } from '../../services/api/promptCacheBreakDetection.js'
+} from '../../constants/prompts'
+import type { QuerySource } from '../../constants/querySource'
+import { getSystemContext, getUserContext } from '../../context'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
+import { query } from '../../query'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import { getDumpPromptsPath } from '../../services/api/dumpPrompts'
+import { cleanupAgentTracking } from '../../services/api/promptCacheBreakDetection'
 import {
   connectToServer,
   fetchToolsForClient,
-} from '../../services/mcp/client.js'
-import { getMcpConfigByName } from '../../services/mcp/config.js'
+} from '../../services/mcp/client'
+import { getMcpConfigByName } from '../../services/mcp/config'
 import type {
   MCPServerConnection,
   ScopedMcpServerConfig,
-} from '../../services/mcp/types.js'
-import type { Tool, Tools, ToolUseContext } from '../../Tool.js'
-import { killShellTasksForAgent } from '../../tasks/LocalShellTask/killShellTasks.js'
-import type { Command } from '../../types/command.js'
-import type { AgentId } from '../../types/ids.js'
+} from '../../services/mcp/types'
+import type { Tool, Tools, ToolUseContext } from '../../Tool'
+import { killShellTasksForAgent } from '../../tasks/LocalShellTask/killShellTasks'
+import type { Command } from '../../types/command'
+import type { AgentId } from '../../types/ids'
 import type {
   AssistantMessage,
   Message,
@@ -39,48 +39,48 @@ import type {
   TombstoneMessage,
   ToolUseSummaryMessage,
   UserMessage,
-} from '../../types/message.js'
-import { createAttachmentMessage } from '../../utils/attachments.js'
-import { AbortError } from '../../utils/errors.js'
-import { getDisplayPath } from '../../utils/file.js'
+} from '../../types/message'
+import { createAttachmentMessage } from '../../utils/attachments'
+import { AbortError } from '../../utils/errors'
+import { getDisplayPath } from '../../utils/file'
 import {
   cloneFileStateCache,
   createFileStateCacheWithSizeLimit,
   READ_FILE_STATE_CACHE_SIZE,
-} from '../../utils/fileStateCache.js'
+} from '../../utils/fileStateCache'
 import {
   type CacheSafeParams,
   createSubagentContext,
-} from '../../utils/forkedAgent.js'
-import { registerFrontmatterHooks } from '../../utils/hooks/registerFrontmatterHooks.js'
-import { clearSessionHooks } from '../../utils/hooks/sessionHooks.js'
-import { executeSubagentStartHooks } from '../../utils/hooks.js'
-import { createUserMessage } from '../../utils/messages.js'
-import { getAgentModel } from '../../utils/model/agent.js'
-import type { ModelAlias } from '../../utils/model/aliases.js'
+} from '../../utils/forkedAgent'
+import { registerFrontmatterHooks } from '../../utils/hooks/registerFrontmatterHooks'
+import { clearSessionHooks } from '../../utils/hooks/sessionHooks'
+import { executeSubagentStartHooks } from '../../utils/hooks'
+import { createUserMessage } from '../../utils/messages'
+import { getAgentModel } from '../../utils/model/agent'
+import type { ModelAlias } from '../../utils/model/aliases'
 import {
   clearAgentTranscriptSubdir,
   recordSidechainTranscript,
   setAgentTranscriptSubdir,
   writeAgentMetadata,
-} from '../../utils/sessionStorage.js'
+} from '../../utils/sessionStorage'
 import {
   isRestrictedToPluginOnly,
   isSourceAdminTrusted,
-} from '../../utils/settings/pluginOnlyPolicy.js'
+} from '../../utils/settings/pluginOnlyPolicy'
 import {
   asSystemPrompt,
   type SystemPrompt,
-} from '../../utils/systemPromptType.js'
+} from '../../utils/systemPromptType'
 import {
   isPerfettoTracingEnabled,
   registerAgent as registerPerfettoAgent,
   unregisterAgent as unregisterPerfettoAgent,
-} from '../../utils/telemetry/perfettoTracing.js'
-import type { ContentReplacementState } from '../../utils/toolResultStorage.js'
-import { createAgentId } from '../../utils/uuid.js'
-import { resolveAgentTools } from './agentToolUtils.js'
-import { type AgentDefinition, isBuiltInAgent } from './loadAgentsDir.js'
+} from '../../utils/telemetry/perfettoTracing'
+import type { ContentReplacementState } from '../../utils/toolResultStorage'
+import { createAgentId } from '../../utils/uuid'
+import { resolveAgentTools } from './agentToolUtils'
+import { type AgentDefinition, isBuiltInAgent } from './loadAgentsDir'
 
 /**
  * Initialize agent-specific MCP servers
@@ -616,7 +616,7 @@ export async function* runAgent({
 
     // Load all skill contents concurrently and add to initial messages
     const { formatSkillLoadingMetadata } = await import(
-      '../../utils/processUserInput/processSlashCommand.js'
+      '../../utils/processUserInput/processSlashCommand'
     )
     const loaded = await Promise.all(
       validSkills.map(async ({ skillName, skill }) => ({
@@ -848,7 +848,7 @@ export async function* runAgent({
     /* eslint-disable @typescript-eslint/no-require-imports */
     if (feature('MONITOR_TOOL')) {
       const mcpMod =
-        require('../../tasks/MonitorMcpTask/MonitorMcpTask.js') as typeof import('../../tasks/MonitorMcpTask/MonitorMcpTask.js')
+        require('../../tasks/MonitorMcpTask/MonitorMcpTask') as typeof import('../../tasks/MonitorMcpTask/MonitorMcpTask')
       mcpMod.killMonitorMcpTasksForAgent(
         agentId,
         toolUseContext.getAppState,

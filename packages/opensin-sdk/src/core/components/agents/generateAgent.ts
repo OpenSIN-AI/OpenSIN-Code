@@ -1,21 +1,21 @@
 import type { ContentBlock } from '@anthropic-ai/sdk/resources/index.mjs'
-import { getUserContext } from 'src/context.js'
-import { queryModelWithoutStreaming } from 'src/services/api/claude.js'
-import { getEmptyToolPermissionContext } from 'src/Tool.js'
-import { AGENT_TOOL_NAME } from 'src/tools/AgentTool/constants.js'
-import { prependUserContext } from 'src/utils/api.js'
+import { getUserContext } from 'src/context'
+import { queryModelWithoutStreaming } from 'src/services/api/claude'
+import { getEmptyToolPermissionContext } from 'src/Tool'
+import { AGENT_TOOL_NAME } from 'src/tools/AgentTool/constants'
+import { prependUserContext } from 'src/utils/api'
 import {
   createUserMessage,
   normalizeMessagesForAPI,
-} from 'src/utils/messages.js'
-import type { ModelName } from 'src/utils/model/model.js'
-import { isAutoMemoryEnabled } from '../../memdir/paths.js'
+} from 'src/utils/messages'
+import type { ModelName } from 'src/utils/model/model'
+import { isAutoMemoryEnabled } from '../../memdir/paths'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { jsonParse } from '../../utils/slowOperations.js'
-import { asSystemPrompt } from '../../utils/systemPromptType.js'
+} from '../../services/analytics/index'
+import { jsonParse } from '../../utils/slowOperations'
+import { asSystemPrompt } from '../../utils/systemPromptType'
 
 type GeneratedAgent = {
   identifier: string

@@ -21,9 +21,9 @@
  * function in this file reduces to a trivial return.
  */
 
-import { getRepoClassCached } from './commitAttribution.js'
-import { getGlobalConfig } from './config.js'
-import { isEnvTruthy } from './envUtils.js'
+import { getRepoClassCached } from './commitAttribution'
+import { getGlobalConfig } from './config'
+import { isEnvTruthy } from './envUtils'
 
 export function isUndercover(): boolean {
   if (process.env.USER_TYPE === 'ant') {

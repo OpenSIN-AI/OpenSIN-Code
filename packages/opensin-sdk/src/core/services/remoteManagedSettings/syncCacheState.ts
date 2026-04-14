@@ -3,7 +3,7 @@
  *
  * Split from syncCache.ts to break the settings.ts → syncCache.ts → auth.ts →
  * settings.ts cycle. auth.ts sits inside the large settings SCC; importing it
- * from settings.ts's own dependency chain pulls hundreds of modules into the
+ * from settings's own dependency chain pulls hundreds of modules into the
  * eagerly-evaluated SCC at startup.
  *
  * This module imports only leaves (path, envUtils, file, json, types,
@@ -22,12 +22,12 @@
  */
 
 import { join } from 'path'
-import { getClaudeConfigHomeDir } from '../../utils/envUtils.js'
-import { readFileSync } from '../../utils/fileRead.js'
-import { stripBOM } from '../../utils/jsonRead.js'
-import { resetSettingsCache } from '../../utils/settings/settingsCache.js'
-import type { SettingsJson } from '../../utils/settings/types.js'
-import { jsonParse } from '../../utils/slowOperations.js'
+import { getClaudeConfigHomeDir } from '../../utils/envUtils'
+import { readFileSync } from '../../utils/fileRead'
+import { stripBOM } from '../../utils/jsonRead'
+import { resetSettingsCache } from '../../utils/settings/settingsCache'
+import type { SettingsJson } from '../../utils/settings/types'
+import { jsonParse } from '../../utils/slowOperations'
 
 const SETTINGS_FILENAME = 'remote-settings.json'
 

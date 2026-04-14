@@ -1,10 +1,10 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 
 const skills = {
   type: 'local-jsx',
   name: 'skills',
   description: 'List available skills',
-  load: () => import('./skills.js'),
+  load: () => import('./skills'),
 } satisfies Command
 
 export default skills

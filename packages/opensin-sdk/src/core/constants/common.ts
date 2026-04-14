@@ -1,4 +1,4 @@
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 
 // This ensures you get the LOCAL date in ISO format
 export function getLocalISODate(): string {

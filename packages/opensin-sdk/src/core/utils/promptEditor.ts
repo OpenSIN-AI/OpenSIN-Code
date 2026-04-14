@@ -2,15 +2,15 @@ import {
   expandPastedTextRefs,
   formatPastedTextRef,
   getPastedTextRefNumLines,
-} from '../history.js'
-import instances from '../ink/instances.js'
-import type { PastedContent } from './config.js'
-import { classifyGuiEditor, getExternalEditor } from './editor.js'
-import { execSync_DEPRECATED } from './execSyncWrapper.js'
-import { getFsImplementation } from './fsOperations.js'
-import { toIDEDisplayName } from './ide.js'
-import { writeFileSync_DEPRECATED } from './slowOperations.js'
-import { generateTempFilePath } from './tempfile.js'
+} from '../history'
+import instances from '../ink/instances'
+import type { PastedContent } from './config'
+import { classifyGuiEditor, getExternalEditor } from './editor'
+import { execSync_DEPRECATED } from './execSyncWrapper'
+import { getFsImplementation } from './fsOperations'
+import { toIDEDisplayName } from './ide'
+import { writeFileSync_DEPRECATED } from './slowOperations'
+import { generateTempFilePath } from './tempfile'
 
 // Map of editor command overrides (e.g., to add wait flags)
 const EDITOR_OVERRIDES: Record<string, string> = {

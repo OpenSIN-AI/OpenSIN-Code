@@ -4,11 +4,11 @@ import { join } from 'path'
 import {
   type McpServerConfig,
   McpStdioServerConfigSchema,
-} from '../services/mcp/types.js'
-import { getErrnoCode } from './errors.js'
-import { safeParseJSON } from './json.js'
-import { logError } from './log.js'
-import { getPlatform, SUPPORTED_PLATFORMS } from './platform.js'
+} from '../services/mcp/types'
+import { getErrnoCode } from './errors'
+import { safeParseJSON } from './json'
+import { logError } from './log'
+import { getPlatform, SUPPORTED_PLATFORMS } from './platform'
 
 export async function getClaudeDesktopConfigPath(): Promise<string> {
   const platform = getPlatform()

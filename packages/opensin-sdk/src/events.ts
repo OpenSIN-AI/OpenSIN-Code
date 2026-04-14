@@ -4,7 +4,7 @@
  * Parses Server-Sent Events (SSE) streams from the OpenSIN API.
  */
 
-import { SSEEvent, StreamChunk } from './types.js';
+import { SSEEvent, StreamChunk } from './types';
 
 /**
  * Parse a single SSE line into an event component.

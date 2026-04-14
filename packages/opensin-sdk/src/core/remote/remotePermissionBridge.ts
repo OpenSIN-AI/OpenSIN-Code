@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto'
-import type { SDKControlPermissionRequest } from '../entrypoints/sdk/controlTypes.js'
-import type { Tool } from '../Tool.js'
-import type { AssistantMessage } from '../types/message.js'
-import { jsonStringify } from '../utils/slowOperations.js'
+import type { SDKControlPermissionRequest } from '../entrypoints/sdk/controlTypes'
+import type { Tool } from '../Tool'
+import type { AssistantMessage } from '../types/message'
+import { jsonStringify } from '../utils/slowOperations'
 
 /**
  * Create a synthetic AssistantMessage for remote permission requests.

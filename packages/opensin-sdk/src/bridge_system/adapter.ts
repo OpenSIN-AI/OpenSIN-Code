@@ -17,9 +17,9 @@ import type {
   BridgeRequest,
   BridgeResponse,
   BridgeNotification,
-} from './types.js'
-import { OpenSINProtocol, ProtocolError } from './protocol.js'
-import { createTransport } from './transport.js'
+} from './types'
+import { OpenSINProtocol, ProtocolError } from './protocol'
+import { createTransport } from './transport'
 
 type EventHandler = (event: BridgeEvent) => void
 

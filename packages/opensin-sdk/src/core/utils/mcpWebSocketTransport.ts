@@ -1,12 +1,12 @@
-import type { Transport } from '@modelcontextprotocol/sdk/shared/transport.js'
+import type { Transport } from '@modelcontextprotocol/sdk/shared/transport'
 import {
   type JSONRPCMessage,
   JSONRPCMessageSchema,
-} from '@modelcontextprotocol/sdk/types.js'
+} from '@modelcontextprotocol/sdk/types'
 import type WsWebSocket from 'ws'
-import { logForDiagnosticsNoPII } from './diagLogs.js'
-import { toError } from './errors.js'
-import { jsonParse, jsonStringify } from './slowOperations.js'
+import { logForDiagnosticsNoPII } from './diagLogs'
+import { toError } from './errors'
+import { jsonParse, jsonStringify } from './slowOperations'
 
 // WebSocket readyState constants (same for both native and ws)
 const WS_CONNECTING = 0

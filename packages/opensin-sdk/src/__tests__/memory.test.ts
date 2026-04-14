@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { createFileProvider } from '../memory/provider.js'
-import { createMemoryManager } from '../memory/manager.js'
+import { createFileProvider } from '../memory/provider'
+import { createMemoryManager } from '../memory/manager'
 import { rm } from 'fs/promises'
 
 const TEST_DIR = '/tmp/opensin-memory-test'

@@ -5,16 +5,16 @@ import {
   StreamMessageReader,
   StreamMessageWriter,
   Trace,
-} from 'vscode-jsonrpc/node.js'
+} from 'vscode-jsonrpc/node'
 import type {
   InitializeParams,
   InitializeResult,
   ServerCapabilities,
 } from 'vscode-languageserver-protocol'
-import { logForDebugging } from '../../utils/debug.js'
-import { errorMessage } from '../../utils/errors.js'
-import { logError } from '../../utils/log.js'
-import { subprocessEnv } from '../../utils/subprocessEnv.js'
+import { logForDebugging } from '../../utils/debug'
+import { errorMessage } from '../../utils/errors'
+import { logError } from '../../utils/log'
+import { subprocessEnv } from '../../utils/subprocessEnv'
 /**
  * LSP client interface.
  */

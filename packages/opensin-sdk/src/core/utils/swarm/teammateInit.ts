@@ -5,18 +5,18 @@
  * Registers a Stop hook to notify the team leader when the teammate becomes idle.
  */
 
-import type { AppState } from '../../state/AppState.js'
-import { logForDebugging } from '../debug.js'
-import { addFunctionHook } from '../hooks/sessionHooks.js'
-import { applyPermissionUpdate } from '../permissions/PermissionUpdate.js'
-import { jsonStringify } from '../slowOperations.js'
-import { getTeammateColor } from '../teammate.js'
+import type { AppState } from '../../state/AppState'
+import { logForDebugging } from '../debug'
+import { addFunctionHook } from '../hooks/sessionHooks'
+import { applyPermissionUpdate } from '../permissions/PermissionUpdate'
+import { jsonStringify } from '../slowOperations'
+import { getTeammateColor } from '../teammate'
 import {
   createIdleNotification,
   getLastPeerDmSummary,
   writeToMailbox,
-} from '../teammateMailbox.js'
-import { readTeamFile, setMemberActive } from './teamHelpers.js'
+} from '../teammateMailbox'
+import { readTeamFile, setMemberActive } from './teamHelpers'
 
 /**
  * Initializes hooks for a teammate running in a swarm.

@@ -1,42 +1,42 @@
-import type { Notification } from 'src/context/notifications.js'
-import type { TodoList } from 'src/utils/todo/types.js'
-import type { BridgePermissionCallbacks } from '../bridge/bridgePermissionCallbacks.js'
-import type { Command } from '../commands.js'
-import type { ChannelPermissionCallbacks } from '../services/mcp/channelPermissions.js'
-import type { ElicitationRequestEvent } from '../services/mcp/elicitationHandler.js'
+import type { Notification } from 'src/context/notifications'
+import type { TodoList } from 'src/utils/todo/types'
+import type { BridgePermissionCallbacks } from '../bridge/bridgePermissionCallbacks'
+import type { Command } from '../commands'
+import type { ChannelPermissionCallbacks } from '../services/mcp/channelPermissions'
+import type { ElicitationRequestEvent } from '../services/mcp/elicitationHandler'
 import type {
   MCPServerConnection,
   ServerResource,
-} from '../services/mcp/types.js'
-import { shouldEnablePromptSuggestion } from '../services/PromptSuggestion/promptSuggestion.js'
+} from '../services/mcp/types'
+import { shouldEnablePromptSuggestion } from '../services/PromptSuggestion/promptSuggestion'
 import {
   getEmptyToolPermissionContext,
   type Tool,
   type ToolPermissionContext,
-} from '../Tool.js'
-import type { TaskState } from '../tasks/types.js'
-import type { AgentColorName } from '../tools/AgentTool/agentColorManager.js'
-import type { AgentDefinitionsResult } from '../tools/AgentTool/loadAgentsDir.js'
-import type { AllowedPrompt } from '../tools/ExitPlanModeTool/ExitPlanModeV2Tool.js'
-import type { AgentId } from '../types/ids.js'
-import type { Message, UserMessage } from '../types/message.js'
-import type { LoadedPlugin, PluginError } from '../types/plugin.js'
-import type { DeepImmutable } from '../types/utils.js'
+} from '../Tool'
+import type { TaskState } from '../tasks/types'
+import type { AgentColorName } from '../tools/AgentTool/agentColorManager'
+import type { AgentDefinitionsResult } from '../tools/AgentTool/loadAgentsDir'
+import type { AllowedPrompt } from '../tools/ExitPlanModeTool/ExitPlanModeV2Tool'
+import type { AgentId } from '../types/ids'
+import type { Message, UserMessage } from '../types/message'
+import type { LoadedPlugin, PluginError } from '../types/plugin'
+import type { DeepImmutable } from '../types/utils'
 import {
   type AttributionState,
   createEmptyAttributionState,
-} from '../utils/commitAttribution.js'
-import type { EffortValue } from '../utils/effort.js'
-import type { FileHistoryState } from '../utils/fileHistory.js'
-import type { REPLHookContext } from '../utils/hooks/postSamplingHooks.js'
-import type { SessionHooksState } from '../utils/hooks/sessionHooks.js'
-import type { ModelSetting } from '../utils/model/model.js'
-import type { DenialTrackingState } from '../utils/permissions/denialTracking.js'
-import type { PermissionMode } from '../utils/permissions/PermissionMode.js'
-import { getInitialSettings } from '../utils/settings/settings.js'
-import type { SettingsJson } from '../utils/settings/types.js'
-import { shouldEnableThinkingByDefault } from '../utils/thinking.js'
-import type { Store } from './store.js'
+} from '../utils/commitAttribution'
+import type { EffortValue } from '../utils/effort'
+import type { FileHistoryState } from '../utils/fileHistory'
+import type { REPLHookContext } from '../utils/hooks/postSamplingHooks'
+import type { SessionHooksState } from '../utils/hooks/sessionHooks'
+import type { ModelSetting } from '../utils/model/model'
+import type { DenialTrackingState } from '../utils/permissions/denialTracking'
+import type { PermissionMode } from '../utils/permissions/PermissionMode'
+import { getInitialSettings } from '../utils/settings/settings'
+import type { SettingsJson } from '../utils/settings/types'
+import { shouldEnableThinkingByDefault } from '../utils/thinking'
+import type { Store } from './store'
 
 export type CompletionBoundary =
   | { type: 'complete'; completedAt: number; outputTokens: number }
@@ -458,7 +458,7 @@ export function getDefaultAppState(): AppState {
   // Use lazy require to avoid circular dependency with teammate.ts
   /* eslint-disable @typescript-eslint/no-require-imports */
   const teammateUtils =
-    require('../utils/teammate.js') as typeof import('../utils/teammate.js')
+    require('../utils/teammate') as typeof import('../utils/teammate')
   /* eslint-enable @typescript-eslint/no-require-imports */
   const initialMode: PermissionMode =
     teammateUtils.isTeammate() && teammateUtils.isPlanModeRequired()

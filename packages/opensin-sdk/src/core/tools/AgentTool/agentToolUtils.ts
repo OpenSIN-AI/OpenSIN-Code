@@ -1,26 +1,26 @@
 import { feature } from 'bun:bundle'
 import { z } from 'zod/v4'
-import { clearInvokedSkillsForAgent } from '../../bootstrap/state.js'
+import { clearInvokedSkillsForAgent } from '../../bootstrap/state'
 import {
   ALL_AGENT_DISALLOWED_TOOLS,
   ASYNC_AGENT_ALLOWED_TOOLS,
   CUSTOM_AGENT_DISALLOWED_TOOLS,
   IN_PROCESS_TEAMMATE_ALLOWED_TOOLS,
-} from '../../constants/tools.js'
-import { startAgentSummarization } from '../../services/AgentSummary/agentSummary.js'
+} from '../../constants/tools'
+import { startAgentSummarization } from '../../services/AgentSummary/agentSummary'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { clearDumpState } from '../../services/api/dumpPrompts.js'
-import type { AppState } from '../../state/AppState.js'
+} from '../../services/analytics/index'
+import { clearDumpState } from '../../services/api/dumpPrompts'
+import type { AppState } from '../../state/AppState'
 import type {
   Tool,
   ToolPermissionContext,
   Tools,
   ToolUseContext,
-} from '../../Tool.js'
-import { toolMatchesName } from '../../Tool.js'
+} from '../../Tool'
+import { toolMatchesName } from '../../Tool'
 import {
   completeAgentTask as completeAsyncAgent,
   createActivityDescriptionResolver,
@@ -34,31 +34,31 @@ import {
   type ProgressTracker,
   updateAgentProgress as updateAsyncAgentProgress,
   updateProgressFromMessage,
-} from '../../tasks/LocalAgentTask/LocalAgentTask.js'
-import { asAgentId } from '../../types/ids.js'
-import type { Message as MessageType } from '../../types/message.js'
-import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { isInProtectedNamespace } from '../../utils/envUtils.js'
-import { AbortError, errorMessage } from '../../utils/errors.js'
-import type { CacheSafeParams } from '../../utils/forkedAgent.js'
-import { lazySchema } from '../../utils/lazySchema.js'
+} from '../../tasks/LocalAgentTask/LocalAgentTask'
+import { asAgentId } from '../../types/ids'
+import type { Message as MessageType } from '../../types/message'
+import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled'
+import { logForDebugging } from '../../utils/debug'
+import { isInProtectedNamespace } from '../../utils/envUtils'
+import { AbortError, errorMessage } from '../../utils/errors'
+import type { CacheSafeParams } from '../../utils/forkedAgent'
+import { lazySchema } from '../../utils/lazySchema'
 import {
   extractTextContent,
   getLastAssistantMessage,
-} from '../../utils/messages.js'
-import type { PermissionMode } from '../../utils/permissions/PermissionMode.js'
-import { permissionRuleValueFromString } from '../../utils/permissions/permissionRuleParser.js'
+} from '../../utils/messages'
+import type { PermissionMode } from '../../utils/permissions/PermissionMode'
+import { permissionRuleValueFromString } from '../../utils/permissions/permissionRuleParser'
 import {
   buildTranscriptForClassifier,
   classifyYoloAction,
-} from '../../utils/permissions/yoloClassifier.js'
-import { emitTaskProgress as emitTaskProgressEvent } from '../../utils/task/sdkProgress.js'
-import { isInProcessTeammate } from '../../utils/teammateContext.js'
-import { getTokenCountFromUsage } from '../../utils/tokens.js'
-import { EXIT_PLAN_MODE_V2_TOOL_NAME } from '../ExitPlanModeTool/constants.js'
-import { AGENT_TOOL_NAME, LEGACY_AGENT_TOOL_NAME } from './constants.js'
-import type { AgentDefinition } from './loadAgentsDir.js'
+} from '../../utils/permissions/yoloClassifier'
+import { emitTaskProgress as emitTaskProgressEvent } from '../../utils/task/sdkProgress'
+import { isInProcessTeammate } from '../../utils/teammateContext'
+import { getTokenCountFromUsage } from '../../utils/tokens'
+import { EXIT_PLAN_MODE_V2_TOOL_NAME } from '../ExitPlanModeTool/constants'
+import { AGENT_TOOL_NAME, LEGACY_AGENT_TOOL_NAME } from './constants'
+import type { AgentDefinition } from './loadAgentsDir'
 export type ResolvedAgentTools = {
   hasWildcard: boolean
   validTools: string[]

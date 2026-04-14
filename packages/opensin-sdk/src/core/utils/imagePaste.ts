@@ -6,18 +6,18 @@ import {
   IMAGE_MAX_HEIGHT,
   IMAGE_MAX_WIDTH,
   IMAGE_TARGET_RAW_SIZE,
-} from '../constants/apiLimits.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
-import { getImageProcessor } from '../tools/FileReadTool/imageProcessor.js'
-import { logForDebugging } from './debug.js'
-import { execFileNoThrowWithCwd } from './execFileNoThrow.js'
-import { getFsImplementation } from './fsOperations.js'
+} from '../constants/apiLimits'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
+import { getImageProcessor } from '../tools/FileReadTool/imageProcessor'
+import { logForDebugging } from './debug'
+import { execFileNoThrowWithCwd } from './execFileNoThrow'
+import { getFsImplementation } from './fsOperations'
 import {
   detectImageFormatFromBase64,
   type ImageDimensions,
   maybeResizeAndDownsampleImageBuffer,
-} from './imageResizer.js'
-import { logError } from './log.js'
+} from './imageResizer'
+import { logError } from './log'
 
 // Native NSPasteboard reader. GrowthBook gate tengu_collage_kaleidoscope is
 // a kill switch (default on). Falls through to osascript when off.

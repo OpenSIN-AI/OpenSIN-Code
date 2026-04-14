@@ -1,4 +1,4 @@
-export type { Skill, MCPSkillConfig, SkillMatch, SkillImprovement, SkillDirectory } from './types.js'
-export { BUNDLED_SKILLS, getBundledSkills, getBundledSkill } from './bundledSkills.js'
-export { buildMCPSkill, buildMCPSkills, isMCPSkill, getMCPServerSkills } from './mcpSkillBuilders.js'
-export { loadSkillsFromDirectory, loadAllSkills, matchSkill } from './loadSkillsDir.js'
+export type { Skill, MCPSkillConfig, SkillMatch, SkillImprovement, SkillDirectory } from './types'
+export { BUNDLED_SKILLS, getBundledSkills, getBundledSkill } from './bundledSkills'
+export { buildMCPSkill, buildMCPSkills, isMCPSkill, getMCPServerSkills } from './mcpSkillBuilders'
+export { loadSkillsFromDirectory, loadAllSkills, matchSkill } from './loadSkillsDir'

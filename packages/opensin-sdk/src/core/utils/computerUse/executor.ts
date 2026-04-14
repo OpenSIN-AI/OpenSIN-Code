@@ -38,19 +38,19 @@ import type {
 } from '@ant/computer-use-mcp'
 
 import { API_RESIZE_PARAMS, targetImageSize } from '@ant/computer-use-mcp'
-import { logForDebugging } from '../debug.js'
-import { errorMessage } from '../errors.js'
-import { execFileNoThrow } from '../execFileNoThrow.js'
-import { sleep } from '../sleep.js'
+import { logForDebugging } from '../debug'
+import { errorMessage } from '../errors'
+import { execFileNoThrow } from '../execFileNoThrow'
+import { sleep } from '../sleep'
 import {
   CLI_CU_CAPABILITIES,
   CLI_HOST_BUNDLE_ID,
   getTerminalBundleId,
-} from './common.js'
-import { drainRunLoop } from './drainRunLoop.js'
-import { notifyExpectedEscape } from './escHotkey.js'
-import { requireComputerUseInput } from './inputLoader.js'
-import { requireComputerUseSwift } from './swiftLoader.js'
+} from './common'
+import { drainRunLoop } from './drainRunLoop'
+import { notifyExpectedEscape } from './escHotkey'
+import { requireComputerUseInput } from './inputLoader'
+import { requireComputerUseSwift } from './swiftLoader'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 

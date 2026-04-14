@@ -3,7 +3,7 @@ import type {
   KeybindingBlock,
   ParsedBinding,
   ParsedKeystroke,
-} from './types.js'
+} from './types'
 
 /**
  * Parse a keystroke string like "ctrl+shift+k" into a ParsedKeystroke.

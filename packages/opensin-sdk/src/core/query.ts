@@ -3,30 +3,30 @@ import type {
   ToolResultBlockParam,
   ToolUseBlock,
 } from '@anthropic-ai/sdk/resources/index.mjs'
-import type { CanUseToolFn } from './hooks/useCanUseTool.js'
-import { FallbackTriggeredError } from './services/api/withRetry.js'
+import type { CanUseToolFn } from './hooks/useCanUseTool'
+import { FallbackTriggeredError } from './services/api/withRetry'
 import {
   calculateTokenWarningState,
   isAutoCompactEnabled,
   type AutoCompactTrackingState,
-} from './services/compact/autoCompact.js'
-import { buildPostCompactMessages } from './services/compact/compact.js'
+} from './services/compact/autoCompact'
+import { buildPostCompactMessages } from './services/compact/compact'
 /* eslint-disable @typescript-eslint/no-require-imports */
 const reactiveCompact = feature('REACTIVE_COMPACT')
-  ? (require('./services/compact/reactiveCompact.js') as typeof import('./services/compact/reactiveCompact.js'))
+  ? (require('./services/compact/reactiveCompact') as typeof import('./services/compact/reactiveCompact'))
   : null
 const contextCollapse = feature('CONTEXT_COLLAPSE')
-  ? (require('./services/contextCollapse/index.js') as typeof import('./services/contextCollapse/index.js'))
+  ? (require('./services/contextCollapse/index') as typeof import('./services/contextCollapse/index'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 import {
   logEvent,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-} from 'src/services/analytics/index.js'
-import { ImageSizeError } from './utils/imageValidation.js'
-import { ImageResizeError } from './utils/imageResizer.js'
-import { findToolByName, type ToolUseContext } from './Tool.js'
-import { asSystemPrompt, type SystemPrompt } from './utils/systemPromptType.js'
+} from 'src/services/analytics/index'
+import { ImageSizeError } from './utils/imageValidation'
+import { ImageResizeError } from './utils/imageResizer'
+import { findToolByName, type ToolUseContext } from './Tool'
+import { asSystemPrompt, type SystemPrompt } from './utils/systemPromptType'
 import type {
   AssistantMessage,
   AttachmentMessage,
@@ -36,13 +36,13 @@ import type {
   ToolUseSummaryMessage,
   UserMessage,
   TombstoneMessage,
-} from './types/message.js'
-import { logError } from './utils/log.js'
+} from './types/message'
+import { logError } from './utils/log'
 import {
   PROMPT_TOO_LONG_ERROR_MESSAGE,
   isPromptTooLongMessage,
-} from './services/api/errors.js'
-import { logAntError, logForDebugging } from './utils/debug.js'
+} from './services/api/errors'
+import { logAntError, logForDebugging } from './utils/debug'
 import {
   createUserMessage,
   createUserInterruptionMessage,
@@ -53,70 +53,70 @@ import {
   createToolUseSummaryMessage,
   createMicrocompactBoundaryMessage,
   stripSignatureBlocks,
-} from './utils/messages.js'
-import { generateToolUseSummary } from './services/toolUseSummary/toolUseSummaryGenerator.js'
-import { prependUserContext, appendSystemContext } from './utils/api.js'
+} from './utils/messages'
+import { generateToolUseSummary } from './services/toolUseSummary/toolUseSummaryGenerator'
+import { prependUserContext, appendSystemContext } from './utils/api'
 import {
   createAttachmentMessage,
   filterDuplicateMemoryAttachments,
   getAttachmentMessages,
   startRelevantMemoryPrefetch,
-} from './utils/attachments.js'
+} from './utils/attachments'
 /* eslint-disable @typescript-eslint/no-require-imports */
 const skillPrefetch = feature('EXPERIMENTAL_SKILL_SEARCH')
-  ? (require('./services/skillSearch/prefetch.js') as typeof import('./services/skillSearch/prefetch.js'))
+  ? (require('./services/skillSearch/prefetch') as typeof import('./services/skillSearch/prefetch'))
   : null
 const jobClassifier = feature('TEMPLATES')
-  ? (require('./jobs/classifier.js') as typeof import('./jobs/classifier.js'))
+  ? (require('./jobs/classifier') as typeof import('./jobs/classifier'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 import {
   remove as removeFromQueue,
   getCommandsByMaxPriority,
   isSlashCommand,
-} from './utils/messageQueueManager.js'
-import { notifyCommandLifecycle } from './utils/commandLifecycle.js'
-import { headlessProfilerCheckpoint } from './utils/headlessProfiler.js'
+} from './utils/messageQueueManager'
+import { notifyCommandLifecycle } from './utils/commandLifecycle'
+import { headlessProfilerCheckpoint } from './utils/headlessProfiler'
 import {
   getRuntimeMainLoopModel,
   renderModelName,
-} from './utils/model/model.js'
+} from './utils/model/model'
 import {
   doesMostRecentAssistantMessageExceed200k,
   finalContextTokensFromLastResponse,
   tokenCountWithEstimation,
-} from './utils/tokens.js'
-import { ESCALATED_MAX_TOKENS } from './utils/context.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from './services/analytics/growthbook.js'
-import { SLEEP_TOOL_NAME } from './tools/SleepTool/prompt.js'
-import { executePostSamplingHooks } from './utils/hooks/postSamplingHooks.js'
-import { executeStopFailureHooks } from './utils/hooks.js'
-import type { QuerySource } from './constants/querySource.js'
-import { createDumpPromptsFetch } from './services/api/dumpPrompts.js'
-import { StreamingToolExecutor } from './services/tools/StreamingToolExecutor.js'
-import { queryCheckpoint } from './utils/queryProfiler.js'
-import { runTools } from './services/tools/toolOrchestration.js'
-import { applyToolResultBudget } from './utils/toolResultStorage.js'
-import { recordContentReplacement } from './utils/sessionStorage.js'
-import { handleStopHooks } from './query/stopHooks.js'
-import { buildQueryConfig } from './query/config.js'
-import { productionDeps, type QueryDeps } from './query/deps.js'
-import type { Terminal, Continue } from './query/transitions.js'
+} from './utils/tokens'
+import { ESCALATED_MAX_TOKENS } from './utils/context'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from './services/analytics/growthbook'
+import { SLEEP_TOOL_NAME } from './tools/SleepTool/prompt'
+import { executePostSamplingHooks } from './utils/hooks/postSamplingHooks'
+import { executeStopFailureHooks } from './utils/hooks'
+import type { QuerySource } from './constants/querySource'
+import { createDumpPromptsFetch } from './services/api/dumpPrompts'
+import { StreamingToolExecutor } from './services/tools/StreamingToolExecutor'
+import { queryCheckpoint } from './utils/queryProfiler'
+import { runTools } from './services/tools/toolOrchestration'
+import { applyToolResultBudget } from './utils/toolResultStorage'
+import { recordContentReplacement } from './utils/sessionStorage'
+import { handleStopHooks } from './query/stopHooks'
+import { buildQueryConfig } from './query/config'
+import { productionDeps, type QueryDeps } from './query/deps'
+import type { Terminal, Continue } from './query/transitions'
 import { feature } from 'bun:bundle'
 import {
   getCurrentTurnTokenBudget,
   getTurnOutputTokens,
   incrementBudgetContinuationCount,
-} from './bootstrap/state.js'
-import { createBudgetTracker, checkTokenBudget } from './query/tokenBudget.js'
-import { count } from './utils/array.js'
+} from './bootstrap/state'
+import { createBudgetTracker, checkTokenBudget } from './query/tokenBudget'
+import { count } from './utils/array'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const snipModule = feature('HISTORY_SNIP')
-  ? (require('./services/compact/snipCompact.js') as typeof import('./services/compact/snipCompact.js'))
+  ? (require('./services/compact/snipCompact') as typeof import('./services/compact/snipCompact'))
   : null
 const taskSummaryModule = feature('BG_SESSIONS')
-  ? (require('./utils/taskSummary.js') as typeof import('./utils/taskSummary.js'))
+  ? (require('./utils/taskSummary') as typeof import('./utils/taskSummary'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 
@@ -231,7 +231,7 @@ export async function* query(
   // Only reached if queryLoop returned normally. Skipped on throw (error
   // propagates through yield*) and on .return() (Return completion closes
   // both generators). This gives the same asymmetric started-without-completed
-  // signal as print.ts's drainCommandQueue when the turn fails.
+  // signal as print's drainCommandQueue when the turn fails.
   for (const uuid of consumedCommandUuids) {
     notifyCommandLifecycle(uuid, 'completed')
   }
@@ -1033,7 +1033,7 @@ async function* queryLoop(
       if (feature('CHICAGO_MCP') && !toolUseContext.agentId) {
         try {
           const { cleanupComputerUseAfterTurn } = await import(
-            './utils/computerUse/cleanup.js'
+            './utils/computerUse/cleanup'
           )
           await cleanupComputerUseAfterTurn(toolUseContext)
         } catch {
@@ -1489,7 +1489,7 @@ async function* queryLoop(
       if (feature('CHICAGO_MCP') && !toolUseContext.agentId) {
         try {
           const { cleanupComputerUseAfterTurn } = await import(
-            './utils/computerUse/cleanup.js'
+            './utils/computerUse/cleanup'
           )
           await cleanupComputerUseAfterTurn(toolUseContext)
         } catch {

@@ -1,12 +1,12 @@
 import { randomUUID } from 'crypto'
-import type { Tool, ToolUseContext } from '../Tool.js'
-import { BashTool } from '../tools/BashTool/BashTool.js'
-import { logForDebugging } from './debug.js'
-import { errorMessage, MalformedCommandError, ShellError } from './errors.js'
-import type { FrontmatterShell } from './frontmatterParser.js'
-import { createAssistantMessage } from './messages.js'
-import { hasPermissionsToUseTool } from './permissions/permissions.js'
-import { processToolResultBlock } from './toolResultStorage.js'
+import type { Tool, ToolUseContext } from '../Tool'
+import { BashTool } from '../tools/BashTool/BashTool'
+import { logForDebugging } from './debug'
+import { errorMessage, MalformedCommandError, ShellError } from './errors'
+import type { FrontmatterShell } from './frontmatterParser'
+import { createAssistantMessage } from './messages'
+import { hasPermissionsToUseTool } from './permissions/permissions'
+import { processToolResultBlock } from './toolResultStorage'
 
 // Narrow structural slice both BashTool and PowerShellTool satisfy. We can't
 // use the base Tool type: it marks call()'s canUseTool/parentMessage as
@@ -24,12 +24,12 @@ type PromptShellTool = Tool & {
   ): Promise<{ data: ShellOut }>
 }
 
-import { isPowerShellToolEnabled } from './shell/shellToolUtils.js'
+import { isPowerShellToolEnabled } from './shell/shellToolUtils'
 
 // Lazy: this file is on the startup import chain (main → commands →
 // loadSkillsDir → here). A static import would load PowerShellTool.ts
 // (and transitively parser.ts, validators, etc.) at startup on all
-// platforms, defeating tools.ts's lazy require. Deferred until the
+// platforms, defeating tools's lazy require. Deferred until the
 // first skill with `shell: powershell` actually runs.
 /* eslint-disable @typescript-eslint/no-require-imports */
 const getPowerShellTool = (() => {
@@ -37,7 +37,7 @@ const getPowerShellTool = (() => {
   return (): PromptShellTool => {
     if (!cached) {
       cached = (
-        require('../tools/PowerShellTool/PowerShellTool.js') as typeof import('../tools/PowerShellTool/PowerShellTool.js')
+        require('../tools/PowerShellTool/PowerShellTool') as typeof import('../tools/PowerShellTool/PowerShellTool')
       ).PowerShellTool
     }
     return cached

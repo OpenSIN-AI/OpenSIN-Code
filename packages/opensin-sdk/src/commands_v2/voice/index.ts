@@ -1,8 +1,8 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 import {
   isVoiceGrowthBookEnabled,
   isVoiceModeEnabled,
-} from '../../voice/voiceModeEnabled.js'
+} from '../../voice/voiceModeEnabled'
 
 const voice = {
   type: 'local',
@@ -14,7 +14,7 @@ const voice = {
     return !isVoiceModeEnabled()
   },
   supportsNonInteractive: false,
-  load: () => import('./voice.js'),
+  load: () => import('./voice'),
 } satisfies Command
 
 export default voice

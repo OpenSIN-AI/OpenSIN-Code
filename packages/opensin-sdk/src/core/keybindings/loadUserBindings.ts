@@ -13,22 +13,22 @@ import chokidar, { type FSWatcher } from 'chokidar'
 import { readFileSync } from 'fs'
 import { readFile, stat } from 'fs/promises'
 import { dirname, join } from 'path'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
-import { logEvent } from '../services/analytics/index.js'
-import { registerCleanup } from '../utils/cleanupRegistry.js'
-import { logForDebugging } from '../utils/debug.js'
-import { getClaudeConfigHomeDir } from '../utils/envUtils.js'
-import { errorMessage, isENOENT } from '../utils/errors.js'
-import { createSignal } from '../utils/signal.js'
-import { jsonParse } from '../utils/slowOperations.js'
-import { DEFAULT_BINDINGS } from './defaultBindings.js'
-import { parseBindings } from './parser.js'
-import type { KeybindingBlock, ParsedBinding } from './types.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
+import { logEvent } from '../services/analytics/index'
+import { registerCleanup } from '../utils/cleanupRegistry'
+import { logForDebugging } from '../utils/debug'
+import { getClaudeConfigHomeDir } from '../utils/envUtils'
+import { errorMessage, isENOENT } from '../utils/errors'
+import { createSignal } from '../utils/signal'
+import { jsonParse } from '../utils/slowOperations'
+import { DEFAULT_BINDINGS } from './defaultBindings'
+import { parseBindings } from './parser'
+import type { KeybindingBlock, ParsedBinding } from './types'
 import {
   checkDuplicateKeysInJson,
   type KeybindingWarning,
   validateBindings,
-} from './validate.js'
+} from './validate'
 
 /**
  * Check if keybinding customization is enabled.

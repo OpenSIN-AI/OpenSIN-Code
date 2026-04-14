@@ -1,53 +1,53 @@
 import { randomUUID } from 'crypto'
 import { useCallback, useEffect, useRef } from 'react'
 import { useInterval } from 'usehooks-ts'
-import type { ToolUseConfirm } from '../components/permissions/PermissionRequest.js'
-import { TEAMMATE_MESSAGE_TAG } from '../constants/xml.js'
-import { useTerminalNotification } from '../ink/useTerminalNotification.js'
-import { sendNotification } from '../services/notifier.js'
+import type { ToolUseConfirm } from '../components/permissions/PermissionRequest'
+import { TEAMMATE_MESSAGE_TAG } from '../constants/xml'
+import { useTerminalNotification } from '../ink/useTerminalNotification'
+import { sendNotification } from '../services/notifier'
 import {
   type AppState,
   useAppState,
   useAppStateStore,
   useSetAppState,
-} from '../state/AppState.js'
-import { findToolByName } from '../Tool.js'
-import { isInProcessTeammateTask } from '../tasks/InProcessTeammateTask/types.js'
-import { getAllBaseTools } from '../tools.js'
-import type { PermissionUpdate } from '../types/permissions.js'
-import { logForDebugging } from '../utils/debug.js'
+} from '../state/AppState'
+import { findToolByName } from '../Tool'
+import { isInProcessTeammateTask } from '../tasks/InProcessTeammateTask/types'
+import { getAllBaseTools } from '../tools'
+import type { PermissionUpdate } from '../types/permissions'
+import { logForDebugging } from '../utils/debug'
 import {
   findInProcessTeammateTaskId,
   handlePlanApprovalResponse,
-} from '../utils/inProcessTeammateHelpers.js'
-import { createAssistantMessage } from '../utils/messages.js'
+} from '../utils/inProcessTeammateHelpers'
+import { createAssistantMessage } from '../utils/messages'
 import {
   permissionModeFromString,
   toExternalPermissionMode,
-} from '../utils/permissions/PermissionMode.js'
-import { applyPermissionUpdate } from '../utils/permissions/PermissionUpdate.js'
-import { jsonStringify } from '../utils/slowOperations.js'
-import { isInsideTmux } from '../utils/swarm/backends/detection.js'
+} from '../utils/permissions/PermissionMode'
+import { applyPermissionUpdate } from '../utils/permissions/PermissionUpdate'
+import { jsonStringify } from '../utils/slowOperations'
+import { isInsideTmux } from '../utils/swarm/backends/detection'
 import {
   ensureBackendsRegistered,
   getBackendByType,
-} from '../utils/swarm/backends/registry.js'
-import type { PaneBackendType } from '../utils/swarm/backends/types.js'
-import { TEAM_LEAD_NAME } from '../utils/swarm/constants.js'
-import { getLeaderToolUseConfirmQueue } from '../utils/swarm/leaderPermissionBridge.js'
-import { sendPermissionResponseViaMailbox } from '../utils/swarm/permissionSync.js'
+} from '../utils/swarm/backends/registry'
+import type { PaneBackendType } from '../utils/swarm/backends/types'
+import { TEAM_LEAD_NAME } from '../utils/swarm/constants'
+import { getLeaderToolUseConfirmQueue } from '../utils/swarm/leaderPermissionBridge'
+import { sendPermissionResponseViaMailbox } from '../utils/swarm/permissionSync'
 import {
   removeTeammateFromTeamFile,
   setMemberMode,
-} from '../utils/swarm/teamHelpers.js'
-import { unassignTeammateTasks } from '../utils/tasks.js'
+} from '../utils/swarm/teamHelpers'
+import { unassignTeammateTasks } from '../utils/tasks'
 import {
   getAgentName,
   isPlanModeRequired,
   isTeamLead,
   isTeammate,
-} from '../utils/teammate.js'
-import { isInProcessTeammate } from '../utils/teammateContext.js'
+} from '../utils/teammate'
+import { isInProcessTeammate } from '../utils/teammateContext'
 import {
   isModeSetRequest,
   isPermissionRequest,
@@ -63,13 +63,13 @@ import {
   readUnreadMessages,
   type TeammateMessage,
   writeToMailbox,
-} from '../utils/teammateMailbox.js'
+} from '../utils/teammateMailbox'
 import {
   hasPermissionCallback,
   hasSandboxPermissionCallback,
   processMailboxPermissionResponse,
   processSandboxPermissionResponse,
-} from './useSwarmPermissionPoller.js'
+} from './useSwarmPermissionPoller'
 
 /**
  * Get the agent name to poll for messages.

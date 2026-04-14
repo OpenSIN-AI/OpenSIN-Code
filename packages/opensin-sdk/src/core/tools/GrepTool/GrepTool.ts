@@ -1,34 +1,34 @@
 import { z } from 'zod/v4'
-import type { ValidationResult } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { getCwd } from '../../utils/cwd.js'
-import { isENOENT } from '../../utils/errors.js'
+import type { ValidationResult } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
+import { getCwd } from '../../utils/cwd'
+import { isENOENT } from '../../utils/errors'
 import {
   FILE_NOT_FOUND_CWD_NOTE,
   suggestPathUnderCwd,
-} from '../../utils/file.js'
-import { getFsImplementation } from '../../utils/fsOperations.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { expandPath, toRelativePath } from '../../utils/path.js'
+} from '../../utils/file'
+import { getFsImplementation } from '../../utils/fsOperations'
+import { lazySchema } from '../../utils/lazySchema'
+import { expandPath, toRelativePath } from '../../utils/path'
 import {
   checkReadPermissionForTool,
   getFileReadIgnorePatterns,
   normalizePatternsToPath,
-} from '../../utils/permissions/filesystem.js'
-import type { PermissionDecision } from '../../utils/permissions/PermissionResult.js'
-import { matchWildcardPattern } from '../../utils/permissions/shellRuleMatching.js'
-import { getGlobExclusionsForPluginCache } from '../../utils/plugins/orphanedPluginFilter.js'
-import { ripGrep } from '../../utils/ripgrep.js'
-import { semanticBoolean } from '../../utils/semanticBoolean.js'
-import { semanticNumber } from '../../utils/semanticNumber.js'
-import { plural } from '../../utils/stringUtils.js'
-import { GREP_TOOL_NAME, getDescription } from './prompt.js'
+} from '../../utils/permissions/filesystem'
+import type { PermissionDecision } from '../../utils/permissions/PermissionResult'
+import { matchWildcardPattern } from '../../utils/permissions/shellRuleMatching'
+import { getGlobExclusionsForPluginCache } from '../../utils/plugins/orphanedPluginFilter'
+import { ripGrep } from '../../utils/ripgrep'
+import { semanticBoolean } from '../../utils/semanticBoolean'
+import { semanticNumber } from '../../utils/semanticNumber'
+import { plural } from '../../utils/stringUtils'
+import { GREP_TOOL_NAME, getDescription } from './prompt'
 import {
   getToolUseSummary,
   renderToolResultMessage,
   renderToolUseErrorMessage,
   renderToolUseMessage,
-} from './UI.js'
+} from './UI'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({

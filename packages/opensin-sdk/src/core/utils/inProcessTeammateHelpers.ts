@@ -9,17 +9,17 @@
  * - Detect permission-related messages
  */
 
-import type { AppState } from '../state/AppState.js'
+import type { AppState } from '../state/AppState'
 import {
   type InProcessTeammateTaskState,
   isInProcessTeammateTask,
-} from '../tasks/InProcessTeammateTask/types.js'
-import { updateTaskState } from './task/framework.js'
+} from '../tasks/InProcessTeammateTask/types'
+import { updateTaskState } from './task/framework'
 import {
   isPermissionResponse,
   isSandboxPermissionResponse,
   type PlanApprovalResponseMessage,
-} from './teammateMailbox.js'
+} from './teammateMailbox'
 
 type SetAppState = (updater: (prev: AppState) => AppState) => void
 

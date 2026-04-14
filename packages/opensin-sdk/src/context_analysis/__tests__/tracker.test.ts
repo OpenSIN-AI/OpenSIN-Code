@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { TokenTracker } from '../tracker.ts';
-import type { TurnRecord } from '../types.ts';
+import { TokenTracker } from '../tracker';
+import type { TurnRecord } from '../types';
 
 describe('TokenTracker', () => {
   describe('constructor', () => {

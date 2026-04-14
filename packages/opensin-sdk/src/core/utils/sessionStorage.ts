@@ -15,12 +15,12 @@ import {
   unlink,
   writeFile,
 } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { basename, dirname, join } from 'path'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
+} from 'src/services/analytics/index'
 import {
   getOriginalCwd,
   getPlanSlugCache,
@@ -29,19 +29,19 @@ import {
   getSessionProjectDir,
   isSessionPersistenceDisabled,
   switchSession,
-} from '../bootstrap/state.js'
-import { builtInCommandNames } from '../commands.js'
-import { COMMAND_NAME_TAG, TICK_TAG } from '../constants/xml.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
-import * as sessionIngress from '../services/api/sessionIngress.js'
-import { REPL_TOOL_NAME } from '../tools/REPLTool/constants.js'
+} from '../bootstrap/state'
+import { builtInCommandNames } from '../commands'
+import { COMMAND_NAME_TAG, TICK_TAG } from '../constants/xml'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
+import * as sessionIngress from '../services/api/sessionIngress'
+import { REPL_TOOL_NAME } from '../tools/REPLTool/constants'
 import {
   type AgentId,
   asAgentId,
   asSessionId,
   type SessionId,
-} from '../types/ids.js'
-import type { AttributionSnapshotMessage } from '../types/logs.js'
+} from '../types/ids'
+import type { AttributionSnapshotMessage } from '../types/logs'
 import {
   type ContentReplacementEntry,
   type ContextCollapseCommitEntry,
@@ -53,7 +53,7 @@ import {
   type SerializedMessage,
   sortLogs,
   type TranscriptMessage,
-} from '../types/logs.js'
+} from '../types/logs'
 import type {
   AssistantMessage,
   AttachmentMessage,
@@ -61,26 +61,26 @@ import type {
   SystemCompactBoundaryMessage,
   SystemMessage,
   UserMessage,
-} from '../types/message.js'
-import type { QueueOperationMessage } from '../types/messageQueueTypes.js'
-import { uniq } from './array.js'
-import { registerCleanup } from './cleanupRegistry.js'
-import { updateSessionName } from './concurrentSessions.js'
-import { getCwd } from './cwd.js'
-import { logForDebugging } from './debug.js'
-import { logForDiagnosticsNoPII } from './diagLogs.js'
-import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils.js'
-import { isFsInaccessible } from './errors.js'
-import type { FileHistorySnapshot } from './fileHistory.js'
-import { formatFileSize } from './format.js'
-import { getFsImplementation } from './fsOperations.js'
-import { getWorktreePaths } from './getWorktreePaths.js'
-import { getBranch } from './git.js'
-import { gracefulShutdownSync, isShuttingDown } from './gracefulShutdown.js'
-import { parseJSONL } from './json.js'
-import { logError } from './log.js'
-import { extractTag, isCompactBoundaryMessage } from './messages.js'
-import { sanitizePath } from './path.js'
+} from '../types/message'
+import type { QueueOperationMessage } from '../types/messageQueueTypes'
+import { uniq } from './array'
+import { registerCleanup } from './cleanupRegistry'
+import { updateSessionName } from './concurrentSessions'
+import { getCwd } from './cwd'
+import { logForDebugging } from './debug'
+import { logForDiagnosticsNoPII } from './diagLogs'
+import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils'
+import { isFsInaccessible } from './errors'
+import type { FileHistorySnapshot } from './fileHistory'
+import { formatFileSize } from './format'
+import { getFsImplementation } from './fsOperations'
+import { getWorktreePaths } from './getWorktreePaths'
+import { getBranch } from './git'
+import { gracefulShutdownSync, isShuttingDown } from './gracefulShutdown'
+import { parseJSONL } from './json'
+import { logError } from './log'
+import { extractTag, isCompactBoundaryMessage } from './messages'
+import { sanitizePath } from './path'
 import {
   extractJsonStringField,
   extractLastJsonStringField,
@@ -88,11 +88,11 @@ import {
   readHeadAndTail,
   readTranscriptForLoad,
   SKIP_PRECOMPACT_THRESHOLD,
-} from './sessionStoragePortable.js'
-import { getSettings_DEPRECATED } from './settings/settings.js'
-import { jsonParse, jsonStringify } from './slowOperations.js'
-import type { ContentReplacementRecord } from './toolResultStorage.js'
-import { validateUuid } from './uuid.js'
+} from './sessionStoragePortable'
+import { getSettings_DEPRECATED } from './settings/settings'
+import { jsonParse, jsonStringify } from './slowOperations'
+import type { ContentReplacementRecord } from './toolResultStorage'
+import { validateUuid } from './uuid'
 
 // Cache MACRO.VERSION at module level to work around bun --define bug in async contexts
 // See: https://github.com/oven-sh/bun/issues/26168

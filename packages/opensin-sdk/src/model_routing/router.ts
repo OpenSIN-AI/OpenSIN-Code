@@ -1,4 +1,4 @@
-import type { ModelConfig, RoutingConfig, RoutingDecision, TaskComplexity, ModelUsageRecord } from './types.js'
+import type { ModelConfig, RoutingConfig, RoutingDecision, TaskComplexity, ModelUsageRecord } from './types'
 
 const DEFAULT_CHEAP: ModelConfig = {
   id: 'openai/gpt-4o-mini', name: 'GPT-4o Mini', provider: 'openai',

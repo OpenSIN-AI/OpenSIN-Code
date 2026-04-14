@@ -3,19 +3,19 @@ import { LRUCache } from 'lru-cache'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { queryHaiku } from '../../services/api/claude.js'
-import { AbortError } from '../../utils/errors.js'
-import { getWebFetchUserAgent } from '../../utils/http.js'
-import { logError } from '../../utils/log.js'
+} from '../../services/analytics/index'
+import { queryHaiku } from '../../services/api/claude'
+import { AbortError } from '../../utils/errors'
+import { getWebFetchUserAgent } from '../../utils/http'
+import { logError } from '../../utils/log'
 import {
   isBinaryContentType,
   persistBinaryContent,
-} from '../../utils/mcpOutputStorage.js'
-import { getSettings_DEPRECATED } from '../../utils/settings/settings.js'
-import { asSystemPrompt } from '../../utils/systemPromptType.js'
-import { isPreapprovedHost } from './preapproved.js'
-import { makeSecondaryModelPrompt } from './prompt.js'
+} from '../../utils/mcpOutputStorage'
+import { getSettings_DEPRECATED } from '../../utils/settings/settings'
+import { asSystemPrompt } from '../../utils/systemPromptType'
+import { isPreapprovedHost } from './preapproved'
+import { makeSecondaryModelPrompt } from './prompt'
 
 // Custom error classes for domain blocking
 class DomainBlockedError extends Error {

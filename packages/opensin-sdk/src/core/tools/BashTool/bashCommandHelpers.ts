@@ -2,18 +2,18 @@ import type { z } from 'zod/v4'
 import {
   isUnsafeCompoundCommand_DEPRECATED,
   splitCommand_DEPRECATED,
-} from '../../utils/bash/commands.js'
+} from '../../utils/bash/commands'
 import {
   buildParsedCommandFromRoot,
   type IParsedCommand,
   ParsedCommand,
-} from '../../utils/bash/ParsedCommand.js'
-import { type Node, PARSE_ABORTED } from '../../utils/bash/parser.js'
-import type { PermissionResult } from '../../utils/permissions/PermissionResult.js'
-import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema.js'
-import { createPermissionRequestMessage } from '../../utils/permissions/permissions.js'
-import { BashTool } from './BashTool.js'
-import { bashCommandIsSafeAsync_DEPRECATED } from './bashSecurity.js'
+} from '../../utils/bash/ParsedCommand'
+import { type Node, PARSE_ABORTED } from '../../utils/bash/parser'
+import type { PermissionResult } from '../../utils/permissions/PermissionResult'
+import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema'
+import { createPermissionRequestMessage } from '../../utils/permissions/permissions'
+import { BashTool } from './BashTool'
+import { bashCommandIsSafeAsync_DEPRECATED } from './bashSecurity'
 
 export type CommandIdentityCheckers = {
   isNormalizedCdCommand: (command: string) => boolean

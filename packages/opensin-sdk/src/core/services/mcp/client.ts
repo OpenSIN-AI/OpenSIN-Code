@@ -4,21 +4,21 @@ import type {
   ContentBlockParam,
   MessageParam,
 } from '@anthropic-ai/sdk/resources/index.mjs'
-import { Client } from '@modelcontextprotocol/sdk/client/index.js'
+import { Client } from '@modelcontextprotocol/sdk/client/index'
 import {
   SSEClientTransport,
   type SSEClientTransportOptions,
-} from '@modelcontextprotocol/sdk/client/sse.js'
-import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
+} from '@modelcontextprotocol/sdk/client/sse'
+import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio'
 import {
   StreamableHTTPClientTransport,
   type StreamableHTTPClientTransportOptions,
-} from '@modelcontextprotocol/sdk/client/streamableHttp.js'
+} from '@modelcontextprotocol/sdk/client/streamableHttp'
 import {
   createFetchWithInit,
   type FetchLike,
   type Transport,
-} from '@modelcontextprotocol/sdk/shared/transport.js'
+} from '@modelcontextprotocol/sdk/shared/transport'
 import {
   CallToolResultSchema,
   ElicitRequestSchema,
@@ -35,113 +35,113 @@ import {
   McpError,
   type PromptMessage,
   type ResourceLink,
-} from '@modelcontextprotocol/sdk/types.js'
-import mapValues from 'lodash-es/mapValues.js'
-import memoize from 'lodash-es/memoize.js'
-import zipObject from 'lodash-es/zipObject.js'
+} from '@modelcontextprotocol/sdk/types'
+import mapValues from 'lodash-es/mapValues'
+import memoize from 'lodash-es/memoize'
+import zipObject from 'lodash-es/zipObject'
 import pMap from 'p-map'
-import { getOriginalCwd, getSessionId } from '../../bootstrap/state.js'
-import type { Command } from '../../commands.js'
-import { getOauthConfig } from '../../constants/oauth.js'
-import { PRODUCT_URL } from '../../constants/product.js'
-import type { AppState } from '../../state/AppState.js'
+import { getOriginalCwd, getSessionId } from '../../bootstrap/state'
+import type { Command } from '../../commands'
+import { getOauthConfig } from '../../constants/oauth'
+import { PRODUCT_URL } from '../../constants/product'
+import type { AppState } from '../../state/AppState'
 import {
   type Tool,
   type ToolCallProgress,
   toolMatchesName,
-} from '../../Tool.js'
-import { ListMcpResourcesTool } from '../../tools/ListMcpResourcesTool/ListMcpResourcesTool.js'
-import { type MCPProgress, MCPTool } from '../../tools/MCPTool/MCPTool.js'
-import { createMcpAuthTool } from '../../tools/McpAuthTool/McpAuthTool.js'
-import { ReadMcpResourceTool } from '../../tools/ReadMcpResourceTool/ReadMcpResourceTool.js'
-import { createAbortController } from '../../utils/abortController.js'
-import { count } from '../../utils/array.js'
+} from '../../Tool'
+import { ListMcpResourcesTool } from '../../tools/ListMcpResourcesTool/ListMcpResourcesTool'
+import { type MCPProgress, MCPTool } from '../../tools/MCPTool/MCPTool'
+import { createMcpAuthTool } from '../../tools/McpAuthTool/McpAuthTool'
+import { ReadMcpResourceTool } from '../../tools/ReadMcpResourceTool/ReadMcpResourceTool'
+import { createAbortController } from '../../utils/abortController'
+import { count } from '../../utils/array'
 import {
   checkAndRefreshOAuthTokenIfNeeded,
   getClaudeAIOAuthTokens,
   handleOAuth401Error,
-} from '../../utils/auth.js'
-import { registerCleanup } from '../../utils/cleanupRegistry.js'
-import { detectCodeIndexingFromMcpServerName } from '../../utils/codeIndexing.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { isEnvDefinedFalsy, isEnvTruthy } from '../../utils/envUtils.js'
+} from '../../utils/auth'
+import { registerCleanup } from '../../utils/cleanupRegistry'
+import { detectCodeIndexingFromMcpServerName } from '../../utils/codeIndexing'
+import { logForDebugging } from '../../utils/debug'
+import { isEnvDefinedFalsy, isEnvTruthy } from '../../utils/envUtils'
 import {
   errorMessage,
   TelemetrySafeError_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-} from '../../utils/errors.js'
-import { getMCPUserAgent } from '../../utils/http.js'
-import { maybeNotifyIDEConnected } from '../../utils/ide.js'
-import { maybeResizeAndDownsampleImageBuffer } from '../../utils/imageResizer.js'
-import { logMCPDebug, logMCPError } from '../../utils/log.js'
+} from '../../utils/errors'
+import { getMCPUserAgent } from '../../utils/http'
+import { maybeNotifyIDEConnected } from '../../utils/ide'
+import { maybeResizeAndDownsampleImageBuffer } from '../../utils/imageResizer'
+import { logMCPDebug, logMCPError } from '../../utils/log'
 import {
   getBinaryBlobSavedMessage,
   getFormatDescription,
   getLargeOutputInstructions,
   persistBinaryContent,
-} from '../../utils/mcpOutputStorage.js'
+} from '../../utils/mcpOutputStorage'
 import {
   getContentSizeEstimate,
   type MCPToolResult,
   mcpContentNeedsTruncation,
   truncateMcpContentIfNeeded,
-} from '../../utils/mcpValidation.js'
-import { WebSocketTransport } from '../../utils/mcpWebSocketTransport.js'
-import { memoizeWithLRU } from '../../utils/memoize.js'
-import { getWebSocketTLSOptions } from '../../utils/mtls.js'
+} from '../../utils/mcpValidation'
+import { WebSocketTransport } from '../../utils/mcpWebSocketTransport'
+import { memoizeWithLRU } from '../../utils/memoize'
+import { getWebSocketTLSOptions } from '../../utils/mtls'
 import {
   getProxyFetchOptions,
   getWebSocketProxyAgent,
   getWebSocketProxyUrl,
-} from '../../utils/proxy.js'
-import { recursivelySanitizeUnicode } from '../../utils/sanitization.js'
-import { getSessionIngressAuthToken } from '../../utils/sessionIngressAuth.js'
-import { subprocessEnv } from '../../utils/subprocessEnv.js'
+} from '../../utils/proxy'
+import { recursivelySanitizeUnicode } from '../../utils/sanitization'
+import { getSessionIngressAuthToken } from '../../utils/sessionIngressAuth'
+import { subprocessEnv } from '../../utils/subprocessEnv'
 import {
   isPersistError,
   persistToolResult,
-} from '../../utils/toolResultStorage.js'
+} from '../../utils/toolResultStorage'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
+} from '../analytics/index'
 import {
   type ElicitationWaitingState,
   runElicitationHooks,
   runElicitationResultHooks,
-} from './elicitationHandler.js'
-import { buildMcpToolName } from './mcpStringUtils.js'
-import { normalizeNameForMCP } from './normalization.js'
-import { getLoggingSafeMcpBaseUrl } from './utils.js'
+} from './elicitationHandler'
+import { buildMcpToolName } from './mcpStringUtils'
+import { normalizeNameForMCP } from './normalization'
+import { getLoggingSafeMcpBaseUrl } from './utils'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const fetchMcpSkillsForClient = feature('MCP_SKILLS')
   ? (
-      require('../../skills/mcpSkills.js') as typeof import('../../skills/mcpSkills.js')
+      require('../../skills/mcpSkills') as typeof import('../../skills/mcpSkills')
     ).fetchMcpSkillsForClient
   : null
 
-import { UnauthorizedError } from '@modelcontextprotocol/sdk/client/auth.js'
-import type { AssistantMessage } from 'src/types/message.js'
+import { UnauthorizedError } from '@modelcontextprotocol/sdk/client/auth'
+import type { AssistantMessage } from 'src/types/message'
 /* eslint-enable @typescript-eslint/no-require-imports */
-import { classifyMcpToolForCollapse } from '../../tools/MCPTool/classifyForCollapse.js'
-import { clearKeychainCache } from '../../utils/secureStorage/macOsKeychainHelpers.js'
-import { sleep } from '../../utils/sleep.js'
+import { classifyMcpToolForCollapse } from '../../tools/MCPTool/classifyForCollapse'
+import { clearKeychainCache } from '../../utils/secureStorage/macOsKeychainHelpers'
+import { sleep } from '../../utils/sleep'
 import {
   ClaudeAuthProvider,
   hasMcpDiscoveryButNoToken,
   wrapFetchWithStepUpDetection,
-} from './auth.js'
-import { markClaudeAiMcpConnected } from './claudeai.js'
-import { getAllMcpConfigs, isMcpServerDisabled } from './config.js'
-import { getMcpServerHeaders } from './headersHelper.js'
-import { SdkControlClientTransport } from './SdkControlTransport.js'
+} from './auth'
+import { markClaudeAiMcpConnected } from './claudeai'
+import { getAllMcpConfigs, isMcpServerDisabled } from './config'
+import { getMcpServerHeaders } from './headersHelper'
+import { SdkControlClientTransport } from './SdkControlTransport'
 import type {
   ConnectedMCPServer,
   MCPServerConnection,
   McpSdkServerConfig,
   ScopedMcpServerConfig,
   ServerResource,
-} from './types.js'
+} from './types'
 
 /**
  * Custom error class to indicate that an MCP tool call failed due to
@@ -228,31 +228,31 @@ function getMcpToolTimeoutMs(): number {
   )
 }
 
-import { isClaudeInChromeMCPServer } from '../../utils/claudeInChrome/common.js'
+import { isClaudeInChromeMCPServer } from '../../utils/claudeInChrome/common'
 
 // Lazy: toolRendering.tsx pulls React/ink; only needed when Claude-in-Chrome MCP server is connected
 /* eslint-disable @typescript-eslint/no-require-imports */
 const claudeInChromeToolRendering =
-  (): typeof import('../../utils/claudeInChrome/toolRendering.js') =>
-    require('../../utils/claudeInChrome/toolRendering.js')
+  (): typeof import('../../utils/claudeInChrome/toolRendering') =>
+    require('../../utils/claudeInChrome/toolRendering')
 // Lazy: wrapper.tsx → hostAdapter.ts → executor.ts pulls both native modules
 // (@ant/computer-use-input + @ant/computer-use-swift). Runtime-gated by
 // GrowthBook tengu_malort_pedway (see gates.ts).
 const computerUseWrapper = feature('CHICAGO_MCP')
-  ? (): typeof import('../../utils/computerUse/wrapper.js') =>
-      require('../../utils/computerUse/wrapper.js')
+  ? (): typeof import('../../utils/computerUse/wrapper') =>
+      require('../../utils/computerUse/wrapper')
   : undefined
 const isComputerUseMCPServer = feature('CHICAGO_MCP')
   ? (
-      require('../../utils/computerUse/common.js') as typeof import('../../utils/computerUse/common.js')
+      require('../../utils/computerUse/common') as typeof import('../../utils/computerUse/common')
     ).isComputerUseMCPServer
   : undefined
 
 import { mkdir, readFile, unlink, writeFile } from 'fs/promises'
 import { dirname, join } from 'path'
-import { getClaudeConfigHomeDir } from '../../utils/envUtils.js'
+import { getClaudeConfigHomeDir } from '../../utils/envUtils'
 /* eslint-enable @typescript-eslint/no-require-imports */
-import { jsonParse, jsonStringify } from '../../utils/slowOperations.js'
+import { jsonParse, jsonStringify } from '../../utils/slowOperations'
 
 const MCP_AUTH_CACHE_TTL_MS = 15 * 60 * 1000 // 15 min
 
@@ -864,7 +864,7 @@ export const connectToServer = memoize(
         )
         logMCPDebug(name, `HTTP transport created successfully`)
       } else if (serverRef.type === 'sdk') {
-        throw new Error('SDK servers should be handled in print.ts')
+        throw new Error('SDK servers should be handled in print')
       } else if (serverRef.type === 'claudeai-proxy') {
         logMCPDebug(
           name,
@@ -908,13 +908,13 @@ export const connectToServer = memoize(
       ) {
         // Run the Chrome MCP server in-process to avoid spawning a ~325 MB subprocess
         const { createChromeContext } = await import(
-          '../../utils/claudeInChrome/mcpServer.js'
+          '../../utils/claudeInChrome/mcpServer'
         )
         const { createClaudeForChromeMcpServer } = await import(
           '@ant/claude-for-chrome-mcp'
         )
         const { createLinkedTransportPair } = await import(
-          './InProcessTransport.js'
+          './InProcessTransport'
         )
         const context = createChromeContext(serverRef.env)
         inProcessServer = createClaudeForChromeMcpServer(context)
@@ -931,10 +931,10 @@ export const connectToServer = memoize(
         // Chrome above. The package's CallTool handler is a stub; real
         // dispatch goes through wrapper.tsx's .call() override.
         const { createComputerUseMcpServerForCli } = await import(
-          '../../utils/computerUse/mcpServer.js'
+          '../../utils/computerUse/mcpServer'
         )
         const { createLinkedTransportPair } = await import(
-          './InProcessTransport.js'
+          './InProcessTransport'
         )
         inProcessServer = await createComputerUseMcpServerForCli()
         const [clientTransport, serverTransport] = createLinkedTransportPair()

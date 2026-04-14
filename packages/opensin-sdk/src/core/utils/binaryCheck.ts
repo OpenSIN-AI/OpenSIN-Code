@@ -1,5 +1,5 @@
-import { logForDebugging } from './debug.js'
-import { which } from './which.js'
+import { logForDebugging } from './debug'
+import { which } from './which'
 
 // Session cache to avoid repeated checks
 const binaryCache = new Map<string, boolean>()

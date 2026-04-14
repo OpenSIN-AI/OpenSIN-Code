@@ -1,8 +1,8 @@
 import { z } from 'zod/v4'
-import { getFeatureValue_DEPRECATED } from '../services/analytics/growthbook.js'
-import { lazySchema } from '../utils/lazySchema.js'
-import { lt } from '../utils/semver.js'
-import { isEnvLessBridgeEnabled } from './bridgeEnabled.js'
+import { getFeatureValue_DEPRECATED } from '../services/analytics/growthbook'
+import { lazySchema } from '../utils/lazySchema'
+import { lt } from '../utils/semver'
+import { isEnvLessBridgeEnabled } from './bridgeEnabled'
 
 export type EnvLessBridgeConfig = {
   // withRetry — init-phase backoff (createSession, POST /bridge, recovery /bridge)

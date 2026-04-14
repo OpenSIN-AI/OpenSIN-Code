@@ -1,45 +1,45 @@
 import { execFileSync, spawn } from 'child_process'
 import { constants as fsConstants, readFileSync, unlinkSync } from 'fs'
 import { type FileHandle, mkdir, open, realpath } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { isAbsolute, resolve } from 'path'
 import { join as posixJoin } from 'path/posix'
-import { logEvent } from 'src/services/analytics/index.js'
+import { logEvent } from 'src/services/analytics/index'
 import {
   getOriginalCwd,
   getSessionId,
   setCwdState,
-} from '../bootstrap/state.js'
-import { generateTaskId } from '../Task.js'
-import { pwd } from './cwd.js'
-import { logForDebugging } from './debug.js'
-import { errorMessage, isENOENT } from './errors.js'
-import { getFsImplementation } from './fsOperations.js'
-import { logError } from './log.js'
+} from '../bootstrap/state'
+import { generateTaskId } from '../Task'
+import { pwd } from './cwd'
+import { logForDebugging } from './debug'
+import { errorMessage, isENOENT } from './errors'
+import { getFsImplementation } from './fsOperations'
+import { logError } from './log'
 import {
   createAbortedCommand,
   createFailedCommand,
   type ShellCommand,
   wrapSpawn,
-} from './ShellCommand.js'
-import { getTaskOutputDir } from './task/diskOutput.js'
-import { TaskOutput } from './task/TaskOutput.js'
-import { which } from './which.js'
+} from './ShellCommand'
+import { getTaskOutputDir } from './task/diskOutput'
+import { TaskOutput } from './task/TaskOutput'
+import { which } from './which'
 
-export type { ExecResult } from './ShellCommand.js'
+export type { ExecResult } from './ShellCommand'
 
 import { accessSync } from 'fs'
-import { onCwdChangedForHooks } from './hooks/fileChangedWatcher.js'
-import { getClaudeTempDirName } from './permissions/filesystem.js'
-import { getPlatform } from './platform.js'
-import { SandboxManager } from './sandbox/sandbox-adapter.js'
-import { invalidateSessionEnvCache } from './sessionEnvironment.js'
-import { createBashShellProvider } from './shell/bashProvider.js'
-import { getCachedPowerShellPath } from './shell/powershellDetection.js'
-import { createPowerShellProvider } from './shell/powershellProvider.js'
-import type { ShellProvider, ShellType } from './shell/shellProvider.js'
-import { subprocessEnv } from './subprocessEnv.js'
-import { posixPathToWindowsPath } from './windowsPaths.js'
+import { onCwdChangedForHooks } from './hooks/fileChangedWatcher'
+import { getClaudeTempDirName } from './permissions/filesystem'
+import { getPlatform } from './platform'
+import { SandboxManager } from './sandbox/sandbox-adapter'
+import { invalidateSessionEnvCache } from './sessionEnvironment'
+import { createBashShellProvider } from './shell/bashProvider'
+import { getCachedPowerShellPath } from './shell/powershellDetection'
+import { createPowerShellProvider } from './shell/powershellProvider'
+import type { ShellProvider, ShellType } from './shell/shellProvider'
+import { subprocessEnv } from './subprocessEnv'
+import { posixPathToWindowsPath } from './windowsPaths'
 
 const DEFAULT_TIMEOUT = 30 * 60 * 1000 // 30 minutes
 

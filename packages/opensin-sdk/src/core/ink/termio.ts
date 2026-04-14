@@ -12,7 +12,7 @@
  * Usage:
  *
  * ```typescript
- * import { Parser } from './termio.js'
+ * import { Parser } from './termio'
  *
  * const parser = new Parser()
  * const actions = parser.feed('\x1b[31mred\x1b[0m')
@@ -21,7 +21,7 @@
  */
 
 // Parser
-export { Parser } from './termio/parser.js'
+export { Parser } from './termio/parser'
 // Types
 export type {
   Action,
@@ -38,5 +38,5 @@ export type {
   TextStyle,
   TitleAction,
   UnderlineStyle,
-} from './termio/types.js'
-export { colorsEqual, defaultStyle, stylesEqual } from './termio/types.js'
+} from './termio/types'
+export { colorsEqual, defaultStyle, stylesEqual } from './termio/types'

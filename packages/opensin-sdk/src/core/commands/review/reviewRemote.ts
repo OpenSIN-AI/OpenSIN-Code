@@ -9,26 +9,26 @@
  * pushed branches on repos with the Claude GitHub app installed.
  */
 
-import type { ContentBlockParam } from '@anthropic-ai/sdk/resources/messages.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
+import type { ContentBlockParam } from '@anthropic-ai/sdk/resources/messages'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { fetchUltrareviewQuota } from '../../services/api/ultrareviewQuota.js'
-import { fetchUtilization } from '../../services/api/usage.js'
-import type { ToolUseContext } from '../../Tool.js'
+} from '../../services/analytics/index'
+import { fetchUltrareviewQuota } from '../../services/api/ultrareviewQuota'
+import { fetchUtilization } from '../../services/api/usage'
+import type { ToolUseContext } from '../../Tool'
 import {
   checkRemoteAgentEligibility,
   formatPreconditionError,
   getRemoteTaskSessionUrl,
   registerRemoteAgentTask,
-} from '../../tasks/RemoteAgentTask/RemoteAgentTask.js'
-import { isEnterpriseSubscriber, isTeamSubscriber } from '../../utils/auth.js'
-import { detectCurrentRepositoryWithHost } from '../../utils/detectRepository.js'
-import { execFileNoThrow } from '../../utils/execFileNoThrow.js'
-import { getDefaultBranch, gitExe } from '../../utils/git.js'
-import { teleportToRemote } from '../../utils/teleport.js'
+} from '../../tasks/RemoteAgentTask/RemoteAgentTask'
+import { isEnterpriseSubscriber, isTeamSubscriber } from '../../utils/auth'
+import { detectCurrentRepositoryWithHost } from '../../utils/detectRepository'
+import { execFileNoThrow } from '../../utils/execFileNoThrow'
+import { getDefaultBranch, gitExe } from '../../utils/git'
+import { teleportToRemote } from '../../utils/teleport'
 
 // One-time session flag: once the user confirms overage billing via the
 // dialog, all subsequent /ultrareview invocations in this session proceed

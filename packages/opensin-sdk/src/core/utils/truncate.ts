@@ -1,7 +1,7 @@
 // Width-aware truncation/wrapping — needs ink/stringWidth (not leaf-safe).
 
-import { stringWidth } from '../ink/stringWidth.js'
-import { getGraphemeSegmenter } from './intl.js'
+import { stringWidth } from '../ink/stringWidth'
+import { getGraphemeSegmenter } from './intl'
 
 /**
  * Truncates a file path in the middle to preserve both directory context and filename.

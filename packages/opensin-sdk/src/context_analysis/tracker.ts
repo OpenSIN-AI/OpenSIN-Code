@@ -4,7 +4,7 @@
  * Provides detailed token usage analysis for AI sessions.
  */
 
-import type { TokenUsage, TurnRecord, SessionStats } from './types.js';
+import type { TokenUsage, TurnRecord, SessionStats } from './types';
 
 // Approximate cost per 1K tokens (OpenAI GPT-4 pricing as reference)
 const COST_PER_1K_INPUT = 0.01;

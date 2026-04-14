@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile, stat } from 'fs/promises'
 import { join } from 'path'
-import type { LocalCommandResult } from '../../types/command.js'
-import type { ToolUseContext } from '../../Tool.js'
+import type { LocalCommandResult } from '../../types/command'
+import type { ToolUseContext } from '../../Tool'
 
 // ============================================================================
 // Teleport — Session teleportation between repos/directories

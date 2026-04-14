@@ -1,8 +1,8 @@
 import { copyFile, stat } from 'fs/promises'
 import { homedir } from 'os'
 import { join } from 'path'
-import { getGlobalConfig, saveGlobalConfig } from './config.js'
-import { logError } from './log.js'
+import { getGlobalConfig, saveGlobalConfig } from './config'
+import { logError } from './log'
 
 export function markITerm2SetupComplete(): void {
   saveGlobalConfig(current => ({

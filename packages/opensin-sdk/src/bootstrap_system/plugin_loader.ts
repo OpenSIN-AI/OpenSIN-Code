@@ -13,7 +13,7 @@ import type {
   PluginState,
   ResolvedPlugin,
   PluginLoader,
-} from './types.js'
+} from './types'
 
 const MANIFEST_FILES = ['opensin-plugin.json', 'plugin.json', 'package.json']
 
@@ -168,7 +168,7 @@ export class OpenSINPluginLoader implements PluginLoader {
             name: data.name ?? 'Unknown Plugin',
             version: data.version ?? '0.0.0',
             description: data.description ?? '',
-            entryPoint: data.main ?? 'index.js',
+            entryPoint: data.main ?? 'index',
             ...data.opensin,
           }
         }
@@ -178,7 +178,7 @@ export class OpenSINPluginLoader implements PluginLoader {
           name: data.name ?? 'Unknown Plugin',
           version: data.version ?? '0.0.0',
           description: data.description ?? '',
-          entryPoint: data.entryPoint ?? 'index.js',
+          entryPoint: data.entryPoint ?? 'index',
           ...data,
         }
       } catch {

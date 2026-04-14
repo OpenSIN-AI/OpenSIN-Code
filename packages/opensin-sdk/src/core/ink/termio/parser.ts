@@ -11,16 +11,16 @@
  * - Style tracking: maintains current text style state
  */
 
-import { getGraphemeSegmenter } from '../../utils/intl.js'
-import { C0 } from './ansi.js'
-import { CSI, CURSOR_STYLES, ERASE_DISPLAY, ERASE_LINE_REGION } from './csi.js'
-import { DEC } from './dec.js'
-import { parseEsc } from './esc.js'
-import { parseOSC } from './osc.js'
-import { applySGR } from './sgr.js'
-import { createTokenizer, type Token, type Tokenizer } from './tokenize.js'
-import type { Action, Grapheme, TextStyle } from './types.js'
-import { defaultStyle } from './types.js'
+import { getGraphemeSegmenter } from '../../utils/intl'
+import { C0 } from './ansi'
+import { CSI, CURSOR_STYLES, ERASE_DISPLAY, ERASE_LINE_REGION } from './csi'
+import { DEC } from './dec'
+import { parseEsc } from './esc'
+import { parseOSC } from './osc'
+import { applySGR } from './sgr'
+import { createTokenizer, type Token, type Tokenizer } from './tokenize'
+import type { Action, Grapheme, TextStyle } from './types'
+import { defaultStyle } from './types'
 
 // =============================================================================
 // Grapheme Utilities

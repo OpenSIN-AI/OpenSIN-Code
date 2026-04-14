@@ -12,23 +12,23 @@
 import type {
   CallToolResult,
   ToolAnnotations,
-} from '@modelcontextprotocol/sdk/types.js'
+} from '@modelcontextprotocol/sdk/types'
 
 // Control protocol types for SDK builders (bridge subpath consumers)
 /** @alpha */
 export type {
   SDKControlRequest,
   SDKControlResponse,
-} from './sdk/controlTypes.js'
+} from './sdk/controlTypes'
 // Re-export core types (common serializable types)
-export * from './sdk/coreTypes.js'
+export * from './sdk/coreTypes'
 // Re-export runtime types (callbacks, interfaces with methods)
-export * from './sdk/runtimeTypes.js'
+export * from './sdk/runtimeTypes'
 
 // Re-export settings types (generated from settings JSON schema)
-export type { Settings } from './sdk/settingsTypes.generated.js'
+export type { Settings } from './sdk/settingsTypes.generated'
 // Re-export tool types (all marked @internal until SDK API stabilizes)
-export * from './sdk/toolTypes.js'
+export * from './sdk/toolTypes'
 
 // ============================================================================
 // Functions
@@ -39,7 +39,7 @@ import type {
   SDKResultMessage,
   SDKSessionInfo,
   SDKUserMessage,
-} from './sdk/coreTypes.js'
+} from './sdk/coreTypes'
 // Import types needed for function signatures
 import type {
   AnyZodRawShape,
@@ -59,7 +59,7 @@ import type {
   SdkMcpToolDefinition,
   SessionMessage,
   SessionMutationOptions,
-} from './sdk/runtimeTypes.js'
+} from './sdk/runtimeTypes'
 
 export type {
   ListSessionsOptions,

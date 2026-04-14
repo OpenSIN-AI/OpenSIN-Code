@@ -16,7 +16,7 @@ import type {
   AssistantKillRequest,
   LifecycleEvent,
   LifecycleEventType,
-} from './types.js';
+} from './types';
 
 interface AssistantProcess {
   id: AssistantId;

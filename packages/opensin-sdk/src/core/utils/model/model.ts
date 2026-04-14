@@ -5,29 +5,29 @@
  * literals with process.env.USER_TYPE === 'ant' for Bun to remove the codenames
  * during dead code elimination
  */
-import { getMainLoopModelOverride } from '../../bootstrap/state.js'
+import { getMainLoopModelOverride } from '../../bootstrap/state'
 import {
   getSubscriptionType,
   isClaudeAISubscriber,
   isMaxSubscriber,
   isProSubscriber,
   isTeamPremiumSubscriber,
-} from '../auth.js'
+} from '../auth'
 import {
   has1mContext,
   is1mContextDisabled,
   modelSupports1M,
-} from '../context.js'
-import { isEnvTruthy } from '../envUtils.js'
-import { getModelStrings, resolveOverriddenModel } from './modelStrings.js'
-import { formatModelPricing, getOpus46CostTier } from '../modelCost.js'
-import { getSettings_DEPRECATED } from '../settings/settings.js'
-import type { PermissionMode } from '../permissions/PermissionMode.js'
-import { getAPIProvider } from './providers.js'
-import { LIGHTNING_BOLT } from '../../constants/figures.js'
-import { isModelAllowed } from './modelAllowlist.js'
-import { type ModelAlias, isModelAlias } from './aliases.js'
-import { capitalize } from '../stringUtils.js'
+} from '../context'
+import { isEnvTruthy } from '../envUtils'
+import { getModelStrings, resolveOverriddenModel } from './modelStrings'
+import { formatModelPricing, getOpus46CostTier } from '../modelCost'
+import { getSettings_DEPRECATED } from '../settings/settings'
+import type { PermissionMode } from '../permissions/PermissionMode'
+import { getAPIProvider } from './providers'
+import { LIGHTNING_BOLT } from '../../constants/figures'
+import { isModelAllowed } from './modelAllowlist'
+import { type ModelAlias, isModelAlias } from './aliases'
+import { capitalize } from '../stringUtils'
 
 export type ModelShortName = string
 export type ModelName = string

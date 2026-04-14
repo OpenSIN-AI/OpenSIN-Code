@@ -1,6 +1,6 @@
 import { feature } from 'bun:bundle'
-import { isBridgeEnabled } from '../../bridge/bridgeEnabled.js'
-import type { Command } from '../../commands.js'
+import { isBridgeEnabled } from '../../bridge/bridgeEnabled'
+import type { Command } from '../../commands'
 
 function isEnabled(): boolean {
   if (!feature('BRIDGE_MODE')) {
@@ -20,7 +20,7 @@ const bridge = {
     return !isEnabled()
   },
   immediate: true,
-  load: () => import('./bridge.js'),
+  load: () => import('./bridge'),
 } satisfies Command
 
 export default bridge

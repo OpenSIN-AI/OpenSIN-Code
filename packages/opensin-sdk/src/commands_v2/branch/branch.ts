@@ -1,17 +1,17 @@
 import { randomUUID, type UUID } from 'crypto'
 import { mkdir, readFile, writeFile } from 'fs/promises'
-import { getOriginalCwd, getSessionId } from '../../bootstrap/state.js'
-import type { LocalJSXCommandContext } from '../../commands.js'
-import { logEvent } from '../../services/analytics/index.js'
-import type { LocalJSXCommandOnDone } from '../../types/command.js'
+import { getOriginalCwd, getSessionId } from '../../bootstrap/state'
+import type { LocalJSXCommandContext } from '../../commands'
+import { logEvent } from '../../services/analytics/index'
+import type { LocalJSXCommandOnDone } from '../../types/command'
 import type {
   ContentReplacementEntry,
   Entry,
   LogOption,
   SerializedMessage,
   TranscriptMessage,
-} from '../../types/logs.js'
-import { parseJSONL } from '../../utils/json.js'
+} from '../../types/logs'
+import { parseJSONL } from '../../utils/json'
 import {
   getProjectDir,
   getTranscriptPath,
@@ -19,9 +19,9 @@ import {
   isTranscriptMessage,
   saveCustomTitle,
   searchSessionsByCustomTitle,
-} from '../../utils/sessionStorage.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { escapeRegExp } from '../../utils/stringUtils.js'
+} from '../../utils/sessionStorage'
+import { jsonStringify } from '../../utils/slowOperations'
+import { escapeRegExp } from '../../utils/stringUtils'
 
 type TranscriptEntry = TranscriptMessage & {
   forkedFrom?: {

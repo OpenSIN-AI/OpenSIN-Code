@@ -1,27 +1,27 @@
 import chalk from 'chalk'
-import { logForDebugging } from 'src/utils/debug.js'
-import { fileHistoryEnabled } from 'src/utils/fileHistory.js'
+import { logForDebugging } from 'src/utils/debug'
+import { fileHistoryEnabled } from 'src/utils/fileHistory'
 import {
   getInitialSettings,
   getSettings_DEPRECATED,
   getSettingsForSource,
-} from 'src/utils/settings/settings.js'
-import { shouldOfferTerminalSetup } from '../../commands/terminalSetup/terminalSetup.js'
-import { getDesktopUpsellConfig } from '../../components/DesktopUpsell/DesktopUpsellStartup.js'
-import { color } from '../../components/design-system/color.js'
-import { shouldShowOverageCreditUpsell } from '../../components/LogoV2/OverageCreditUpsell.js'
-import { getShortcutDisplay } from '../../keybindings/shortcutFormat.js'
-import { isKairosCronEnabled } from '../../tools/ScheduleCronTool/prompt.js'
-import { is1PApiCustomer } from '../../utils/auth.js'
-import { countConcurrentSessions } from '../../utils/concurrentSessions.js'
-import { getGlobalConfig } from '../../utils/config.js'
+} from 'src/utils/settings/settings'
+import { shouldOfferTerminalSetup } from '../../commands/terminalSetup/terminalSetup'
+import { getDesktopUpsellConfig } from '../../components/DesktopUpsell/DesktopUpsellStartup'
+import { color } from '../../components/design-system/color'
+import { shouldShowOverageCreditUpsell } from '../../components/LogoV2/OverageCreditUpsell'
+import { getShortcutDisplay } from '../../keybindings/shortcutFormat'
+import { isKairosCronEnabled } from '../../tools/ScheduleCronTool/prompt'
+import { is1PApiCustomer } from '../../utils/auth'
+import { countConcurrentSessions } from '../../utils/concurrentSessions'
+import { getGlobalConfig } from '../../utils/config'
 import {
   getEffortEnvOverride,
   modelSupportsEffort,
-} from '../../utils/effort.js'
-import { env } from '../../utils/env.js'
-import { cacheKeys } from '../../utils/fileStateCache.js'
-import { getWorktreeCount } from '../../utils/git.js'
+} from '../../utils/effort'
+import { env } from '../../utils/env'
+import { cacheKeys } from '../../utils/fileStateCache'
+import { getWorktreeCount } from '../../utils/git'
 import {
   detectRunningIDEsCached,
   getSortedIdeLockfiles,
@@ -30,31 +30,31 @@ import {
   isSupportedVSCodeTerminal,
   isVSCodeInstalled,
   isWindsurfInstalled,
-} from '../../utils/ide.js'
+} from '../../utils/ide'
 import {
   getMainLoopModel,
   getUserSpecifiedModelSetting,
-} from '../../utils/model/model.js'
-import { getPlatform } from '../../utils/platform.js'
-import { isPluginInstalled } from '../../utils/plugins/installedPluginsManager.js'
-import { loadKnownMarketplacesConfigSafe } from '../../utils/plugins/marketplaceManager.js'
-import { OFFICIAL_MARKETPLACE_NAME } from '../../utils/plugins/officialMarketplace.js'
+} from '../../utils/model/model'
+import { getPlatform } from '../../utils/platform'
+import { isPluginInstalled } from '../../utils/plugins/installedPluginsManager'
+import { loadKnownMarketplacesConfigSafe } from '../../utils/plugins/marketplaceManager'
+import { OFFICIAL_MARKETPLACE_NAME } from '../../utils/plugins/officialMarketplace'
 import {
   getCurrentSessionAgentColor,
   isCustomTitleEnabled,
-} from '../../utils/sessionStorage.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook.js'
+} from '../../utils/sessionStorage'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook'
 import {
   formatGrantAmount,
   getCachedOverageCreditGrant,
-} from '../api/overageCreditGrant.js'
+} from '../api/overageCreditGrant'
 import {
   checkCachedPassesEligibility,
   formatCreditAmount,
   getCachedReferrerReward,
-} from '../api/referral.js'
-import { getSessionsSinceLastShown } from './tipHistory.js'
-import type { Tip, TipContext } from './types.js'
+} from '../api/referral'
+import { getSessionsSinceLastShown } from './tipHistory'
+import type { Tip, TipContext } from './types'
 
 let _isOfficialMarketplaceInstalledCache: boolean | undefined
 async function isOfficialMarketplaceInstalled(): Promise<boolean> {

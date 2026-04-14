@@ -1,21 +1,21 @@
 import { memoize } from 'lodash-es'
-import type { Command } from 'src/commands.js'
+import type { Command } from 'src/commands'
 import {
   getCommandName,
   getSkillToolCommands,
   getSlashCommandToolSkills,
-} from 'src/commands.js'
-import { COMMAND_NAME_TAG } from '../../constants/xml.js'
-import { stringWidth } from '../../ink/stringWidth.js'
+} from 'src/commands'
+import { COMMAND_NAME_TAG } from '../../constants/xml'
+import { stringWidth } from '../../ink/stringWidth'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { count } from '../../utils/array.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { toError } from '../../utils/errors.js'
-import { truncate } from '../../utils/format.js'
-import { logError } from '../../utils/log.js'
+} from '../../services/analytics/index'
+import { count } from '../../utils/array'
+import { logForDebugging } from '../../utils/debug'
+import { toError } from '../../utils/errors'
+import { truncate } from '../../utils/format'
+import { logError } from '../../utils/log'
 
 // Skill listing gets 1% of the context window (in characters)
 export const SKILL_BUDGET_CONTEXT_PERCENT = 0.01

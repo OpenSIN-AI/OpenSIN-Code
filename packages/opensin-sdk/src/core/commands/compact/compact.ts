@@ -1,10 +1,10 @@
 import { feature } from 'bun:bundle'
 import chalk from 'chalk'
-import { markPostCompaction } from 'src/bootstrap/state.js'
-import { getSystemPrompt } from '../../constants/prompts.js'
-import { getSystemContext, getUserContext } from '../../context.js'
-import { getShortcutDisplay } from '../../keybindings/shortcutFormat.js'
-import { notifyCompaction } from '../../services/api/promptCacheBreakDetection.js'
+import { markPostCompaction } from 'src/bootstrap/state'
+import { getSystemPrompt } from '../../constants/prompts'
+import { getSystemContext, getUserContext } from '../../context'
+import { getShortcutDisplay } from '../../keybindings/shortcutFormat'
+import { notifyCompaction } from '../../services/api/promptCacheBreakDetection'
 import {
   type CompactionResult,
   compactConversation,
@@ -12,28 +12,28 @@ import {
   ERROR_MESSAGE_NOT_ENOUGH_MESSAGES,
   ERROR_MESSAGE_USER_ABORT,
   mergeHookInstructions,
-} from '../../services/compact/compact.js'
-import { suppressCompactWarning } from '../../services/compact/compactWarningState.js'
-import { microcompactMessages } from '../../services/compact/microCompact.js'
-import { runPostCompactCleanup } from '../../services/compact/postCompactCleanup.js'
-import { trySessionMemoryCompaction } from '../../services/compact/sessionMemoryCompact.js'
-import { setLastSummarizedMessageId } from '../../services/SessionMemory/sessionMemoryUtils.js'
-import type { ToolUseContext } from '../../Tool.js'
-import type { LocalCommandCall } from '../../types/command.js'
-import type { Message } from '../../types/message.js'
-import { hasExactErrorMessage } from '../../utils/errors.js'
-import { executePreCompactHooks } from '../../utils/hooks.js'
-import { logError } from '../../utils/log.js'
-import { getMessagesAfterCompactBoundary } from '../../utils/messages.js'
-import { getUpgradeMessage } from '../../utils/model/contextWindowUpgradeCheck.js'
+} from '../../services/compact/compact'
+import { suppressCompactWarning } from '../../services/compact/compactWarningState'
+import { microcompactMessages } from '../../services/compact/microCompact'
+import { runPostCompactCleanup } from '../../services/compact/postCompactCleanup'
+import { trySessionMemoryCompaction } from '../../services/compact/sessionMemoryCompact'
+import { setLastSummarizedMessageId } from '../../services/SessionMemory/sessionMemoryUtils'
+import type { ToolUseContext } from '../../Tool'
+import type { LocalCommandCall } from '../../types/command'
+import type { Message } from '../../types/message'
+import { hasExactErrorMessage } from '../../utils/errors'
+import { executePreCompactHooks } from '../../utils/hooks'
+import { logError } from '../../utils/log'
+import { getMessagesAfterCompactBoundary } from '../../utils/messages'
+import { getUpgradeMessage } from '../../utils/model/contextWindowUpgradeCheck'
 import {
   buildEffectiveSystemPrompt,
   type SystemPrompt,
-} from '../../utils/systemPrompt.js'
+} from '../../utils/systemPrompt'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const reactiveCompact = feature('REACTIVE_COMPACT')
-  ? (require('../../services/compact/reactiveCompact.js') as typeof import('../../services/compact/reactiveCompact.js'))
+  ? (require('../../services/compact/reactiveCompact') as typeof import('../../services/compact/reactiveCompact'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 

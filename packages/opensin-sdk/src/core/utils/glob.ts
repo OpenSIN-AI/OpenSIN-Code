@@ -1,13 +1,13 @@
 import { basename, dirname, isAbsolute, join, sep } from 'path'
-import type { ToolPermissionContext } from '../Tool.js'
-import { isEnvTruthy } from './envUtils.js'
+import type { ToolPermissionContext } from '../Tool'
+import { isEnvTruthy } from './envUtils'
 import {
   getFileReadIgnorePatterns,
   normalizePatternsToPath,
-} from './permissions/filesystem.js'
-import { getPlatform } from './platform.js'
-import { getGlobExclusionsForPluginCache } from './plugins/orphanedPluginFilter.js'
-import { ripGrep } from './ripgrep.js'
+} from './permissions/filesystem'
+import { getPlatform } from './platform'
+import { getGlobExclusionsForPluginCache } from './plugins/orphanedPluginFilter'
+import { ripGrep } from './ripgrep'
 
 /**
  * Extracts the static base directory from a glob pattern.

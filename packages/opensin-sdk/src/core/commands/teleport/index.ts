@@ -1,4 +1,4 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 
 const teleport: Command = {
   name: 'teleport',
@@ -7,7 +7,7 @@ const teleport: Command = {
   type: 'local',
   supportsNonInteractive: true,
   argumentHint: '<target-directory> [--stash] [--resume]',
-  load: () => import('./teleport.js'),
+  load: () => import('./teleport'),
 }
 
 export default teleport

@@ -1,16 +1,16 @@
 import axios from 'axios'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { hostname } from 'os'
-import { getOauthConfig } from '../constants/oauth.js'
+import { getOauthConfig } from '../constants/oauth'
 import {
   checkGate_CACHED_OR_BLOCKING,
   getFeatureValue_CACHED_MAY_BE_STALE,
-} from '../services/analytics/growthbook.js'
-import { logForDebugging } from '../utils/debug.js'
-import { errorMessage } from '../utils/errors.js'
-import { isEssentialTrafficOnly } from '../utils/privacyLevel.js'
-import { getSecureStorage } from '../utils/secureStorage/index.js'
-import { jsonStringify } from '../utils/slowOperations.js'
+} from '../services/analytics/growthbook'
+import { logForDebugging } from '../utils/debug'
+import { errorMessage } from '../utils/errors'
+import { isEssentialTrafficOnly } from '../utils/privacyLevel'
+import { getSecureStorage } from '../utils/secureStorage/index'
+import { jsonStringify } from '../utils/slowOperations'
 
 /**
  * Trusted device token source for bridge (remote-control) sessions.
@@ -120,7 +120,7 @@ export async function enrollTrustedDevice(): Promise<void> {
     // of getTrustedDeviceToken() don't need this; only /login does.
     /* eslint-disable @typescript-eslint/no-require-imports */
     const { getClaudeAIOAuthTokens } =
-      require('../utils/auth.js') as typeof import('../utils/auth.js')
+      require('../utils/auth') as typeof import('../utils/auth')
     /* eslint-enable @typescript-eslint/no-require-imports */
     const accessToken = getClaudeAIOAuthTokens()?.accessToken
     if (!accessToken) {

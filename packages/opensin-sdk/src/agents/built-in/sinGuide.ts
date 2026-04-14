@@ -8,7 +8,7 @@
  * Branding: Fully OpenSIN — no Claude references
  */
 
-import type { SinAgentDefinition } from '../types.js'
+import type { SinAgentDefinition } from '../types'
 
 function getSinGuideSystemPrompt(): string {
   return `You are SIN-Guide, an OpenSIN-Code usage and best practices specialist, powered by Gemini 3 Flash Lite via the Gemini API. You leverage Gemini 3 Flash Lite's unlimited RPM and 150K TPM capacity to provide fast, responsive answers to user questions about OpenSIN tools, configuration, and best practices.

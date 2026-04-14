@@ -3,9 +3,9 @@ declare const window: any;
 declare type KeyboardEvent = any;
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { KeyBinding, KeybindingContext, ResolvedBinding } from './types.js'
-import { KeybindingResolver } from './resolver.js'
-import { DEFAULT_KEYBINDINGS } from './defaultBindings.js'
+import type { KeyBinding, KeybindingContext, ResolvedBinding } from './types'
+import { KeybindingResolver } from './resolver'
+import { DEFAULT_KEYBINDINGS } from './defaultBindings'
 
 interface UseKeybindingOptions { context?: KeybindingContext; customBindings?: KeyBinding[]; enabled?: boolean; onCommand?: (command: string, args?: Record<string, unknown>) => void }
 

@@ -1,7 +1,7 @@
-import type { Command } from '../../commands.js'
-import { isPolicyAllowed } from '../../services/policyLimits/index.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { isEssentialTrafficOnly } from '../../utils/privacyLevel.js'
+import type { Command } from '../../commands'
+import { isPolicyAllowed } from '../../services/policyLimits/index'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { isEssentialTrafficOnly } from '../../utils/privacyLevel'
 
 const feedback = {
   aliases: ['bug'],
@@ -20,7 +20,7 @@ const feedback = {
       process.env.USER_TYPE === 'ant' ||
       !isPolicyAllowed('allow_product_feedback')
     ),
-  load: () => import('./feedback.js'),
+  load: () => import('./feedback'),
 } satisfies Command
 
 export default feedback

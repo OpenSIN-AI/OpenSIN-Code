@@ -1,7 +1,7 @@
 import chalk from 'chalk'
-import { ctrlOToExpand } from '../components/CtrlOToExpand.js'
-import { stringWidth } from '../ink/stringWidth.js'
-import sliceAnsi from './sliceAnsi.js'
+import { ctrlOToExpand } from '../components/CtrlOToExpand'
+import { stringWidth } from '../ink/stringWidth'
+import sliceAnsi from './sliceAnsi'
 
 // Text rendering utilities for terminal display
 const MAX_LINES_TO_SHOW = 3

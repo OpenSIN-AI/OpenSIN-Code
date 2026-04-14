@@ -1,13 +1,13 @@
 import { randomUUID } from 'crypto'
-import type { QuerySource } from '../../constants/querySource.js'
-import { queryModelWithoutStreaming } from '../../services/api/claude.js'
-import type { Message } from '../../types/message.js'
-import { createAbortController } from '../../utils/abortController.js'
-import { logError } from '../../utils/log.js'
-import { toError } from '../errors.js'
-import { extractTextContent } from '../messages.js'
-import { asSystemPrompt } from '../systemPromptType.js'
-import type { REPLHookContext } from './postSamplingHooks.js'
+import type { QuerySource } from '../../constants/querySource'
+import { queryModelWithoutStreaming } from '../../services/api/claude'
+import type { Message } from '../../types/message'
+import { createAbortController } from '../../utils/abortController'
+import { logError } from '../../utils/log'
+import { toError } from '../errors'
+import { extractTextContent } from '../messages'
+import { asSystemPrompt } from '../systemPromptType'
+import type { REPLHookContext } from './postSamplingHooks'
 
 export type ApiQueryHookContext = REPLHookContext & {
   queryMessageCount?: number

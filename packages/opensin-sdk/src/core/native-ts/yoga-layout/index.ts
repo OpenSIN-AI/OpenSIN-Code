@@ -55,7 +55,7 @@ import {
   PositionType,
   Unit,
   Wrap,
-} from './enums.js'
+} from './enums'
 
 export {
   Align,

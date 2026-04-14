@@ -3,9 +3,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const TOOLS_DIR = path.resolve(__dirname, '../tools_v2');
-const INDEX_PATH = path.join(TOOLS_DIR, 'index.ts');
-const TOOLS_TS_PATH = path.join(TOOLS_DIR, 'tools.ts');
-const TYPES_PATH = path.join(TOOLS_DIR, 'types.ts');
+const INDEX_PATH = path.join(TOOLS_DIR, 'index');
+const TOOLS_TS_PATH = path.join(TOOLS_DIR, 'tools');
+const TYPES_PATH = path.join(TOOLS_DIR, 'types');
 
 function readIndexContent(): string {
   return fs.readFileSync(INDEX_PATH, 'utf-8');
@@ -20,9 +20,9 @@ function readTypesTs(): string {
 }
 
 function readToolFile(toolDir: string): string {
-  const indexPath = path.join(TOOLS_DIR, toolDir, 'index.ts');
+  const indexPath = path.join(TOOLS_DIR, toolDir, 'index');
   if (fs.existsSync(indexPath)) return fs.readFileSync(indexPath, 'utf-8');
-  const tsPath = path.join(TOOLS_DIR, toolDir, toolDir + '.ts');
+  const tsPath = path.join(TOOLS_DIR, toolDir, toolDir + '');
   if (fs.existsSync(tsPath)) return fs.readFileSync(tsPath, 'utf-8');
   const tsxPath = path.join(TOOLS_DIR, toolDir, toolDir + '.tsx');
   if (fs.existsSync(tsxPath)) return fs.readFileSync(tsxPath, 'utf-8');
@@ -141,7 +141,7 @@ describe('Tools v2 Module', () => {
     });
   });
 
-  describe('Tool definitions from tools.ts', () => {
+  describe('Tool definitions from tools', () => {
     it('should define AskUserQuestionTool', () => {
       const content = readToolsTs();
       expect(content).toContain('AskUserQuestionTool');

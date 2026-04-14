@@ -8,7 +8,7 @@ import { useSyncExternalStore } from 'react'
 import {
   isClassifierChecking,
   subscribeClassifierChecking,
-} from './classifierApprovals.js'
+} from './classifierApprovals'
 
 export function useIsClassifierChecking(toolUseID: string): boolean {
   return useSyncExternalStore(subscribeClassifierChecking, () =>

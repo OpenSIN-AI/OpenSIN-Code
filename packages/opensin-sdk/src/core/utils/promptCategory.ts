@@ -1,9 +1,9 @@
-import type { QuerySource } from 'src/constants/querySource.js'
+import type { QuerySource } from 'src/constants/querySource'
 import {
   DEFAULT_OUTPUT_STYLE_NAME,
   OUTPUT_STYLE_CONFIG,
-} from '../constants/outputStyles.js'
-import { getSettings_DEPRECATED } from './settings/settings.js'
+} from '../constants/outputStyles'
+import { getSettings_DEPRECATED } from './settings/settings'
 
 /**
  * Determines the prompt category for agent usage.

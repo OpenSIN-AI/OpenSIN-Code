@@ -1,4 +1,4 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 
 const installSlackApp = {
   type: 'local',
@@ -6,7 +6,7 @@ const installSlackApp = {
   description: 'Install the OpenSIN Slack app',
   availability: ['opensin-ai'],
   supportsNonInteractive: false,
-  load: () => import('./install-slack-app.js'),
+  load: () => import('./install-slack-app'),
 } satisfies Command
 
 export default installSlackApp

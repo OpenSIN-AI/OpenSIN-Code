@@ -1,26 +1,26 @@
 import { feature } from 'bun:bundle'
 import type { UUID } from 'crypto'
-import uniqBy from 'lodash-es/uniqBy.js'
+import uniqBy from 'lodash-es/uniqBy'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const sessionTranscriptModule = feature('KAIROS')
-  ? (require('../sessionTranscript/sessionTranscript.js') as typeof import('../sessionTranscript/sessionTranscript.js'))
+  ? (require('../sessionTranscript/sessionTranscript') as typeof import('../sessionTranscript/sessionTranscript'))
   : null
 
 import { APIUserAbortError } from '@anthropic-ai/sdk'
-import { markPostCompaction } from 'src/bootstrap/state.js'
-import { getInvokedSkillsForAgent } from '../../bootstrap/state.js'
-import type { QuerySource } from '../../constants/querySource.js'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
-import type { Tool, ToolUseContext } from '../../Tool.js'
-import type { LocalAgentTaskState } from '../../tasks/LocalAgentTask/LocalAgentTask.js'
-import { FileReadTool } from '../../tools/FileReadTool/FileReadTool.js'
+import { markPostCompaction } from 'src/bootstrap/state'
+import { getInvokedSkillsForAgent } from '../../bootstrap/state'
+import type { QuerySource } from '../../constants/querySource'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
+import type { Tool, ToolUseContext } from '../../Tool'
+import type { LocalAgentTaskState } from '../../tasks/LocalAgentTask/LocalAgentTask'
+import { FileReadTool } from '../../tools/FileReadTool/FileReadTool'
 import {
   FILE_READ_TOOL_NAME,
   FILE_UNCHANGED_STUB,
-} from '../../tools/FileReadTool/prompt.js'
-import { ToolSearchTool } from '../../tools/ToolSearchTool/ToolSearchTool.js'
-import type { AgentId } from '../../types/ids.js'
+} from '../../tools/FileReadTool/prompt'
+import { ToolSearchTool } from '../../tools/ToolSearchTool/ToolSearchTool'
+import type { AgentId } from '../../types/ids'
 import type {
   AssistantMessage,
   AttachmentMessage,
@@ -30,33 +30,33 @@ import type {
   SystemCompactBoundaryMessage,
   SystemMessage,
   UserMessage,
-} from '../../types/message.js'
+} from '../../types/message'
 import {
   createAttachmentMessage,
   generateFileAttachment,
   getAgentListingDeltaAttachment,
   getDeferredToolsDeltaAttachment,
   getMcpInstructionsDeltaAttachment,
-} from '../../utils/attachments.js'
-import { getMemoryPath } from '../../utils/config.js'
-import { COMPACT_MAX_OUTPUT_TOKENS } from '../../utils/context.js'
+} from '../../utils/attachments'
+import { getMemoryPath } from '../../utils/config'
+import { COMPACT_MAX_OUTPUT_TOKENS } from '../../utils/context'
 import {
   analyzeContext,
   tokenStatsToStatsigMetrics,
-} from '../../utils/contextAnalysis.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { hasExactErrorMessage } from '../../utils/errors.js'
-import { cacheToObject } from '../../utils/fileStateCache.js'
+} from '../../utils/contextAnalysis'
+import { logForDebugging } from '../../utils/debug'
+import { hasExactErrorMessage } from '../../utils/errors'
+import { cacheToObject } from '../../utils/fileStateCache'
 import {
   type CacheSafeParams,
   runForkedAgent,
-} from '../../utils/forkedAgent.js'
+} from '../../utils/forkedAgent'
 import {
   executePostCompactHooks,
   executePreCompactHooks,
-} from '../../utils/hooks.js'
-import { logError } from '../../utils/log.js'
-import { MEMORY_TYPE_VALUES } from '../../utils/memory/types.js'
+} from '../../utils/hooks'
+import { logError } from '../../utils/log'
+import { MEMORY_TYPE_VALUES } from '../../utils/memory/types'
 import {
   createCompactBoundaryMessage,
   createUserMessage,
@@ -65,59 +65,59 @@ import {
   getMessagesAfterCompactBoundary,
   isCompactBoundaryMessage,
   normalizeMessagesForAPI,
-} from '../../utils/messages.js'
-import { expandPath } from '../../utils/path.js'
-import { getPlan, getPlanFilePath } from '../../utils/plans.js'
+} from '../../utils/messages'
+import { expandPath } from '../../utils/path'
+import { getPlan, getPlanFilePath } from '../../utils/plans'
 import {
   isSessionActivityTrackingActive,
   sendSessionActivitySignal,
-} from '../../utils/sessionActivity.js'
-import { processSessionStartHooks } from '../../utils/sessionStart.js'
+} from '../../utils/sessionActivity'
+import { processSessionStartHooks } from '../../utils/sessionStart'
 import {
   getTranscriptPath,
   reAppendSessionMetadata,
-} from '../../utils/sessionStorage.js'
-import { sleep } from '../../utils/sleep.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../utils/sessionStorage'
+import { sleep } from '../../utils/sleep'
+import { jsonStringify } from '../../utils/slowOperations'
 /* eslint-enable @typescript-eslint/no-require-imports */
-import { asSystemPrompt } from '../../utils/systemPromptType.js'
-import { getTaskOutputPath } from '../../utils/task/diskOutput.js'
+import { asSystemPrompt } from '../../utils/systemPromptType'
+import { getTaskOutputPath } from '../../utils/task/diskOutput'
 import {
   getTokenUsage,
   tokenCountFromLastAPIResponse,
   tokenCountWithEstimation,
-} from '../../utils/tokens.js'
+} from '../../utils/tokens'
 import {
   extractDiscoveredToolNames,
   isToolSearchEnabled,
-} from '../../utils/toolSearch.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook.js'
+} from '../../utils/toolSearch'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
+} from '../analytics/index'
 import {
   getMaxOutputTokensForModel,
   queryModelWithStreaming,
-} from '../api/claude.js'
+} from '../api/claude'
 import {
   getPromptTooLongTokenGap,
   PROMPT_TOO_LONG_ERROR_MESSAGE,
   startsWithApiErrorPrefix,
-} from '../api/errors.js'
-import { notifyCompaction } from '../api/promptCacheBreakDetection.js'
-import { getRetryDelay } from '../api/withRetry.js'
-import { logPermissionContextForAnts } from '../internalLogging.js'
+} from '../api/errors'
+import { notifyCompaction } from '../api/promptCacheBreakDetection'
+import { getRetryDelay } from '../api/withRetry'
+import { logPermissionContextForAnts } from '../internalLogging'
 import {
   roughTokenCountEstimation,
   roughTokenCountEstimationForMessages,
-} from '../tokenEstimation.js'
-import { groupMessagesByApiRound } from './grouping.js'
+} from '../tokenEstimation'
+import { groupMessagesByApiRound } from './grouping'
 import {
   getCompactPrompt,
   getCompactUserSummaryMessage,
   getPartialCompactPrompt,
-} from './prompt.js'
+} from './prompt'
 
 export const POST_COMPACT_MAX_FILES_TO_RESTORE = 5
 export const POST_COMPACT_TOKEN_BUDGET = 50_000

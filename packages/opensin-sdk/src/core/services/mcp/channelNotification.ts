@@ -16,23 +16,23 @@
  * must explicitly opt in via channelsEnabled: true in managed settings.
  */
 
-import type { ServerCapabilities } from '@modelcontextprotocol/sdk/types.js'
+import type { ServerCapabilities } from '@modelcontextprotocol/sdk/types'
 import { z } from 'zod/v4'
-import { type ChannelEntry, getAllowedChannels } from '../../bootstrap/state.js'
-import { CHANNEL_TAG } from '../../constants/xml.js'
+import { type ChannelEntry, getAllowedChannels } from '../../bootstrap/state'
+import { CHANNEL_TAG } from '../../constants/xml'
 import {
   getClaudeAIOAuthTokens,
   getSubscriptionType,
-} from '../../utils/auth.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { parsePluginIdentifier } from '../../utils/plugins/pluginIdentifier.js'
-import { getSettingsForSource } from '../../utils/settings/settings.js'
-import { escapeXmlAttr } from '../../utils/xml.js'
+} from '../../utils/auth'
+import { lazySchema } from '../../utils/lazySchema'
+import { parsePluginIdentifier } from '../../utils/plugins/pluginIdentifier'
+import { getSettingsForSource } from '../../utils/settings/settings'
+import { escapeXmlAttr } from '../../utils/xml'
 import {
   type ChannelAllowlistEntry,
   getChannelAllowlist,
   isChannelsEnabled,
-} from './channelAllowlist.js'
+} from './channelAllowlist'
 
 export const ChannelMessageNotificationSchema = lazySchema(() =>
   z.object({

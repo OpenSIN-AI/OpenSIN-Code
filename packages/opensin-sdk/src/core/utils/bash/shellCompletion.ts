@@ -1,12 +1,12 @@
-import type { SuggestionItem } from 'src/components/PromptInput/PromptInputFooterSuggestions.js'
+import type { SuggestionItem } from 'src/components/PromptInput/PromptInputFooterSuggestions'
 import {
   type ParseEntry,
   quote,
   tryParseShellCommand,
-} from '../bash/shellQuote.js'
-import { logForDebugging } from '../debug.js'
-import { getShellType } from '../localInstaller.js'
-import * as Shell from '../Shell.js'
+} from '../bash/shellQuote'
+import { logForDebugging } from '../debug'
+import { getShellType } from '../localInstaller'
+import * as Shell from '../Shell'
 
 // Constants
 const MAX_SHELL_COMPLETIONS = 15

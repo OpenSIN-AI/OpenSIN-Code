@@ -5,7 +5,7 @@
  * memory blocks. These are exposed as /memory CLI commands.
  */
 
-import type { MemoryScope, MemoryStore } from './memory.js';
+import type { MemoryScope, MemoryStore } from './memory';
 
 // ---------------------------------------------------------------------------
 // MemoryList — List available memory blocks

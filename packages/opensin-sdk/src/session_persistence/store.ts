@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { SessionData, SessionMessage } from './types.js';
+import { SessionData, SessionMessage } from './types';
 
 export class SessionStore {
   private baseDir: string;

@@ -44,67 +44,67 @@ import {
   stat,
   symlink,
 } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { basename, dirname, join, relative, resolve, sep } from 'path'
-import { getInlinePlugins } from '../../bootstrap/state.js'
+import { getInlinePlugins } from '../../bootstrap/state'
 import {
   BUILTIN_MARKETPLACE_NAME,
   getBuiltinPlugins,
-} from '../../plugins/builtinPlugins.js'
+} from '../../plugins/builtinPlugins'
 import type {
   LoadedPlugin,
   PluginComponent,
   PluginError,
   PluginLoadResult,
   PluginManifest,
-} from '../../types/plugin.js'
-import { logForDebugging } from '../debug.js'
-import { isEnvTruthy } from '../envUtils.js'
+} from '../../types/plugin'
+import { logForDebugging } from '../debug'
+import { isEnvTruthy } from '../envUtils'
 import {
   errorMessage,
   getErrnoPath,
   isENOENT,
   isFsInaccessible,
   toError,
-} from '../errors.js'
-import { execFileNoThrow, execFileNoThrowWithCwd } from '../execFileNoThrow.js'
-import { pathExists } from '../file.js'
-import { getFsImplementation } from '../fsOperations.js'
-import { gitExe } from '../git.js'
-import { lazySchema } from '../lazySchema.js'
-import { logError } from '../log.js'
-import { getSettings_DEPRECATED } from '../settings/settings.js'
+} from '../errors'
+import { execFileNoThrow, execFileNoThrowWithCwd } from '../execFileNoThrow'
+import { pathExists } from '../file'
+import { getFsImplementation } from '../fsOperations'
+import { gitExe } from '../git'
+import { lazySchema } from '../lazySchema'
+import { logError } from '../log'
+import { getSettings_DEPRECATED } from '../settings/settings'
 import {
   clearPluginSettingsBase,
   getPluginSettingsBase,
   resetSettingsCache,
   setPluginSettingsBase,
-} from '../settings/settingsCache.js'
-import type { HooksSettings } from '../settings/types.js'
-import { SettingsSchema } from '../settings/types.js'
-import { jsonParse, jsonStringify } from '../slowOperations.js'
-import { getAddDirEnabledPlugins } from './addDirPluginSettings.js'
-import { verifyAndDemote } from './dependencyResolver.js'
-import { classifyFetchError, logPluginFetch } from './fetchTelemetry.js'
-import { checkGitAvailable } from './gitAvailability.js'
-import { getInMemoryInstalledPlugins } from './installedPluginsManager.js'
-import { getManagedPluginNames } from './managedPlugins.js'
+} from '../settings/settingsCache'
+import type { HooksSettings } from '../settings/types'
+import { SettingsSchema } from '../settings/types'
+import { jsonParse, jsonStringify } from '../slowOperations'
+import { getAddDirEnabledPlugins } from './addDirPluginSettings'
+import { verifyAndDemote } from './dependencyResolver'
+import { classifyFetchError, logPluginFetch } from './fetchTelemetry'
+import { checkGitAvailable } from './gitAvailability'
+import { getInMemoryInstalledPlugins } from './installedPluginsManager'
+import { getManagedPluginNames } from './managedPlugins'
 import {
   formatSourceForDisplay,
   getBlockedMarketplaces,
   getStrictKnownMarketplaces,
   isSourceAllowedByPolicy,
   isSourceInBlocklist,
-} from './marketplaceHelpers.js'
+} from './marketplaceHelpers'
 import {
   getMarketplaceCacheOnly,
   getPluginByIdCacheOnly,
   loadKnownMarketplacesConfigSafe,
-} from './marketplaceManager.js'
-import { getPluginSeedDirs, getPluginsDirectory } from './pluginDirectories.js'
-import { parsePluginIdentifier } from './pluginIdentifier.js'
-import { validatePathWithinBase } from './pluginInstallationHelpers.js'
-import { calculatePluginVersion } from './pluginVersioning.js'
+} from './marketplaceManager'
+import { getPluginSeedDirs, getPluginsDirectory } from './pluginDirectories'
+import { parsePluginIdentifier } from './pluginIdentifier'
+import { validatePathWithinBase } from './pluginInstallationHelpers'
+import { calculatePluginVersion } from './pluginVersioning'
 import {
   type CommandMetadata,
   PluginHooksSchema,
@@ -112,13 +112,13 @@ import {
   PluginManifestSchema,
   type PluginMarketplaceEntry,
   type PluginSource,
-} from './schemas.js'
+} from './schemas'
 import {
   convertDirectoryToZipInPlace,
   extractZipToDirectory,
   getSessionPluginCachePath,
   isPluginZipCacheEnabled,
-} from './zipCache.js'
+} from './zipCache'
 
 /**
  * Get the path where plugin cache is stored

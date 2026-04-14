@@ -1,9 +1,9 @@
-import { resetSdkInitState } from '../../bootstrap/state.js'
-import { isRestrictedToPluginOnly } from '../settings/pluginOnlyPolicy.js'
+import { resetSdkInitState } from '../../bootstrap/state'
+import { isRestrictedToPluginOnly } from '../settings/pluginOnlyPolicy'
 // Import as module object so spyOn works in tests (direct imports bypass spies)
-import * as settingsModule from '../settings/settings.js'
-import { resetSettingsCache } from '../settings/settingsCache.js'
-import type { HooksSettings } from '../settings/types.js'
+import * as settingsModule from '../settings/settings'
+import { resetSettingsCache } from '../settings/settingsCache'
+import type { HooksSettings } from '../settings/types'
 
 let initialHooksConfig: HooksSettings | null = null
 

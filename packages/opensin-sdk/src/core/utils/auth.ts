@@ -2,80 +2,80 @@ import chalk from 'chalk'
 import { exec } from 'child_process'
 import { execa } from 'execa'
 import { mkdir, stat } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { join } from 'path'
-import { CLAUDE_AI_PROFILE_SCOPE } from 'src/constants/oauth.js'
+import { CLAUDE_AI_PROFILE_SCOPE } from 'src/constants/oauth'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { getModelStrings } from 'src/utils/model/modelStrings.js'
-import { getAPIProvider } from 'src/utils/model/providers.js'
+} from 'src/services/analytics/index'
+import { getModelStrings } from 'src/utils/model/modelStrings'
+import { getAPIProvider } from 'src/utils/model/providers'
 import {
   getIsNonInteractiveSession,
   preferThirdPartyAuthentication,
-} from '../bootstrap/state.js'
+} from '../bootstrap/state'
 import {
   getMockSubscriptionType,
   shouldUseMockSubscription,
-} from '../services/mockRateLimits.js'
+} from '../services/mockRateLimits'
 import {
   isOAuthTokenExpired,
   refreshOAuthToken,
   shouldUseClaudeAIAuth,
-} from '../services/oauth/client.js'
-import { getOauthProfileFromOauthToken } from '../services/oauth/getOauthProfile.js'
-import type { OAuthTokens, SubscriptionType } from '../services/oauth/types.js'
+} from '../services/oauth/client'
+import { getOauthProfileFromOauthToken } from '../services/oauth/getOauthProfile'
+import type { OAuthTokens, SubscriptionType } from '../services/oauth/types'
 import {
   getApiKeyFromFileDescriptor,
   getOAuthTokenFromFileDescriptor,
-} from './authFileDescriptor.js'
+} from './authFileDescriptor'
 import {
   maybeRemoveApiKeyFromMacOSKeychainThrows,
   normalizeApiKeyForConfig,
-} from './authPortable.js'
+} from './authPortable'
 import {
   checkStsCallerIdentity,
   clearAwsIniCache,
   isValidAwsStsOutput,
-} from './aws.js'
-import { AwsAuthStatusManager } from './awsAuthStatusManager.js'
-import { clearBetasCaches } from './betas.js'
+} from './aws'
+import { AwsAuthStatusManager } from './awsAuthStatusManager'
+import { clearBetasCaches } from './betas'
 import {
   type AccountInfo,
   checkHasTrustDialogAccepted,
   getGlobalConfig,
   saveGlobalConfig,
-} from './config.js'
-import { logAntError, logForDebugging } from './debug.js'
+} from './config'
+import { logAntError, logForDebugging } from './debug'
 import {
   getClaudeConfigHomeDir,
   isBareMode,
   isEnvTruthy,
   isRunningOnHomespace,
-} from './envUtils.js'
-import { errorMessage } from './errors.js'
-import { execSyncWithDefaults_DEPRECATED } from './execFileNoThrow.js'
-import * as lockfile from './lockfile.js'
-import { logError } from './log.js'
-import { memoizeWithTTLAsync } from './memoize.js'
-import { getSecureStorage } from './secureStorage/index.js'
+} from './envUtils'
+import { errorMessage } from './errors'
+import { execSyncWithDefaults_DEPRECATED } from './execFileNoThrow'
+import * as lockfile from './lockfile'
+import { logError } from './log'
+import { memoizeWithTTLAsync } from './memoize'
+import { getSecureStorage } from './secureStorage/index'
 import {
   clearLegacyApiKeyPrefetch,
   getLegacyApiKeyPrefetchResult,
-} from './secureStorage/keychainPrefetch.js'
+} from './secureStorage/keychainPrefetch'
 import {
   clearKeychainCache,
   getMacOsKeychainStorageServiceName,
   getUsername,
-} from './secureStorage/macOsKeychainHelpers.js'
+} from './secureStorage/macOsKeychainHelpers'
 import {
   getSettings_DEPRECATED,
   getSettingsForSource,
-} from './settings/settings.js'
-import { sleep } from './sleep.js'
-import { jsonParse } from './slowOperations.js'
-import { clearToolSchemaCache } from './toolSchemaCache.js'
+} from './settings/settings'
+import { sleep } from './sleep'
+import { jsonParse } from './slowOperations'
+import { clearToolSchemaCache } from './toolSchemaCache'
 
 /** Default TTL for API key helper cache in milliseconds (5 minutes) */
 const DEFAULT_API_KEY_HELPER_TTL = 5 * 60 * 1000

@@ -18,7 +18,7 @@
  */
 
 import { diffArrays } from 'diff'
-import type * as hljsNamespace from 'highlight.js'
+import type * as hljsNamespace from 'highlight'
 import { basename, extname } from 'path'
 
 // Lazy: defers loading highlight.js until first render. The full bundle
@@ -35,15 +35,15 @@ let cachedHljs: HLJSApi | null = null
 function hljs(): HLJSApi {
   if (cachedHljs) return cachedHljs
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const mod = require('highlight.js')
+  const mod = require('highlight')
   // highlight.js uses `export =` (CJS). Under bun/ESM the interop wraps it
   // in .default; under node CJS the module IS the API. Check at runtime.
   cachedHljs = 'default' in mod && mod.default ? mod.default : mod
   return cachedHljs!
 }
 
-import { stringWidth } from '../../ink/stringWidth.js'
-import { logError } from '../../utils/log.js'
+import { stringWidth } from '../../ink/stringWidth'
+import { logError } from '../../utils/log'
 
 // ---------------------------------------------------------------------------
 // Public API types (match vendor/color-diff-src/index.d.ts)

@@ -2,57 +2,57 @@ import { feature } from 'bun:bundle'
 import type {
   ElicitResult,
   JSONRPCMessage,
-} from '@modelcontextprotocol/sdk/types.js'
+} from '@modelcontextprotocol/sdk/types'
 import { randomUUID } from 'crypto'
-import type { AssistantMessage } from 'src//types/message.js'
+import type { AssistantMessage } from 'src//types/message'
 import type {
   HookInput,
   HookJSONOutput,
   PermissionUpdate,
   SDKMessage,
   SDKUserMessage,
-} from 'src/entrypoints/agentSdkTypes.js'
-import { SDKControlElicitationResponseSchema } from 'src/entrypoints/sdk/controlSchemas.js'
+} from 'src/entrypoints/agentSdkTypes'
+import { SDKControlElicitationResponseSchema } from 'src/entrypoints/sdk/controlSchemas'
 import type {
   SDKControlRequest,
   SDKControlResponse,
   StdinMessage,
   StdoutMessage,
-} from 'src/entrypoints/sdk/controlTypes.js'
-import type { CanUseToolFn } from 'src/hooks/useCanUseTool.js'
-import type { Tool, ToolUseContext } from 'src/Tool.js'
-import { type HookCallback, hookJSONOutputSchema } from 'src/types/hooks.js'
-import { logForDebugging } from 'src/utils/debug.js'
-import { logForDiagnosticsNoPII } from 'src/utils/diagLogs.js'
-import { AbortError } from 'src/utils/errors.js'
+} from 'src/entrypoints/sdk/controlTypes'
+import type { CanUseToolFn } from 'src/hooks/useCanUseTool'
+import type { Tool, ToolUseContext } from 'src/Tool'
+import { type HookCallback, hookJSONOutputSchema } from 'src/types/hooks'
+import { logForDebugging } from 'src/utils/debug'
+import { logForDiagnosticsNoPII } from 'src/utils/diagLogs'
+import { AbortError } from 'src/utils/errors'
 import {
   type Output as PermissionToolOutput,
   permissionPromptToolResultToPermissionDecision,
   outputSchema as permissionToolOutputSchema,
-} from 'src/utils/permissions/PermissionPromptToolResultSchema.js'
+} from 'src/utils/permissions/PermissionPromptToolResultSchema'
 import type {
   PermissionDecision,
   PermissionDecisionReason,
-} from 'src/utils/permissions/PermissionResult.js'
-import { hasPermissionsToUseTool } from 'src/utils/permissions/permissions.js'
-import { writeToStdout } from 'src/utils/process.js'
-import { jsonStringify } from 'src/utils/slowOperations.js'
+} from 'src/utils/permissions/PermissionResult'
+import { hasPermissionsToUseTool } from 'src/utils/permissions/permissions'
+import { writeToStdout } from 'src/utils/process'
+import { jsonStringify } from 'src/utils/slowOperations'
 import { z } from 'zod/v4'
-import { notifyCommandLifecycle } from '../utils/commandLifecycle.js'
-import { normalizeControlMessageKeys } from '../utils/controlMessageCompat.js'
-import { executePermissionRequestHooks } from '../utils/hooks.js'
+import { notifyCommandLifecycle } from '../utils/commandLifecycle'
+import { normalizeControlMessageKeys } from '../utils/controlMessageCompat'
+import { executePermissionRequestHooks } from '../utils/hooks'
 import {
   applyPermissionUpdates,
   persistPermissionUpdates,
-} from '../utils/permissions/PermissionUpdate.js'
+} from '../utils/permissions/PermissionUpdate'
 import {
   notifySessionStateChanged,
   type RequiresActionDetails,
   type SessionExternalMetadata,
-} from '../utils/sessionState.js'
-import { jsonParse } from '../utils/slowOperations.js'
-import { Stream } from '../utils/stream.js'
-import { ndjsonSafeStringify } from './ndjsonSafeStringify.js'
+} from '../utils/sessionState'
+import { jsonParse } from '../utils/slowOperations'
+import { Stream } from '../utils/stream'
+import { ndjsonSafeStringify } from './ndjsonSafeStringify'
 
 /**
  * Synthetic tool name used when forwarding sandbox network permission
@@ -361,7 +361,7 @@ export class StructuredIO {
       }
       if (message.type === 'control_response') {
         // Close lifecycle for every control_response, including duplicates
-        // and orphans — orphans don't yield to print.ts's main loop, so this
+        // and orphans — orphans don't yield to print's main loop, so this
         // is the only path that sees them. uuid is server-injected into the
         // payload.
         const uuid =

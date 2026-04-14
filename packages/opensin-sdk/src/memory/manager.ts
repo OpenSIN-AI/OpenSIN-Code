@@ -1,4 +1,4 @@
-import type { MemoryEntry, MemoryProvider } from './types.js'
+import type { MemoryEntry, MemoryProvider } from './types'
 import { randomUUID } from 'crypto'
 
 export class MemoryManager {

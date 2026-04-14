@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react'
-import { compactWarningStore } from './compactWarningState.js'
+import { compactWarningStore } from './compactWarningState'
 
 /**
  * React hook to subscribe to compact warning suppression state.

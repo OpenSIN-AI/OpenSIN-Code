@@ -4,28 +4,28 @@ import {
   getProjectRoot,
   setOriginalCwd,
   setProjectRoot,
-} from '../../bootstrap/state.js'
-import { clearSystemPromptSections } from '../../constants/systemPromptSections.js'
-import { logEvent } from '../../services/analytics/index.js'
-import type { Tool } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { count } from '../../utils/array.js'
-import { clearMemoryFileCaches } from '../../utils/claudemd.js'
-import { execFileNoThrow } from '../../utils/execFileNoThrow.js'
-import { updateHooksConfigSnapshot } from '../../utils/hooks/hooksConfigSnapshot.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { getPlansDirectory } from '../../utils/plans.js'
-import { setCwd } from '../../utils/Shell.js'
-import { saveWorktreeState } from '../../utils/sessionStorage.js'
+} from '../../bootstrap/state'
+import { clearSystemPromptSections } from '../../constants/systemPromptSections'
+import { logEvent } from '../../services/analytics/index'
+import type { Tool } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
+import { count } from '../../utils/array'
+import { clearMemoryFileCaches } from '../../utils/claudemd'
+import { execFileNoThrow } from '../../utils/execFileNoThrow'
+import { updateHooksConfigSnapshot } from '../../utils/hooks/hooksConfigSnapshot'
+import { lazySchema } from '../../utils/lazySchema'
+import { getPlansDirectory } from '../../utils/plans'
+import { setCwd } from '../../utils/Shell'
+import { saveWorktreeState } from '../../utils/sessionStorage'
 import {
   cleanupWorktree,
   getCurrentWorktreeSession,
   keepWorktree,
   killTmuxSession,
-} from '../../utils/worktree.js'
-import { EXIT_WORKTREE_TOOL_NAME } from './constants.js'
-import { getExitWorktreeToolPrompt } from './prompt.js'
-import { renderToolResultMessage, renderToolUseMessage } from './UI.js'
+} from '../../utils/worktree'
+import { EXIT_WORKTREE_TOOL_NAME } from './constants'
+import { getExitWorktreeToolPrompt } from './prompt'
+import { renderToolResultMessage, renderToolUseMessage } from './UI'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({
@@ -134,7 +134,7 @@ function restoreSessionToOriginalCwd(
   // identity" contract.
   if (projectRootIsWorktree) {
     setProjectRoot(originalCwd)
-    // setup.ts's --worktree block called updateHooksConfigSnapshot() to re-read
+    // setup's --worktree block called updateHooksConfigSnapshot() to re-read
     // hooks from the worktree. Restore symmetrically. (Mid-session
     // EnterWorktreeTool never touched the snapshot, so no-op there.)
     updateHooksConfigSnapshot()

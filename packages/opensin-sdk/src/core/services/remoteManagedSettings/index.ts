@@ -15,38 +15,38 @@
 import axios from 'axios'
 import { createHash } from 'crypto'
 import { open, unlink } from 'fs/promises'
-import { getOauthConfig, OAUTH_BETA_HEADER } from '../../constants/oauth.js'
+import { getOauthConfig, OAUTH_BETA_HEADER } from '../../constants/oauth'
 import {
   checkAndRefreshOAuthTokenIfNeeded,
   getAnthropicApiKeyWithSource,
   getClaudeAIOAuthTokens,
-} from '../../utils/auth.js'
-import { registerCleanup } from '../../utils/cleanupRegistry.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { classifyAxiosError, getErrnoCode } from '../../utils/errors.js'
-import { settingsChangeDetector } from '../../utils/settings/changeDetector.js'
+} from '../../utils/auth'
+import { registerCleanup } from '../../utils/cleanupRegistry'
+import { logForDebugging } from '../../utils/debug'
+import { classifyAxiosError, getErrnoCode } from '../../utils/errors'
+import { settingsChangeDetector } from '../../utils/settings/changeDetector'
 import {
   type SettingsJson,
   SettingsSchema,
-} from '../../utils/settings/types.js'
-import { sleep } from '../../utils/sleep.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { getClaudeCodeUserAgent } from '../../utils/userAgent.js'
-import { getRetryDelay } from '../api/withRetry.js'
+} from '../../utils/settings/types'
+import { sleep } from '../../utils/sleep'
+import { jsonStringify } from '../../utils/slowOperations'
+import { getClaudeCodeUserAgent } from '../../utils/userAgent'
+import { getRetryDelay } from '../api/withRetry'
 import {
   checkManagedSettingsSecurity,
   handleSecurityCheckResult,
 } from './securityCheck.jsx'
-import { isRemoteManagedSettingsEligible, resetSyncCache } from './syncCache.js'
+import { isRemoteManagedSettingsEligible, resetSyncCache } from './syncCache'
 import {
   getRemoteManagedSettingsSyncFromCache,
   getSettingsPath,
   setSessionCache,
-} from './syncCacheState.js'
+} from './syncCacheState'
 import {
   type RemoteManagedSettingsFetchResult,
   RemoteManagedSettingsResponseSchema,
-} from './types.js'
+} from './types'
 
 // Constants
 const SETTINGS_TIMEOUT_MS = 10000 // 10 seconds for settings fetch

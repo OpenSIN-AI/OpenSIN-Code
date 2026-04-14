@@ -1,38 +1,38 @@
 import { z } from 'zod/v4'
-import { getSessionId } from '../../bootstrap/state.js'
-import { logEvent } from '../../services/analytics/index.js'
-import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from '../../services/analytics/metadata.js'
-import type { Tool } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { formatAgentId } from '../../utils/agentId.js'
-import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled.js'
-import { getCwd } from '../../utils/cwd.js'
-import { lazySchema } from '../../utils/lazySchema.js'
+import { getSessionId } from '../../bootstrap/state'
+import { logEvent } from '../../services/analytics/index'
+import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from '../../services/analytics/metadata'
+import type { Tool } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
+import { formatAgentId } from '../../utils/agentId'
+import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled'
+import { getCwd } from '../../utils/cwd'
+import { lazySchema } from '../../utils/lazySchema'
 import {
   getDefaultMainLoopModel,
   parseUserSpecifiedModel,
-} from '../../utils/model/model.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { getResolvedTeammateMode } from '../../utils/swarm/backends/registry.js'
-import { TEAM_LEAD_NAME } from '../../utils/swarm/constants.js'
-import type { TeamFile } from '../../utils/swarm/teamHelpers.js'
+} from '../../utils/model/model'
+import { jsonStringify } from '../../utils/slowOperations'
+import { getResolvedTeammateMode } from '../../utils/swarm/backends/registry'
+import { TEAM_LEAD_NAME } from '../../utils/swarm/constants'
+import type { TeamFile } from '../../utils/swarm/teamHelpers'
 import {
   getTeamFilePath,
   readTeamFile,
   registerTeamForSessionCleanup,
   sanitizeName,
   writeTeamFileAsync,
-} from '../../utils/swarm/teamHelpers.js'
-import { assignTeammateColor } from '../../utils/swarm/teammateLayoutManager.js'
+} from '../../utils/swarm/teamHelpers'
+import { assignTeammateColor } from '../../utils/swarm/teammateLayoutManager'
 import {
   ensureTasksDir,
   resetTaskList,
   setLeaderTeamName,
-} from '../../utils/tasks.js'
-import { generateWordSlug } from '../../utils/words.js'
-import { TEAM_CREATE_TOOL_NAME } from './constants.js'
-import { getPrompt } from './prompt.js'
-import { renderToolUseMessage } from './UI.js'
+} from '../../utils/tasks'
+import { generateWordSlug } from '../../utils/words'
+import { TEAM_CREATE_TOOL_NAME } from './constants'
+import { getPrompt } from './prompt'
+import { renderToolUseMessage } from './UI'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({

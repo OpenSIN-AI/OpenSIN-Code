@@ -12,10 +12,10 @@ import { Command } from 'commander';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { OpenSINClient, createClient } from '../client.js';
-import { StdinHandler } from './stdin_handler.js';
-import { SessionManager } from './session_manager.js';
-import { CliConfig } from './types.js';
+import { OpenSINClient, createClient } from '../client';
+import { StdinHandler } from './stdin_handler';
+import { SessionManager } from './session_manager';
+import { CliConfig } from './types';
 
 const DEFAULT_CONFIG: CliConfig = {
   apiUrl: 'http://localhost:8000',

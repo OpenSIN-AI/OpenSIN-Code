@@ -1,16 +1,16 @@
 import { basename } from 'path'
 import React from 'react'
-import { logError } from 'src/utils/log.js'
+import { logError } from 'src/utils/log'
 import { useDebounceCallback } from 'usehooks-ts'
-import type { InputEvent, Key } from '../ink.js'
+import type { InputEvent, Key } from '../ink'
 import {
   getImageFromClipboard,
   isImageFilePath,
   PASTE_THRESHOLD,
   tryReadImageFromPath,
-} from '../utils/imagePaste.js'
-import type { ImageDimensions } from '../utils/imageResizer.js'
-import { getPlatform } from '../utils/platform.js'
+} from '../utils/imagePaste'
+import type { ImageDimensions } from '../utils/imageResizer'
+import { getPlatform } from '../utils/platform'
 
 const CLIPBOARD_CHECK_DEBOUNCE_MS = 50
 const PASTE_COMPLETION_TIMEOUT_MS = 100

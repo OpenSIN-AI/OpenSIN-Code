@@ -19,7 +19,7 @@ import type {
   ToolDefinition,
   TokenUsage,
   StreamChunk,
-} from '../types.js';
+} from '../types';
 import {
   AgentLoopConfig,
   DEFAULT_AGENT_LOOP_CONFIG,
@@ -29,10 +29,10 @@ import {
   LLMResponse,
   ToolExecutor,
   AgentEventType,
-} from './types.js';
-import { emitNDJSON, makeEvent } from './ndjson.js';
-import { ToolRegistry } from './tool_registry.js';
-import { AgentLoopContext } from './context.js';
+} from './types';
+import { emitNDJSON, makeEvent } from './ndjson';
+import { ToolRegistry } from './tool_registry';
+import { AgentLoopContext } from './context';
 
 /**
  * Check if an error is transient (retryable).

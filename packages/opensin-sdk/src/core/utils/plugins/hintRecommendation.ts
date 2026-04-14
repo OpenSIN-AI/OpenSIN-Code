@@ -10,26 +10,26 @@
  * marketplace filtering is hardcoded for v1.
  */
 
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_PII_TAGGED,
   logEvent,
-} from '../../services/analytics/index.js'
+} from '../../services/analytics/index'
 import {
   type ClaudeCodeHint,
   hasShownHintThisSession,
   setPendingHint,
-} from '../claudeCodeHints.js'
-import { getGlobalConfig, saveGlobalConfig } from '../config.js'
-import { logForDebugging } from '../debug.js'
-import { isPluginInstalled } from './installedPluginsManager.js'
-import { getPluginById } from './marketplaceManager.js'
+} from '../claudeCodeHints'
+import { getGlobalConfig, saveGlobalConfig } from '../config'
+import { logForDebugging } from '../debug'
+import { isPluginInstalled } from './installedPluginsManager'
+import { getPluginById } from './marketplaceManager'
 import {
   isOfficialMarketplaceName,
   parsePluginIdentifier,
-} from './pluginIdentifier.js'
-import { isPluginBlockedByPolicy } from './pluginPolicy.js'
+} from './pluginIdentifier'
+import { isPluginBlockedByPolicy } from './pluginPolicy'
 
 /**
  * Hard cap on `claudeCodeHints.plugin[]` — bounds config growth. Each shown

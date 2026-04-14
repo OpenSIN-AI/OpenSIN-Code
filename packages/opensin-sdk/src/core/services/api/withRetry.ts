@@ -5,13 +5,13 @@ import {
   APIError,
   APIUserAbortError,
 } from '@anthropic-ai/sdk'
-import type { QuerySource } from 'src/constants/querySource.js'
-import type { SystemAPIErrorMessage } from 'src/types/message.js'
-import { isAwsCredentialsProviderError } from 'src/utils/aws.js'
-import { logForDebugging } from 'src/utils/debug.js'
-import { logError } from 'src/utils/log.js'
-import { createSystemAPIErrorMessage } from 'src/utils/messages.js'
-import { getAPIProviderForStatsig } from 'src/utils/model/providers.js'
+import type { QuerySource } from 'src/constants/querySource'
+import type { SystemAPIErrorMessage } from 'src/types/message'
+import { isAwsCredentialsProviderError } from 'src/utils/aws'
+import { logForDebugging } from 'src/utils/debug'
+import { logError } from 'src/utils/log'
+import { createSystemAPIErrorMessage } from 'src/utils/messages'
+import { getAPIProviderForStatsig } from 'src/utils/model/providers'
 import {
   clearApiKeyHelperCache,
   clearAwsCredentialsCache,
@@ -20,9 +20,9 @@ import {
   handleOAuth401Error,
   isClaudeAISubscriber,
   isEnterpriseSubscriber,
-} from '../../utils/auth.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { errorMessage } from '../../utils/errors.js'
+} from '../../utils/auth'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { errorMessage } from '../../utils/errors'
 import {
   type CooldownReason,
   handleFastModeOverageRejection,
@@ -30,22 +30,22 @@ import {
   isFastModeCooldown,
   isFastModeEnabled,
   triggerFastModeCooldown,
-} from '../../utils/fastMode.js'
-import { isNonCustomOpusModel } from '../../utils/model/model.js'
-import { disableKeepAlive } from '../../utils/proxy.js'
-import { sleep } from '../../utils/sleep.js'
-import type { ThinkingConfig } from '../../utils/thinking.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook.js'
+} from '../../utils/fastMode'
+import { isNonCustomOpusModel } from '../../utils/model/model'
+import { disableKeepAlive } from '../../utils/proxy'
+import { sleep } from '../../utils/sleep'
+import type { ThinkingConfig } from '../../utils/thinking'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
+} from '../analytics/index'
 import {
   checkMockRateLimitError,
   isMockRateLimitError,
-} from '../rateLimitMocking.js'
-import { REPEATED_529_ERROR_MESSAGE } from './errors.js'
-import { extractConnectionErrorDetails } from './errorUtils.js'
+} from '../rateLimitMocking'
+import { REPEATED_529_ERROR_MESSAGE } from './errors'
+import { extractConnectionErrorDetails } from './errorUtils'
 
 const abortError = () => new APIUserAbortError()
 

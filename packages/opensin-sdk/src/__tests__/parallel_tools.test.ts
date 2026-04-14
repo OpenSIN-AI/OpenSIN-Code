@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { createParallelExecutor } from '../parallel_tools/executor.js'
+import { createParallelExecutor } from '../parallel_tools/executor'
 
 describe('ParallelToolExecutor', () => {
   it('should not parallelize single call', () => { expect(createParallelExecutor().shouldParallelize([{ id: '1', name: 'read', input: {} }])).toBe(false) })

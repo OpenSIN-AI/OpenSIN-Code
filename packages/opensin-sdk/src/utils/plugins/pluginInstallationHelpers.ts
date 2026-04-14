@@ -12,51 +12,51 @@ import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_PII_TAGGED,
   logEvent,
-} from '../../services/analytics/index.js'
-import { getCwd } from '../cwd.js'
-import { toError } from '../errors.js'
-import { getFsImplementation } from '../fsOperations.js'
-import { logError } from '../log.js'
+} from '../../services/analytics/index'
+import { getCwd } from '../cwd'
+import { toError } from '../errors'
+import { getFsImplementation } from '../fsOperations'
+import { logError } from '../log'
 import {
   getSettingsForSource,
   updateSettingsForSource,
-} from '../settings/settings.js'
-import { buildPluginTelemetryFields } from '../telemetry/pluginTelemetry.js'
-import { clearAllCaches } from './cacheUtils.js'
+} from '../settings/settings'
+import { buildPluginTelemetryFields } from '../telemetry/pluginTelemetry'
+import { clearAllCaches } from './cacheUtils'
 import {
   formatDependencyCountSuffix,
   getEnabledPluginIdsForScope,
   type ResolutionResult,
   resolveDependencyClosure,
-} from './dependencyResolver.js'
+} from './dependencyResolver'
 import {
   addInstalledPlugin,
   getGitCommitSha,
-} from './installedPluginsManager.js'
-import { getManagedPluginNames } from './managedPlugins.js'
-import { getMarketplaceCacheOnly, getPluginById } from './marketplaceManager.js'
+} from './installedPluginsManager'
+import { getManagedPluginNames } from './managedPlugins'
+import { getMarketplaceCacheOnly, getPluginById } from './marketplaceManager'
 import {
   isOfficialMarketplaceName,
   parsePluginIdentifier,
   scopeToSettingSource,
-} from './pluginIdentifier.js'
+} from './pluginIdentifier'
 import {
   cachePlugin,
   getVersionedCachePath,
   getVersionedZipCachePath,
-} from './pluginLoader.js'
-import { isPluginBlockedByPolicy } from './pluginPolicy.js'
-import { calculatePluginVersion } from './pluginVersioning.js'
+} from './pluginLoader'
+import { isPluginBlockedByPolicy } from './pluginPolicy'
+import { calculatePluginVersion } from './pluginVersioning'
 import {
   isLocalPluginSource,
   type PluginMarketplaceEntry,
   type PluginScope,
   type PluginSource,
-} from './schemas.js'
+} from './schemas'
 import {
   convertDirectoryToZipInPlace,
   isPluginZipCacheEnabled,
-} from './zipCache.js'
+} from './zipCache'
 
 /**
  * Plugin installation metadata for installed_plugins.json

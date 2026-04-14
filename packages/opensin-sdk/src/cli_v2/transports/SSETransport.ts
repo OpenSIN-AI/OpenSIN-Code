@@ -1,13 +1,13 @@
 import axios, { type AxiosError } from 'axios'
-import type { StdoutMessage } from 'src/entrypoints/sdk/controlTypes.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { logForDiagnosticsNoPII } from '../../utils/diagLogs.js'
-import { errorMessage } from '../../utils/errors.js'
-import { getSessionIngressAuthHeaders } from '../../utils/sessionIngressAuth.js'
-import { sleep } from '../../utils/sleep.js'
-import { jsonParse, jsonStringify } from '../../utils/slowOperations.js'
-import { getOpenSINCodeUserAgent } from '../../utils/userAgent.js'
-import type { Transport } from './Transport.js'
+import type { StdoutMessage } from 'src/entrypoints/sdk/controlTypes'
+import { logForDebugging } from '../../utils/debug'
+import { logForDiagnosticsNoPII } from '../../utils/diagLogs'
+import { errorMessage } from '../../utils/errors'
+import { getSessionIngressAuthHeaders } from '../../utils/sessionIngressAuth'
+import { sleep } from '../../utils/sleep'
+import { jsonParse, jsonStringify } from '../../utils/slowOperations'
+import { getOpenSINCodeUserAgent } from '../../utils/userAgent'
+import type { Transport } from './Transport'
 
 // ---------------------------------------------------------------------------
 // Configuration

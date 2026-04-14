@@ -3,10 +3,10 @@ import {
   DefaultEventPriority,
   DiscreteEventPriority,
   NoEventPriority,
-} from 'react-reconciler/constants.js'
-import { logError } from '../../utils/log.js'
-import { HANDLER_FOR_EVENT } from './event-handlers.js'
-import type { EventTarget, TerminalEvent } from './terminal-event.js'
+} from 'react-reconciler/constants'
+import { logError } from '../../utils/log'
+import { HANDLER_FOR_EVENT } from './event-handlers'
+import type { EventTarget, TerminalEvent } from './terminal-event'
 
 // --
 

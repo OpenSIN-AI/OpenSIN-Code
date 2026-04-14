@@ -1,20 +1,20 @@
 import axios from 'axios'
-import isEqual from 'lodash-es/isEqual.js'
+import isEqual from 'lodash-es/isEqual'
 import {
   getAnthropicApiKey,
   getClaudeAIOAuthTokens,
   hasProfileScope,
-} from 'src/utils/auth.js'
+} from 'src/utils/auth'
 import { z } from 'zod'
-import { getOauthConfig, OAUTH_BETA_HEADER } from '../../constants/oauth.js'
-import { getGlobalConfig, saveGlobalConfig } from '../../utils/config.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { withOAuth401Retry } from '../../utils/http.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { logError } from '../../utils/log.js'
-import { getAPIProvider } from '../../utils/model/providers.js'
-import { isEssentialTrafficOnly } from '../../utils/privacyLevel.js'
-import { getClaudeCodeUserAgent } from '../../utils/userAgent.js'
+import { getOauthConfig, OAUTH_BETA_HEADER } from '../../constants/oauth'
+import { getGlobalConfig, saveGlobalConfig } from '../../utils/config'
+import { logForDebugging } from '../../utils/debug'
+import { withOAuth401Retry } from '../../utils/http'
+import { lazySchema } from '../../utils/lazySchema'
+import { logError } from '../../utils/log'
+import { getAPIProvider } from '../../utils/model/providers'
+import { isEssentialTrafficOnly } from '../../utils/privacyLevel'
+import { getClaudeCodeUserAgent } from '../../utils/userAgent'
 
 const bootstrapResponseSchema = lazySchema(() =>
   z.object({

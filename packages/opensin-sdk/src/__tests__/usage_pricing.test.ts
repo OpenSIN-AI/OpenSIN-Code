@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { UsagePricing, createPricing } from '../usage_pricing/pricing.js'
+import { UsagePricing, createPricing } from '../usage_pricing/pricing'
 
 describe('UsagePricing', () => {
   let p: UsagePricing

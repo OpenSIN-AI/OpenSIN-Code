@@ -1,14 +1,14 @@
-import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook.js'
-import { splitCommand_DEPRECATED } from '../../utils/bash/commands.js'
-import { SandboxManager } from '../../utils/sandbox/sandbox-adapter.js'
-import { getSettings_DEPRECATED } from '../../utils/settings/settings.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook'
+import { splitCommand_DEPRECATED } from '../../utils/bash/commands'
+import { SandboxManager } from '../../utils/sandbox/sandbox-adapter'
+import { getSettings_DEPRECATED } from '../../utils/settings/settings'
 import {
   BINARY_HIJACK_VARS,
   bashPermissionRule,
   matchWildcardPattern,
   stripAllLeadingEnvVars,
   stripSafeWrappers,
-} from './bashPermissions.js'
+} from './bashPermissions'
 
 type SandboxInput = {
   command?: string

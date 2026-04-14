@@ -1,26 +1,26 @@
-import type { ToolUseContext } from '../../../Tool.js'
+import type { ToolUseContext } from '../../../Tool'
 import {
   findTeammateTaskByAgentId,
   requestTeammateShutdown,
-} from '../../../tasks/InProcessTeammateTask/InProcessTeammateTask.js'
-import { parseAgentId } from '../../../utils/agentId.js'
-import { logForDebugging } from '../../../utils/debug.js'
-import { jsonStringify } from '../../../utils/slowOperations.js'
+} from '../../../tasks/InProcessTeammateTask/InProcessTeammateTask'
+import { parseAgentId } from '../../../utils/agentId'
+import { logForDebugging } from '../../../utils/debug'
+import { jsonStringify } from '../../../utils/slowOperations'
 import {
   createShutdownRequestMessage,
   writeToMailbox,
-} from '../../../utils/teammateMailbox.js'
-import { startInProcessTeammate } from '../inProcessRunner.js'
+} from '../../../utils/teammateMailbox'
+import { startInProcessTeammate } from '../inProcessRunner'
 import {
   killInProcessTeammate,
   spawnInProcessTeammate,
-} from '../spawnInProcess.js'
+} from '../spawnInProcess'
 import type {
   TeammateExecutor,
   TeammateMessage,
   TeammateSpawnConfig,
   TeammateSpawnResult,
-} from './types.js'
+} from './types'
 
 /**
  * InProcessBackend implements TeammateExecutor for in-process teammates.

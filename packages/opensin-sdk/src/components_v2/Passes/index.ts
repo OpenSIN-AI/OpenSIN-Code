@@ -1,1 +1,1 @@
-export { Passes } from './Passes.js';
+export { Passes } from './Passes';

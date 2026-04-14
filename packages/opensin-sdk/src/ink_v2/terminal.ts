@@ -1,12 +1,12 @@
 import { coerce } from 'semver'
 import type { Writable } from 'stream'
-import { env } from '../utils/env.js'
-import { gte } from '../utils/semver.js'
-import { getClearTerminalSequence } from './clearTerminal.js'
-import type { Diff } from './frame.js'
-import { cursorMove, cursorTo, eraseLines } from './termio/csi.js'
-import { BSU, ESU, HIDE_CURSOR, SHOW_CURSOR } from './termio/dec.js'
-import { link } from './termio/osc.js'
+import { env } from '../utils/env'
+import { gte } from '../utils/semver'
+import { getClearTerminalSequence } from './clearTerminal'
+import type { Diff } from './frame'
+import { cursorMove, cursorTo, eraseLines } from './termio/csi'
+import { BSU, ESU, HIDE_CURSOR, SHOW_CURSOR } from './termio/dec'
+import { link } from './termio/osc'
 
 export type Progress = {
   state: 'running' | 'completed' | 'error' | 'indeterminate'
@@ -142,7 +142,7 @@ export function setXtversionName(name: string): void {
  *  reply — call lazily (e.g. in an event handler) if SSH detection matters. */
 export function isXtermJs(): boolean {
   if (process.env.TERM_PROGRAM === 'vscode') return true
-  return xtversionName?.startsWith('xterm.js') ?? false
+  return xtversionName?.startsWith('xterm') ?? false
 }
 
 // Terminals known to correctly implement the Kitty keyboard protocol

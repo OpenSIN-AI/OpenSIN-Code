@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const COMMANDS_DIR = path.resolve(__dirname, '../commands_v2');
-const INDEX_PATH = path.join(COMMANDS_DIR, 'index.ts');
+const INDEX_PATH = path.join(COMMANDS_DIR, 'index');
 
 function readIndexContent(): string {
   return fs.readFileSync(INDEX_PATH, 'utf-8');
@@ -35,7 +35,7 @@ function getAllCommandsArray(content: string): string[] {
 }
 
 function readCommandIndex(commandName: string): string {
-  const tsPath = path.join(COMMANDS_DIR, commandName, 'index.ts');
+  const tsPath = path.join(COMMANDS_DIR, commandName, 'index');
   if (fs.existsSync(tsPath)) return fs.readFileSync(tsPath, 'utf-8');
   const tsxPath = path.join(COMMANDS_DIR, commandName, 'index.tsx');
   if (fs.existsSync(tsxPath)) return fs.readFileSync(tsxPath, 'utf-8');
@@ -109,7 +109,7 @@ describe('Commands v2 Module', () => {
       const entries = fs.readdirSync(COMMANDS_DIR, { withFileTypes: true });
       const dirs = entries.filter(e => e.isDirectory()).map(e => e.name);
       dirs.forEach(dir => {
-        const hasIndex = fs.existsSync(path.join(COMMANDS_DIR, dir, 'index.ts')) ||
+        const hasIndex = fs.existsSync(path.join(COMMANDS_DIR, dir, 'index')) ||
                          fs.existsSync(path.join(COMMANDS_DIR, dir, 'index.tsx'));
         expect(hasIndex, `${dir} should have index.ts or index.tsx`).toBe(true);
       });

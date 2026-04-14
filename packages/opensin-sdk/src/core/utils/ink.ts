@@ -1,8 +1,8 @@
-import type { TextProps } from '../ink.js'
+import type { TextProps } from '../ink'
 import {
   AGENT_COLOR_TO_THEME_COLOR,
   type AgentColorName,
-} from '../tools/AgentTool/agentColorManager.js'
+} from '../tools/AgentTool/agentColorManager'
 
 const DEFAULT_AGENT_THEME_COLOR = 'cyan_FOR_SUBAGENTS_ONLY'
 

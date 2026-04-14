@@ -5,10 +5,10 @@
  * Handles automatic compression when the context window approaches its limit.
  */
 
-import type { Message, ToolCall, ToolResult, TokenUsage, AssistantMessage, UserMessage, ToolResultMessage } from '../types.js';
-import type { AgentLoopConfig } from './types.js';
-import { OpenSINContextManager } from '../context_mgmt/manager.js';
-import { OpenSINContextCompressor } from '../context_mgmt/compressor.js';
+import type { Message, ToolCall, ToolResult, TokenUsage, AssistantMessage, UserMessage, ToolResultMessage } from '../types';
+import type { AgentLoopConfig } from './types';
+import { OpenSINContextManager } from '../context_mgmt/manager';
+import { OpenSINContextCompressor } from '../context_mgmt/compressor';
 
 /**
  * Estimate token count for a message.

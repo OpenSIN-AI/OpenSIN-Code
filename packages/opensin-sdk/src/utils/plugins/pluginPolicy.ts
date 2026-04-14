@@ -6,7 +6,7 @@
  * reaches most of the plugin subsystem.
  */
 
-import { getSettingsForSource } from '../settings/settings.js'
+import { getSettingsForSource } from '../settings/settings'
 
 /**
  * Check if a plugin is force-disabled by org policy (managed-settings.json).

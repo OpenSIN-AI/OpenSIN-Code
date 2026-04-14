@@ -1,4 +1,4 @@
-import { PromptTemplate } from './types.js';
+import { PromptTemplate } from './types';
 
 export const SYSTEM_TEMPLATE: PromptTemplate = {
   name: 'system',

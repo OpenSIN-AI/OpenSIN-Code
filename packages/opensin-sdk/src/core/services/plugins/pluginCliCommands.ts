@@ -7,22 +7,22 @@
  * For the core operations (without CLI side effects), see pluginOperations.ts
  */
 import figures from 'figures'
-import { errorMessage } from '../../utils/errors.js'
-import { gracefulShutdown } from '../../utils/gracefulShutdown.js'
-import { logError } from '../../utils/log.js'
-import { getManagedPluginNames } from '../../utils/plugins/managedPlugins.js'
-import { parsePluginIdentifier } from '../../utils/plugins/pluginIdentifier.js'
-import type { PluginScope } from '../../utils/plugins/schemas.js'
-import { writeToStdout } from '../../utils/process.js'
+import { errorMessage } from '../../utils/errors'
+import { gracefulShutdown } from '../../utils/gracefulShutdown'
+import { logError } from '../../utils/log'
+import { getManagedPluginNames } from '../../utils/plugins/managedPlugins'
+import { parsePluginIdentifier } from '../../utils/plugins/pluginIdentifier'
+import type { PluginScope } from '../../utils/plugins/schemas'
+import { writeToStdout } from '../../utils/process'
 import {
   buildPluginTelemetryFields,
   classifyPluginCommandError,
-} from '../../utils/telemetry/pluginTelemetry.js'
+} from '../../utils/telemetry/pluginTelemetry'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_PII_TAGGED,
   logEvent,
-} from '../analytics/index.js'
+} from '../analytics/index'
 import {
   disableAllPluginsOp,
   disablePluginOp,
@@ -33,7 +33,7 @@ import {
   updatePluginOp,
   VALID_INSTALLABLE_SCOPES,
   VALID_UPDATE_SCOPES,
-} from './pluginOperations.js'
+} from './pluginOperations'
 
 export { VALID_INSTALLABLE_SCOPES, VALID_UPDATE_SCOPES }
 

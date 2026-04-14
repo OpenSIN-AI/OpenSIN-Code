@@ -12,21 +12,21 @@
  * import from MCP-specific code.
  */
 
-import memoize from 'lodash-es/memoize.js'
-import type { LoadedPlugin } from '../../types/plugin.js'
-import { logForDebugging } from '../debug.js'
-import { logError } from '../log.js'
-import { getSecureStorage } from '../secureStorage/index.js'
+import memoize from 'lodash-es/memoize'
+import type { LoadedPlugin } from '../../types/plugin'
+import { logForDebugging } from '../debug'
+import { logError } from '../log'
+import { getSecureStorage } from '../secureStorage/index'
 import {
   getSettings_DEPRECATED,
   updateSettingsForSource,
-} from '../settings/settings.js'
+} from '../settings/settings'
 import {
   type UserConfigSchema,
   type UserConfigValues,
   validateUserConfig,
-} from './mcpbHandler.js'
-import { getPluginDataDir } from './pluginDirectories.js'
+} from './mcpbHandler'
+import { getPluginDataDir } from './pluginDirectories'
 
 export type PluginOptionValues = UserConfigValues
 export type PluginOptionSchema = UserConfigSchema

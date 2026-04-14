@@ -1,4 +1,4 @@
-import { runExtraUsage } from './extra-usage-core.js'
+import { runExtraUsage } from './extra-usage-core'
 
 export async function call(): Promise<{ type: 'text'; value: string }> {
   const result = await runExtraUsage()

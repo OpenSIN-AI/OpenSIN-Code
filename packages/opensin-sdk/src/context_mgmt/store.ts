@@ -8,7 +8,7 @@
 import { existsSync, mkdirSync, readdirSync, statSync, unlinkSync } from 'fs'
 import { join } from 'path'
 import { readFile, writeFile } from 'fs/promises'
-import type { ContextEntry, ContextSnapshot, ContextStoreConfig } from './types.js'
+import type { ContextEntry, ContextSnapshot, ContextStoreConfig } from './types'
 
 export class OpenSINContextStore {
   private basePath: string

@@ -1,22 +1,22 @@
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { homedir } from 'os'
 import { isAbsolute, join, normalize, sep } from 'path'
 import {
   getIsNonInteractiveSession,
   getProjectRoot,
-} from '../bootstrap/state.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
+} from '../bootstrap/state'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
 import {
   getClaudeConfigHomeDir,
   isEnvDefinedFalsy,
   isEnvTruthy,
-} from '../utils/envUtils.js'
-import { findCanonicalGitRoot } from '../utils/git.js'
-import { sanitizePath } from '../utils/path.js'
+} from '../utils/envUtils'
+import { findCanonicalGitRoot } from '../utils/git'
+import { sanitizePath } from '../utils/path'
 import {
   getInitialSettings,
   getSettingsForSource,
-} from '../utils/settings/settings.js'
+} from '../utils/settings/settings'
 
 /**
  * Whether auto-memory features are enabled (memdir, agent memory, past session search).

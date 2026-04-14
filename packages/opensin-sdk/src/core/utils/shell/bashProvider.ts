@@ -3,26 +3,26 @@ import { access } from 'fs/promises'
 import { tmpdir as osTmpdir } from 'os'
 import { join as nativeJoin } from 'path'
 import { join as posixJoin } from 'path/posix'
-import { rearrangePipeCommand } from '../bash/bashPipeCommand.js'
-import { createAndSaveSnapshot } from '../bash/ShellSnapshot.js'
-import { formatShellPrefixCommand } from '../bash/shellPrefix.js'
-import { quote } from '../bash/shellQuote.js'
+import { rearrangePipeCommand } from '../bash/bashPipeCommand'
+import { createAndSaveSnapshot } from '../bash/ShellSnapshot'
+import { formatShellPrefixCommand } from '../bash/shellPrefix'
+import { quote } from '../bash/shellQuote'
 import {
   quoteShellCommand,
   rewriteWindowsNullRedirect,
   shouldAddStdinRedirect,
-} from '../bash/shellQuoting.js'
-import { logForDebugging } from '../debug.js'
-import { getPlatform } from '../platform.js'
-import { getSessionEnvironmentScript } from '../sessionEnvironment.js'
-import { getSessionEnvVars } from '../sessionEnvVars.js'
+} from '../bash/shellQuoting'
+import { logForDebugging } from '../debug'
+import { getPlatform } from '../platform'
+import { getSessionEnvironmentScript } from '../sessionEnvironment'
+import { getSessionEnvVars } from '../sessionEnvVars'
 import {
   ensureSocketInitialized,
   getClaudeTmuxEnv,
   hasTmuxToolBeenUsed,
-} from '../tmuxSocket.js'
-import { windowsPathToPosixPath } from '../windowsPaths.js'
-import type { ShellProvider } from './shellProvider.js'
+} from '../tmuxSocket'
+import { windowsPathToPosixPath } from '../windowsPaths'
+import type { ShellProvider } from './shellProvider'
 
 /**
  * Returns a shell command to disable extended glob patterns for security.

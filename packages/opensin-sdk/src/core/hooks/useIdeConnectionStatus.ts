@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import type { MCPServerConnection } from '../services/mcp/types.js'
+import type { MCPServerConnection } from '../services/mcp/types'
 
 export type IdeStatus = 'connected' | 'disconnected' | 'pending' | null
 

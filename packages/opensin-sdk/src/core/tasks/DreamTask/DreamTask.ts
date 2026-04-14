@@ -3,10 +3,10 @@
 // Shift+Down dialog. The dream agent itself is unchanged — this is pure UI
 // surfacing via the existing task registry.
 
-import { rollbackConsolidationLock } from '../../services/autoDream/consolidationLock.js'
-import type { SetAppState, Task, TaskStateBase } from '../../Task.js'
-import { createTaskStateBase, generateTaskId } from '../../Task.js'
-import { registerTask, updateTaskState } from '../../utils/task/framework.js'
+import { rollbackConsolidationLock } from '../../services/autoDream/consolidationLock'
+import type { SetAppState, Task, TaskStateBase } from '../../Task'
+import { createTaskStateBase, generateTaskId } from '../../Task'
+import { registerTask, updateTaskState } from '../../utils/task/framework'
 
 // Keep only the N most recent turns for live display.
 const MAX_TURNS = 30

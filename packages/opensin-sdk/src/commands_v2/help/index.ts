@@ -1,10 +1,10 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 
 const help = {
   type: 'local-jsx',
   name: 'help',
   description: 'Show help and available commands',
-  load: () => import('./help.js'),
+  load: () => import('./help'),
 } satisfies Command
 
 export default help

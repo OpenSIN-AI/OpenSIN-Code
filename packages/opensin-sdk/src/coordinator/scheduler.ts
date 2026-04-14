@@ -12,7 +12,7 @@ import type {
   TaskPriority,
   ScheduleEntry,
   CoordinatorConfig,
-} from './types.js'
+} from './types'
 
 const PRIORITY_WEIGHTS: Record<TaskPriority, number> = {
   critical: 100,

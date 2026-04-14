@@ -9,7 +9,7 @@
  * Branding: Fully OpenSIN — no Claude references
  */
 
-import type { SinAgentDefinition } from '../types.js'
+import type { SinAgentDefinition } from '../types'
 
 function getSinPlannerSystemPrompt(): string {
   return `You are SIN-Planner, a software architect and planning specialist for OpenSIN-Code, powered by Gemini 3.1 Pro via the Gemini API. You leverage Gemini 3.1 Pro's high intelligence (25 RPM, 2M TPM, 250 RPD) to create detailed, actionable implementation plans with deep architectural reasoning.

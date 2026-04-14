@@ -1,5 +1,5 @@
-import type { PricingTier, UsageRecord, UsageSummary } from './types.js'
-import { PRICING_TIERS } from './types.js'
+import type { PricingTier, UsageRecord, UsageSummary } from './types'
+import { PRICING_TIERS } from './types'
 
 export class UsagePricing {
   private records: UsageRecord[] = []

@@ -7,9 +7,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { OpenSINClient } from '../client.js';
-import { SessionInfo, NewSessionRequest } from '../types.js';
-import { AgentState } from './types.js';
+import { OpenSINClient } from '../client';
+import { SessionInfo, NewSessionRequest } from '../types';
+import { AgentState } from './types';
 
 const SESSIONS_DIR = path.join(os.homedir(), '.opensin', 'cli_sessions');
 

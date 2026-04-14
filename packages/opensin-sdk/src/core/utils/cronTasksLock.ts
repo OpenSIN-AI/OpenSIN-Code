@@ -11,14 +11,14 @@
 import { mkdir, readFile, unlink, writeFile } from 'fs/promises'
 import { dirname, join } from 'path'
 import { z } from 'zod/v4'
-import { getProjectRoot, getSessionId } from '../bootstrap/state.js'
-import { registerCleanup } from './cleanupRegistry.js'
-import { logForDebugging } from './debug.js'
-import { getErrnoCode } from './errors.js'
-import { isProcessRunning } from './genericProcessUtils.js'
-import { safeParseJSON } from './json.js'
-import { lazySchema } from './lazySchema.js'
-import { jsonStringify } from './slowOperations.js'
+import { getProjectRoot, getSessionId } from '../bootstrap/state'
+import { registerCleanup } from './cleanupRegistry'
+import { logForDebugging } from './debug'
+import { getErrnoCode } from './errors'
+import { isProcessRunning } from './genericProcessUtils'
+import { safeParseJSON } from './json'
+import { lazySchema } from './lazySchema'
+import { jsonStringify } from './slowOperations'
 
 const LOCK_FILE_REL = join('.claude', 'scheduled_tasks.lock')
 

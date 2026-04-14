@@ -1,20 +1,20 @@
 import type { ContentBlockParam } from '@anthropic-ai/sdk/resources'
 import { randomUUID } from 'crypto'
-import { setPromptId } from 'src/bootstrap/state.js'
+import { setPromptId } from 'src/bootstrap/state'
 import type {
   AttachmentMessage,
   SystemMessage,
   UserMessage,
-} from 'src/types/message.js'
-import { logEvent } from '../../services/analytics/index.js'
-import type { PermissionMode } from '../../types/permissions.js'
-import { createUserMessage } from '../messages.js'
-import { logOTelEvent, redactIfDisabled } from '../telemetry/events.js'
-import { startInteractionSpan } from '../telemetry/sessionTracing.js'
+} from 'src/types/message'
+import { logEvent } from '../../services/analytics/index'
+import type { PermissionMode } from '../../types/permissions'
+import { createUserMessage } from '../messages'
+import { logOTelEvent, redactIfDisabled } from '../telemetry/events'
+import { startInteractionSpan } from '../telemetry/sessionTracing'
 import {
   matchesKeepGoingKeyword,
   matchesNegativeKeyword,
-} from '../userPromptKeywords.js'
+} from '../userPromptKeywords'
 
 export function processTextPrompt(
   input: string | Array<ContentBlockParam>,

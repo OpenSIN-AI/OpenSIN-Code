@@ -1,26 +1,26 @@
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../../services/analytics/index.js'
-import { sanitizeToolNameForAnalytics } from '../../../services/analytics/metadata.js'
-import type { ToolPermissionContext } from '../../../Tool.js'
+} from '../../../services/analytics/index'
+import { sanitizeToolNameForAnalytics } from '../../../services/analytics/metadata'
+import type { ToolPermissionContext } from '../../../Tool'
 import {
   CLAUDE_FOLDER_PERMISSION_PATTERN,
   FILE_EDIT_TOOL_NAME,
   GLOBAL_CLAUDE_FOLDER_PERMISSION_PATTERN,
-} from '../../../tools/FileEditTool/constants.js'
-import { env } from '../../../utils/env.js'
-import { generateSuggestions } from '../../../utils/permissions/filesystem.js'
-import type { PermissionUpdate } from '../../../utils/permissions/PermissionUpdateSchema.js'
+} from '../../../tools/FileEditTool/constants'
+import { env } from '../../../utils/env'
+import { generateSuggestions } from '../../../utils/permissions/filesystem'
+import type { PermissionUpdate } from '../../../utils/permissions/PermissionUpdateSchema'
 import {
   type CompletionType,
   logUnaryEvent,
-} from '../../../utils/unaryLogging.js'
-import type { ToolUseConfirm } from '../PermissionRequest.js'
+} from '../../../utils/unaryLogging'
+import type { ToolUseConfirm } from '../PermissionRequest'
 import type {
   FileOperationType,
   PermissionOption,
-} from './permissionOptions.js'
+} from './permissionOptions'
 
 function logPermissionEvent(
   event: 'accept' | 'reject',

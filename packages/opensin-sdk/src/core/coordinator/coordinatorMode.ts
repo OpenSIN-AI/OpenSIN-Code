@@ -1,20 +1,20 @@
 import { feature } from 'bun:bundle'
-import { ASYNC_AGENT_ALLOWED_TOOLS } from '../constants/tools.js'
-import { checkStatsigFeatureGate_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
+import { ASYNC_AGENT_ALLOWED_TOOLS } from '../constants/tools'
+import { checkStatsigFeatureGate_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { AGENT_TOOL_NAME } from '../tools/AgentTool/constants.js'
-import { BASH_TOOL_NAME } from '../tools/BashTool/toolName.js'
-import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants.js'
-import { FILE_READ_TOOL_NAME } from '../tools/FileReadTool/prompt.js'
-import { SEND_MESSAGE_TOOL_NAME } from '../tools/SendMessageTool/constants.js'
-import { SYNTHETIC_OUTPUT_TOOL_NAME } from '../tools/SyntheticOutputTool/SyntheticOutputTool.js'
-import { TASK_STOP_TOOL_NAME } from '../tools/TaskStopTool/prompt.js'
-import { TEAM_CREATE_TOOL_NAME } from '../tools/TeamCreateTool/constants.js'
-import { TEAM_DELETE_TOOL_NAME } from '../tools/TeamDeleteTool/constants.js'
-import { isEnvTruthy } from '../utils/envUtils.js'
+} from '../services/analytics/index'
+import { AGENT_TOOL_NAME } from '../tools/AgentTool/constants'
+import { BASH_TOOL_NAME } from '../tools/BashTool/toolName'
+import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants'
+import { FILE_READ_TOOL_NAME } from '../tools/FileReadTool/prompt'
+import { SEND_MESSAGE_TOOL_NAME } from '../tools/SendMessageTool/constants'
+import { SYNTHETIC_OUTPUT_TOOL_NAME } from '../tools/SyntheticOutputTool/SyntheticOutputTool'
+import { TASK_STOP_TOOL_NAME } from '../tools/TaskStopTool/prompt'
+import { TEAM_CREATE_TOOL_NAME } from '../tools/TeamCreateTool/constants'
+import { TEAM_DELETE_TOOL_NAME } from '../tools/TeamDeleteTool/constants'
+import { isEnvTruthy } from '../utils/envUtils'
 
 // Checks the same gate as isScratchpadEnabled() in
 // utils/permissions/filesystem.ts. Duplicated here because importing

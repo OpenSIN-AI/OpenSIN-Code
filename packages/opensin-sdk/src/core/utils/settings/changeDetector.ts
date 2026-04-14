@@ -1,28 +1,28 @@
 import chokidar, { type FSWatcher } from 'chokidar'
 import { stat } from 'fs/promises'
 import * as platformPath from 'path'
-import { getIsRemoteMode } from '../../bootstrap/state.js'
-import { registerCleanup } from '../cleanupRegistry.js'
-import { logForDebugging } from '../debug.js'
-import { errorMessage } from '../errors.js'
+import { getIsRemoteMode } from '../../bootstrap/state'
+import { registerCleanup } from '../cleanupRegistry'
+import { logForDebugging } from '../debug'
+import { errorMessage } from '../errors'
 import {
   type ConfigChangeSource,
   executeConfigChangeHooks,
   hasBlockingResult,
-} from '../hooks.js'
-import { createSignal } from '../signal.js'
-import { jsonStringify } from '../slowOperations.js'
-import { SETTING_SOURCES, type SettingSource } from './constants.js'
-import { clearInternalWrites, consumeInternalWrite } from './internalWrites.js'
-import { getManagedSettingsDropInDir } from './managedPath.js'
+} from '../hooks'
+import { createSignal } from '../signal'
+import { jsonStringify } from '../slowOperations'
+import { SETTING_SOURCES, type SettingSource } from './constants'
+import { clearInternalWrites, consumeInternalWrite } from './internalWrites'
+import { getManagedSettingsDropInDir } from './managedPath'
 import {
   getHkcuSettings,
   getMdmSettings,
   refreshMdmSettings,
   setMdmSettingsCache,
-} from './mdm/settings.js'
-import { getSettingsFilePathForSource } from './settings.js'
-import { resetSettingsCache } from './settingsCache.js'
+} from './mdm/settings'
+import { getSettingsFilePathForSource } from './settings'
+import { resetSettingsCache } from './settingsCache'
 
 /**
  * Time in milliseconds to wait for file writes to stabilize before processing.

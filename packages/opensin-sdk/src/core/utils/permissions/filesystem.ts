@@ -1,52 +1,52 @@
 import { feature } from 'bun:bundle'
 import { randomBytes } from 'crypto'
 import ignore from 'ignore'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { homedir, tmpdir } from 'os'
 import { join, normalize, posix, sep } from 'path'
-import { hasAutoMemPathOverride, isAutoMemPath } from 'src/memdir/paths.js'
-import { isAgentMemoryPath } from 'src/tools/AgentTool/agentMemory.js'
+import { hasAutoMemPathOverride, isAutoMemPath } from 'src/memdir/paths'
+import { isAgentMemoryPath } from 'src/tools/AgentTool/agentMemory'
 import {
   CLAUDE_FOLDER_PERMISSION_PATTERN,
   FILE_EDIT_TOOL_NAME,
   GLOBAL_CLAUDE_FOLDER_PERMISSION_PATTERN,
-} from 'src/tools/FileEditTool/constants.js'
+} from 'src/tools/FileEditTool/constants'
 import type { z } from 'zod/v4'
-import { getOriginalCwd, getSessionId } from '../../bootstrap/state.js'
-import { checkStatsigFeatureGate_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import type { AnyObject, Tool, ToolPermissionContext } from '../../Tool.js'
-import { FILE_READ_TOOL_NAME } from '../../tools/FileReadTool/prompt.js'
-import { getCwd } from '../cwd.js'
-import { getClaudeConfigHomeDir } from '../envUtils.js'
+import { getOriginalCwd, getSessionId } from '../../bootstrap/state'
+import { checkStatsigFeatureGate_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import type { AnyObject, Tool, ToolPermissionContext } from '../../Tool'
+import { FILE_READ_TOOL_NAME } from '../../tools/FileReadTool/prompt'
+import { getCwd } from '../cwd'
+import { getClaudeConfigHomeDir } from '../envUtils'
 import {
   getFsImplementation,
   getPathsForPermissionCheck,
-} from '../fsOperations.js'
+} from '../fsOperations'
 import {
   containsPathTraversal,
   expandPath,
   getDirectoryForPath,
   sanitizePath,
-} from '../path.js'
-import { getPlanSlug, getPlansDirectory } from '../plans.js'
-import { getPlatform } from '../platform.js'
-import { getProjectDir } from '../sessionStorage.js'
-import { SETTING_SOURCES } from '../settings/constants.js'
+} from '../path'
+import { getPlanSlug, getPlansDirectory } from '../plans'
+import { getPlatform } from '../platform'
+import { getProjectDir } from '../sessionStorage'
+import { SETTING_SOURCES } from '../settings/constants'
 import {
   getSettingsFilePathForSource,
   getSettingsRootPathForSource,
-} from '../settings/settings.js'
-import { containsVulnerableUncPath } from '../shell/readOnlyCommandValidation.js'
-import { getToolResultsDir } from '../toolResultStorage.js'
-import { windowsPathToPosixPath } from '../windowsPaths.js'
+} from '../settings/settings'
+import { containsVulnerableUncPath } from '../shell/readOnlyCommandValidation'
+import { getToolResultsDir } from '../toolResultStorage'
+import { windowsPathToPosixPath } from '../windowsPaths'
 import type {
   PermissionDecision,
   PermissionResult,
-} from './PermissionResult.js'
-import type { PermissionRule, PermissionRuleSource } from './PermissionRule.js'
-import { createReadRuleSuggestion } from './PermissionUpdate.js'
-import type { PermissionUpdate } from './PermissionUpdateSchema.js'
-import { getRuleByContentsForToolName } from './permissions.js'
+} from './PermissionResult'
+import type { PermissionRule, PermissionRuleSource } from './PermissionRule'
+import { createReadRuleSuggestion } from './PermissionUpdate'
+import type { PermissionUpdate } from './PermissionUpdateSchema'
+import { getRuleByContentsForToolName } from './permissions'
 
 declare const MACRO: { VERSION: string }
 

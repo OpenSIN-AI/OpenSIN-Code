@@ -1,8 +1,8 @@
 import { homedir } from 'os'
 import { resolve } from 'path'
-import { getErrnoCode } from '../errors.js'
-import { getFsImplementation } from '../fsOperations.js'
-import type { MarketplaceSource } from './schemas.js'
+import { getErrnoCode } from '../errors'
+import { getFsImplementation } from '../fsOperations'
+import type { MarketplaceSource } from './schemas'
 
 /**
  * Parses a marketplace input string and returns the appropriate marketplace source type.

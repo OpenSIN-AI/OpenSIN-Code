@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { AISearcher } from '../searcher.ts';
-import { DEFAULT_SEARCH_CONFIG } from '../types.ts';
+import { AISearcher } from '../searcher';
+import { DEFAULT_SEARCH_CONFIG } from '../types';
 
 describe('AISearcher', () => {
   describe('constructor', () => {

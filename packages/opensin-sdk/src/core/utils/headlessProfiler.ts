@@ -12,15 +12,15 @@
  * Set CLAUDE_CODE_PROFILE_STARTUP=1 for detailed logging output.
  */
 
-import { getIsNonInteractiveSession } from '../bootstrap/state.js'
+import { getIsNonInteractiveSession } from '../bootstrap/state'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { logForDebugging } from './debug.js'
-import { isEnvTruthy } from './envUtils.js'
-import { getPerformance } from './profilerBase.js'
-import { jsonStringify } from './slowOperations.js'
+} from '../services/analytics/index'
+import { logForDebugging } from './debug'
+import { isEnvTruthy } from './envUtils'
+import { getPerformance } from './profilerBase'
+import { jsonStringify } from './slowOperations'
 
 // Detailed profiling mode - same env var as startupProfiler
 // eslint-disable-next-line custom-rules/no-process-env-top-level

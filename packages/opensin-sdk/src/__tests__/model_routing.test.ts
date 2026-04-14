@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { SmartModelRouter, createRouter } from '../model_routing/router.js'
+import { SmartModelRouter, createRouter } from '../model_routing/router'
 
 describe('SmartModelRouter', () => {
   let router: SmartModelRouter

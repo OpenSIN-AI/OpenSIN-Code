@@ -17,20 +17,20 @@ import {
   getLspServerManager,
   isLspConnected,
   waitForInitialization,
-} from '../../services/lsp/manager.js'
-import type { ValidationResult } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { uniq } from '../../utils/array.js'
-import { getCwd } from '../../utils/cwd.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { isENOENT, toError } from '../../utils/errors.js'
-import { execFileNoThrowWithCwd } from '../../utils/execFileNoThrow.js'
-import { getFsImplementation } from '../../utils/fsOperations.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { logError } from '../../utils/log.js'
-import { expandPath } from '../../utils/path.js'
-import { checkReadPermissionForTool } from '../../utils/permissions/filesystem.js'
-import type { PermissionDecision } from '../../utils/permissions/PermissionResult.js'
+} from '../../services/lsp/manager'
+import type { ValidationResult } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
+import { uniq } from '../../utils/array'
+import { getCwd } from '../../utils/cwd'
+import { logForDebugging } from '../../utils/debug'
+import { isENOENT, toError } from '../../utils/errors'
+import { execFileNoThrowWithCwd } from '../../utils/execFileNoThrow'
+import { getFsImplementation } from '../../utils/fsOperations'
+import { lazySchema } from '../../utils/lazySchema'
+import { logError } from '../../utils/log'
+import { expandPath } from '../../utils/path'
+import { checkReadPermissionForTool } from '../../utils/permissions/filesystem'
+import type { PermissionDecision } from '../../utils/permissions/PermissionResult'
 import {
   formatDocumentSymbolResult,
   formatFindReferencesResult,
@@ -40,15 +40,15 @@ import {
   formatOutgoingCallsResult,
   formatPrepareCallHierarchyResult,
   formatWorkspaceSymbolResult,
-} from './formatters.js'
-import { DESCRIPTION, LSP_TOOL_NAME } from './prompt.js'
-import { lspToolInputSchema } from './schemas.js'
+} from './formatters'
+import { DESCRIPTION, LSP_TOOL_NAME } from './prompt'
+import { lspToolInputSchema } from './schemas'
 import {
   renderToolResultMessage,
   renderToolUseErrorMessage,
   renderToolUseMessage,
   userFacingName,
-} from './UI.js'
+} from './UI'
 
 const MAX_LSP_FILE_SIZE_BYTES = 10_000_000
 

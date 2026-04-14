@@ -1,16 +1,16 @@
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { basename } from 'path'
-import type { OutputStyleConfig } from '../../constants/outputStyles.js'
-import { getPluginErrorMessage } from '../../types/plugin.js'
-import { logForDebugging } from '../debug.js'
+import type { OutputStyleConfig } from '../../constants/outputStyles'
+import { getPluginErrorMessage } from '../../types/plugin'
+import { logForDebugging } from '../debug'
 import {
   coerceDescriptionToString,
   parseFrontmatter,
-} from '../frontmatterParser.js'
-import { getFsImplementation, isDuplicatePath } from '../fsOperations.js'
-import { extractDescriptionFromMarkdown } from '../markdownConfigLoader.js'
-import { loadAllPluginsCacheOnly } from './pluginLoader.js'
-import { walkPluginMarkdown } from './walkPluginMarkdown.js'
+} from '../frontmatterParser'
+import { getFsImplementation, isDuplicatePath } from '../fsOperations'
+import { extractDescriptionFromMarkdown } from '../markdownConfigLoader'
+import { loadAllPluginsCacheOnly } from './pluginLoader'
+import { walkPluginMarkdown } from './walkPluginMarkdown'
 
 async function loadOutputStylesFromDirectory(
   outputStylesPath: string,

@@ -1,5 +1,5 @@
-import { getIsRemoteMode } from '../../bootstrap/state.js'
-import type { Command } from '../../commands.js'
+import { getIsRemoteMode } from '../../bootstrap/state'
+import type { Command } from '../../commands'
 
 const session = {
   type: 'local-jsx',
@@ -10,7 +10,7 @@ const session = {
   get isHidden() {
     return !getIsRemoteMode()
   },
-  load: () => import('./session.js'),
+  load: () => import('./session'),
 } satisfies Command
 
 export default session

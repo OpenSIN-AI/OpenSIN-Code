@@ -13,23 +13,23 @@
 
 import type { ClientRequest, IncomingMessage } from 'http'
 import WebSocket from 'ws'
-import { getOauthConfig } from '../constants/oauth.js'
+import { getOauthConfig } from '../constants/oauth'
 import {
   checkAndRefreshOAuthTokenIfNeeded,
   getClaudeAIOAuthTokens,
   isAnthropicAuthEnabled,
-} from '../utils/auth.js'
-import { logForDebugging } from '../utils/debug.js'
-import { getUserAgent } from '../utils/http.js'
-import { logError } from '../utils/log.js'
-import { getWebSocketTLSOptions } from '../utils/mtls.js'
-import { getWebSocketProxyAgent, getWebSocketProxyUrl } from '../utils/proxy.js'
-import { jsonParse, jsonStringify } from '../utils/slowOperations.js'
+} from '../utils/auth'
+import { logForDebugging } from '../utils/debug'
+import { getUserAgent } from '../utils/http'
+import { logError } from '../utils/log'
+import { getWebSocketTLSOptions } from '../utils/mtls'
+import { getWebSocketProxyAgent, getWebSocketProxyUrl } from '../utils/proxy'
+import { jsonParse, jsonStringify } from '../utils/slowOperations'
 
 const KEEPALIVE_MSG = '{"type":"KeepAlive"}'
 const CLOSE_STREAM_MSG = '{"type":"CloseStream"}'
 
-import { getFeatureValue_CACHED_MAY_BE_STALE } from './analytics/growthbook.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from './analytics/growthbook'
 
 // ─── Constants ───────────────────────────────────────────────────────
 

@@ -1,5 +1,5 @@
-import type { Attachment } from 'src/utils/attachments.js'
-import type { Message, NormalizedMessage } from '../../types/message.js'
+import type { Attachment } from 'src/utils/attachments'
+import type { Message, NormalizedMessage } from '../../types/message'
 
 /**
  * Attachment types that AttachmentMessage renders as `null` unconditionally

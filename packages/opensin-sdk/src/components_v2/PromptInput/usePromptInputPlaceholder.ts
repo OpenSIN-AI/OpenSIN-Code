@@ -1,16 +1,16 @@
 import { feature } from 'bun:bundle'
 import { useMemo } from 'react'
-import { useCommandQueue } from 'src/hooks/useCommandQueue.js'
-import { useAppState } from 'src/state/AppState.js'
-import { getGlobalConfig } from 'src/utils/config.js'
-import { getExampleCommandFromCache } from 'src/utils/exampleCommands.js'
-import { isQueuedCommandEditable } from 'src/utils/messageQueueManager.js'
+import { useCommandQueue } from 'src/hooks/useCommandQueue'
+import { useAppState } from 'src/state/AppState'
+import { getGlobalConfig } from 'src/utils/config'
+import { getExampleCommandFromCache } from 'src/utils/exampleCommands'
+import { isQueuedCommandEditable } from 'src/utils/messageQueueManager'
 
 // Dead code elimination: conditional import for proactive mode
 /* eslint-disable @typescript-eslint/no-require-imports */
 const proactiveModule =
   feature('PROACTIVE') || feature('KAIROS')
-    ? require('../../proactive/index.js')
+    ? require('../../proactive/index')
     : null
 
 type Props = {

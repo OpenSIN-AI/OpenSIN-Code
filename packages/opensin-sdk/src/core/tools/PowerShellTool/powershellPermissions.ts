@@ -4,25 +4,25 @@
  */
 
 import { resolve } from 'path'
-import type { ToolPermissionContext, ToolUseContext } from '../../Tool.js'
+import type { ToolPermissionContext, ToolUseContext } from '../../Tool'
 import type {
   PermissionDecisionReason,
   PermissionResult,
-} from '../../types/permissions.js'
-import { getCwd } from '../../utils/cwd.js'
-import { isCurrentDirectoryBareGitRepo } from '../../utils/git.js'
-import type { PermissionRule } from '../../utils/permissions/PermissionRule.js'
-import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema.js'
+} from '../../types/permissions'
+import { getCwd } from '../../utils/cwd'
+import { isCurrentDirectoryBareGitRepo } from '../../utils/git'
+import type { PermissionRule } from '../../utils/permissions/PermissionRule'
+import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema'
 import {
   createPermissionRequestMessage,
   getRuleByContentsForToolName,
-} from '../../utils/permissions/permissions.js'
+} from '../../utils/permissions/permissions'
 import {
   matchWildcardPattern,
   parsePermissionRule,
   type ShellPermissionRule,
   suggestionForExactCommand as sharedSuggestionForExactCommand,
-} from '../../utils/permissions/shellRuleMatching.js'
+} from '../../utils/permissions/shellRuleMatching'
 import {
   classifyCommandName,
   deriveSecurityFlags,
@@ -33,19 +33,19 @@ import {
   PS_TOKENIZER_DASH_CHARS,
   parsePowerShellCommand,
   stripModulePrefix,
-} from '../../utils/powershell/parser.js'
-import { containsVulnerableUncPath } from '../../utils/shell/readOnlyCommandValidation.js'
-import { isDotGitPathPS, isGitInternalPathPS } from './gitSafety.js'
+} from '../../utils/powershell/parser'
+import { containsVulnerableUncPath } from '../../utils/shell/readOnlyCommandValidation'
+import { isDotGitPathPS, isGitInternalPathPS } from './gitSafety'
 import {
   checkPermissionMode,
   isSymlinkCreatingCommand,
-} from './modeValidation.js'
+} from './modeValidation'
 import {
   checkPathConstraints,
   dangerousRemovalDeny,
   isDangerousRemovalRawPath,
-} from './pathValidation.js'
-import { powershellCommandIsSafe } from './powershellSecurity.js'
+} from './pathValidation'
+import { powershellCommandIsSafe } from './powershellSecurity'
 import {
   argLeaksValue,
   isAllowlistedCommand,
@@ -54,8 +54,8 @@ import {
   isReadOnlyCommand,
   isSafeOutputCommand,
   resolveToCanonical,
-} from './readOnlyValidation.js'
-import { POWERSHELL_TOOL_NAME } from './toolName.js'
+} from './readOnlyValidation'
+import { POWERSHELL_TOOL_NAME } from './toolName'
 
 // Matches `$var = `, `$var += `, `$env:X = `, `$x ??= ` etc. Used to strip
 // nested assignment prefixes in the parse-failed fallback path.

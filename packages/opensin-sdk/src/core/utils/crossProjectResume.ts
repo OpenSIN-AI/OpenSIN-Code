@@ -1,8 +1,8 @@
 import { sep } from 'path'
-import { getOriginalCwd } from '../bootstrap/state.js'
-import type { LogOption } from '../types/logs.js'
-import { quote } from './bash/shellQuote.js'
-import { getSessionIdFromLog } from './sessionStorage.js'
+import { getOriginalCwd } from '../bootstrap/state'
+import type { LogOption } from '../types/logs'
+import { quote } from './bash/shellQuote'
+import { getSessionIdFromLog } from './sessionStorage'
 
 export type CrossProjectResumeResult =
   | {

@@ -1,23 +1,23 @@
-import type { AgentColorName } from '../../../tools/AgentTool/agentColorManager.js'
-import { logForDebugging } from '../../../utils/debug.js'
-import { execFileNoThrow } from '../../../utils/execFileNoThrow.js'
-import { logError } from '../../../utils/log.js'
-import { count } from '../../array.js'
-import { sleep } from '../../sleep.js'
+import type { AgentColorName } from '../../../tools/AgentTool/agentColorManager'
+import { logForDebugging } from '../../../utils/debug'
+import { execFileNoThrow } from '../../../utils/execFileNoThrow'
+import { logError } from '../../../utils/log'
+import { count } from '../../array'
+import { sleep } from '../../sleep'
 import {
   getSwarmSocketName,
   HIDDEN_SESSION_NAME,
   SWARM_SESSION_NAME,
   SWARM_VIEW_WINDOW_NAME,
   TMUX_COMMAND,
-} from '../constants.js'
+} from '../constants'
 import {
   getLeaderPaneId,
   isInsideTmux as isInsideTmuxFromDetection,
   isTmuxAvailable,
-} from './detection.js'
-import { registerTmuxBackend } from './registry.js'
-import type { CreatePaneResult, PaneBackend, PaneId } from './types.js'
+} from './detection'
+import { registerTmuxBackend } from './registry'
+import type { CreatePaneResult, PaneBackend, PaneId } from './types'
 
 // Track whether the first pane has been used for external swarm session
 let firstPaneUsedForExternal = false

@@ -3,10 +3,10 @@ import { dirname } from 'path'
 import {
   getKeybindingsPath,
   isKeybindingCustomizationEnabled,
-} from '../../keybindings/loadUserBindings.js'
-import { generateKeybindingsTemplate } from '../../keybindings/template.js'
-import { getErrnoCode } from '../../utils/errors.js'
-import { editFileInEditor } from '../../utils/promptEditor.js'
+} from '../../keybindings/loadUserBindings'
+import { generateKeybindingsTemplate } from '../../keybindings/template'
+import { getErrnoCode } from '../../utils/errors'
+import { editFileInEditor } from '../../utils/promptEditor'
 
 export async function call(): Promise<{ type: 'text'; value: string }> {
   if (!isKeybindingCustomizationEnabled()) {

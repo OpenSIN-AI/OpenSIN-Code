@@ -1,6 +1,6 @@
 /** Design System Registry — pre-built design systems like Bolt.new */
 
-import type { DesignSystemConfig, DesignSystemRegistry as DSRegistry } from './types.js';
+import type { DesignSystemConfig, DesignSystemRegistry as DSRegistry } from './types';
 
 const shadcn: DesignSystemConfig = {
   name: 'shadcn',

@@ -1,8 +1,8 @@
 import type { BetaUsage as Usage } from '@anthropic-ai/sdk/resources/beta/messages/messages.mjs'
-import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from 'src/services/analytics/index.js'
-import { logEvent } from 'src/services/analytics/index.js'
-import { setHasUnknownModelCost } from '../bootstrap/state.js'
-import { isFastModeEnabled } from './fastMode.js'
+import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from 'src/services/analytics/index'
+import { logEvent } from 'src/services/analytics/index'
+import { setHasUnknownModelCost } from '../bootstrap/state'
+import { isFastModeEnabled } from './fastMode'
 import {
   CLAUDE_3_5_HAIKU_CONFIG,
   CLAUDE_3_5_V2_SONNET_CONFIG,
@@ -15,13 +15,13 @@ import {
   CLAUDE_SONNET_4_5_CONFIG,
   CLAUDE_SONNET_4_6_CONFIG,
   CLAUDE_SONNET_4_CONFIG,
-} from './model/configs.js'
+} from './model/configs'
 import {
   firstPartyNameToCanonical,
   getCanonicalName,
   getDefaultMainLoopModelSetting,
   type ModelShortName,
-} from './model/model.js'
+} from './model/model'
 
 // @see https://platform.claude.com/docs/en/about-claude/pricing
 export type ModelCosts = {

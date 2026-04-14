@@ -1,29 +1,29 @@
 import { feature } from 'bun:bundle'
 import { statSync } from 'fs'
 import { lstat, readdir, readFile, realpath, stat } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { homedir } from 'os'
 import { dirname, join, resolve, sep } from 'path'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { getProjectRoot } from '../bootstrap/state.js'
-import { logForDebugging } from './debug.js'
-import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils.js'
-import { isFsInaccessible } from './errors.js'
-import { normalizePathForComparison } from './file.js'
-import type { FrontmatterData } from './frontmatterParser.js'
-import { parseFrontmatter } from './frontmatterParser.js'
-import { findCanonicalGitRoot, findGitRoot } from './git.js'
-import { parseToolListFromCLI } from './permissions/permissionSetup.js'
-import { ripGrep } from './ripgrep.js'
+} from 'src/services/analytics/index'
+import { getProjectRoot } from '../bootstrap/state'
+import { logForDebugging } from './debug'
+import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils'
+import { isFsInaccessible } from './errors'
+import { normalizePathForComparison } from './file'
+import type { FrontmatterData } from './frontmatterParser'
+import { parseFrontmatter } from './frontmatterParser'
+import { findCanonicalGitRoot, findGitRoot } from './git'
+import { parseToolListFromCLI } from './permissions/permissionSetup'
+import { ripGrep } from './ripgrep'
 import {
   isSettingSourceEnabled,
   type SettingSource,
-} from './settings/constants.js'
-import { getManagedFilePath } from './settings/managedPath.js'
-import { isRestrictedToPluginOnly } from './settings/pluginOnlyPolicy.js'
+} from './settings/constants'
+import { getManagedFilePath } from './settings/managedPath'
+import { isRestrictedToPluginOnly } from './settings/pluginOnlyPolicy'
 
 // Claude configuration directory names
 export const CLAUDE_CONFIG_DIRECTORIES = [

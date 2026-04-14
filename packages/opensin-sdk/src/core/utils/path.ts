@@ -1,9 +1,9 @@
 import { homedir } from 'os'
 import { dirname, isAbsolute, join, normalize, relative, resolve } from 'path'
-import { getCwd } from './cwd.js'
-import { getFsImplementation } from './fsOperations.js'
-import { getPlatform } from './platform.js'
-import { posixPathToWindowsPath } from './windowsPaths.js'
+import { getCwd } from './cwd'
+import { getFsImplementation } from './fsOperations'
+import { getPlatform } from './platform'
+import { posixPathToWindowsPath } from './windowsPaths'
 
 /**
  * Expands a path that may contain tilde notation (~) to an absolute path.
@@ -135,7 +135,7 @@ export function containsPathTraversal(path: string): boolean {
 }
 
 // Re-export from the shared zero-dep source.
-export { sanitizePath } from './sessionStoragePortable.js'
+export { sanitizePath } from './sessionStoragePortable'
 
 /**
  * Normalizes a path for use as a JSON config key.

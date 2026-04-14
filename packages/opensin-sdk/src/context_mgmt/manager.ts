@@ -13,7 +13,7 @@ import type {
   CompressionStrategy,
   ContextEvent,
   ContextStoreConfig,
-} from './types.js'
+} from './types'
 
 type EventHandler = (event: ContextEvent) => void
 

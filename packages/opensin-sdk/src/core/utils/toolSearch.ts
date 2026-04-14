@@ -6,40 +6,40 @@
  * loaded upfront.
  */
 
-import memoize from 'lodash-es/memoize.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
+import memoize from 'lodash-es/memoize'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import type { Tool } from '../Tool.js'
+} from '../services/analytics/index'
+import type { Tool } from '../Tool'
 import {
   type ToolPermissionContext,
   type Tools,
   toolMatchesName,
-} from '../Tool.js'
-import type { AgentDefinition } from '../tools/AgentTool/loadAgentsDir.js'
+} from '../Tool'
+import type { AgentDefinition } from '../tools/AgentTool/loadAgentsDir'
 import {
   formatDeferredToolLine,
   isDeferredTool,
   TOOL_SEARCH_TOOL_NAME,
-} from '../tools/ToolSearchTool/prompt.js'
-import type { Message } from '../types/message.js'
+} from '../tools/ToolSearchTool/prompt'
+import type { Message } from '../types/message'
 import {
   countToolDefinitionTokens,
   TOOL_TOKEN_COUNT_OVERHEAD,
-} from './analyzeContext.js'
-import { count } from './array.js'
-import { getMergedBetas } from './betas.js'
-import { getContextWindowForModel } from './context.js'
-import { logForDebugging } from './debug.js'
-import { isEnvDefinedFalsy, isEnvTruthy } from './envUtils.js'
+} from './analyzeContext'
+import { count } from './array'
+import { getMergedBetas } from './betas'
+import { getContextWindowForModel } from './context'
+import { logForDebugging } from './debug'
+import { isEnvDefinedFalsy, isEnvTruthy } from './envUtils'
 import {
   getAPIProvider,
   isFirstPartyAnthropicBaseUrl,
-} from './model/providers.js'
-import { jsonStringify } from './slowOperations.js'
-import { zodToJsonSchema } from './zodToJsonSchema.js'
+} from './model/providers'
+import { jsonStringify } from './slowOperations'
+import { zodToJsonSchema } from './zodToJsonSchema'
 
 /**
  * Default percentage of context window at which to auto-enable tool search.

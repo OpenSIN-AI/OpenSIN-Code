@@ -2,19 +2,19 @@ import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { mkdir, readFile, rm, writeFile } from 'fs/promises'
 import { join } from 'path'
 import { z } from 'zod/v4'
-import { getSessionCreatedTeams } from '../../bootstrap/state.js'
-import { logForDebugging } from '../debug.js'
-import { getTeamsDir } from '../envUtils.js'
-import { errorMessage, getErrnoCode } from '../errors.js'
-import { execFileNoThrowWithCwd } from '../execFileNoThrow.js'
-import { gitExe } from '../git.js'
-import { lazySchema } from '../lazySchema.js'
-import type { PermissionMode } from '../permissions/PermissionMode.js'
-import { jsonParse, jsonStringify } from '../slowOperations.js'
-import { getTasksDir, notifyTasksUpdated } from '../tasks.js'
-import { getAgentName, getTeamName, isTeammate } from '../teammate.js'
-import { type BackendType, isPaneBackend } from './backends/types.js'
-import { TEAM_LEAD_NAME } from './constants.js'
+import { getSessionCreatedTeams } from '../../bootstrap/state'
+import { logForDebugging } from '../debug'
+import { getTeamsDir } from '../envUtils'
+import { errorMessage, getErrnoCode } from '../errors'
+import { execFileNoThrowWithCwd } from '../execFileNoThrow'
+import { gitExe } from '../git'
+import { lazySchema } from '../lazySchema'
+import type { PermissionMode } from '../permissions/PermissionMode'
+import { jsonParse, jsonStringify } from '../slowOperations'
+import { getTasksDir, notifyTasksUpdated } from '../tasks'
+import { getAgentName, getTeamName, isTeammate } from '../teammate'
+import { type BackendType, isPaneBackend } from './backends/types'
+import { TEAM_LEAD_NAME } from './constants'
 
 export const inputSchema = lazySchema(() =>
   z.strictObject({
@@ -610,8 +610,8 @@ async function killOrphanedTeammatePanes(teamName: string): Promise<void> {
 
   const [{ ensureBackendsRegistered, getBackendByType }, { isInsideTmux }] =
     await Promise.all([
-      import('./backends/registry.js'),
-      import('./backends/detection.js'),
+      import('./backends/registry'),
+      import('./backends/detection'),
     ])
   await ensureBackendsRegistered()
   const useExternalSession = !(await isInsideTmux())

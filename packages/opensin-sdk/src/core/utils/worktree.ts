@@ -12,38 +12,38 @@ import {
 } from 'fs/promises'
 import ignore from 'ignore'
 import { basename, dirname, join } from 'path'
-import { saveCurrentProjectConfig } from './config.js'
-import { getCwd } from './cwd.js'
-import { logForDebugging } from './debug.js'
-import { errorMessage, getErrnoCode } from './errors.js'
-import { execFileNoThrow, execFileNoThrowWithCwd } from './execFileNoThrow.js'
-import { parseGitConfigValue } from './git/gitConfigParser.js'
+import { saveCurrentProjectConfig } from './config'
+import { getCwd } from './cwd'
+import { logForDebugging } from './debug'
+import { errorMessage, getErrnoCode } from './errors'
+import { execFileNoThrow, execFileNoThrowWithCwd } from './execFileNoThrow'
+import { parseGitConfigValue } from './git/gitConfigParser'
 import {
   getCommonDir,
   readWorktreeHeadSha,
   resolveGitDir,
   resolveRef,
-} from './git/gitFilesystem.js'
+} from './git/gitFilesystem'
 import {
   findCanonicalGitRoot,
   findGitRoot,
   getBranch,
   getDefaultBranch,
   gitExe,
-} from './git.js'
+} from './git'
 import {
   executeWorktreeCreateHook,
   executeWorktreeRemoveHook,
   hasWorktreeCreateHook,
-} from './hooks.js'
-import { containsPathTraversal } from './path.js'
-import { getPlatform } from './platform.js'
+} from './hooks'
+import { containsPathTraversal } from './path'
+import { getPlatform } from './platform'
 import {
   getInitialSettings,
   getRelativeSettingsFilePathForSource,
-} from './settings/settings.js'
-import { sleep } from './sleep.js'
-import { isInITerm2 } from './swarm/backends/detection.js'
+} from './settings/settings'
+import { sleep } from './sleep'
+import { isInITerm2 } from './swarm/backends/detection'
 
 const VALID_WORKTREE_SLUG_SEGMENT = /^[a-zA-Z0-9._-]+$/
 const MAX_WORKTREE_SLUG_LENGTH = 64
@@ -603,7 +603,7 @@ async function performPostCreationSetup(
   if (feature('COMMIT_ATTRIBUTION')) {
     const worktreeHooksDir =
       hooksPath === huskyPath ? join(worktreePath, '.husky') : undefined
-    void import('./postCommitAttribution.js')
+    void import('./postCommitAttribution')
       .then(m =>
         m
           .installPrepareCommitMsgHook(worktreePath, worktreeHooksDir)

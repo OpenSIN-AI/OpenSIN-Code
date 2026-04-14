@@ -11,7 +11,7 @@ import Yoga, {
   PositionType,
   Wrap,
   type Node as YogaNode,
-} from 'src/native-ts/yoga-layout/index.js'
+} from 'src/native-ts/yoga-layout/index'
 import {
   type LayoutAlign,
   LayoutDisplay,
@@ -25,7 +25,7 @@ import {
   type LayoutOverflow,
   type LayoutPositionType,
   type LayoutWrap,
-} from './node.js'
+} from './node'
 
 // --
 // Edge/Gutter mapping

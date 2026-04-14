@@ -1,12 +1,12 @@
 // biome-ignore-all assist/source/organizeImports: ANT-ONLY import markers must not be reordered
-import { isUltrathinkEnabled } from './thinking.js'
-import { getInitialSettings } from './settings/settings.js'
-import { isProSubscriber, isMaxSubscriber, isTeamSubscriber } from './auth.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook.js'
-import { getAPIProvider } from './model/providers.js'
-import { get3PModelCapabilityOverride } from './model/modelSupportOverrides.js'
-import { isEnvTruthy } from './envUtils.js'
-import type { EffortLevel } from 'src/entrypoints/sdk/runtimeTypes.js'
+import { isUltrathinkEnabled } from './thinking'
+import { getInitialSettings } from './settings/settings'
+import { isProSubscriber, isMaxSubscriber, isTeamSubscriber } from './auth'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook'
+import { getAPIProvider } from './model/providers'
+import { get3PModelCapabilityOverride } from './model/modelSupportOverrides'
+import { isEnvTruthy } from './envUtils'
+import type { EffortLevel } from 'src/entrypoints/sdk/runtimeTypes'
 
 export type { EffortLevel }
 

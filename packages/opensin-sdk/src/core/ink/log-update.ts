@@ -3,9 +3,9 @@ import {
   ansiCodesToString,
   diffAnsiCodes,
 } from '@alcalzone/ansi-tokenize'
-import { logForDebugging } from '../utils/debug.js'
-import type { Diff, FlickerReason, Frame } from './frame.js'
-import type { Point } from './layout/geometry.js'
+import { logForDebugging } from '../utils/debug'
+import type { Diff, FlickerReason, Frame } from './frame'
+import type { Point } from './layout/geometry'
 import {
   type Cell,
   CellWidth,
@@ -18,15 +18,15 @@ import {
   type StylePool,
   shiftRows,
   visibleCellAtIndex,
-} from './screen.js'
+} from './screen'
 import {
   CURSOR_HOME,
   scrollDown as csiScrollDown,
   scrollUp as csiScrollUp,
   RESET_SCROLL_REGION,
   setScrollRegion,
-} from './termio/csi.js'
-import { LINK_END, link as oscLink } from './termio/osc.js'
+} from './termio/csi'
+import { LINK_END, link as oscLink } from './termio/osc'
 
 type State = {
   previousOutput: string

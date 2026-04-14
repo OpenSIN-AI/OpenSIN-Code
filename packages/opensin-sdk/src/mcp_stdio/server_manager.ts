@@ -5,8 +5,8 @@
  * OpenSIN-Code Phase 2.3
  */
 
-import { McpServerConfig, McpServerStatus, McpServerHealth } from './types.js';
-import { McpStdioClient } from './client.js';
+import { McpServerConfig, McpServerStatus, McpServerHealth } from './types';
+import { McpStdioClient } from './client';
 
 export interface ServerManagerOptions {
   /** Max restart attempts before giving up */

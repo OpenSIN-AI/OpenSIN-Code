@@ -11,8 +11,8 @@ import type {
   CliConfig,
   CliResult,
   CliEvent,
-} from './types.js'
-import { OpenSINParser } from './parser.js'
+} from './types'
+import { OpenSINParser } from './parser'
 
 type EventHandler = (event: CliEvent) => void
 
@@ -103,7 +103,7 @@ export class OpenSINExecutor {
   }
 
   private showHelp(commandName?: string): CliResult {
-    const { generateHelp } = require('./help.js')
+    const { generateHelp } = require('./help')
     const commands = this.parser.getCommands()
 
     if (commandName) {

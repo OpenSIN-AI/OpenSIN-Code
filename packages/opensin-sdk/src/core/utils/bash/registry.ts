@@ -1,5 +1,5 @@
-import { memoizeWithLRU } from '../memoize.js'
-import specs from './specs/index.js'
+import { memoizeWithLRU } from '../memoize'
+import specs from './specs/index'
 
 export type CommandSpec = {
   name: string

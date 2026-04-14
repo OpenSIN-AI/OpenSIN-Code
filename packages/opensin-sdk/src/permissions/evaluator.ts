@@ -1,5 +1,5 @@
-import { PermissionRule, PermissionCheck, PermissionResult, AuditEntry } from './types.js';
-import { evaluatePermission } from './rules.js';
+import { PermissionRule, PermissionCheck, PermissionResult, AuditEntry } from './types';
+import { evaluatePermission } from './rules';
 
 export class PermissionEvaluator {
   private rules: PermissionRule[];

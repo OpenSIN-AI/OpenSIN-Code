@@ -1,15 +1,15 @@
 import chokidar, { type FSWatcher } from 'chokidar'
 import { isAbsolute, join } from 'path'
-import { registerCleanup } from '../cleanupRegistry.js'
-import { logForDebugging } from '../debug.js'
-import { errorMessage } from '../errors.js'
+import { registerCleanup } from '../cleanupRegistry'
+import { logForDebugging } from '../debug'
+import { errorMessage } from '../errors'
 import {
   executeCwdChangedHooks,
   executeFileChangedHooks,
   type HookOutsideReplResult,
-} from '../hooks.js'
-import { clearCwdEnvFiles } from '../sessionEnvironment.js'
-import { getHooksConfigFromSnapshot } from './hooksConfigSnapshot.js'
+} from '../hooks'
+import { clearCwdEnvFiles } from '../sessionEnvironment'
+import { getHooksConfigFromSnapshot } from './hooksConfigSnapshot'
 
 let watcher: FSWatcher | null = null
 let currentCwd: string

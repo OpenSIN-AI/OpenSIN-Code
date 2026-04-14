@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react'
-import { getIsNonInteractiveSession } from '../bootstrap/state.js'
-import { verifyApiKey } from '../services/api/opensin.js'
+import { getIsNonInteractiveSession } from '../bootstrap/state'
+import { verifyApiKey } from '../services/api/opensin'
 import {
   getOpenSINApiKeyWithSource,
   getApiKeyFromApiKeyHelper,
   isOpenSINAuthEnabled,
   isOpenSINAISubscriber,
-} from '../utils/auth.js'
+} from '../utils/auth'
 
 export type VerificationStatus =
   | 'loading'

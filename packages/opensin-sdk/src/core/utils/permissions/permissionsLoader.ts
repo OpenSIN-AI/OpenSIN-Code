@@ -1,28 +1,28 @@
-import { readFileSync } from '../fileRead.js'
-import { getFsImplementation, safeResolvePath } from '../fsOperations.js'
-import { safeParseJSON } from '../json.js'
-import { logError } from '../log.js'
+import { readFileSync } from '../fileRead'
+import { getFsImplementation, safeResolvePath } from '../fsOperations'
+import { safeParseJSON } from '../json'
+import { logError } from '../log'
 import {
   type EditableSettingSource,
   getEnabledSettingSources,
   type SettingSource,
-} from '../settings/constants.js'
+} from '../settings/constants'
 import {
   getSettingsFilePathForSource,
   getSettingsForSource,
   updateSettingsForSource,
-} from '../settings/settings.js'
-import type { SettingsJson } from '../settings/types.js'
+} from '../settings/settings'
+import type { SettingsJson } from '../settings/types'
 import type {
   PermissionBehavior,
   PermissionRule,
   PermissionRuleSource,
   PermissionRuleValue,
-} from './PermissionRule.js'
+} from './PermissionRule'
 import {
   permissionRuleValueFromString,
   permissionRuleValueToString,
-} from './permissionRuleParser.js'
+} from './permissionRuleParser'
 
 /**
  * Returns true if allowManagedPermissionRulesOnly is enabled in managed settings (policySettings).

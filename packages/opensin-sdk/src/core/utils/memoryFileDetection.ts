@@ -5,17 +5,17 @@ import {
   getMemoryBaseDir,
   isAutoMemoryEnabled,
   isAutoMemPath,
-} from '../memdir/paths.js'
-import { isAgentMemoryPath } from '../tools/AgentTool/agentMemory.js'
-import { getClaudeConfigHomeDir } from './envUtils.js'
+} from '../memdir/paths'
+import { isAgentMemoryPath } from '../tools/AgentTool/agentMemory'
+import { getClaudeConfigHomeDir } from './envUtils'
 import {
   posixPathToWindowsPath,
   windowsPathToPosixPath,
-} from './windowsPaths.js'
+} from './windowsPaths'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const teamMemPaths = feature('TEAMMEM')
-  ? (require('../memdir/teamMemPaths.js') as typeof import('../memdir/teamMemPaths.js'))
+  ? (require('../memdir/teamMemPaths') as typeof import('../memdir/teamMemPaths'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 

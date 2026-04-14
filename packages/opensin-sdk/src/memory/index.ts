@@ -1,9 +1,9 @@
 // Agent Memory Plugin — Letta-style persistent memory
-export { createMemoryStore } from './memory.js';
-export type { MemoryStore, MemoryBlock, MemoryScope } from './memory.js';
+export { createMemoryStore } from './memory';
+export type { MemoryStore, MemoryBlock, MemoryScope } from './memory';
 
-export { renderMemoryBlocks } from './prompt.js';
-export { MEMORY_INSTRUCTIONS, getDefaultDescription } from './letta.js';
+export { renderMemoryBlocks } from './prompt';
+export { MEMORY_INSTRUCTIONS, getDefaultDescription } from './letta';
 
 export {
   MemoryList,
@@ -11,11 +11,11 @@ export {
   MemoryReplace,
   MemoryDelete,
   MemorySearch,
-} from './tools.js';
+} from './tools';
 
-export { splitFrontmatter, buildFrontmatterDocument, atomicWriteFile } from './frontmatter.js';
+export { splitFrontmatter, buildFrontmatterDocument, atomicWriteFile } from './frontmatter';
 
 // New Memory Manager with FileMemoryProvider
-export { MemoryManager, createMemoryManager } from './manager.js'
-export { FileMemoryProvider, createFileProvider } from './provider.js'
-export type { MemoryEntry, MemoryProvider } from './types.js'
+export { MemoryManager, createMemoryManager } from './manager'
+export { FileMemoryProvider, createFileProvider } from './provider'
+export type { MemoryEntry, MemoryProvider } from './types'

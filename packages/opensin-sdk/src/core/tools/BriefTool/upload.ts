@@ -22,11 +22,11 @@ import { z } from 'zod/v4'
 import {
   getBridgeAccessToken,
   getBridgeBaseUrlOverride,
-} from '../../bridge/bridgeConfig.js'
-import { getOauthConfig } from '../../constants/oauth.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../bridge/bridgeConfig'
+import { getOauthConfig } from '../../constants/oauth'
+import { logForDebugging } from '../../utils/debug'
+import { lazySchema } from '../../utils/lazySchema'
+import { jsonStringify } from '../../utils/slowOperations'
 
 // Matches the private_api backend limit
 const MAX_UPLOAD_BYTES = 30 * 1024 * 1024

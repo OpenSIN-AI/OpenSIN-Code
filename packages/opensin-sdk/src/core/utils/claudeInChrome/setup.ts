@@ -7,29 +7,29 @@ import {
   getIsInteractive,
   getIsNonInteractiveSession,
   getSessionBypassPermissionsMode,
-} from '../../bootstrap/state.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import type { ScopedMcpServerConfig } from '../../services/mcp/types.js'
-import { isInBundledMode } from '../bundledMode.js'
-import { getGlobalConfig, saveGlobalConfig } from '../config.js'
-import { logForDebugging } from '../debug.js'
+} from '../../bootstrap/state'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import type { ScopedMcpServerConfig } from '../../services/mcp/types'
+import { isInBundledMode } from '../bundledMode'
+import { getGlobalConfig, saveGlobalConfig } from '../config'
+import { logForDebugging } from '../debug'
 import {
   getClaudeConfigHomeDir,
   isEnvDefinedFalsy,
   isEnvTruthy,
-} from '../envUtils.js'
-import { execFileNoThrowWithCwd } from '../execFileNoThrow.js'
-import { getPlatform } from '../platform.js'
-import { jsonStringify } from '../slowOperations.js'
+} from '../envUtils'
+import { execFileNoThrowWithCwd } from '../execFileNoThrow'
+import { getPlatform } from '../platform'
+import { jsonStringify } from '../slowOperations'
 import {
   CLAUDE_IN_CHROME_MCP_SERVER_NAME,
   getAllBrowserDataPaths,
   getAllNativeMessagingHostsDirs,
   getAllWindowsRegistryKeys,
   openInChrome,
-} from './common.js'
-import { getChromeSystemPrompt } from './prompt.js'
-import { isChromeExtensionInstalledPortable } from './setupPortable.js'
+} from './common'
+import { getChromeSystemPrompt } from './prompt'
+import { isChromeExtensionInstalledPortable } from './setupPortable'
 
 const CHROME_EXTENSION_RECONNECT_URL = 'https://clau.de/chrome/reconnect'
 
@@ -137,7 +137,7 @@ export function setupClaudeInChrome(): {
   } else {
     const __filename = fileURLToPath(import.meta.url)
     const __dirname = join(__filename, '..')
-    const cliPath = join(__dirname, 'cli.js')
+    const cliPath = join(__dirname, 'cli')
 
     void createWrapperScript(
       `"${process.execPath}" "${cliPath}" --chrome-native-host`,

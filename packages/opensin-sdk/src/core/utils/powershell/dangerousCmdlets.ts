@@ -7,8 +7,8 @@
  * — add a cmdlet once, both consumers pick it up.
  */
 
-import { CROSS_PLATFORM_CODE_EXEC } from '../permissions/dangerousPatterns.js'
-import { COMMON_ALIASES } from './parser.js'
+import { CROSS_PLATFORM_CODE_EXEC } from '../permissions/dangerousPatterns'
+import { COMMON_ALIASES } from './parser'
 
 /**
  * Cmdlets that accept a -FilePath (or positional path) and execute the

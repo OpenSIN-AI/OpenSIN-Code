@@ -1,18 +1,18 @@
 import { mkdir, open, unlink } from 'fs/promises'
 import { join } from 'path'
-import type { SettingSource } from 'src/utils/settings/constants.js'
-import { getManagedFilePath } from 'src/utils/settings/managedPath.js'
-import type { AgentMemoryScope } from '../../tools/AgentTool/agentMemory.js'
+import type { SettingSource } from 'src/utils/settings/constants'
+import { getManagedFilePath } from 'src/utils/settings/managedPath'
+import type { AgentMemoryScope } from '../../tools/AgentTool/agentMemory'
 import {
   type AgentDefinition,
   isBuiltInAgent,
   isPluginAgent,
-} from '../../tools/AgentTool/loadAgentsDir.js'
-import { getCwd } from '../../utils/cwd.js'
-import type { EffortValue } from '../../utils/effort.js'
-import { getOpenSINConfigHomeDir } from '../../utils/envUtils.js'
-import { getErrnoCode } from '../../utils/errors.js'
-import { AGENT_PATHS } from './types.js'
+} from '../../tools/AgentTool/loadAgentsDir'
+import { getCwd } from '../../utils/cwd'
+import type { EffortValue } from '../../utils/effort'
+import { getOpenSINConfigHomeDir } from '../../utils/envUtils'
+import { getErrnoCode } from '../../utils/errors'
+import { AGENT_PATHS } from './types'
 
 /**
  * Formats agent data as markdown file content

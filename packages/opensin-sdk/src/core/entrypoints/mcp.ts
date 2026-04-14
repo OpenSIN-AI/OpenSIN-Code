@@ -1,31 +1,31 @@
-import { Server } from '@modelcontextprotocol/sdk/server/index.js'
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
+import { Server } from '@modelcontextprotocol/sdk/server/index'
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio'
 import {
   CallToolRequestSchema,
   type CallToolResult,
   ListToolsRequestSchema,
   type ListToolsResult,
   type Tool,
-} from '@modelcontextprotocol/sdk/types.js'
-import { getDefaultAppState } from 'src/state/AppStateStore.js'
-import review from '../commands/review.js'
-import type { Command } from '../commands.js'
+} from '@modelcontextprotocol/sdk/types'
+import { getDefaultAppState } from 'src/state/AppStateStore'
+import review from '../commands/review'
+import type { Command } from '../commands'
 import {
   findToolByName,
   getEmptyToolPermissionContext,
   type ToolUseContext,
-} from '../Tool.js'
-import { getTools } from '../tools.js'
-import { createAbortController } from '../utils/abortController.js'
-import { createFileStateCacheWithSizeLimit } from '../utils/fileStateCache.js'
-import { logError } from '../utils/log.js'
-import { createAssistantMessage } from '../utils/messages.js'
-import { getMainLoopModel } from '../utils/model/model.js'
-import { hasPermissionsToUseTool } from '../utils/permissions/permissions.js'
-import { setCwd } from '../utils/Shell.js'
-import { jsonStringify } from '../utils/slowOperations.js'
-import { getErrorParts } from '../utils/toolErrors.js'
-import { zodToJsonSchema } from '../utils/zodToJsonSchema.js'
+} from '../Tool'
+import { getTools } from '../tools'
+import { createAbortController } from '../utils/abortController'
+import { createFileStateCacheWithSizeLimit } from '../utils/fileStateCache'
+import { logError } from '../utils/log'
+import { createAssistantMessage } from '../utils/messages'
+import { getMainLoopModel } from '../utils/model/model'
+import { hasPermissionsToUseTool } from '../utils/permissions/permissions'
+import { setCwd } from '../utils/Shell'
+import { jsonStringify } from '../utils/slowOperations'
+import { getErrorParts } from '../utils/toolErrors'
+import { zodToJsonSchema } from '../utils/zodToJsonSchema'
 
 type ToolInput = Tool['inputSchema']
 type ToolOutput = Tool['outputSchema']

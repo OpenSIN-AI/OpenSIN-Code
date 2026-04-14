@@ -1,18 +1,18 @@
-import { getSessionId } from '../../../bootstrap/state.js'
-import type { ToolUseContext } from '../../../Tool.js'
-import { formatAgentId, parseAgentId } from '../../../utils/agentId.js'
-import { quote } from '../../../utils/bash/shellQuote.js'
-import { registerCleanup } from '../../../utils/cleanupRegistry.js'
-import { logForDebugging } from '../../../utils/debug.js'
-import { jsonStringify } from '../../../utils/slowOperations.js'
-import { writeToMailbox } from '../../../utils/teammateMailbox.js'
+import { getSessionId } from '../../../bootstrap/state'
+import type { ToolUseContext } from '../../../Tool'
+import { formatAgentId, parseAgentId } from '../../../utils/agentId'
+import { quote } from '../../../utils/bash/shellQuote'
+import { registerCleanup } from '../../../utils/cleanupRegistry'
+import { logForDebugging } from '../../../utils/debug'
+import { jsonStringify } from '../../../utils/slowOperations'
+import { writeToMailbox } from '../../../utils/teammateMailbox'
 import {
   buildInheritedCliFlags,
   buildInheritedEnvVars,
   getTeammateCommand,
-} from '../spawnUtils.js'
-import { assignTeammateColor } from '../teammateLayoutManager.js'
-import { isInsideTmux } from './detection.js'
+} from '../spawnUtils'
+import { assignTeammateColor } from '../teammateLayoutManager'
+import { isInsideTmux } from './detection'
 import type {
   BackendType,
   PaneBackend,
@@ -20,7 +20,7 @@ import type {
   TeammateMessage,
   TeammateSpawnConfig,
   TeammateSpawnResult,
-} from './types.js'
+} from './types'
 
 /**
  * PaneBackendExecutor adapts a PaneBackend to the TeammateExecutor interface.

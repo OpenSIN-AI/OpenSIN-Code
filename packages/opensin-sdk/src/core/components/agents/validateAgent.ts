@@ -1,10 +1,10 @@
-import type { Tools } from '../../Tool.js'
-import { resolveAgentTools } from '../../tools/AgentTool/agentToolUtils.js'
+import type { Tools } from '../../Tool'
+import { resolveAgentTools } from '../../tools/AgentTool/agentToolUtils'
 import type {
   AgentDefinition,
   CustomAgentDefinition,
-} from '../../tools/AgentTool/loadAgentsDir.js'
-import { getAgentSourceDisplayName } from './utils.js'
+} from '../../tools/AgentTool/loadAgentsDir'
+import { getAgentSourceDisplayName } from './utils'
 
 export type AgentValidationResult = {
   isValid: boolean

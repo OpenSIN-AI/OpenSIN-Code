@@ -8,10 +8,10 @@
  */
 
 import axios from 'axios'
-import { logForDebugging } from '../utils/debug.js'
-import { errorMessage } from '../utils/errors.js'
-import { jsonStringify } from '../utils/slowOperations.js'
-import { extractErrorDetail } from './debugUtils.js'
+import { logForDebugging } from '../utils/debug'
+import { errorMessage } from '../utils/errors'
+import { jsonStringify } from '../utils/slowOperations'
+import { extractErrorDetail } from './debugUtils'
 
 const ANTHROPIC_VERSION = '2023-06-01'
 

@@ -5,7 +5,7 @@
  * with priority-based merging and source tracking.
  */
 
-import type { ConfigSource, ConfigStore, ConfigValue, ConfigLoader } from './types.js'
+import type { ConfigSource, ConfigStore, ConfigValue, ConfigLoader } from './types'
 
 const SOURCE_PRIORITY: ConfigSource[] = ['defaults', 'env', 'user', 'project', 'cli', 'remote']
 

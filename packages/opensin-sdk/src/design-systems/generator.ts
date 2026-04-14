@@ -6,9 +6,9 @@ import type {
   GeneratedComponent,
   ThemeConfig,
   ThemeCustomization,
-} from './types.js';
-import { getDesignSystem } from './registry.js';
-import { loadDesignSystem, mergeTheme } from './loader.js';
+} from './types';
+import { getDesignSystem } from './registry';
+import { loadDesignSystem, mergeTheme } from './loader';
 
 export async function generateComponent(
   designSystemName: string,

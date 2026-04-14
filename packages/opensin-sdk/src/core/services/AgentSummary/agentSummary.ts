@@ -10,18 +10,18 @@
  * key matching but denied via canUseTool callback.
  */
 
-import type { TaskContext } from '../../Task.js'
-import { updateAgentSummary } from '../../tasks/LocalAgentTask/LocalAgentTask.js'
-import { filterIncompleteToolCalls } from '../../tools/AgentTool/runAgent.js'
-import type { AgentId } from '../../types/ids.js'
-import { logForDebugging } from '../../utils/debug.js'
+import type { TaskContext } from '../../Task'
+import { updateAgentSummary } from '../../tasks/LocalAgentTask/LocalAgentTask'
+import { filterIncompleteToolCalls } from '../../tools/AgentTool/runAgent'
+import type { AgentId } from '../../types/ids'
+import { logForDebugging } from '../../utils/debug'
 import {
   type CacheSafeParams,
   runForkedAgent,
-} from '../../utils/forkedAgent.js'
-import { logError } from '../../utils/log.js'
-import { createUserMessage } from '../../utils/messages.js'
-import { getAgentTranscript } from '../../utils/sessionStorage.js'
+} from '../../utils/forkedAgent'
+import { logError } from '../../utils/log'
+import { createUserMessage } from '../../utils/messages'
+import { getAgentTranscript } from '../../utils/sessionStorage'
 
 const SUMMARY_INTERVAL_MS = 30_000
 

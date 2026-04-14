@@ -5,8 +5,8 @@
  * Handles both semicolon (;) and colon (:) separated parameters.
  */
 
-import type { NamedColor, TextStyle, UnderlineStyle } from './types.js'
-import { defaultStyle } from './types.js'
+import type { NamedColor, TextStyle, UnderlineStyle } from './types'
+import { defaultStyle } from './types'
 
 const NAMED_COLORS: NamedColor[] = [
   'black',

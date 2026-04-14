@@ -13,29 +13,29 @@ import {
 } from 'fs/promises'
 import { tmpdir } from 'os'
 import { extname, join } from 'path'
-import type { Command } from '../commands.js'
-import { queryWithModel } from '../services/api/claude.js'
+import type { Command } from '../commands'
+import { queryWithModel } from '../services/api/claude'
 import {
   AGENT_TOOL_NAME,
   LEGACY_AGENT_TOOL_NAME,
-} from '../tools/AgentTool/constants.js'
-import type { LogOption } from '../types/logs.js'
-import { getClaudeConfigHomeDir } from '../utils/envUtils.js'
-import { toError } from '../utils/errors.js'
-import { execFileNoThrow } from '../utils/execFileNoThrow.js'
-import { logError } from '../utils/log.js'
-import { extractTextContent } from '../utils/messages.js'
-import { getDefaultOpusModel } from '../utils/model/model.js'
+} from '../tools/AgentTool/constants'
+import type { LogOption } from '../types/logs'
+import { getClaudeConfigHomeDir } from '../utils/envUtils'
+import { toError } from '../utils/errors'
+import { execFileNoThrow } from '../utils/execFileNoThrow'
+import { logError } from '../utils/log'
+import { extractTextContent } from '../utils/messages'
+import { getDefaultOpusModel } from '../utils/model/model'
 import {
   getProjectsDir,
   getSessionFilesWithMtime,
   getSessionIdFromLog,
   loadAllLogsFromSessionFile,
-} from '../utils/sessionStorage.js'
-import { jsonParse, jsonStringify } from '../utils/slowOperations.js'
-import { countCharInString } from '../utils/stringUtils.js'
-import { asSystemPrompt } from '../utils/systemPromptType.js'
-import { escapeXmlAttr as escapeHtml } from '../utils/xml.js'
+} from '../utils/sessionStorage'
+import { jsonParse, jsonStringify } from '../utils/slowOperations'
+import { countCharInString } from '../utils/stringUtils'
+import { asSystemPrompt } from '../utils/systemPromptType'
+import { escapeXmlAttr as escapeHtml } from '../utils/xml'
 
 // Model for facet extraction and summarization (Opus - best quality)
 function getAnalysisModel(): string {
@@ -330,9 +330,9 @@ type AggregatedData = {
 // ============================================================================
 
 const EXTENSION_TO_LANGUAGE: Record<string, string> = {
-  '.ts': 'TypeScript',
+  '': 'TypeScript',
   '.tsx': 'TypeScript',
-  '.js': 'JavaScript',
+  '': 'JavaScript',
   '.jsx': 'JavaScript',
   '.py': 'Python',
   '.rb': 'Ruby',

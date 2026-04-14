@@ -1,4 +1,4 @@
-import { SkillDefinition } from './types.js';
+import { SkillDefinition } from './types';
 
 export class SkillActivator {
   private activeSkills: Map<string, SkillDefinition> = new Map();

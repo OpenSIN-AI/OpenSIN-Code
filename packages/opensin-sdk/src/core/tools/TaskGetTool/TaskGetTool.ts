@@ -1,14 +1,14 @@
 import { z } from 'zod/v4'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { lazySchema } from '../../utils/lazySchema.js'
+import { buildTool, type ToolDef } from '../../Tool'
+import { lazySchema } from '../../utils/lazySchema'
 import {
   getTask,
   getTaskListId,
   isTodoV2Enabled,
   TaskStatusSchema,
-} from '../../utils/tasks.js'
-import { TASK_GET_TOOL_NAME } from './constants.js'
-import { DESCRIPTION, PROMPT } from './prompt.js'
+} from '../../utils/tasks'
+import { TASK_GET_TOOL_NAME } from './constants'
+import { DESCRIPTION, PROMPT } from './prompt'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({

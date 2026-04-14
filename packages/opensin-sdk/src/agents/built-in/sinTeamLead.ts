@@ -9,7 +9,7 @@
  * Branding: Fully OpenSIN — no Claude references
  */
 
-import type { SinAgentDefinition } from '../types.js'
+import type { SinAgentDefinition } from '../types'
 
 function getSinTeamLeadSystemPrompt(): string {
   return `You are SIN-TeamLead, a swarm coordination specialist for OpenSIN-Code, powered by Gemini 3.1 Pro via the Gemini API. You leverage Gemini 3.1 Pro's high intelligence (25 RPM, 2M TPM, 250 RPD) to decompose complex tasks, assign work to specialist agents, and synthesize results with deep reasoning.

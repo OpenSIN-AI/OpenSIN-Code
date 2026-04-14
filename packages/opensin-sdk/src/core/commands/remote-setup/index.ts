@@ -1,6 +1,6 @@
-import type { Command } from '../../commands.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import { isPolicyAllowed } from '../../services/policyLimits/index.js'
+import type { Command } from '../../commands'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import { isPolicyAllowed } from '../../services/policyLimits/index'
 
 const web = {
   type: 'local-jsx',
@@ -14,7 +14,7 @@ const web = {
   get isHidden() {
     return !isPolicyAllowed('allow_remote_sessions')
   },
-  load: () => import('./remote-setup.js'),
+  load: () => import('./remote-setup'),
 } satisfies Command
 
 export default web

@@ -3,8 +3,8 @@
  * OpenSIN-Code Phase 2.3
  */
 
-import { McpToolDefinition, McpResourceDefinition } from './types.js';
-import { McpStdioClient } from './client.js';
+import { McpToolDefinition, McpResourceDefinition } from './types';
+import { McpStdioClient } from './client';
 
 export async function discoverTools(client: McpStdioClient): Promise<McpToolDefinition[]> {
   const result = await client.request('tools/list') as { tools: McpToolDefinition[] };

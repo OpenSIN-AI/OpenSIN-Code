@@ -2,40 +2,40 @@ import { feature } from 'bun:bundle'
 import { randomUUID } from 'crypto'
 import { hostname, tmpdir } from 'os'
 import { basename, join, resolve } from 'path'
-import { getRemoteSessionUrl } from '../constants/product.js'
-import { shutdownDatadog } from '../services/analytics/datadog.js'
-import { shutdown1PEventLogging } from '../services/analytics/firstPartyEventLogger.js'
-import { checkGate_CACHED_OR_BLOCKING } from '../services/analytics/growthbook.js'
+import { getRemoteSessionUrl } from '../constants/product'
+import { shutdownDatadog } from '../services/analytics/datadog'
+import { shutdown1PEventLogging } from '../services/analytics/firstPartyEventLogger'
+import { checkGate_CACHED_OR_BLOCKING } from '../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
   logEventAsync,
-} from '../services/analytics/index.js'
-import { isInBundledMode } from '../utils/bundledMode.js'
-import { logForDebugging } from '../utils/debug.js'
-import { logForDiagnosticsNoPII } from '../utils/diagLogs.js'
-import { isEnvTruthy, isInProtectedNamespace } from '../utils/envUtils.js'
-import { errorMessage } from '../utils/errors.js'
-import { truncateToWidth } from '../utils/format.js'
-import { logError } from '../utils/log.js'
-import { sleep } from '../utils/sleep.js'
-import { createAgentWorktree, removeAgentWorktree } from '../utils/worktree.js'
+} from '../services/analytics/index'
+import { isInBundledMode } from '../utils/bundledMode'
+import { logForDebugging } from '../utils/debug'
+import { logForDiagnosticsNoPII } from '../utils/diagLogs'
+import { isEnvTruthy, isInProtectedNamespace } from '../utils/envUtils'
+import { errorMessage } from '../utils/errors'
+import { truncateToWidth } from '../utils/format'
+import { logError } from '../utils/log'
+import { sleep } from '../utils/sleep'
+import { createAgentWorktree, removeAgentWorktree } from '../utils/worktree'
 import {
   BridgeFatalError,
   createBridgeApiClient,
   isExpiredErrorType,
   isSuppressible403,
   validateBridgeId,
-} from './bridgeApi.js'
-import { formatDuration } from './bridgeStatusUtil.js'
-import { createBridgeLogger } from './bridgeUI.js'
-import { createCapacityWake } from './capacityWake.js'
-import { describeAxiosError } from './debugUtils.js'
-import { createTokenRefreshScheduler } from './jwtUtils.js'
-import { getPollIntervalConfig } from './pollConfig.js'
-import { toCompatSessionId, toInfraSessionId } from './sessionIdCompat.js'
-import { createSessionSpawner, safeFilenameId } from './sessionRunner.js'
-import { getTrustedDeviceToken } from './trustedDevice.js'
+} from './bridgeApi'
+import { formatDuration } from './bridgeStatusUtil'
+import { createBridgeLogger } from './bridgeUI'
+import { createCapacityWake } from './capacityWake'
+import { describeAxiosError } from './debugUtils'
+import { createTokenRefreshScheduler } from './jwtUtils'
+import { getPollIntervalConfig } from './pollConfig'
+import { toCompatSessionId, toInfraSessionId } from './sessionIdCompat'
+import { createSessionSpawner, safeFilenameId } from './sessionRunner'
+import { getTrustedDeviceToken } from './trustedDevice'
 import {
   BRIDGE_LOGIN_ERROR,
   type BridgeApiClient,
@@ -47,14 +47,14 @@ import {
   type SessionSpawner,
   type SessionSpawnOpts,
   type SpawnMode,
-} from './types.js'
+} from './types'
 import {
   buildCCRv2SdkUrl,
   buildSdkUrl,
   decodeWorkSecret,
   registerWorker,
   sameSessionId,
-} from './workSecret.js'
+} from './workSecret'
 
 export type BackoffConfig = {
   connInitialMs: number
@@ -1043,7 +1043,7 @@ export async function runBridgeLoop(
                 logForDebugging(
                   `[bridge:title] derived title for ${compatSessionId}: ${title}`,
                 )
-                void import('./createSession.js')
+                void import('./createSession')
                   .then(({ updateBridgeSessionTitle }) =>
                     updateBridgeSessionTitle(compatSessionId, title, {
                       baseUrl: config.apiBaseUrl,
@@ -1573,7 +1573,7 @@ export async function runBridgeLoop(
   // Clear the crash-recovery pointer — the env is gone, pointer would be
   // stale. The early return above (resumable SIGINT shutdown) skips this,
   // leaving the pointer as a backup for the printed --session-id hint.
-  const { clearBridgePointer } = await import('./bridgePointer.js')
+  const { clearBridgePointer } = await import('./bridgePointer')
   await clearBridgePointer(config.dir)
 
   logger.logVerbose('Environment offline.')
@@ -1889,7 +1889,7 @@ export function parseArgs(args: string[]): ParsedArgs {
 async function printHelp(): Promise<void> {
   // Use EXTERNAL_PERMISSION_MODES for help text — internal modes (bubble)
   // are ant-only and auto is feature-gated; they're still accepted by validation.
-  const { EXTERNAL_PERMISSION_MODES } = await import('../types/permissions.js')
+  const { EXTERNAL_PERMISSION_MODES } = await import('../types/permissions')
   const modes = EXTERNAL_PERMISSION_MODES.join(', ')
   const showServer = await isMultiSessionSpawnEnabled()
   const serverOptions = showServer
@@ -1972,7 +1972,7 @@ async function fetchSessionTitle(
   compatSessionId: string,
   baseUrl: string,
 ): Promise<string | undefined> {
-  const { getBridgeSession } = await import('./createSession.js')
+  const { getBridgeSession } = await import('./createSession')
   const session = await getBridgeSession(compatSessionId, { baseUrl })
   return session?.title || undefined
 }
@@ -2021,7 +2021,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
   // Validate permission mode early so the user gets an error before
   // the bridge starts polling for work.
   if (permissionMode !== undefined) {
-    const { PERMISSION_MODES } = await import('../types/permissions.js')
+    const { PERMISSION_MODES } = await import('../types/permissions')
     const valid: readonly string[] = PERMISSION_MODES
     if (!valid.includes(permissionMode)) {
       // biome-ignore lint/suspicious/noConsole: intentional error output
@@ -2038,13 +2038,13 @@ export async function bridgeMain(args: string[]): Promise<void> {
   // The bridge fast-path bypasses init.ts, so we must enable config reading
   // before any code that transitively calls getGlobalConfig()
   const { enableConfigs, checkHasTrustDialogAccepted } = await import(
-    '../utils/config.js'
+    '../utils/config'
   )
   enableConfigs()
 
   // Initialize analytics and error reporting sinks. The bridge bypasses the
   // setup() init flow, so we call initSinks() directly to attach sinks here.
-  const { initSinks } = await import('../utils/sinks.js')
+  const { initSinks } = await import('../utils/sinks')
   initSinks()
 
   // Gate-aware validation: --spawn / --capacity / --create-session-in-dir require
@@ -2077,7 +2077,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
 
   // Set the bootstrap CWD so that trust checks, project config lookups, and
   // git utilities (getBranch, getRemoteUrl) resolve against the correct path.
-  const { setOriginalCwd, setCwdState } = await import('../bootstrap/state.js')
+  const { setOriginalCwd, setCwdState } = await import('../bootstrap/state')
   setOriginalCwd(dir)
   setCwdState(dir)
 
@@ -2094,9 +2094,9 @@ export async function bridgeMain(args: string[]): Promise<void> {
 
   // Resolve auth
   const { clearOAuthTokenCache, checkAndRefreshOAuthTokenIfNeeded } =
-    await import('../utils/auth.js')
+    await import('../utils/auth')
   const { getBridgeAccessToken, getBridgeBaseUrl } = await import(
-    './bridgeConfig.js'
+    './bridgeConfig'
   )
 
   const bridgeToken = getBridgeAccessToken()
@@ -2113,7 +2113,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
     saveGlobalConfig,
     getCurrentProjectConfig,
     saveCurrentProjectConfig,
-  } = await import('../utils/config.js')
+  } = await import('../utils/config')
   if (!getGlobalConfig().remoteDialogSeen) {
     const readline = await import('readline')
     const rl = readline.createInterface({
@@ -2148,7 +2148,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
   // builds, so this block tree-shakes.
   if (feature('KAIROS') && continueSession) {
     const { readBridgePointerAcrossWorktrees } = await import(
-      './bridgePointer.js'
+      './bridgePointer'
     )
     const found = await readBridgePointerAcrossWorktrees(dir)
     if (!found) {
@@ -2204,12 +2204,12 @@ export async function bridgeMain(args: string[]): Promise<void> {
       : baseUrl
 
   const { getBranch, getRemoteUrl, findGitRoot } = await import(
-    '../utils/git.js'
+    '../utils/git'
   )
 
   // Precheck worktree availability for the first-run dialog and the `w`
   // toggle. Unconditional so we know upfront whether worktree is an option.
-  const { hasWorktreeCreateHook } = await import('../utils/hooks.js')
+  const { hasWorktreeCreateHook } = await import('../utils/hooks')
   const worktreeAvailable = hasWorktreeCreateHook() || findGitRoot(dir) !== null
 
   // Load saved per-project spawn-mode preference. Gated by multiSessionEnabled
@@ -2321,7 +2321,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
   // starts fresh in worktree mode. Only single-session mode writes new
   // pointers.
   if (!resumeSessionId) {
-    const { clearBridgePointer } = await import('./bridgePointer.js')
+    const { clearBridgePointer } = await import('./bridgePointer')
     await clearBridgePointer(dir)
   }
 
@@ -2342,7 +2342,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
   const machineName = hostname()
   const bridgeId = randomUUID()
 
-  const { handleOAuth401Error } = await import('../utils/auth.js')
+  const { handleOAuth401Error } = await import('../utils/auth')
   const api = createBridgeApiClient({
     baseUrl,
     getAccessToken: getBridgeAccessToken,
@@ -2376,7 +2376,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
     // token would otherwise produce a misleading "not found" error.
     await checkAndRefreshOAuthTokenIfNeeded()
     clearOAuthTokenCache()
-    const { getBridgeSession } = await import('./createSession.js')
+    const { getBridgeSession } = await import('./createSession')
     const session = await getBridgeSession(resumeSessionId, {
       baseUrl,
       getAccessToken: getBridgeAccessToken,
@@ -2387,7 +2387,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
       // pointer alone — it's an independent file they may not even have.)
       // resumePointerDir may be a worktree sibling — clear THAT file.
       if (resumePointerDir) {
-        const { clearBridgePointer } = await import('./bridgePointer.js')
+        const { clearBridgePointer } = await import('./bridgePointer')
         await clearBridgePointer(resumePointerDir)
       }
       // biome-ignore lint/suspicious/noConsole: intentional error output
@@ -2399,7 +2399,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
     }
     if (!session.environment_id) {
       if (resumePointerDir) {
-        const { clearBridgePointer } = await import('./bridgePointer.js')
+        const { clearBridgePointer } = await import('./bridgePointer')
         await clearBridgePointer(resumePointerDir)
       }
       // biome-ignore lint/suspicious/noConsole: intentional error output
@@ -2529,7 +2529,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
         // ("try running the same command again") should keep the pointer so
         // next launch re-prompts — that IS the retry mechanism.
         if (resumePointerDir && isFatal) {
-          const { clearBridgePointer } = await import('./bridgePointer.js')
+          const { clearBridgePointer } = await import('./bridgePointer')
           await clearBridgePointer(resumePointerDir)
         }
         // biome-ignore lint/suspicious/noConsole: intentional error output
@@ -2591,7 +2591,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
   })
 
   const logger = createBridgeLogger({ verbose })
-  const { parseGitHubRepository } = await import('../utils/detectRepository.js')
+  const { parseGitHubRepository } = await import('../utils/detectRepository')
   const ownerRepo = gitRepoUrl ? parseGitHubRepository(gitRepoUrl) : null
   // Use the repo name from the parsed owner/repo, or fall back to the dir basename
   const repoName = ownerRepo ? ownerRepo.split('/').pop()! : basename(dir)
@@ -2672,7 +2672,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
       ? effectiveResumeSessionId
       : null
   if (preCreateSession && !(feature('KAIROS') && effectiveResumeSessionId)) {
-    const { createBridgeSession } = await import('./createSession.js')
+    const { createBridgeSession } = await import('./createSession')
     try {
       initialSessionId = await createBridgeSession({
         environmentId,
@@ -2711,7 +2711,7 @@ export async function bridgeMain(args: string[]): Promise<void> {
   // config when they try to resume. The resumable-shutdown path is also
   // gated to single-session (line ~1254) so the pointer would be orphaned.
   if (initialSessionId && spawnMode === 'single-session') {
-    const { writeBridgePointer } = await import('./bridgePointer.js')
+    const { writeBridgePointer } = await import('./bridgePointer')
     const pointerPayload = {
       sessionId: initialSessionId,
       environmentId,
@@ -2817,15 +2817,15 @@ export async function runBridgeHeadless(
   // (getBranch/getRemoteUrl) — which read from bootstrap CWD state set
   // below — resolve against the right repo.
   process.chdir(dir)
-  const { setOriginalCwd, setCwdState } = await import('../bootstrap/state.js')
+  const { setOriginalCwd, setCwdState } = await import('../bootstrap/state')
   setOriginalCwd(dir)
   setCwdState(dir)
 
   const { enableConfigs, checkHasTrustDialogAccepted } = await import(
-    '../utils/config.js'
+    '../utils/config'
   )
   enableConfigs()
-  const { initSinks } = await import('../utils/sinks.js')
+  const { initSinks } = await import('../utils/sinks')
   initSinks()
 
   if (!checkHasTrustDialogAccepted()) {
@@ -2839,7 +2839,7 @@ export async function runBridgeHeadless(
     throw new Error(BRIDGE_LOGIN_ERROR)
   }
 
-  const { getBridgeBaseUrl } = await import('./bridgeConfig.js')
+  const { getBridgeBaseUrl } = await import('./bridgeConfig')
   const baseUrl = getBridgeBaseUrl()
   if (
     baseUrl.startsWith('http://') &&
@@ -2857,9 +2857,9 @@ export async function runBridgeHeadless(
       : baseUrl
 
   const { getBranch, getRemoteUrl, findGitRoot } = await import(
-    '../utils/git.js'
+    '../utils/git'
   )
-  const { hasWorktreeCreateHook } = await import('../utils/hooks.js')
+  const { hasWorktreeCreateHook } = await import('../utils/hooks')
 
   if (opts.spawnMode === 'worktree') {
     const worktreeAvailable =
@@ -2928,7 +2928,7 @@ export async function runBridgeHeadless(
 
   let initialSessionId: string | undefined
   if (opts.createSessionOnStart) {
-    const { createBridgeSession } = await import('./createSession.js')
+    const { createBridgeSession } = await import('./createSession')
     try {
       const sid = await createBridgeSession({
         environmentId,

@@ -1,5 +1,5 @@
-import { nonAlphanumericKeys, type ParsedKey } from '../parse-keypress.js'
-import { Event } from './event.js'
+import { nonAlphanumericKeys, type ParsedKey } from '../parse-keypress'
+import { Event } from './event'
 
 export type Key = {
   upArrow: boolean

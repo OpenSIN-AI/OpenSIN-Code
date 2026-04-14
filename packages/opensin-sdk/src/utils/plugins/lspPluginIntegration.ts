@@ -4,22 +4,22 @@ import { z } from 'zod/v4'
 import type {
   LspServerConfig,
   ScopedLspServerConfig,
-} from '../../services/lsp/types.js'
-import { expandEnvVarsInString } from '../../services/mcp/envExpansion.js'
-import type { LoadedPlugin, PluginError } from '../../types/plugin.js'
-import { logForDebugging } from '../debug.js'
-import { isENOENT, toError } from '../errors.js'
-import { logError } from '../log.js'
-import { jsonParse } from '../slowOperations.js'
-import { getPluginDataDir } from './pluginDirectories.js'
+} from '../../services/lsp/types'
+import { expandEnvVarsInString } from '../../services/mcp/envExpansion'
+import type { LoadedPlugin, PluginError } from '../../types/plugin'
+import { logForDebugging } from '../debug'
+import { isENOENT, toError } from '../errors'
+import { logError } from '../log'
+import { jsonParse } from '../slowOperations'
+import { getPluginDataDir } from './pluginDirectories'
 import {
   getPluginStorageId,
   loadPluginOptions,
   type PluginOptionValues,
   substitutePluginVariables,
   substituteUserConfigVariables,
-} from './pluginOptionsStorage.js'
-import { LspServerConfigSchema } from './schemas.js'
+} from './pluginOptionsStorage'
+import { LspServerConfigSchema } from './schemas'
 
 /**
  * Validate that a resolved path stays within the plugin directory.

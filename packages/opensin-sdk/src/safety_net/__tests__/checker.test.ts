@@ -3,9 +3,9 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { SafetyChecker } from '../checker.ts';
-import { DEFAULT_SAFETY_RULES } from '../types.ts';
-import type { SafetyRule } from '../types.ts';
+import { SafetyChecker } from '../checker';
+import { DEFAULT_SAFETY_RULES } from '../types';
+import type { SafetyRule } from '../types';
 
 describe('SafetyChecker', () => {
   describe('constructor', () => {

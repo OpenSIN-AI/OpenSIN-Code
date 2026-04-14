@@ -23,11 +23,11 @@ import { randomUUID } from 'crypto'
 import {
   getAPIProvider,
   isFirstPartyAnthropicBaseUrl,
-} from 'src/utils/model/providers.js'
+} from 'src/utils/model/providers'
 import {
   getAttributionHeader,
   getCLISyspromptPrefix,
-} from '../../constants/system.js'
+} from '../../constants/system'
 import {
   getEmptyToolPermissionContext,
   type QueryChainTracking,
@@ -35,43 +35,43 @@ import {
   type ToolPermissionContext,
   type Tools,
   toolMatchesName,
-} from '../../Tool.js'
-import type { AgentDefinition } from '../../tools/AgentTool/loadAgentsDir.js'
+} from '../../Tool'
+import type { AgentDefinition } from '../../tools/AgentTool/loadAgentsDir'
 import {
   type ConnectorTextBlock,
   type ConnectorTextDelta,
   isConnectorTextBlock,
-} from '../../types/connectorText.js'
+} from '../../types/connectorText'
 import type {
   AssistantMessage,
   Message,
   StreamEvent,
   SystemAPIErrorMessage,
   UserMessage,
-} from '../../types/message.js'
+} from '../../types/message'
 import {
   type CacheScope,
   logAPIPrefix,
   splitSysPromptPrefix,
   toolToAPISchema,
-} from '../../utils/api.js'
-import { getOauthAccountInfo } from '../../utils/auth.js'
+} from '../../utils/api'
+import { getOauthAccountInfo } from '../../utils/auth'
 import {
   getBedrockExtraBodyParamsBetas,
   getMergedBetas,
   getModelBetas,
-} from '../../utils/betas.js'
-import { getOrCreateUserID } from '../../utils/config.js'
+} from '../../utils/betas'
+import { getOrCreateUserID } from '../../utils/config'
 import {
   CAPPED_DEFAULT_MAX_TOKENS,
   getModelMaxOutputTokens,
   getSonnet1mExpTreatmentEnabled,
-} from '../../utils/context.js'
-import { resolveAppliedEffort } from '../../utils/effort.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { errorMessage } from '../../utils/errors.js'
-import { computeFingerprintFromMessages } from '../../utils/fingerprint.js'
-import { captureAPIRequest, logError } from '../../utils/log.js'
+} from '../../utils/context'
+import { resolveAppliedEffort } from '../../utils/effort'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { errorMessage } from '../../utils/errors'
+import { computeFingerprintFromMessages } from '../../utils/fingerprint'
+import { captureAPIRequest, logError } from '../../utils/log'
 import {
   createAssistantAPIErrorMessage,
   createUserMessage,
@@ -81,29 +81,29 @@ import {
   stripAdvisorBlocks,
   stripCallerFieldFromAssistantMessage,
   stripToolReferenceBlocksFromUserMessage,
-} from '../../utils/messages.js'
+} from '../../utils/messages'
 import {
   getDefaultOpusModel,
   getDefaultSonnetModel,
   getSmallFastModel,
   isNonCustomOpusModel,
-} from '../../utils/model/model.js'
+} from '../../utils/model/model'
 import {
   asSystemPrompt,
   type SystemPrompt,
-} from '../../utils/systemPromptType.js'
-import { tokenCountFromLastAPIResponse } from '../../utils/tokens.js'
-import { getDynamicConfig_BLOCKS_ON_INIT } from '../analytics/growthbook.js'
+} from '../../utils/systemPromptType'
+import { tokenCountFromLastAPIResponse } from '../../utils/tokens'
+import { getDynamicConfig_BLOCKS_ON_INIT } from '../analytics/growthbook'
 import {
   currentLimits,
   extractQuotaStatusFromError,
   extractQuotaStatusFromHeaders,
-} from '../claudeAiLimits.js'
-import { getAPIContextManagement } from '../compact/apiMicrocompact.js'
+} from '../claudeAiLimits'
+import { getAPIContextManagement } from '../compact/apiMicrocompact'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const autoModeStateModule = feature('TRANSCRIPT_CLASSIFIER')
-  ? (require('../../utils/permissions/autoModeState.js') as typeof import('../../utils/permissions/autoModeState.js'))
+  ? (require('../../utils/permissions/autoModeState') as typeof import('../../utils/permissions/autoModeState'))
   : null
 
 import { feature } from 'bun:bundle'
@@ -129,7 +129,7 @@ import {
   setPromptCache1hAllowlist,
   setPromptCache1hEligible,
   setThinkingClearLatched,
-} from 'src/bootstrap/state.js'
+} from 'src/bootstrap/state'
 import {
   AFK_MODE_BETA_HEADER,
   CONTEXT_1M_BETA_HEADER,
@@ -140,101 +140,101 @@ import {
   REDACT_THINKING_BETA_HEADER,
   STRUCTURED_OUTPUTS_BETA_HEADER,
   TASK_BUDGETS_BETA_HEADER,
-} from 'src/constants/betas.js'
-import type { QuerySource } from 'src/constants/querySource.js'
-import type { Notification } from 'src/context/notifications.js'
-import { addToTotalSessionCost } from 'src/cost-tracker.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook.js'
-import type { AgentId } from 'src/types/ids.js'
+} from 'src/constants/betas'
+import type { QuerySource } from 'src/constants/querySource'
+import type { Notification } from 'src/context/notifications'
+import { addToTotalSessionCost } from 'src/cost-tracker'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook'
+import type { AgentId } from 'src/types/ids'
 import {
   ADVISOR_TOOL_INSTRUCTIONS,
   getExperimentAdvisorModels,
   isAdvisorEnabled,
   isValidAdvisorModel,
   modelSupportsAdvisor,
-} from 'src/utils/advisor.js'
-import { getAgentContext } from 'src/utils/agentContext.js'
-import { isClaudeAISubscriber } from 'src/utils/auth.js'
+} from 'src/utils/advisor'
+import { getAgentContext } from 'src/utils/agentContext'
+import { isClaudeAISubscriber } from 'src/utils/auth'
 import {
   getToolSearchBetaHeader,
   modelSupportsStructuredOutputs,
   shouldIncludeFirstPartyOnlyBetas,
   shouldUseGlobalCacheScope,
-} from 'src/utils/betas.js'
-import { CLAUDE_IN_CHROME_MCP_SERVER_NAME } from 'src/utils/claudeInChrome/common.js'
-import { CHROME_TOOL_SEARCH_INSTRUCTIONS } from 'src/utils/claudeInChrome/prompt.js'
-import { getMaxThinkingTokensForModel } from 'src/utils/context.js'
-import { logForDebugging } from 'src/utils/debug.js'
-import { logForDiagnosticsNoPII } from 'src/utils/diagLogs.js'
-import { type EffortValue, modelSupportsEffort } from 'src/utils/effort.js'
+} from 'src/utils/betas'
+import { CLAUDE_IN_CHROME_MCP_SERVER_NAME } from 'src/utils/claudeInChrome/common'
+import { CHROME_TOOL_SEARCH_INSTRUCTIONS } from 'src/utils/claudeInChrome/prompt'
+import { getMaxThinkingTokensForModel } from 'src/utils/context'
+import { logForDebugging } from 'src/utils/debug'
+import { logForDiagnosticsNoPII } from 'src/utils/diagLogs'
+import { type EffortValue, modelSupportsEffort } from 'src/utils/effort'
 import {
   isFastModeAvailable,
   isFastModeCooldown,
   isFastModeEnabled,
   isFastModeSupportedByModel,
-} from 'src/utils/fastMode.js'
-import { returnValue } from 'src/utils/generators.js'
-import { headlessProfilerCheckpoint } from 'src/utils/headlessProfiler.js'
-import { isMcpInstructionsDeltaEnabled } from 'src/utils/mcpInstructionsDelta.js'
-import { calculateUSDCost } from 'src/utils/modelCost.js'
-import { endQueryProfile, queryCheckpoint } from 'src/utils/queryProfiler.js'
+} from 'src/utils/fastMode'
+import { returnValue } from 'src/utils/generators'
+import { headlessProfilerCheckpoint } from 'src/utils/headlessProfiler'
+import { isMcpInstructionsDeltaEnabled } from 'src/utils/mcpInstructionsDelta'
+import { calculateUSDCost } from 'src/utils/modelCost'
+import { endQueryProfile, queryCheckpoint } from 'src/utils/queryProfiler'
 import {
   modelSupportsAdaptiveThinking,
   modelSupportsThinking,
   type ThinkingConfig,
-} from 'src/utils/thinking.js'
+} from 'src/utils/thinking'
 import {
   extractDiscoveredToolNames,
   isDeferredToolsDeltaEnabled,
   isToolSearchEnabled,
-} from 'src/utils/toolSearch.js'
-import { API_MAX_MEDIA_PER_REQUEST } from '../../constants/apiLimits.js'
-import { ADVISOR_BETA_HEADER } from '../../constants/betas.js'
+} from 'src/utils/toolSearch'
+import { API_MAX_MEDIA_PER_REQUEST } from '../../constants/apiLimits'
+import { ADVISOR_BETA_HEADER } from '../../constants/betas'
 import {
   formatDeferredToolLine,
   isDeferredTool,
   TOOL_SEARCH_TOOL_NAME,
-} from '../../tools/ToolSearchTool/prompt.js'
-import { count } from '../../utils/array.js'
-import { insertBlockAfterToolResults } from '../../utils/contentArray.js'
-import { validateBoundedIntEnvVar } from '../../utils/envValidation.js'
-import { safeParseJSON } from '../../utils/json.js'
-import { getInferenceProfileBackingModel } from '../../utils/model/bedrock.js'
+} from '../../tools/ToolSearchTool/prompt'
+import { count } from '../../utils/array'
+import { insertBlockAfterToolResults } from '../../utils/contentArray'
+import { validateBoundedIntEnvVar } from '../../utils/envValidation'
+import { safeParseJSON } from '../../utils/json'
+import { getInferenceProfileBackingModel } from '../../utils/model/bedrock'
 import {
   normalizeModelStringForAPI,
   parseUserSpecifiedModel,
-} from '../../utils/model/model.js'
+} from '../../utils/model/model'
 import {
   startSessionActivity,
   stopSessionActivity,
-} from '../../utils/sessionActivity.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../utils/sessionActivity'
+import { jsonStringify } from '../../utils/slowOperations'
 import {
   isBetaTracingEnabled,
   type LLMRequestNewContext,
   startLLMRequestSpan,
-} from '../../utils/telemetry/sessionTracing.js'
+} from '../../utils/telemetry/sessionTracing'
 /* eslint-enable @typescript-eslint/no-require-imports */
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
+} from '../analytics/index'
 import {
   consumePendingCacheEdits,
   getPinnedCacheEdits,
   markToolsSentToAPIState,
   pinCacheEdits,
-} from '../compact/microCompact.js'
-import { getInitializationStatus } from '../lsp/manager.js'
-import { isToolFromMcpServer } from '../mcp/utils.js'
-import { withStreamingVCR, withVCR } from '../vcr.js'
-import { CLIENT_REQUEST_ID_HEADER, getAnthropicClient } from './client.js'
+} from '../compact/microCompact'
+import { getInitializationStatus } from '../lsp/manager'
+import { isToolFromMcpServer } from '../mcp/utils'
+import { withStreamingVCR, withVCR } from '../vcr'
+import { CLIENT_REQUEST_ID_HEADER, getAnthropicClient } from './client'
 import {
   API_ERROR_MESSAGE_PREFIX,
   CUSTOM_OFF_SWITCH_MESSAGE,
   getAssistantMessageFromError,
   getErrorMessageIfRefusal,
-} from './errors.js'
+} from './errors'
 import {
   EMPTY_USAGE,
   type GlobalCacheStrategy,
@@ -242,19 +242,19 @@ import {
   logAPIQuery,
   logAPISuccessAndDuration,
   type NonNullableUsage,
-} from './logging.js'
+} from './logging'
 import {
   CACHE_TTL_1HOUR_MS,
   checkResponseForCacheBreak,
   recordPromptState,
-} from './promptCacheBreakDetection.js'
+} from './promptCacheBreakDetection'
 import {
   CannotRetryError,
   FallbackTriggeredError,
   is529Error,
   type RetryContext,
   withRetry,
-} from './withRetry.js'
+} from './withRetry'
 
 // Define a type that represents valid JSON values
 type JsonValue = string | number | boolean | null | JsonObject | JsonArray
@@ -1192,8 +1192,8 @@ async function* queryModel(
       isCachedMicrocompactEnabled,
       isModelSupportedForCacheEditing,
       getCachedMCConfig,
-    } = await import('../compact/cachedMicrocompact.js')
-    const betas = await import('src/constants/betas.js')
+    } = await import('../compact/cachedMicrocompact')
+    const betas = await import('src/constants/betas')
     cacheEditingBetaHeader = betas.CACHE_EDITING_BETA_HEADER
     const featureEnabled = isCachedMicrocompactEnabled()
     const modelSupported = isModelSupportedForCacheEditing(options.model)

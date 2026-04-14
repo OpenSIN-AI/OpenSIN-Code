@@ -5,23 +5,23 @@
 import type { ToolResultBlockParam } from '@anthropic-ai/sdk/resources/index.mjs'
 import { mkdir, writeFile } from 'fs/promises'
 import { join } from 'path'
-import { getOriginalCwd, getSessionId } from '../bootstrap/state.js'
+import { getOriginalCwd, getSessionId } from '../bootstrap/state'
 import {
   BYTES_PER_TOKEN,
   DEFAULT_MAX_RESULT_SIZE_CHARS,
   MAX_TOOL_RESULT_BYTES,
   MAX_TOOL_RESULTS_PER_MESSAGE_CHARS,
-} from '../constants/toolLimits.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
-import { logEvent } from '../services/analytics/index.js'
-import { sanitizeToolNameForAnalytics } from '../services/analytics/metadata.js'
-import type { Message } from '../types/message.js'
-import { logForDebugging } from './debug.js'
-import { getErrnoCode, toError } from './errors.js'
-import { formatFileSize } from './format.js'
-import { logError } from './log.js'
-import { getProjectDir } from './sessionStorage.js'
-import { jsonStringify } from './slowOperations.js'
+} from '../constants/toolLimits'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
+import { logEvent } from '../services/analytics/index'
+import { sanitizeToolNameForAnalytics } from '../services/analytics/metadata'
+import type { Message } from '../types/message'
+import { logForDebugging } from './debug'
+import { getErrnoCode, toError } from './errors'
+import { formatFileSize } from './format'
+import { logError } from './log'
+import { getProjectDir } from './sessionStorage'
+import { jsonStringify } from './slowOperations'
 
 // Subdirectory name for tool results within a session
 export const TOOL_RESULTS_SUBDIR = 'tool-results'

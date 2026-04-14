@@ -15,7 +15,7 @@ import type {
   ProgressBarProps,
   ListProps,
   ComponentProps,
-} from './types.js';
+} from './types';
 
 const SPINNER_FRAMES: Record<string, string[]> = {
   dots: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],

@@ -1,6 +1,6 @@
 import { realpath } from 'fs/promises'
 import ignore from 'ignore'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import {
   basename,
   dirname,
@@ -12,29 +12,29 @@ import {
 import {
   getAdditionalDirectoriesForClaudeMd,
   getSessionId,
-} from '../bootstrap/state.js'
+} from '../bootstrap/state'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { roughTokenCountEstimation } from '../services/tokenEstimation.js'
-import type { Command, PromptCommand } from '../types/command.js'
+} from '../services/analytics/index'
+import { roughTokenCountEstimation } from '../services/tokenEstimation'
+import type { Command, PromptCommand } from '../types/command'
 import {
   parseArgumentNames,
   substituteArguments,
-} from '../utils/argumentSubstitution.js'
-import { logForDebugging } from '../utils/debug.js'
+} from '../utils/argumentSubstitution'
+import { logForDebugging } from '../utils/debug'
 import {
   EFFORT_LEVELS,
   type EffortValue,
   parseEffortValue,
-} from '../utils/effort.js'
+} from '../utils/effort'
 import {
   getClaudeConfigHomeDir,
   isBareMode,
   isEnvTruthy,
-} from '../utils/envUtils.js'
-import { isENOENT, isFsInaccessible } from '../utils/errors.js'
+} from '../utils/envUtils'
+import { isENOENT, isFsInaccessible } from '../utils/errors'
 import {
   coerceDescriptionToString,
   type FrontmatterData,
@@ -43,26 +43,26 @@ import {
   parseFrontmatter,
   parseShellFrontmatter,
   splitPathInFrontmatter,
-} from '../utils/frontmatterParser.js'
-import { getFsImplementation } from '../utils/fsOperations.js'
-import { isPathGitignored } from '../utils/git/gitignore.js'
-import { logError } from '../utils/log.js'
+} from '../utils/frontmatterParser'
+import { getFsImplementation } from '../utils/fsOperations'
+import { isPathGitignored } from '../utils/git/gitignore'
+import { logError } from '../utils/log'
 import {
   extractDescriptionFromMarkdown,
   getProjectDirsUpToHome,
   loadMarkdownFilesForSubdir,
   type MarkdownFile,
   parseSlashCommandToolsFromFrontmatter,
-} from '../utils/markdownConfigLoader.js'
-import { parseUserSpecifiedModel } from '../utils/model/model.js'
-import { executeShellCommandsInPrompt } from '../utils/promptShellExecution.js'
-import type { SettingSource } from '../utils/settings/constants.js'
-import { isSettingSourceEnabled } from '../utils/settings/constants.js'
-import { getManagedFilePath } from '../utils/settings/managedPath.js'
-import { isRestrictedToPluginOnly } from '../utils/settings/pluginOnlyPolicy.js'
-import { HooksSchema, type HooksSettings } from '../utils/settings/types.js'
-import { createSignal } from '../utils/signal.js'
-import { registerMCPSkillBuilders } from './mcpSkillBuilders.js'
+} from '../utils/markdownConfigLoader'
+import { parseUserSpecifiedModel } from '../utils/model/model'
+import { executeShellCommandsInPrompt } from '../utils/promptShellExecution'
+import type { SettingSource } from '../utils/settings/constants'
+import { isSettingSourceEnabled } from '../utils/settings/constants'
+import { getManagedFilePath } from '../utils/settings/managedPath'
+import { isRestrictedToPluginOnly } from '../utils/settings/pluginOnlyPolicy'
+import { HooksSchema, type HooksSettings } from '../utils/settings/types'
+import { createSignal } from '../utils/signal'
+import { registerMCPSkillBuilders } from './mcpSkillBuilders'
 
 export type LoadedFrom =
   | 'commands_DEPRECATED'

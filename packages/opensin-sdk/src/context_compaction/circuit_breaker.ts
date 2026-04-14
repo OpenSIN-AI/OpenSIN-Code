@@ -1,6 +1,6 @@
-import { CompactionConfig, CompactionTrigger, CompactionResult } from './types.js';
-import { OpenSINContextCompressor } from '../context_mgmt/compressor.js';
-import type { ContextEntry, CompressionStrategy } from '../context_mgmt/types.js';
+import { CompactionConfig, CompactionTrigger, CompactionResult } from './types';
+import { OpenSINContextCompressor } from '../context_mgmt/compressor';
+import type { ContextEntry, CompressionStrategy } from '../context_mgmt/types';
 
 const DEFAULT_CONFIG: CompactionConfig = {
   threshold: 0.8,

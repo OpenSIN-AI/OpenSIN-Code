@@ -1,18 +1,18 @@
 import { randomUUID } from 'crypto'
-import { getOauthConfig } from '../constants/oauth.js'
-import type { SDKMessage } from '../entrypoints/agentSdkTypes.js'
+import { getOauthConfig } from '../constants/oauth'
+import type { SDKMessage } from '../entrypoints/agentSdkTypes'
 import type {
   SDKControlCancelRequest,
   SDKControlRequest,
   SDKControlRequestInner,
   SDKControlResponse,
-} from '../entrypoints/sdk/controlTypes.js'
-import { logForDebugging } from '../utils/debug.js'
-import { errorMessage } from '../utils/errors.js'
-import { logError } from '../utils/log.js'
-import { getWebSocketTLSOptions } from '../utils/mtls.js'
-import { getWebSocketProxyAgent, getWebSocketProxyUrl } from '../utils/proxy.js'
-import { jsonParse, jsonStringify } from '../utils/slowOperations.js'
+} from '../entrypoints/sdk/controlTypes'
+import { logForDebugging } from '../utils/debug'
+import { errorMessage } from '../utils/errors'
+import { logError } from '../utils/log'
+import { getWebSocketTLSOptions } from '../utils/mtls'
+import { getWebSocketProxyAgent, getWebSocketProxyUrl } from '../utils/proxy'
+import { jsonParse, jsonStringify } from '../utils/slowOperations'
 
 const RECONNECT_DELAY_MS = 2000
 const MAX_RECONNECT_ATTEMPTS = 5

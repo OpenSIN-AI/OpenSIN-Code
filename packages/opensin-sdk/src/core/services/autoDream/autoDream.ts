@@ -10,46 +10,46 @@
 // State is closure-scoped inside initAutoDream() rather than module-level
 // (tests call initAutoDream() in beforeEach for a fresh closure).
 
-import type { REPLHookContext } from '../../utils/hooks/postSamplingHooks.js'
+import type { REPLHookContext } from '../../utils/hooks/postSamplingHooks'
 import {
   createCacheSafeParams,
   runForkedAgent,
-} from '../../utils/forkedAgent.js'
+} from '../../utils/forkedAgent'
 import {
   createUserMessage,
   createMemorySavedMessage,
-} from '../../utils/messages.js'
-import type { Message } from '../../types/message.js'
-import { logForDebugging } from '../../utils/debug.js'
-import type { ToolUseContext } from '../../Tool.js'
-import { logEvent } from '../analytics/index.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook.js'
-import { isAutoMemoryEnabled, getAutoMemPath } from '../../memdir/paths.js'
-import { isAutoDreamEnabled } from './config.js'
-import { getProjectDir } from '../../utils/sessionStorage.js'
+} from '../../utils/messages'
+import type { Message } from '../../types/message'
+import { logForDebugging } from '../../utils/debug'
+import type { ToolUseContext } from '../../Tool'
+import { logEvent } from '../analytics/index'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook'
+import { isAutoMemoryEnabled, getAutoMemPath } from '../../memdir/paths'
+import { isAutoDreamEnabled } from './config'
+import { getProjectDir } from '../../utils/sessionStorage'
 import {
   getOriginalCwd,
   getKairosActive,
   getIsRemoteMode,
   getSessionId,
-} from '../../bootstrap/state.js'
-import { createAutoMemCanUseTool } from '../extractMemories/extractMemories.js'
-import { buildConsolidationPrompt } from './consolidationPrompt.js'
+} from '../../bootstrap/state'
+import { createAutoMemCanUseTool } from '../extractMemories/extractMemories'
+import { buildConsolidationPrompt } from './consolidationPrompt'
 import {
   readLastConsolidatedAt,
   listSessionsTouchedSince,
   tryAcquireConsolidationLock,
   rollbackConsolidationLock,
-} from './consolidationLock.js'
+} from './consolidationLock'
 import {
   registerDreamTask,
   addDreamTurn,
   completeDreamTask,
   failDreamTask,
   isDreamTask,
-} from '../../tasks/DreamTask/DreamTask.js'
-import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants.js'
-import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt.js'
+} from '../../tasks/DreamTask/DreamTask'
+import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants'
+import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt'
 
 // Scan throttle: when time-gate passes but session-gate doesn't, the lock
 // mtime doesn't advance, so the time-gate keeps passing every turn.
@@ -280,7 +280,7 @@ ${sessionIds.map(id => `- ${id}`).join('\n')}`
  */
 function makeDreamProgressWatcher(
   taskId: string,
-  setAppState: import('../../Task.js').SetAppState,
+  setAppState: import('../../Task').SetAppState,
 ): (msg: Message) => void {
   return msg => {
     if (msg.type !== 'assistant') return

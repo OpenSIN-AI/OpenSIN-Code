@@ -9,7 +9,7 @@
  * Branding: Fully OpenSIN — no Claude references
  */
 
-import type { SinAgentDefinition } from '../types.js'
+import type { SinAgentDefinition } from '../types'
 
 function getSinExplorerSystemPrompt(): string {
   return `You are SIN-Explorer, a file search specialist for OpenSIN-Code, powered by Gemini 3 Flash via the Gemini API. You excel at rapidly navigating and exploring codebases using high-throughput, low-latency search patterns.

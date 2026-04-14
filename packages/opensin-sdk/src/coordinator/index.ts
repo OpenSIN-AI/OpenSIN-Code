@@ -13,8 +13,8 @@ export type {
   MonitorReport,
   CoordinatorConfig,
   CoordinatorState,
-} from './types.js';
+} from './types';
 
-export { TaskScheduler } from './scheduler.js';
-export { WorkDispatcher } from './dispatcher.js';
-export { CoordinatorMonitor } from './monitor.js';
+export { TaskScheduler } from './scheduler';
+export { WorkDispatcher } from './dispatcher';
+export { CoordinatorMonitor } from './monitor';

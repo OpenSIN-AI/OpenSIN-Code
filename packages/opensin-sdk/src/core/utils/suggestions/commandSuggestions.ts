@@ -1,12 +1,12 @@
-import Fuse from 'fuse.js'
+import Fuse from 'fuse'
 import {
   type Command,
   formatDescriptionWithSource,
   getCommand,
   getCommandName,
-} from '../../commands.js'
-import type { SuggestionItem } from '../../components/PromptInput/PromptInputFooterSuggestions.js'
-import { getSkillUsageScore } from './skillUsageTracking.js'
+} from '../../commands'
+import type { SuggestionItem } from '../../components/PromptInput/PromptInputFooterSuggestions'
+import { getSkillUsageScore } from './skillUsageTracking'
 
 // Treat these characters as word separators for command search
 const SEPARATORS = /[:_-]/g

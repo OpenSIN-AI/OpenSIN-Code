@@ -1,7 +1,7 @@
 import type {
   createSkillCommand,
   parseSkillFrontmatterFields,
-} from './loadSkillsDir.js'
+} from './loadSkillsDir'
 
 /**
  * Write-once registry for the two loadSkillsDir functions that MCP skill
@@ -13,7 +13,7 @@ import type {
  * The non-literal dynamic-import approach ("await import(variable)") fails at
  * runtime in Bun-bundled binaries — the specifier is resolved against the
  * chunk's /$bunfs/root/… path, not the original source tree, yielding "Cannot
- * find module './loadSkillsDir.js'". A literal dynamic import works in bunfs
+ * find module './loadSkillsDir'". A literal dynamic import works in bunfs
  * but dependency-cruiser tracks it, and because loadSkillsDir transitively
  * reaches almost everything, the single new edge fans out into many new cycle
  * violations in the diff check.

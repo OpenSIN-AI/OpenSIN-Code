@@ -1,10 +1,10 @@
 import { LRUCache } from 'lru-cache'
 import { basename, dirname, join, sep } from 'path'
-import type { SuggestionItem } from 'src/components/PromptInput/PromptInputFooterSuggestions.js'
-import { getCwd } from 'src/utils/cwd.js'
-import { getFsImplementation } from 'src/utils/fsOperations.js'
-import { logError } from 'src/utils/log.js'
-import { expandPath } from 'src/utils/path.js'
+import type { SuggestionItem } from 'src/components/PromptInput/PromptInputFooterSuggestions'
+import { getCwd } from 'src/utils/cwd'
+import { getFsImplementation } from 'src/utils/fsOperations'
+import { logError } from 'src/utils/log'
+import { expandPath } from 'src/utils/path'
 // Types
 export type DirectoryEntry = {
   name: string

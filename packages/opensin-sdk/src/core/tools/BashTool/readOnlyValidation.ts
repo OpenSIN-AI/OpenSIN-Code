@@ -1,15 +1,15 @@
 import type { z } from 'zod/v4'
-import { getOriginalCwd } from '../../bootstrap/state.js'
+import { getOriginalCwd } from '../../bootstrap/state'
 import {
   extractOutputRedirections,
   splitCommand_DEPRECATED,
-} from '../../utils/bash/commands.js'
-import { tryParseShellCommand } from '../../utils/bash/shellQuote.js'
-import { getCwd } from '../../utils/cwd.js'
-import { isCurrentDirectoryBareGitRepo } from '../../utils/git.js'
-import type { PermissionResult } from '../../utils/permissions/PermissionResult.js'
-import { getPlatform } from '../../utils/platform.js'
-import { SandboxManager } from '../../utils/sandbox/sandbox-adapter.js'
+} from '../../utils/bash/commands'
+import { tryParseShellCommand } from '../../utils/bash/shellQuote'
+import { getCwd } from '../../utils/cwd'
+import { isCurrentDirectoryBareGitRepo } from '../../utils/git'
+import type { PermissionResult } from '../../utils/permissions/PermissionResult'
+import { getPlatform } from '../../utils/platform'
+import { SandboxManager } from '../../utils/sandbox/sandbox-adapter'
 import {
   containsVulnerableUncPath,
   DOCKER_READ_ONLY_COMMANDS,
@@ -20,16 +20,16 @@ import {
   PYRIGHT_READ_ONLY_COMMANDS,
   RIPGREP_READ_ONLY_COMMANDS,
   validateFlags,
-} from '../../utils/shell/readOnlyCommandValidation.js'
-import type { BashTool } from './BashTool.js'
-import { isNormalizedGitCommand } from './bashPermissions.js'
-import { bashCommandIsSafe_DEPRECATED } from './bashSecurity.js'
+} from '../../utils/shell/readOnlyCommandValidation'
+import type { BashTool } from './BashTool'
+import { isNormalizedGitCommand } from './bashPermissions'
+import { bashCommandIsSafe_DEPRECATED } from './bashSecurity'
 import {
   COMMAND_OPERATION_TYPE,
   PATH_EXTRACTORS,
   type PathCommand,
-} from './pathValidation.js'
-import { sedCommandIsAllowedByAllowlist } from './sedValidation.js'
+} from './pathValidation'
+import { sedCommandIsAllowedByAllowlist } from './sedValidation'
 
 // Unified command validation configuration system
 type CommandConfig = {

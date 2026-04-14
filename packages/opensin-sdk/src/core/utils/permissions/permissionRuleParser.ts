@@ -1,8 +1,8 @@
 import { feature } from 'bun:bundle'
-import { AGENT_TOOL_NAME } from '../../tools/AgentTool/constants.js'
-import { TASK_OUTPUT_TOOL_NAME } from '../../tools/TaskOutputTool/constants.js'
-import { TASK_STOP_TOOL_NAME } from '../../tools/TaskStopTool/prompt.js'
-import type { PermissionRuleValue } from './PermissionRule.js'
+import { AGENT_TOOL_NAME } from '../../tools/AgentTool/constants'
+import { TASK_OUTPUT_TOOL_NAME } from '../../tools/TaskOutputTool/constants'
+import { TASK_STOP_TOOL_NAME } from '../../tools/TaskStopTool/prompt'
+import type { PermissionRuleValue } from './PermissionRule'
 
 // Dead code elimination: ant-only tool names are conditionally required so
 // their strings don't leak into external builds. Static imports always bundle.
@@ -10,7 +10,7 @@ import type { PermissionRuleValue } from './PermissionRule.js'
 const BRIEF_TOOL_NAME: string | null =
   feature('KAIROS') || feature('KAIROS_BRIEF')
     ? (
-        require('../../tools/BriefTool/prompt.js') as typeof import('../../tools/BriefTool/prompt.js')
+        require('../../tools/BriefTool/prompt') as typeof import('../../tools/BriefTool/prompt')
       ).BRIEF_TOOL_NAME
     : null
 /* eslint-enable @typescript-eslint/no-require-imports */

@@ -2,12 +2,12 @@ import type {
   AsyncHookJSONOutput,
   HookEvent,
   SyncHookJSONOutput,
-} from 'src/entrypoints/agentSdkTypes.js'
-import { logForDebugging } from '../debug.js'
-import type { ShellCommand } from '../ShellCommand.js'
-import { invalidateSessionEnvCache } from '../sessionEnvironment.js'
-import { jsonParse, jsonStringify } from '../slowOperations.js'
-import { emitHookResponse, startHookProgressInterval } from './hookEvents.js'
+} from 'src/entrypoints/agentSdkTypes'
+import { logForDebugging } from '../debug'
+import type { ShellCommand } from '../ShellCommand'
+import { invalidateSessionEnvCache } from '../sessionEnvironment'
+import { jsonParse, jsonStringify } from '../slowOperations'
+import { emitHookResponse, startHookProgressInterval } from './hookEvents'
 
 export type PendingAsyncHook = {
   processId: string

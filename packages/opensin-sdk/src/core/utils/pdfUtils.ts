@@ -1,4 +1,4 @@
-import { getMainLoopModel } from './model/model.js'
+import { getMainLoopModel } from './model/model'
 
 // Document extensions that are handled specially
 export const DOCUMENT_EXTENSIONS = new Set(['pdf'])

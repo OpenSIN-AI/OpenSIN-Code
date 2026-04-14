@@ -5,9 +5,9 @@ import {
   type CommandSubcommandPrefixResult,
   createCommandPrefixExtractor,
   createSubcommandPrefixExtractor,
-} from '../shell/prefix.js'
-import { extractHeredocs, restoreHeredocs } from './heredoc.js'
-import { quote, tryParseShellCommand } from './shellQuote.js'
+} from '../shell/prefix'
+import { extractHeredocs, restoreHeredocs } from './heredoc'
+import { quote, tryParseShellCommand } from './shellQuote'
 
 /**
  * Generates placeholder strings with random salt to prevent injection attacks.

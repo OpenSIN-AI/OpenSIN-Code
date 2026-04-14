@@ -1,6 +1,6 @@
-import { parseFrontmatter } from '../../utils/frontmatterParser.js'
-import { registerBundledSkill } from '../bundledSkills.js'
-import { SKILL_FILES, SKILL_MD } from './verifyContent.js'
+import { parseFrontmatter } from '../../utils/frontmatterParser'
+import { registerBundledSkill } from '../bundledSkills'
+import { SKILL_FILES, SKILL_MD } from './verifyContent'
 
 const { frontmatter, content: SKILL_BODY } = parseFrontmatter(SKILL_MD)
 

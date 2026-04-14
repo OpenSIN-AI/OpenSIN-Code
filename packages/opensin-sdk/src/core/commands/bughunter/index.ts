@@ -1,4 +1,4 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 
 const bughunter: Command = {
   name: 'bughunter',
@@ -7,7 +7,7 @@ const bughunter: Command = {
   type: 'local',
   supportsNonInteractive: true,
   argumentHint: '[--scope <dir|file|project>] [--depth <shallow|deep>]',
-  load: () => import('./bughunter.js'),
+  load: () => import('./bughunter'),
 }
 
 export default bughunter

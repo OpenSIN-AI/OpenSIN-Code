@@ -11,11 +11,11 @@
  *    unsatisfied deps (session-local, does NOT write settings)
  */
 
-import type { LoadedPlugin, PluginError } from '../../types/plugin.js'
-import type { EditableSettingSource } from '../settings/constants.js'
-import { getSettingsForSource } from '../settings/settings.js'
-import { parsePluginIdentifier } from './pluginIdentifier.js'
-import type { PluginId } from './schemas.js'
+import type { LoadedPlugin, PluginError } from '../../types/plugin'
+import type { EditableSettingSource } from '../settings/constants'
+import { getSettingsForSource } from '../settings/settings'
+import { parsePluginIdentifier } from './pluginIdentifier'
+import type { PluginId } from './schemas'
 
 /**
  * Synthetic marketplace sentinel for `--plugin-dir` plugins (pluginLoader.ts

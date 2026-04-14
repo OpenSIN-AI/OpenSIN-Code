@@ -14,12 +14,12 @@ export type {
   SandboxIgnoreViolations,
   SandboxNetworkConfig,
   SandboxSettings,
-} from '../sandboxTypes.js'
+} from '../sandboxTypes'
 // Re-export all generated types
-export * from './coreTypes.generated.js'
+export * from './coreTypes.generated'
 
 // Re-export utility types that can't be expressed as Zod schemas
-export type { NonNullableUsage } from './sdkUtilityTypes.js'
+export type { NonNullableUsage } from './sdkUtilityTypes'
 
 // Const arrays for runtime usage
 export const HOOK_EVENTS = [

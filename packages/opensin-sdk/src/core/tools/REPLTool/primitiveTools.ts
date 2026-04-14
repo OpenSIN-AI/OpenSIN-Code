@@ -1,12 +1,12 @@
-import type { Tool } from '../../Tool.js'
-import { AgentTool } from '../AgentTool/AgentTool.js'
-import { BashTool } from '../BashTool/BashTool.js'
-import { FileEditTool } from '../FileEditTool/FileEditTool.js'
-import { FileReadTool } from '../FileReadTool/FileReadTool.js'
-import { FileWriteTool } from '../FileWriteTool/FileWriteTool.js'
-import { GlobTool } from '../GlobTool/GlobTool.js'
-import { GrepTool } from '../GrepTool/GrepTool.js'
-import { NotebookEditTool } from '../NotebookEditTool/NotebookEditTool.js'
+import type { Tool } from '../../Tool'
+import { AgentTool } from '../AgentTool/AgentTool'
+import { BashTool } from '../BashTool/BashTool'
+import { FileEditTool } from '../FileEditTool/FileEditTool'
+import { FileReadTool } from '../FileReadTool/FileReadTool'
+import { FileWriteTool } from '../FileWriteTool/FileWriteTool'
+import { GlobTool } from '../GlobTool/GlobTool'
+import { GrepTool } from '../GrepTool/GrepTool'
+import { NotebookEditTool } from '../NotebookEditTool/NotebookEditTool'
 
 let _primitiveTools: readonly Tool[] | undefined
 

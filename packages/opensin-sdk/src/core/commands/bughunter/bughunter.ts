@@ -1,7 +1,7 @@
 import { readdir, readFile, stat } from 'fs/promises'
 import { join, extname, relative } from 'path'
-import type { LocalCommandResult } from '../../types/command.js'
-import type { ToolUseContext } from '../../Tool.js'
+import type { LocalCommandResult } from '../../types/command'
+import type { ToolUseContext } from '../../Tool'
 
 // ============================================================================
 // BugHunter — Systematic codebase scanning for bugs and anti-patterns
@@ -31,7 +31,7 @@ type ScanOptions = {
 
 // File extensions to scan
 const SCAN_EXTENSIONS = new Set([
-  '.ts', '.tsx', '.js', '.jsx', '.py', '.go', '.rs', '.java', '.rb', '.sh', '.mjs', '.cjs',
+  '', '.tsx', '', '.jsx', '.py', '.go', '.rs', '.java', '.rb', '.sh', '.mjs', '.cjs',
 ])
 
 // Directories to skip
@@ -91,7 +91,7 @@ const BUG_PATTERNS: BugPattern[] = [
     severity: 'medium' as BugSeverity,
     category: 'Type Safety',
     test: (line, lineNumber, filePath) => {
-      if (extname(filePath).startsWith('.ts') && /:\s*any\b/.test(line) && !line.trim().startsWith('//')) {
+      if (extname(filePath).startsWith('') && /:\s*any\b/.test(line) && !line.trim().startsWith('//')) {
         return {
           file: filePath, line: lineNumber, severity: 'medium' as BugSeverity,
           category: 'Type Safety', title: 'Explicit `any` type used',

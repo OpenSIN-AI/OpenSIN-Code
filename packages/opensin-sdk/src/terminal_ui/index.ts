@@ -1,3 +1,3 @@
-export { renderStatusBar, renderStatusLine } from './status_bar.js';
-export { renderMarkdown } from './markdown_renderer.js';
-export type { DisplayMode, ThemeConfig, StatusBarState } from './types.js';
+export { renderStatusBar, renderStatusLine } from './status_bar';
+export { renderMarkdown } from './markdown_renderer';
+export type { DisplayMode, ThemeConfig, StatusBarState } from './types';

@@ -1,12 +1,12 @@
 import { buildComputerUseTools } from '@ant/computer-use-mcp'
 import { join } from 'path'
 import { fileURLToPath } from 'url'
-import { buildMcpToolName } from '../../services/mcp/mcpStringUtils.js'
-import type { ScopedMcpServerConfig } from '../../services/mcp/types.js'
+import { buildMcpToolName } from '../../services/mcp/mcpStringUtils'
+import type { ScopedMcpServerConfig } from '../../services/mcp/types'
 
-import { isInBundledMode } from '../bundledMode.js'
-import { CLI_CU_CAPABILITIES, COMPUTER_USE_MCP_SERVER_NAME } from './common.js'
-import { getChicagoCoordinateMode } from './gates.js'
+import { isInBundledMode } from '../bundledMode'
+import { CLI_CU_CAPABILITIES, COMPUTER_USE_MCP_SERVER_NAME } from './common'
+import { getChicagoCoordinateMode } from './gates'
 
 /**
  * Build the dynamic MCP config + allowed tool names. Mirror of
@@ -35,7 +35,7 @@ export function setupComputerUseMCP(): {
   const args = isInBundledMode()
     ? ['--computer-use-mcp']
     : [
-        join(fileURLToPath(import.meta.url), '..', 'cli.js'),
+        join(fileURLToPath(import.meta.url), '..', 'cli'),
         '--computer-use-mcp',
       ]
 

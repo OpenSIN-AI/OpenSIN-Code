@@ -12,21 +12,21 @@
 
 import { readFile } from 'fs/promises'
 import { join } from 'path'
-import { logForDebugging } from '../debug.js'
-import { jsonParse, jsonStringify } from '../slowOperations.js'
-import { loadKnownMarketplacesConfigSafe } from './marketplaceManager.js'
+import { logForDebugging } from '../debug'
+import { jsonParse, jsonStringify } from '../slowOperations'
+import { loadKnownMarketplacesConfigSafe } from './marketplaceManager'
 import {
   type KnownMarketplacesFile,
   KnownMarketplacesFileSchema,
   type PluginMarketplace,
   PluginMarketplaceSchema,
-} from './schemas.js'
+} from './schemas'
 import {
   atomicWriteToZipCache,
   getMarketplaceJsonRelativePath,
   getPluginZipCachePath,
   getZipCacheKnownMarketplacesPath,
-} from './zipCache.js'
+} from './zipCache'
 
 // ── Metadata I/O ──
 

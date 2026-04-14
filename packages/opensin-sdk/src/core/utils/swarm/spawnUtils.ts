@@ -8,12 +8,12 @@ import {
   getInlinePlugins,
   getMainLoopModelOverride,
   getSessionBypassPermissionsMode,
-} from '../../bootstrap/state.js'
-import { quote } from '../bash/shellQuote.js'
-import { isInBundledMode } from '../bundledMode.js'
-import type { PermissionMode } from '../permissions/PermissionMode.js'
-import { getTeammateModeFromSnapshot } from './backends/teammateModeSnapshot.js'
-import { TEAMMATE_COMMAND_ENV_VAR } from './constants.js'
+} from '../../bootstrap/state'
+import { quote } from '../bash/shellQuote'
+import { isInBundledMode } from '../bundledMode'
+import type { PermissionMode } from '../permissions/PermissionMode'
+import { getTeammateModeFromSnapshot } from './backends/teammateModeSnapshot'
+import { TEAMMATE_COMMAND_ENV_VAR } from './constants'
 
 /**
  * Gets the command to use for spawning teammate processes.

@@ -1,42 +1,42 @@
 import { feature } from 'bun:bundle'
 import type { UUID } from 'crypto'
-import { findToolByName, type Tools } from '../Tool.js'
-import { extractBashCommentLabel } from '../tools/BashTool/commentLabel.js'
-import { BASH_TOOL_NAME } from '../tools/BashTool/toolName.js'
-import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants.js'
-import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt.js'
-import { REPL_TOOL_NAME } from '../tools/REPLTool/constants.js'
-import { getReplPrimitiveTools } from '../tools/REPLTool/primitiveTools.js'
+import { findToolByName, type Tools } from '../Tool'
+import { extractBashCommentLabel } from '../tools/BashTool/commentLabel'
+import { BASH_TOOL_NAME } from '../tools/BashTool/toolName'
+import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants'
+import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt'
+import { REPL_TOOL_NAME } from '../tools/REPLTool/constants'
+import { getReplPrimitiveTools } from '../tools/REPLTool/primitiveTools'
 import {
   type BranchAction,
   type CommitKind,
   detectGitOperation,
   type PrAction,
-} from '../tools/shared/gitOperationTracking.js'
-import { TOOL_SEARCH_TOOL_NAME } from '../tools/ToolSearchTool/prompt.js'
+} from '../tools/shared/gitOperationTracking'
+import { TOOL_SEARCH_TOOL_NAME } from '../tools/ToolSearchTool/prompt'
 import type {
   CollapsedReadSearchGroup,
   CollapsibleMessage,
   RenderableMessage,
   StopHookInfo,
   SystemStopHookSummaryMessage,
-} from '../types/message.js'
-import { getDisplayPath } from './file.js'
-import { isFullscreenEnvEnabled } from './fullscreen.js'
+} from '../types/message'
+import { getDisplayPath } from './file'
+import { isFullscreenEnvEnabled } from './fullscreen'
 import {
   isAutoManagedMemoryFile,
   isAutoManagedMemoryPattern,
   isMemoryDirectory,
   isShellCommandTargetingMemory,
-} from './memoryFileDetection.js'
+} from './memoryFileDetection'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const teamMemOps = feature('TEAMMEM')
-  ? (require('./teamMemoryOps.js') as typeof import('./teamMemoryOps.js'))
+  ? (require('./teamMemoryOps') as typeof import('./teamMemoryOps'))
   : null
 const SNIP_TOOL_NAME = feature('HISTORY_SNIP')
   ? (
-      require('../tools/SnipTool/prompt.js') as typeof import('../tools/SnipTool/prompt.js')
+      require('../tools/SnipTool/prompt') as typeof import('../tools/SnipTool/prompt')
     ).SNIP_TOOL_NAME
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */

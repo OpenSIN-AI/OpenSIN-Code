@@ -12,21 +12,21 @@ import {
   resolve,
   sep,
 } from 'path'
-import { logEvent } from 'src/services/analytics/index.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
-import { getCwd } from '../utils/cwd.js'
-import { logForDebugging } from './debug.js'
-import { isENOENT, isFsInaccessible } from './errors.js'
+import { logEvent } from 'src/services/analytics/index'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
+import { getCwd } from '../utils/cwd'
+import { logForDebugging } from './debug'
+import { isENOENT, isFsInaccessible } from './errors'
 import {
   detectEncodingForResolvedPath,
   detectLineEndingsForString,
   type LineEndingType,
-} from './fileRead.js'
-import { fileReadCache } from './fileReadCache.js'
-import { getFsImplementation, safeResolvePath } from './fsOperations.js'
-import { logError } from './log.js'
-import { expandPath } from './path.js'
-import { getPlatform } from './platform.js'
+} from './fileRead'
+import { fileReadCache } from './fileReadCache'
+import { getFsImplementation, safeResolvePath } from './fsOperations'
+import { logError } from './log'
+import { expandPath } from './path'
+import { getPlatform } from './platform'
 
 export type File = {
   filename: string

@@ -2,23 +2,23 @@ import { execa } from 'execa'
 import { readFile, realpath } from 'fs/promises'
 import { homedir } from 'os'
 import { delimiter, join, posix, win32 } from 'path'
-import { checkGlobalInstallPermissions } from './autoUpdater.js'
-import { isInBundledMode } from './bundledMode.js'
+import { checkGlobalInstallPermissions } from './autoUpdater'
+import { isInBundledMode } from './bundledMode'
 import {
   formatAutoUpdaterDisabledReason,
   getAutoUpdaterDisabledReason,
   getGlobalConfig,
   type InstallMethod,
-} from './config.js'
-import { getCwd } from './cwd.js'
-import { isEnvTruthy } from './envUtils.js'
-import { execFileNoThrow } from './execFileNoThrow.js'
-import { getFsImplementation } from './fsOperations.js'
+} from './config'
+import { getCwd } from './cwd'
+import { isEnvTruthy } from './envUtils'
+import { execFileNoThrow } from './execFileNoThrow'
+import { getFsImplementation } from './fsOperations'
 import {
   getShellType,
   isRunningFromLocalInstallation,
   localInstallationExists,
-} from './localInstaller.js'
+} from './localInstaller'
 import {
   detectApk,
   detectAsdf,
@@ -29,19 +29,19 @@ import {
   detectRpm,
   detectWinget,
   getPackageManager,
-} from './nativeInstaller/packageManagers.js'
-import { getPlatform } from './platform.js'
-import { getRipgrepStatus } from './ripgrep.js'
-import { SandboxManager } from './sandbox/sandbox-adapter.js'
-import { getManagedFilePath } from './settings/managedPath.js'
-import { CUSTOMIZATION_SURFACES } from './settings/types.js'
+} from './nativeInstaller/packageManagers'
+import { getPlatform } from './platform'
+import { getRipgrepStatus } from './ripgrep'
+import { SandboxManager } from './sandbox/sandbox-adapter'
+import { getManagedFilePath } from './settings/managedPath'
+import { CUSTOMIZATION_SURFACES } from './settings/types'
 import {
   findClaudeAlias,
   findValidClaudeAlias,
   getShellConfigPaths,
-} from './shellConfig.js'
-import { jsonParse } from './slowOperations.js'
-import { which } from './which.js'
+} from './shellConfig'
+import { jsonParse } from './slowOperations'
+import { which } from './which'
 
 export type InstallationType =
   | 'npm-global'

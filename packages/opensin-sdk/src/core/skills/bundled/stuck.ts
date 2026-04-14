@@ -1,4 +1,4 @@
-import { registerBundledSkill } from '../bundledSkills.js'
+import { registerBundledSkill } from '../bundledSkills'
 
 // Prompt text contains `ps` commands as instructions for Claude to run,
 // not commands this file executes.

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseSSELine, parseSSEStream, parseEventData } from '../events.js';
+import { parseSSELine, parseSSEStream, parseEventData } from '../events';
 
 describe('SSE Parser', () => {
   it('parses a simple SSE line', () => {

@@ -1,4 +1,4 @@
-import { HookDefinition, HookEvent } from './types.js';
+import { HookDefinition, HookEvent } from './types';
 
 export class HookRegistry {
   private hooks: Map<HookEvent, HookDefinition[]> = new Map();

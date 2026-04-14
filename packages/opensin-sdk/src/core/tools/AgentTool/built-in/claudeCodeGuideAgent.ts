@@ -1,18 +1,18 @@
-import { BASH_TOOL_NAME } from 'src/tools/BashTool/toolName.js'
-import { FILE_READ_TOOL_NAME } from 'src/tools/FileReadTool/prompt.js'
-import { GLOB_TOOL_NAME } from 'src/tools/GlobTool/prompt.js'
-import { GREP_TOOL_NAME } from 'src/tools/GrepTool/prompt.js'
-import { SEND_MESSAGE_TOOL_NAME } from 'src/tools/SendMessageTool/constants.js'
-import { WEB_FETCH_TOOL_NAME } from 'src/tools/WebFetchTool/prompt.js'
-import { WEB_SEARCH_TOOL_NAME } from 'src/tools/WebSearchTool/prompt.js'
-import { isUsing3PServices } from 'src/utils/auth.js'
-import { hasEmbeddedSearchTools } from 'src/utils/embeddedTools.js'
-import { getSettings_DEPRECATED } from 'src/utils/settings/settings.js'
-import { jsonStringify } from '../../../utils/slowOperations.js'
+import { BASH_TOOL_NAME } from 'src/tools/BashTool/toolName'
+import { FILE_READ_TOOL_NAME } from 'src/tools/FileReadTool/prompt'
+import { GLOB_TOOL_NAME } from 'src/tools/GlobTool/prompt'
+import { GREP_TOOL_NAME } from 'src/tools/GrepTool/prompt'
+import { SEND_MESSAGE_TOOL_NAME } from 'src/tools/SendMessageTool/constants'
+import { WEB_FETCH_TOOL_NAME } from 'src/tools/WebFetchTool/prompt'
+import { WEB_SEARCH_TOOL_NAME } from 'src/tools/WebSearchTool/prompt'
+import { isUsing3PServices } from 'src/utils/auth'
+import { hasEmbeddedSearchTools } from 'src/utils/embeddedTools'
+import { getSettings_DEPRECATED } from 'src/utils/settings/settings'
+import { jsonStringify } from '../../../utils/slowOperations'
 import type {
   AgentDefinition,
   BuiltInAgentDefinition,
-} from '../loadAgentsDir.js'
+} from '../loadAgentsDir'
 
 const CLAUDE_CODE_DOCS_MAP_URL =
   'https://code.claude.com/docs/en/claude_code_docs_map.md'

@@ -1,13 +1,13 @@
 import { feature } from 'bun:bundle'
-import type { QuerySource } from '../../constants/querySource.js'
-import { clearSystemPromptSections } from '../../constants/systemPromptSections.js'
-import { getUserContext } from '../../context.js'
-import { clearSpeculativeChecks } from '../../tools/BashTool/bashPermissions.js'
-import { clearClassifierApprovals } from '../../utils/classifierApprovals.js'
-import { resetGetMemoryFilesCache } from '../../utils/claudemd.js'
-import { clearSessionMessagesCache } from '../../utils/sessionStorage.js'
-import { clearBetaTracingState } from '../../utils/telemetry/betaSessionTracing.js'
-import { resetMicrocompactState } from './microCompact.js'
+import type { QuerySource } from '../../constants/querySource'
+import { clearSystemPromptSections } from '../../constants/systemPromptSections'
+import { getUserContext } from '../../context'
+import { clearSpeculativeChecks } from '../../tools/BashTool/bashPermissions'
+import { clearClassifierApprovals } from '../../utils/classifierApprovals'
+import { resetGetMemoryFilesCache } from '../../utils/claudemd'
+import { clearSessionMessagesCache } from '../../utils/sessionStorage'
+import { clearBetaTracingState } from '../../utils/telemetry/betaSessionTracing'
+import { resetMicrocompactState } from './microCompact'
 
 /**
  * Run cleanup of caches and tracking state after compaction.
@@ -43,7 +43,7 @@ export function runPostCompactCleanup(querySource?: QuerySource): void {
     if (isMainThreadCompact) {
       /* eslint-disable @typescript-eslint/no-require-imports */
       ;(
-        require('../contextCollapse/index.js') as typeof import('../contextCollapse/index.js')
+        require('../contextCollapse/index') as typeof import('../contextCollapse/index')
       ).resetContextCollapse()
       /* eslint-enable @typescript-eslint/no-require-imports */
     }
@@ -69,7 +69,7 @@ export function runPostCompactCleanup(querySource?: QuerySource): void {
   // cacheUtils resets. See compactConversation() for full rationale.
   clearBetaTracingState()
   if (feature('COMMIT_ATTRIBUTION')) {
-    void import('../../utils/attributionHooks.js').then(m =>
+    void import('../../utils/attributionHooks').then(m =>
       m.sweepFileContentCache(),
     )
   }

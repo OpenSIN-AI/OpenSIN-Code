@@ -4,31 +4,31 @@ import * as path from 'path'
 import {
   CLAUDE_CONFIG_DIRECTORIES,
   loadMarkdownFilesForSubdir,
-} from 'src/utils/markdownConfigLoader.js'
-import type { SuggestionItem } from '../components/PromptInput/PromptInputFooterSuggestions.js'
+} from 'src/utils/markdownConfigLoader'
+import type { SuggestionItem } from '../components/PromptInput/PromptInputFooterSuggestions'
 import {
   CHUNK_MS,
   FileIndex,
   yieldToEventLoop,
-} from '../native-ts/file-index/index.js'
-import { logEvent } from '../services/analytics/index.js'
-import type { FileSuggestionCommandInput } from '../types/fileSuggestion.js'
-import { getGlobalConfig } from '../utils/config.js'
-import { getCwd } from '../utils/cwd.js'
-import { logForDebugging } from '../utils/debug.js'
-import { errorMessage } from '../utils/errors.js'
-import { execFileNoThrowWithCwd } from '../utils/execFileNoThrow.js'
-import { getFsImplementation } from '../utils/fsOperations.js'
-import { findGitRoot, gitExe } from '../utils/git.js'
+} from '../native-ts/file-index/index'
+import { logEvent } from '../services/analytics/index'
+import type { FileSuggestionCommandInput } from '../types/fileSuggestion'
+import { getGlobalConfig } from '../utils/config'
+import { getCwd } from '../utils/cwd'
+import { logForDebugging } from '../utils/debug'
+import { errorMessage } from '../utils/errors'
+import { execFileNoThrowWithCwd } from '../utils/execFileNoThrow'
+import { getFsImplementation } from '../utils/fsOperations'
+import { findGitRoot, gitExe } from '../utils/git'
 import {
   createBaseHookInput,
   executeFileSuggestionCommand,
-} from '../utils/hooks.js'
-import { logError } from '../utils/log.js'
-import { expandPath } from '../utils/path.js'
-import { ripGrep } from '../utils/ripgrep.js'
-import { getInitialSettings } from '../utils/settings/settings.js'
-import { createSignal } from '../utils/signal.js'
+} from '../utils/hooks'
+import { logError } from '../utils/log'
+import { expandPath } from '../utils/path'
+import { ripGrep } from '../utils/ripgrep'
+import { getInitialSettings } from '../utils/settings/settings'
+import { createSignal } from '../utils/signal'
 
 // Lazily constructed singleton
 let fileIndex: FileIndex | null = null
@@ -385,7 +385,7 @@ async function getFilesUsingGit(
 /**
  * This function collects all parent directories for each file path
  * and returns a list of unique directory names with a trailing separator.
- * For example, if the input is ['src/index.js', 'src/utils/helpers.js'],
+ * For example, if the input is ['src/index', 'src/utils/helpers'],
  * the output will be ['src/', 'src/utils/'].
  * @param files An array of file paths
  * @returns An array of unique directory names with a trailing separator

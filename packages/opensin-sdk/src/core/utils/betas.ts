@@ -1,10 +1,10 @@
 import { feature } from 'bun:bundle'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import {
   checkStatsigFeatureGate_CACHED_MAY_BE_STALE,
   getFeatureValue_CACHED_MAY_BE_STALE,
-} from 'src/services/analytics/growthbook.js'
-import { getIsNonInteractiveSession, getSdkBetas } from '../bootstrap/state.js'
+} from 'src/services/analytics/growthbook'
+import { getIsNonInteractiveSession, getSdkBetas } from '../bootstrap/state'
 import {
   BEDROCK_EXTRA_PARAMS_HEADERS,
   CLAUDE_CODE_20250219_BETA_HEADER,
@@ -20,15 +20,15 @@ import {
   TOOL_SEARCH_BETA_HEADER_1P,
   TOOL_SEARCH_BETA_HEADER_3P,
   WEB_SEARCH_BETA_HEADER,
-} from '../constants/betas.js'
-import { OAUTH_BETA_HEADER } from '../constants/oauth.js'
-import { isClaudeAISubscriber } from './auth.js'
-import { has1mContext } from './context.js'
-import { isEnvDefinedFalsy, isEnvTruthy } from './envUtils.js'
-import { getCanonicalName } from './model/model.js'
-import { get3PModelCapabilityOverride } from './model/modelSupportOverrides.js'
-import { getAPIProvider } from './model/providers.js'
-import { getInitialSettings } from './settings/settings.js'
+} from '../constants/betas'
+import { OAUTH_BETA_HEADER } from '../constants/oauth'
+import { isClaudeAISubscriber } from './auth'
+import { has1mContext } from './context'
+import { isEnvDefinedFalsy, isEnvTruthy } from './envUtils'
+import { getCanonicalName } from './model/model'
+import { get3PModelCapabilityOverride } from './model/modelSupportOverrides'
+import { getAPIProvider } from './model/providers'
+import { getInitialSettings } from './settings/settings'
 
 /**
  * SDK-provided betas that are allowed for API key users.
@@ -312,7 +312,7 @@ export const getAllModelBetas = memoize((model: string): string[] => {
   }
   // Add strict tool use beta if experiment is enabled.
   // Gate on includeFirstPartyOnlyBetas: CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS
-  // already strips schema.strict from tool bodies at api.ts's choke point, but
+  // already strips schema.strict from tool bodies at api's choke point, but
   // this header was escaping that kill switch. Proxy gateways that look like
   // firstParty but forward to Vertex reject this header with 400.
   // github.com/deshaw/anthropic-issues/issues/5

@@ -5,7 +5,7 @@
  * These are terminal-specific extensions to the ANSI standard.
  */
 
-import { csi } from './csi.js'
+import { csi } from './csi'
 
 /**
  * DEC private mode numbers

@@ -1,10 +1,10 @@
 import { type StructuredPatchHunk, structuredPatch } from 'diff'
-import { logEvent } from 'src/services/analytics/index.js'
-import { getLocCounter } from '../bootstrap/state.js'
-import { addToTotalLinesChanged } from '../cost-tracker.js'
-import type { FileEdit } from '../tools/FileEditTool/types.js'
-import { count } from './array.js'
-import { convertLeadingTabsToSpaces } from './file.js'
+import { logEvent } from 'src/services/analytics/index'
+import { getLocCounter } from '../bootstrap/state'
+import { addToTotalLinesChanged } from '../cost-tracker'
+import type { FileEdit } from '../tools/FileEditTool/types'
+import { count } from './array'
+import { convertLeadingTabsToSpaces } from './file'
 
 export const CONTEXT_LINES = 3
 export const DIFF_TIMEOUT_MS = 5_000

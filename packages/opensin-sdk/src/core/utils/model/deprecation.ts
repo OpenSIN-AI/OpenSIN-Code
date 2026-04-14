@@ -4,7 +4,7 @@
  * Contains information about deprecated models and their retirement dates.
  */
 
-import { type APIProvider, getAPIProvider } from './providers.js'
+import { type APIProvider, getAPIProvider } from './providers'
 
 type DeprecatedModelInfo = {
   isDeprecated: true

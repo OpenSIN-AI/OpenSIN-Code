@@ -4,28 +4,28 @@
  * Extracted from main.tsx to enable direct testing.
  */
 import { type Command, Option } from '@commander-js/extra-typings'
-import { cliError, cliOk } from '../../cli/exit.js'
+import { cliError, cliOk } from '../../cli/exit'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
+} from '../../services/analytics/index'
 import {
   readClientSecret,
   saveMcpClientSecret,
-} from '../../services/mcp/auth.js'
-import { addMcpConfig } from '../../services/mcp/config.js'
+} from '../../services/mcp/auth'
+import { addMcpConfig } from '../../services/mcp/config'
 import {
   describeMcpConfigFilePath,
   ensureConfigScope,
   ensureTransport,
   parseHeaders,
-} from '../../services/mcp/utils.js'
+} from '../../services/mcp/utils'
 import {
   getXaaIdpSettings,
   isXaaEnabled,
-} from '../../services/mcp/xaaIdpLogin.js'
-import { parseEnvVars } from '../../utils/envUtils.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../services/mcp/xaaIdpLogin'
+import { parseEnvVars } from '../../utils/envUtils'
+import { jsonStringify } from '../../utils/slowOperations'
 
 /**
  * Registers the `mcp add` subcommand on the given Commander command.

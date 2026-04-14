@@ -1,16 +1,16 @@
-import { logForDebugging } from 'src/utils/debug.js'
-import { type DOMElement, markDirty } from './dom.js'
-import type { Frame } from './frame.js'
-import { consumeAbsoluteRemovedFlag } from './node-cache.js'
-import Output from './output.js'
+import { logForDebugging } from 'src/utils/debug'
+import { type DOMElement, markDirty } from './dom'
+import type { Frame } from './frame'
+import { consumeAbsoluteRemovedFlag } from './node-cache'
+import Output from './output'
 import renderNodeToOutput, {
   getScrollDrainNode,
   getScrollHint,
   resetLayoutShifted,
   resetScrollDrainNode,
   resetScrollHint,
-} from './render-node-to-output.js'
-import { createScreen, type StylePool } from './screen.js'
+} from './render-node-to-output'
+import { createScreen, type StylePool } from './screen'
 
 export type RenderOptions = {
   frontFrame: Frame

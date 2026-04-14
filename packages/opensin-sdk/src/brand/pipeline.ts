@@ -10,9 +10,9 @@
  * - One source, many platform variants
  */
 
-import { OPENSIN_BRAND } from './guidelines.js'
-import { BrandEnforcer } from './enforcer.js'
-import { MediaPackager } from './packager.js'
+import { OPENSIN_BRAND } from './guidelines'
+import { BrandEnforcer } from './enforcer'
+import { MediaPackager } from './packager'
 
 export interface ContentBrief {
   topic: string

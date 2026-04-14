@@ -12,7 +12,7 @@ function getAllTsFiles(dir: string): string[] {
     if (entry.isDirectory()) {
       if (entry.name === '__tests__' || entry.name === 'node_modules') continue;
       results.push(...getAllTsFiles(fullPath));
-    } else if (entry.name.endsWith('.ts') || entry.name.endsWith('.tsx')) {
+    } else if (entry.name.endsWith('') || entry.name.endsWith('.tsx')) {
       results.push(fullPath);
     }
   }
@@ -78,25 +78,25 @@ describe('Branding Consistency', () => {
     });
 
     it('index.ts should export OpenSINClient', () => {
-      const indexPath = path.join(SRC_DIR, 'index.ts');
+      const indexPath = path.join(SRC_DIR, 'index');
       const content = fs.readFileSync(indexPath, 'utf-8');
       expect(content).toContain('OpenSINClient');
     });
 
     it('commands should reference OpenSIN in descriptions', () => {
-      const commandsIndexPath = path.join(SRC_DIR, 'commands_v2', 'index.ts');
+      const commandsIndexPath = path.join(SRC_DIR, 'commands_v2', 'index');
       const content = fs.readFileSync(commandsIndexPath, 'utf-8');
       expect(content.toLowerCase()).toContain('opensin');
     });
 
     it('status command should mention OpenSIN', () => {
-      const statusPath = path.join(SRC_DIR, 'commands_v2', 'status', 'index.ts');
+      const statusPath = path.join(SRC_DIR, 'commands_v2', 'status', 'index');
       const content = fs.readFileSync(statusPath, 'utf-8');
       expect(content).toContain('OpenSIN');
     });
 
     it('copy command should mention OpenSIN', () => {
-      const copyPath = path.join(SRC_DIR, 'commands_v2', 'copy', 'index.ts');
+      const copyPath = path.join(SRC_DIR, 'commands_v2', 'copy', 'index');
       const content = fs.readFileSync(copyPath, 'utf-8');
       expect(content).toContain('OpenSIN');
     });
@@ -112,31 +112,31 @@ describe('Branding Consistency', () => {
     });
 
     it('index.ts should reference hooks_v2', () => {
-      const indexPath = path.join(SRC_DIR, 'index.ts');
+      const indexPath = path.join(SRC_DIR, 'index');
       const content = fs.readFileSync(indexPath, 'utf-8');
       expect(content).toContain('hooks_v2');
     });
 
     it('index.ts should reference tools_v2', () => {
-      const indexPath = path.join(SRC_DIR, 'index.ts');
+      const indexPath = path.join(SRC_DIR, 'index');
       const content = fs.readFileSync(indexPath, 'utf-8');
       expect(content).toContain('tools_v2');
     });
 
     it('index.ts should reference utils_v2', () => {
-      const indexPath = path.join(SRC_DIR, 'index.ts');
+      const indexPath = path.join(SRC_DIR, 'index');
       const content = fs.readFileSync(indexPath, 'utf-8');
       expect(content).toContain('utils_v2');
     });
 
     it('index.ts should reference cli_v2', () => {
-      const indexPath = path.join(SRC_DIR, 'index.ts');
+      const indexPath = path.join(SRC_DIR, 'index');
       const content = fs.readFileSync(indexPath, 'utf-8');
       expect(content).toContain('cli_v2');
     });
 
     it('index.ts should reference ink_v2', () => {
-      const indexPath = path.join(SRC_DIR, 'index.ts');
+      const indexPath = path.join(SRC_DIR, 'index');
       const content = fs.readFileSync(indexPath, 'utf-8');
       expect(content).toContain('ink_v2');
     });

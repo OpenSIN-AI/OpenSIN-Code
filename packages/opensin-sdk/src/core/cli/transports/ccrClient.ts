@@ -2,32 +2,32 @@ import { randomUUID } from 'crypto'
 import type {
   SDKPartialAssistantMessage,
   StdoutMessage,
-} from 'src/entrypoints/sdk/controlTypes.js'
-import { decodeJwtExpiry } from '../../bridge/jwtUtils.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { logForDiagnosticsNoPII } from '../../utils/diagLogs.js'
-import { errorMessage, getErrnoCode } from '../../utils/errors.js'
-import { createAxiosInstance } from '../../utils/proxy.js'
+} from 'src/entrypoints/sdk/controlTypes'
+import { decodeJwtExpiry } from '../../bridge/jwtUtils'
+import { logForDebugging } from '../../utils/debug'
+import { logForDiagnosticsNoPII } from '../../utils/diagLogs'
+import { errorMessage, getErrnoCode } from '../../utils/errors'
+import { createAxiosInstance } from '../../utils/proxy'
 import {
   registerSessionActivityCallback,
   unregisterSessionActivityCallback,
-} from '../../utils/sessionActivity.js'
+} from '../../utils/sessionActivity'
 import {
   getSessionIngressAuthHeaders,
   getSessionIngressAuthToken,
-} from '../../utils/sessionIngressAuth.js'
+} from '../../utils/sessionIngressAuth'
 import type {
   RequiresActionDetails,
   SessionState,
-} from '../../utils/sessionState.js'
-import { sleep } from '../../utils/sleep.js'
-import { getClaudeCodeUserAgent } from '../../utils/userAgent.js'
+} from '../../utils/sessionState'
+import { sleep } from '../../utils/sleep'
+import { getClaudeCodeUserAgent } from '../../utils/userAgent'
 import {
   RetryableError,
   SerialBatchEventUploader,
-} from './SerialBatchEventUploader.js'
-import type { SSETransport, StreamClientEvent } from './SSETransport.js'
-import { WorkerStateUploader } from './WorkerStateUploader.js'
+} from './SerialBatchEventUploader'
+import type { SSETransport, StreamClientEvent } from './SSETransport'
+import { WorkerStateUploader } from './WorkerStateUploader'
 
 /** Default interval between heartbeat events (20s; server TTL is 60s). */
 const DEFAULT_HEARTBEAT_INTERVAL_MS = 20_000

@@ -1,7 +1,7 @@
-import { getSessionMemoryContent } from '../../services/SessionMemory/sessionMemoryUtils.js'
-import type { Message } from '../../types/message.js'
-import { getMessagesAfterCompactBoundary } from '../../utils/messages.js'
-import { registerBundledSkill } from '../bundledSkills.js'
+import { getSessionMemoryContent } from '../../services/SessionMemory/sessionMemoryUtils'
+import type { Message } from '../../types/message'
+import { getMessagesAfterCompactBoundary } from '../../utils/messages'
+import { registerBundledSkill } from '../bundledSkills'
 
 function extractUserMessages(messages: Message[]): string[] {
   return messages

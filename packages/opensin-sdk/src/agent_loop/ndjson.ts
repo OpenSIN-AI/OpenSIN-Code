@@ -5,7 +5,7 @@
  * Each line is a valid JSON object representing an agent event.
  */
 
-import type { AgentEvent, AgentEventType, NDJSONLine } from './types.js';
+import type { AgentEvent, AgentEventType, NDJSONLine } from './types';
 
 /**
  * Convert an AgentEvent to an NDJSON-compatible line.

@@ -1,10 +1,10 @@
 import { unlink } from 'fs/promises'
-import { CircularBuffer } from '../CircularBuffer.js'
-import { logForDebugging } from '../debug.js'
-import { readFileRange, tailFile } from '../fsOperations.js'
-import { getMaxOutputLength } from '../shell/outputLimits.js'
-import { safeJoinLines } from '../stringUtils.js'
-import { DiskTaskOutput, getTaskOutputPath } from './diskOutput.js'
+import { CircularBuffer } from '../CircularBuffer'
+import { logForDebugging } from '../debug'
+import { readFileRange, tailFile } from '../fsOperations'
+import { getMaxOutputLength } from '../shell/outputLimits'
+import { safeJoinLines } from '../stringUtils'
+import { DiskTaskOutput, getTaskOutputPath } from './diskOutput'
 
 const DEFAULT_MAX_MEMORY = 8 * 1024 * 1024 // 8MB
 const POLL_INTERVAL_MS = 1000

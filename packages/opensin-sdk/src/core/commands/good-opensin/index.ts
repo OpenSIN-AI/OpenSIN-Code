@@ -1,4 +1,4 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 
 const goodOpensin: Command = {
   name: 'good-opensin',
@@ -7,7 +7,7 @@ const goodOpensin: Command = {
   type: 'local',
   supportsNonInteractive: true,
   argumentHint: '[feedback message]',
-  load: () => import('./good-opensin.js'),
+  load: () => import('./good-opensin'),
 }
 
 export default goodOpensin

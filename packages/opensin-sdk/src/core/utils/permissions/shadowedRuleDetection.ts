@@ -1,12 +1,12 @@
-import type { ToolPermissionContext } from '../../Tool.js'
-import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
-import type { PermissionRule, PermissionRuleSource } from './PermissionRule.js'
+import type { ToolPermissionContext } from '../../Tool'
+import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName'
+import type { PermissionRule, PermissionRuleSource } from './PermissionRule'
 import {
   getAllowRules,
   getAskRules,
   getDenyRules,
   permissionRuleSourceDisplayString,
-} from './permissions.js'
+} from './permissions'
 
 /**
  * Type of shadowing that makes a rule unreachable

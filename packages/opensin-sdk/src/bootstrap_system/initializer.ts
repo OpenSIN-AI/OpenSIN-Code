@@ -13,9 +13,9 @@ import type {
   BootstrapEvent,
   ConfigSource,
   Initializer,
-} from './types.js'
-import { OpenSINConfigLoader } from './config_loader.js'
-import { OpenSINPluginLoader } from './plugin_loader.js'
+} from './types'
+import { OpenSINConfigLoader } from './config_loader'
+import { OpenSINPluginLoader } from './plugin_loader'
 
 type EventHandler = (event: BootstrapEvent) => void
 

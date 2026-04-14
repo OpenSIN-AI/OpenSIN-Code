@@ -1,25 +1,25 @@
 import { z } from 'zod/v4'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import type { PermissionUpdate } from '../../types/permissions.js'
-import { formatFileSize } from '../../utils/format.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import type { PermissionDecision } from '../../utils/permissions/PermissionResult.js'
-import { getRuleByContentsForTool } from '../../utils/permissions/permissions.js'
-import { isPreapprovedHost } from './preapproved.js'
-import { DESCRIPTION, WEB_FETCH_TOOL_NAME } from './prompt.js'
+import { buildTool, type ToolDef } from '../../Tool'
+import type { PermissionUpdate } from '../../types/permissions'
+import { formatFileSize } from '../../utils/format'
+import { lazySchema } from '../../utils/lazySchema'
+import type { PermissionDecision } from '../../utils/permissions/PermissionResult'
+import { getRuleByContentsForTool } from '../../utils/permissions/permissions'
+import { isPreapprovedHost } from './preapproved'
+import { DESCRIPTION, WEB_FETCH_TOOL_NAME } from './prompt'
 import {
   getToolUseSummary,
   renderToolResultMessage,
   renderToolUseMessage,
   renderToolUseProgressMessage,
-} from './UI.js'
+} from './UI'
 import {
   applyPromptToMarkdown,
   type FetchedContent,
   getURLMarkdownContent,
   isPreapprovedUrl,
   MAX_MARKDOWN_LENGTH,
-} from './utils.js'
+} from './utils'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({

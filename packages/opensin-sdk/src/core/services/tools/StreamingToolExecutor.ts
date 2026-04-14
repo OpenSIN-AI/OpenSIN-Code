@@ -3,13 +3,13 @@ import {
   createUserMessage,
   REJECT_MESSAGE,
   withMemoryCorrectionHint,
-} from 'src/utils/messages.js'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
-import { findToolByName, type Tools, type ToolUseContext } from '../../Tool.js'
-import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
-import type { AssistantMessage, Message } from '../../types/message.js'
-import { createChildAbortController } from '../../utils/abortController.js'
-import { runToolUse } from './toolExecution.js'
+} from 'src/utils/messages'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
+import { findToolByName, type Tools, type ToolUseContext } from '../../Tool'
+import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName'
+import type { AssistantMessage, Message } from '../../types/message'
+import { createChildAbortController } from '../../utils/abortController'
+import { runToolUse } from './toolExecution'
 
 type MessageUpdate = {
   message?: Message

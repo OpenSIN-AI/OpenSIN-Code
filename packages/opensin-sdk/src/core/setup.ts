@@ -5,11 +5,11 @@ import chalk from 'chalk'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { getCwd } from 'src/utils/cwd.js'
-import { checkForReleaseNotes } from 'src/utils/releaseNotes.js'
-import { setCwd } from 'src/utils/Shell.js'
-import { initSinks } from 'src/utils/sinks.js'
+} from 'src/services/analytics/index'
+import { getCwd } from 'src/utils/cwd'
+import { checkForReleaseNotes } from 'src/utils/releaseNotes'
+import { setCwd } from 'src/utils/Shell'
+import { initSinks } from 'src/utils/sinks'
 import {
   getIsNonInteractiveSession,
   getProjectRoot,
@@ -17,41 +17,41 @@ import {
   setOriginalCwd,
   setProjectRoot,
   switchSession,
-} from './bootstrap/state.js'
-import { getCommands } from './commands.js'
-import { initSessionMemory } from './services/SessionMemory/sessionMemory.js'
-import { asSessionId } from './types/ids.js'
-import { isAgentSwarmsEnabled } from './utils/agentSwarmsEnabled.js'
-import { checkAndRestoreTerminalBackup } from './utils/appleTerminalBackup.js'
-import { prefetchApiKeyFromApiKeyHelperIfSafe } from './utils/auth.js'
-import { clearMemoryFileCaches } from './utils/claudemd.js'
-import { getCurrentProjectConfig, getGlobalConfig } from './utils/config.js'
-import { logForDiagnosticsNoPII } from './utils/diagLogs.js'
-import { env } from './utils/env.js'
-import { envDynamic } from './utils/envDynamic.js'
-import { isBareMode, isEnvTruthy } from './utils/envUtils.js'
-import { errorMessage } from './utils/errors.js'
-import { findCanonicalGitRoot, findGitRoot, getIsGit } from './utils/git.js'
-import { initializeFileChangedWatcher } from './utils/hooks/fileChangedWatcher.js'
+} from './bootstrap/state'
+import { getCommands } from './commands'
+import { initSessionMemory } from './services/SessionMemory/sessionMemory'
+import { asSessionId } from './types/ids'
+import { isAgentSwarmsEnabled } from './utils/agentSwarmsEnabled'
+import { checkAndRestoreTerminalBackup } from './utils/appleTerminalBackup'
+import { prefetchApiKeyFromApiKeyHelperIfSafe } from './utils/auth'
+import { clearMemoryFileCaches } from './utils/claudemd'
+import { getCurrentProjectConfig, getGlobalConfig } from './utils/config'
+import { logForDiagnosticsNoPII } from './utils/diagLogs'
+import { env } from './utils/env'
+import { envDynamic } from './utils/envDynamic'
+import { isBareMode, isEnvTruthy } from './utils/envUtils'
+import { errorMessage } from './utils/errors'
+import { findCanonicalGitRoot, findGitRoot, getIsGit } from './utils/git'
+import { initializeFileChangedWatcher } from './utils/hooks/fileChangedWatcher'
 import {
   captureHooksConfigSnapshot,
   updateHooksConfigSnapshot,
-} from './utils/hooks/hooksConfigSnapshot.js'
-import { hasWorktreeCreateHook } from './utils/hooks.js'
-import { checkAndRestoreITerm2Backup } from './utils/iTermBackup.js'
-import { logError } from './utils/log.js'
-import { getRecentActivity } from './utils/logoV2Utils.js'
-import { lockCurrentVersion } from './utils/nativeInstaller/index.js'
-import type { PermissionMode } from './utils/permissions/PermissionMode.js'
-import { getPlanSlug } from './utils/plans.js'
-import { saveWorktreeState } from './utils/sessionStorage.js'
-import { profileCheckpoint } from './utils/startupProfiler.js'
+} from './utils/hooks/hooksConfigSnapshot'
+import { hasWorktreeCreateHook } from './utils/hooks'
+import { checkAndRestoreITerm2Backup } from './utils/iTermBackup'
+import { logError } from './utils/log'
+import { getRecentActivity } from './utils/logoV2Utils'
+import { lockCurrentVersion } from './utils/nativeInstaller/index'
+import type { PermissionMode } from './utils/permissions/PermissionMode'
+import { getPlanSlug } from './utils/plans'
+import { saveWorktreeState } from './utils/sessionStorage'
+import { profileCheckpoint } from './utils/startupProfiler'
 import {
   createTmuxSessionForWorktree,
   createWorktreeForSession,
   generateTmuxSessionName,
   worktreeBranchName,
-} from './utils/worktree.js'
+} from './utils/worktree'
 
 export async function setup(
   cwd: string,
@@ -93,7 +93,7 @@ export async function setup(
     // and $CLAUDE_CODE_MESSAGING_SOCKET is exported before any hook
     // (SessionStart in particular) can spawn and snapshot process.env.
     if (feature('UDS_INBOX')) {
-      const m = await import('./utils/udsMessaging.js')
+      const m = await import('./utils/udsMessaging')
       await m.startUdsMessaging(
         messagingSocketPath ?? m.getDefaultUdsSocketPath(),
         { isExplicit: messagingSocketPath !== undefined },
@@ -104,7 +104,7 @@ export async function setup(
   // Teammate snapshot — SIMPLE-only gate (no escape hatch, swarm not used in bare)
   if (!isBareMode() && isAgentSwarmsEnabled()) {
     const { captureTeammateModeSnapshot } = await import(
-      './utils/swarm/backends/teammateModeSnapshot.js'
+      './utils/swarm/backends/teammateModeSnapshot'
     )
     captureTeammateModeSnapshot()
   }
@@ -295,7 +295,7 @@ export async function setup(
     if (feature('CONTEXT_COLLAPSE')) {
       /* eslint-disable @typescript-eslint/no-require-imports */
       ;(
-        require('./services/contextCollapse/index.js') as typeof import('./services/contextCollapse/index.js')
+        require('./services/contextCollapse/index') as typeof import('./services/contextCollapse/index')
       ).initContextCollapse()
       /* eslint-enable @typescript-eslint/no-require-imports */
     }
@@ -321,7 +321,7 @@ export async function setup(
   if (!skipPluginPrefetch) {
     void getCommands(getProjectRoot())
   }
-  void import('./utils/plugins/loadPluginHooks.js').then(m => {
+  void import('./utils/plugins/loadPluginHooks').then(m => {
     if (!skipPluginPrefetch) {
       void m.loadPluginHooks() // Pre-load plugin hooks (consumed by processSessionStartHooks before render)
       m.setupPluginHookHotReload() // Set up hot reload for plugin hooks when settings change
@@ -338,10 +338,10 @@ export async function setup(
       // Prime repo classification cache for auto-undercover mode. Default is
       // undercover ON until proven internal; if this resolves to internal, clear
       // the prompt cache so the next turn picks up the OFF state.
-      void import('./utils/commitAttribution.js').then(async m => {
+      void import('./utils/commitAttribution').then(async m => {
         if (await m.isInternalModelRepo()) {
           const { clearSystemPromptSections } = await import(
-            './constants/systemPromptSections.js'
+            './constants/systemPromptSections'
           )
           clearSystemPromptSections()
         }
@@ -352,18 +352,18 @@ export async function setup(
       // Defer to next tick so the git subprocess spawn runs after first render
       // rather than during the setup() microtask window.
       setImmediate(() => {
-        void import('./utils/attributionHooks.js').then(
+        void import('./utils/attributionHooks').then(
           ({ registerAttributionHooks }) => {
             registerAttributionHooks() // Register attribution tracking hooks (ant-only feature)
           },
         )
       })
     }
-    void import('./utils/sessionFileAccessHooks.js').then(m =>
+    void import('./utils/sessionFileAccessHooks').then(m =>
       m.registerSessionFileAccessHooks(),
     ) // Register session file access analytics hooks
     if (feature('TEAMMEM')) {
-      void import('./services/teamMemorySync/watcher.js').then(m =>
+      void import('./services/teamMemorySync/watcher').then(m =>
         m.startTeamMemoryWatcher(),
       ) // Start team memory sync watcher
     }

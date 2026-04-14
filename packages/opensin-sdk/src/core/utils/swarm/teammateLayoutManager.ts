@@ -1,7 +1,7 @@
-import type { AgentColorName } from '../../tools/AgentTool/agentColorManager.js'
-import { AGENT_COLORS } from '../../tools/AgentTool/agentColorManager.js'
-import { detectAndGetBackend } from './backends/registry.js'
-import type { PaneBackend } from './backends/types.js'
+import type { AgentColorName } from '../../tools/AgentTool/agentColorManager'
+import { AGENT_COLORS } from '../../tools/AgentTool/agentColorManager'
+import { detectAndGetBackend } from './backends/registry'
+import type { PaneBackend } from './backends/types'
 
 // Track color assignments for teammates (persisted per session)
 const teammateColorAssignments = new Map<string, AgentColorName>()
@@ -55,7 +55,7 @@ export function clearTeammateColors(): void {
  * Uses the detection module directly for this check.
  */
 export async function isInsideTmux(): Promise<boolean> {
-  const { isInsideTmux: checkTmux } = await import('./backends/detection.js')
+  const { isInsideTmux: checkTmux } = await import('./backends/detection')
   return checkTmux()
 }
 

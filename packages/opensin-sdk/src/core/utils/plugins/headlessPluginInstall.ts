@@ -9,28 +9,28 @@
  * ZIP creation on install and extraction on load transparently.
  */
 
-import { logEvent } from '../../services/analytics/index.js'
-import { registerCleanup } from '../cleanupRegistry.js'
-import { logForDebugging } from '../debug.js'
-import { withDiagnosticsTiming } from '../diagLogs.js'
-import { getFsImplementation } from '../fsOperations.js'
-import { logError } from '../log.js'
+import { logEvent } from '../../services/analytics/index'
+import { registerCleanup } from '../cleanupRegistry'
+import { logForDebugging } from '../debug'
+import { withDiagnosticsTiming } from '../diagLogs'
+import { getFsImplementation } from '../fsOperations'
+import { logError } from '../log'
 import {
   clearMarketplacesCache,
   getDeclaredMarketplaces,
   registerSeedMarketplaces,
-} from './marketplaceManager.js'
-import { detectAndUninstallDelistedPlugins } from './pluginBlocklist.js'
-import { clearPluginCache } from './pluginLoader.js'
-import { reconcileMarketplaces } from './reconciler.js'
+} from './marketplaceManager'
+import { detectAndUninstallDelistedPlugins } from './pluginBlocklist'
+import { clearPluginCache } from './pluginLoader'
+import { reconcileMarketplaces } from './reconciler'
 import {
   cleanupSessionPluginCache,
   getZipCacheMarketplacesDir,
   getZipCachePluginsDir,
   isMarketplaceSourceSupportedByZipCache,
   isPluginZipCacheEnabled,
-} from './zipCache.js'
-import { syncMarketplacesToZipCache } from './zipCacheAdapters.js'
+} from './zipCache'
+import { syncMarketplacesToZipCache } from './zipCacheAdapters'
 
 /**
  * Install plugins for headless/CCR mode.

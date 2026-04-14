@@ -1,2 +1,2 @@
-export { TeamsDialog } from './TeamsDialog.js';
-export { TeamStatus } from './TeamStatus.js';
+export { TeamsDialog } from './TeamsDialog';
+export { TeamStatus } from './TeamStatus';

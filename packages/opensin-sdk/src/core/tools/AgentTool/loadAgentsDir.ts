@@ -1,57 +1,57 @@
 import { feature } from 'bun:bundle'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { basename } from 'path'
-import type { SettingSource } from 'src/utils/settings/constants.js'
+import type { SettingSource } from 'src/utils/settings/constants'
 import { z } from 'zod/v4'
-import { isAutoMemoryEnabled } from '../../memdir/paths.js'
+import { isAutoMemoryEnabled } from '../../memdir/paths'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
+} from '../../services/analytics/index'
 import {
   type McpServerConfig,
   McpServerConfigSchema,
-} from '../../services/mcp/types.js'
-import type { ToolUseContext } from '../../Tool.js'
-import { logForDebugging } from '../../utils/debug.js'
+} from '../../services/mcp/types'
+import type { ToolUseContext } from '../../Tool'
+import { logForDebugging } from '../../utils/debug'
 import {
   EFFORT_LEVELS,
   type EffortValue,
   parseEffortValue,
-} from '../../utils/effort.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { parsePositiveIntFromFrontmatter } from '../../utils/frontmatterParser.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { logError } from '../../utils/log.js'
+} from '../../utils/effort'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { parsePositiveIntFromFrontmatter } from '../../utils/frontmatterParser'
+import { lazySchema } from '../../utils/lazySchema'
+import { logError } from '../../utils/log'
 import {
   loadMarkdownFilesForSubdir,
   parseAgentToolsFromFrontmatter,
   parseSlashCommandToolsFromFrontmatter,
-} from '../../utils/markdownConfigLoader.js'
+} from '../../utils/markdownConfigLoader'
 import {
   PERMISSION_MODES,
   type PermissionMode,
-} from '../../utils/permissions/PermissionMode.js'
+} from '../../utils/permissions/PermissionMode'
 import {
   clearPluginAgentCache,
   loadPluginAgents,
-} from '../../utils/plugins/loadPluginAgents.js'
-import { HooksSchema, type HooksSettings } from '../../utils/settings/types.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { FILE_EDIT_TOOL_NAME } from '../FileEditTool/constants.js'
-import { FILE_READ_TOOL_NAME } from '../FileReadTool/prompt.js'
-import { FILE_WRITE_TOOL_NAME } from '../FileWriteTool/prompt.js'
+} from '../../utils/plugins/loadPluginAgents'
+import { HooksSchema, type HooksSettings } from '../../utils/settings/types'
+import { jsonStringify } from '../../utils/slowOperations'
+import { FILE_EDIT_TOOL_NAME } from '../FileEditTool/constants'
+import { FILE_READ_TOOL_NAME } from '../FileReadTool/prompt'
+import { FILE_WRITE_TOOL_NAME } from '../FileWriteTool/prompt'
 import {
   AGENT_COLORS,
   type AgentColorName,
   setAgentColor,
-} from './agentColorManager.js'
-import { type AgentMemoryScope, loadAgentMemoryPrompt } from './agentMemory.js'
+} from './agentColorManager'
+import { type AgentMemoryScope, loadAgentMemoryPrompt } from './agentMemory'
 import {
   checkAgentMemorySnapshot,
   initializeFromSnapshot,
-} from './agentMemorySnapshot.js'
-import { getBuiltInAgents } from './builtInAgents.js'
+} from './agentMemorySnapshot'
+import { getBuiltInAgents } from './builtInAgents'
 
 // Type for MCP server specification in agent definitions
 // Can be either a reference to an existing server by name, or an inline definition as { [name]: config }

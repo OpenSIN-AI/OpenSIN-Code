@@ -1,4 +1,4 @@
-import { PromptContext } from './types.js';
+import { PromptContext } from './types';
 
 export function injectContext(template: string, context: PromptContext): string {
   let result = template;

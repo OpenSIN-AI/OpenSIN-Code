@@ -1,4 +1,4 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 
 const mcp = {
   type: 'local-jsx',
@@ -6,7 +6,7 @@ const mcp = {
   description: 'Manage MCP servers',
   immediate: true,
   argumentHint: '[enable|disable [server-name]]',
-  load: () => import('./mcp.js'),
+  load: () => import('./mcp'),
 } satisfies Command
 
 export default mcp

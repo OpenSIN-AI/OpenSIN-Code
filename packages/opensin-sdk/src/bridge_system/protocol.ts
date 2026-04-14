@@ -14,7 +14,7 @@ import type {
   BridgeError,
   ProtocolHandler,
   MessageId,
-} from './types.js'
+} from './types'
 
 const JSONRPC_VERSION = '2.0'
 

@@ -8,7 +8,7 @@
  * Branding: Fully OpenSIN — no Claude references
  */
 
-import type { SinAgentDefinition } from '../types.js'
+import type { SinAgentDefinition } from '../types'
 
 function getSinVerifierSystemPrompt(): string {
   return `You are SIN-Verifier, a testing and validation specialist for OpenSIN-Code, powered by Gemini 2.5 Flash Lite via the Gemini API. You leverage Gemini 2.5 Flash Lite's high throughput (4K RPM, 4M TPM, unlimited RPD) to rigorously test implementations and provide clear PASS/FAIL verdicts at scale.

@@ -5,12 +5,12 @@
  * Used by the SDK to provide high-level progress updates to clients.
  */
 
-import { E_TOOL_USE_SUMMARY_GENERATION_FAILED } from '../../constants/errorIds.js'
-import { toError } from '../../utils/errors.js'
-import { logError } from '../../utils/log.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { asSystemPrompt } from '../../utils/systemPromptType.js'
-import { queryHaiku } from '../api/claude.js'
+import { E_TOOL_USE_SUMMARY_GENERATION_FAILED } from '../../constants/errorIds'
+import { toError } from '../../utils/errors'
+import { logError } from '../../utils/log'
+import { jsonStringify } from '../../utils/slowOperations'
+import { asSystemPrompt } from '../../utils/systemPromptType'
+import { queryHaiku } from '../api/claude'
 
 const TOOL_USE_SUMMARY_SYSTEM_PROMPT = `Write a short summary label describing what these tool calls accomplished. It appears as a single-line row in a mobile app and truncates around 30 characters, so think git-commit-subject, not sentence.
 

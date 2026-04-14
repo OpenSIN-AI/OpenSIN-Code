@@ -13,34 +13,34 @@
  * 4. Returning spawn result for backend
  */
 
-import sample from 'lodash-es/sample.js'
-import { getSessionId } from '../../bootstrap/state.js'
-import { getSpinnerVerbs } from '../../constants/spinnerVerbs.js'
-import { TURN_COMPLETION_VERBS } from '../../constants/turnCompletionVerbs.js'
-import type { AppState } from '../../state/AppState.js'
-import { createTaskStateBase, generateTaskId } from '../../Task.js'
+import sample from 'lodash-es/sample'
+import { getSessionId } from '../../bootstrap/state'
+import { getSpinnerVerbs } from '../../constants/spinnerVerbs'
+import { TURN_COMPLETION_VERBS } from '../../constants/turnCompletionVerbs'
+import type { AppState } from '../../state/AppState'
+import { createTaskStateBase, generateTaskId } from '../../Task'
 import type {
   InProcessTeammateTaskState,
   TeammateIdentity,
-} from '../../tasks/InProcessTeammateTask/types.js'
-import { createAbortController } from '../abortController.js'
-import { formatAgentId } from '../agentId.js'
-import { registerCleanup } from '../cleanupRegistry.js'
-import { logForDebugging } from '../debug.js'
-import { emitTaskTerminatedSdk } from '../sdkEventQueue.js'
-import { evictTaskOutput } from '../task/diskOutput.js'
+} from '../../tasks/InProcessTeammateTask/types'
+import { createAbortController } from '../abortController'
+import { formatAgentId } from '../agentId'
+import { registerCleanup } from '../cleanupRegistry'
+import { logForDebugging } from '../debug'
+import { emitTaskTerminatedSdk } from '../sdkEventQueue'
+import { evictTaskOutput } from '../task/diskOutput'
 import {
   evictTerminalTask,
   registerTask,
   STOPPED_DISPLAY_MS,
-} from '../task/framework.js'
-import { createTeammateContext } from '../teammateContext.js'
+} from '../task/framework'
+import { createTeammateContext } from '../teammateContext'
 import {
   isPerfettoTracingEnabled,
   registerAgent as registerPerfettoAgent,
   unregisterAgent as unregisterPerfettoAgent,
-} from '../telemetry/perfettoTracing.js'
-import { removeMemberByAgentId } from './teamHelpers.js'
+} from '../telemetry/perfettoTracing'
+import { removeMemberByAgentId } from './teamHelpers'
 
 type SetAppStateFn = (updater: (prev: AppState) => AppState) => void
 

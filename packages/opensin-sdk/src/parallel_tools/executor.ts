@@ -1,4 +1,4 @@
-import type { ToolCall, ToolResult, ParallelConfig } from './types.js'
+import type { ToolCall, ToolResult, ParallelConfig } from './types'
 
 const DEFAULT_CONFIG: ParallelConfig = {
   maxWorkers: 8,

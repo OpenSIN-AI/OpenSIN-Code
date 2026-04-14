@@ -1,21 +1,21 @@
-import type { StdoutMessage } from 'src/entrypoints/sdk/controlTypes.js'
+import type { StdoutMessage } from 'src/entrypoints/sdk/controlTypes'
 import type WsWebSocket from 'ws'
-import { logEvent } from '../../services/analytics/index.js'
-import { CircularBuffer } from '../../utils/CircularBuffer.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { logForDiagnosticsNoPII } from '../../utils/diagLogs.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { getWebSocketTLSOptions } from '../../utils/mtls.js'
+import { logEvent } from '../../services/analytics/index'
+import { CircularBuffer } from '../../utils/CircularBuffer'
+import { logForDebugging } from '../../utils/debug'
+import { logForDiagnosticsNoPII } from '../../utils/diagLogs'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { getWebSocketTLSOptions } from '../../utils/mtls'
 import {
   getWebSocketProxyAgent,
   getWebSocketProxyUrl,
-} from '../../utils/proxy.js'
+} from '../../utils/proxy'
 import {
   registerSessionActivityCallback,
   unregisterSessionActivityCallback,
-} from '../../utils/sessionActivity.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import type { Transport } from './Transport.js'
+} from '../../utils/sessionActivity'
+import { jsonStringify } from '../../utils/slowOperations'
+import type { Transport } from './Transport'
 
 const KEEP_ALIVE_FRAME = '{"type":"keep_alive"}\n'
 

@@ -1,16 +1,16 @@
 import { feature } from 'bun:bundle'
 import { open } from 'fs/promises'
 import { basename, dirname, join, sep } from 'path'
-import type { ModelUsage } from 'src/entrypoints/agentSdkTypes.js'
-import type { Entry, TranscriptMessage } from '../types/logs.js'
-import { logForDebugging } from './debug.js'
-import { errorMessage, isENOENT } from './errors.js'
-import { getFsImplementation } from './fsOperations.js'
-import { readJSONLFile } from './json.js'
-import { SYNTHETIC_MODEL } from './messages.js'
-import { getProjectsDir, isTranscriptMessage } from './sessionStorage.js'
-import { SHELL_TOOL_NAMES } from './shell/shellToolUtils.js'
-import { jsonParse } from './slowOperations.js'
+import type { ModelUsage } from 'src/entrypoints/agentSdkTypes'
+import type { Entry, TranscriptMessage } from '../types/logs'
+import { logForDebugging } from './debug'
+import { errorMessage, isENOENT } from './errors'
+import { getFsImplementation } from './fsOperations'
+import { readJSONLFile } from './json'
+import { SYNTHETIC_MODEL } from './messages'
+import { getProjectsDir, isTranscriptMessage } from './sessionStorage'
+import { SHELL_TOOL_NAMES } from './shell/shellToolUtils'
+import { jsonParse } from './slowOperations'
 import {
   getTodayDateString,
   getYesterdayDateString,
@@ -21,7 +21,7 @@ import {
   saveStatsCache,
   toDateString,
   withStatsCacheLock,
-} from './statsCache.js'
+} from './statsCache'
 
 export type DailyActivity = {
   date: string // YYYY-MM-DD format

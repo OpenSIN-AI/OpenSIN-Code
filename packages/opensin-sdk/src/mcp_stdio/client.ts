@@ -11,7 +11,7 @@ import {
   JsonRpcResponse,
   JsonRpcNotification,
   McpServerConfig,
-} from './types.js';
+} from './types';
 
 /** Pending RPC request with resolve/reject callbacks */
 interface PendingRequest {

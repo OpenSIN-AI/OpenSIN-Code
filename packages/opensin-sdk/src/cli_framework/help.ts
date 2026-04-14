@@ -5,7 +5,7 @@
  * colorization, and structured output.
  */
 
-import type { CommandDefinition, CliConfig, HelpOptions } from './types.js'
+import type { CommandDefinition, CliConfig, HelpOptions } from './types'
 
 const DEFAULT_WIDTH = 80
 const INDENT = '  '

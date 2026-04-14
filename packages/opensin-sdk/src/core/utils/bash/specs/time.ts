@@ -1,4 +1,4 @@
-import type { CommandSpec } from '../registry.js'
+import type { CommandSpec } from '../registry'
 
 const time: CommandSpec = {
   name: 'time',

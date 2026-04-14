@@ -1,33 +1,33 @@
 import { randomUUID } from 'crypto'
 import { basename } from 'path'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { logEvent } from 'src/services/analytics/index.js'
-import { readFileSync } from 'src/utils/fileRead.js'
-import { expandPath } from 'src/utils/path.js'
-import type { PermissionOption } from '../components/permissions/FilePermissionDialog/permissionOptions.js'
+import { logEvent } from 'src/services/analytics/index'
+import { readFileSync } from 'src/utils/fileRead'
+import { expandPath } from 'src/utils/path'
+import type { PermissionOption } from '../components/permissions/FilePermissionDialog/permissionOptions'
 import type {
   MCPServerConnection,
   McpSSEIDEServerConfig,
   McpWebSocketIDEServerConfig,
-} from '../services/mcp/types.js'
-import type { ToolUseContext } from '../Tool.js'
-import type { FileEdit } from '../tools/FileEditTool/types.js'
+} from '../services/mcp/types'
+import type { ToolUseContext } from '../Tool'
+import type { FileEdit } from '../tools/FileEditTool/types'
 import {
   getEditsForPatch,
   getPatchForEdits,
-} from '../tools/FileEditTool/utils.js'
-import { getGlobalConfig } from '../utils/config.js'
-import { getPatchFromContents } from '../utils/diff.js'
-import { isENOENT } from '../utils/errors.js'
+} from '../tools/FileEditTool/utils'
+import { getGlobalConfig } from '../utils/config'
+import { getPatchFromContents } from '../utils/diff'
+import { isENOENT } from '../utils/errors'
 import {
   callIdeRpc,
   getConnectedIdeClient,
   getConnectedIdeName,
   hasAccessToIDEExtensionDiffFeature,
-} from '../utils/ide.js'
-import { WindowsToWSLConverter } from '../utils/idePathConversion.js'
-import { logError } from '../utils/log.js'
-import { getPlatform } from '../utils/platform.js'
+} from '../utils/ide'
+import { WindowsToWSLConverter } from '../utils/idePathConversion'
+import { logError } from '../utils/log'
+import { getPlatform } from '../utils/platform'
 
 type Props = {
   onChange(

@@ -1,24 +1,24 @@
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import type { MCPServerConnection } from '../../services/mcp/types.js'
-import { isPolicyAllowed } from '../../services/policyLimits/index.js'
-import type { ToolUseContext } from '../../Tool.js'
-import { ASK_USER_QUESTION_TOOL_NAME } from '../../tools/AskUserQuestionTool/prompt.js'
-import { REMOTE_TRIGGER_TOOL_NAME } from '../../tools/RemoteTriggerTool/prompt.js'
-import { getClaudeAIOAuthTokens } from '../../utils/auth.js'
-import { checkRepoForRemoteAccess } from '../../utils/background/remote/preconditions.js'
-import { logForDebugging } from '../../utils/debug.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import type { MCPServerConnection } from '../../services/mcp/types'
+import { isPolicyAllowed } from '../../services/policyLimits/index'
+import type { ToolUseContext } from '../../Tool'
+import { ASK_USER_QUESTION_TOOL_NAME } from '../../tools/AskUserQuestionTool/prompt'
+import { REMOTE_TRIGGER_TOOL_NAME } from '../../tools/RemoteTriggerTool/prompt'
+import { getClaudeAIOAuthTokens } from '../../utils/auth'
+import { checkRepoForRemoteAccess } from '../../utils/background/remote/preconditions'
+import { logForDebugging } from '../../utils/debug'
 import {
   detectCurrentRepositoryWithHost,
   parseGitRemote,
-} from '../../utils/detectRepository.js'
-import { getRemoteUrl } from '../../utils/git.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../utils/detectRepository'
+import { getRemoteUrl } from '../../utils/git'
+import { jsonStringify } from '../../utils/slowOperations'
 import {
   createDefaultCloudEnvironment,
   type EnvironmentResource,
   fetchEnvironments,
-} from '../../utils/teleport/environments.js'
-import { registerBundledSkill } from '../bundledSkills.js'
+} from '../../utils/teleport/environments'
+import { registerBundledSkill } from '../bundledSkills'
 
 // Base58 alphabet (Bitcoin-style) used by the tagged ID system
 const BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'

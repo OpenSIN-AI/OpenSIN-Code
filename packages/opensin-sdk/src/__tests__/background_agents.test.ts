@@ -14,11 +14,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import * as fs from 'node:fs/promises'
 import * as path from 'node:path'
-import { BackgroundAgentManager } from '../background_agents/manager.js'
+import { BackgroundAgentManager } from '../background_agents/manager'
 import {
   isTerminalStatus,
   isActiveStatus,
-} from '../background_agents/types.js'
+} from '../background_agents/types'
 
 // ==========================================
 // MOCK OPENCODE CLIENT

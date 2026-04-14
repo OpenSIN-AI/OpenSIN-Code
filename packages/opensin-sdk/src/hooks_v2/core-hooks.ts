@@ -2,7 +2,7 @@
 declare type AbortSignal = any;
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { DiffData, HookResult, MemoryUsage, SearchState, TaskItem, TerminalSize, TypeaheadOption, VirtualScrollItem, ScheduledTask } from './types.js'
+import type { DiffData, HookResult, MemoryUsage, SearchState, TaskItem, TerminalSize, TypeaheadOption, VirtualScrollItem, ScheduledTask } from './types'
 
 export function useApiKeyVerification(apiKey?: string): HookResult<boolean> {
   const [loading, setLoading] = useState(false); const [error, setError] = useState<Error | null>(null); const [valid, setValid] = useState<boolean | null>(null)

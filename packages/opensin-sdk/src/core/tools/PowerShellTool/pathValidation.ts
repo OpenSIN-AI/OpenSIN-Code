@@ -8,14 +8,14 @@
 
 import { homedir } from 'os'
 import { isAbsolute, resolve } from 'path'
-import type { ToolPermissionContext } from '../../Tool.js'
-import type { PermissionRule } from '../../types/permissions.js'
-import { getCwd } from '../../utils/cwd.js'
+import type { ToolPermissionContext } from '../../Tool'
+import type { PermissionRule } from '../../types/permissions'
+import { getCwd } from '../../utils/cwd'
 import {
   getFsImplementation,
   safeResolvePath,
-} from '../../utils/fsOperations.js'
-import { containsPathTraversal, getDirectoryForPath } from '../../utils/path.js'
+} from '../../utils/fsOperations'
+import { containsPathTraversal, getDirectoryForPath } from '../../utils/path'
 import {
   allWorkingDirectories,
   checkEditableInternalPath,
@@ -23,25 +23,25 @@ import {
   checkReadableInternalPath,
   matchingRuleForInput,
   pathInAllowedWorkingPath,
-} from '../../utils/permissions/filesystem.js'
-import type { PermissionResult } from '../../utils/permissions/PermissionResult.js'
-import { createReadRuleSuggestion } from '../../utils/permissions/PermissionUpdate.js'
-import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema.js'
+} from '../../utils/permissions/filesystem'
+import type { PermissionResult } from '../../utils/permissions/PermissionResult'
+import { createReadRuleSuggestion } from '../../utils/permissions/PermissionUpdate'
+import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema'
 import {
   isDangerousRemovalPath,
   isPathInSandboxWriteAllowlist,
-} from '../../utils/permissions/pathValidation.js'
-import { getPlatform } from '../../utils/platform.js'
+} from '../../utils/permissions/pathValidation'
+import { getPlatform } from '../../utils/platform'
 import type {
   ParsedCommandElement,
   ParsedPowerShellCommand,
-} from '../../utils/powershell/parser.js'
+} from '../../utils/powershell/parser'
 import {
   isNullRedirectionTarget,
   isPowerShellParameter,
-} from '../../utils/powershell/parser.js'
-import { COMMON_SWITCHES, COMMON_VALUE_PARAMS } from './commonParameters.js'
-import { resolveToCanonical } from './readOnlyValidation.js'
+} from '../../utils/powershell/parser'
+import { COMMON_SWITCHES, COMMON_VALUE_PARAMS } from './commonParameters'
+import { resolveToCanonical } from './readOnlyValidation'
 
 const MAX_DIRS_TO_LIST = 5
 // PowerShell wildcards are only * ? [ ] — braces are LITERAL characters
@@ -53,7 +53,7 @@ type FileOperationType = 'read' | 'write' | 'create'
 
 type PathCheckResult = {
   allowed: boolean
-  decisionReason?: import('../../utils/permissions/PermissionResult.js').PermissionDecisionReason
+  decisionReason?: import('../../utils/permissions/PermissionResult').PermissionDecisionReason
 }
 
 type ResolvedPathCheckResult = PathCheckResult & {

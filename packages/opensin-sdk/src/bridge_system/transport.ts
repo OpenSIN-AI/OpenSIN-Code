@@ -12,7 +12,7 @@ import type {
   TransportConfig,
   ConnectionState,
   BridgeMessage,
-} from './types.js'
+} from './types'
 
 type MessageHandler = (message: BridgeMessage) => void
 type StateHandler = (state: ConnectionState) => void

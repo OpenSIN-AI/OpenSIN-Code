@@ -1,8 +1,8 @@
-import type { RenderableMessage } from '../types/message.js'
+import type { RenderableMessage } from '../types/message'
 import {
   INTERRUPT_MESSAGE,
   INTERRUPT_MESSAGE_FOR_TOOL_USE,
-} from './messages.js'
+} from './messages'
 
 const SYSTEM_REMINDER_CLOSE = '</system-reminder>'
 

@@ -1,50 +1,50 @@
-import type { Client } from '@modelcontextprotocol/sdk/client/index.js'
+import type { Client } from '@modelcontextprotocol/sdk/client/index'
 import axios from 'axios'
 import { execa } from 'execa'
-import capitalize from 'lodash-es/capitalize.js'
-import memoize from 'lodash-es/memoize.js'
+import capitalize from 'lodash-es/capitalize'
+import memoize from 'lodash-es/memoize'
 import { createConnection } from 'net'
 import * as os from 'os'
 import { basename, join, sep as pathSeparator, resolve } from 'path'
-import { logEvent } from 'src/services/analytics/index.js'
-import { getIsScrollDraining, getOriginalCwd } from '../bootstrap/state.js'
-import { callIdeRpc } from '../services/mcp/client.js'
+import { logEvent } from 'src/services/analytics/index'
+import { getIsScrollDraining, getOriginalCwd } from '../bootstrap/state'
+import { callIdeRpc } from '../services/mcp/client'
 import type {
   ConnectedMCPServer,
   MCPServerConnection,
-} from '../services/mcp/types.js'
-import { getGlobalConfig, saveGlobalConfig } from './config.js'
-import { env } from './env.js'
-import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils.js'
+} from '../services/mcp/types'
+import { getGlobalConfig, saveGlobalConfig } from './config'
+import { env } from './env'
+import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils'
 import {
   execFileNoThrow,
   execFileNoThrowWithCwd,
   execSyncWithDefaults_DEPRECATED,
-} from './execFileNoThrow.js'
-import { getFsImplementation } from './fsOperations.js'
-import { getAncestorPidsAsync } from './genericProcessUtils.js'
-import { isJetBrainsPluginInstalledCached } from './jetbrains.js'
-import { logError } from './log.js'
-import { getPlatform } from './platform.js'
-import { lt } from './semver.js'
+} from './execFileNoThrow'
+import { getFsImplementation } from './fsOperations'
+import { getAncestorPidsAsync } from './genericProcessUtils'
+import { isJetBrainsPluginInstalledCached } from './jetbrains'
+import { logError } from './log'
+import { getPlatform } from './platform'
+import { lt } from './semver'
 
 // Lazy: IdeOnboardingDialog.tsx pulls React/ink; only needed in interactive onboarding path
 /* eslint-disable @typescript-eslint/no-require-imports */
 const ideOnboardingDialog =
-  (): typeof import('src/components/IdeOnboardingDialog.js') =>
-    require('src/components/IdeOnboardingDialog.js')
+  (): typeof import('src/components/IdeOnboardingDialog') =>
+    require('src/components/IdeOnboardingDialog')
 
-import { createAbortController } from './abortController.js'
-import { logForDebugging } from './debug.js'
-import { envDynamic } from './envDynamic.js'
-import { errorMessage, isFsInaccessible } from './errors.js'
+import { createAbortController } from './abortController'
+import { logForDebugging } from './debug'
+import { envDynamic } from './envDynamic'
+import { errorMessage, isFsInaccessible } from './errors'
 /* eslint-enable @typescript-eslint/no-require-imports */
 import {
   checkWSLDistroMatch,
   WindowsToWSLConverter,
-} from './idePathConversion.js'
-import { sleep } from './sleep.js'
-import { jsonParse } from './slowOperations.js'
+} from './idePathConversion'
+import { sleep } from './sleep'
+import { jsonParse } from './slowOperations'
 
 function isProcessRunning(pid: number): boolean {
   try {

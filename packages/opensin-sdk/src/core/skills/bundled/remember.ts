@@ -1,5 +1,5 @@
-import { isAutoMemoryEnabled } from '../../memdir/paths.js'
-import { registerBundledSkill } from '../bundledSkills.js'
+import { isAutoMemoryEnabled } from '../../memdir/paths'
+import { registerBundledSkill } from '../bundledSkills'
 
 export function registerRememberSkill(): void {
   if (process.env.USER_TYPE !== 'ant') {

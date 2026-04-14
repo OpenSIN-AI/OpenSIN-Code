@@ -3,29 +3,29 @@ import { extname, isAbsolute, resolve } from 'path'
 import {
   fileHistoryEnabled,
   fileHistoryTrackEdit,
-} from 'src/utils/fileHistory.js'
+} from 'src/utils/fileHistory'
 import { z } from 'zod/v4'
-import { buildTool, type ToolDef, type ToolUseContext } from '../../Tool.js'
-import type { NotebookCell, NotebookContent } from '../../types/notebook.js'
-import { getCwd } from '../../utils/cwd.js'
-import { isENOENT } from '../../utils/errors.js'
-import { getFileModificationTime, writeTextContent } from '../../utils/file.js'
-import { readFileSyncWithMetadata } from '../../utils/fileRead.js'
-import { safeParseJSON } from '../../utils/json.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { parseCellId } from '../../utils/notebook.js'
-import { checkWritePermissionForTool } from '../../utils/permissions/filesystem.js'
-import type { PermissionDecision } from '../../utils/permissions/PermissionResult.js'
-import { jsonParse, jsonStringify } from '../../utils/slowOperations.js'
-import { NOTEBOOK_EDIT_TOOL_NAME } from './constants.js'
-import { DESCRIPTION, PROMPT } from './prompt.js'
+import { buildTool, type ToolDef, type ToolUseContext } from '../../Tool'
+import type { NotebookCell, NotebookContent } from '../../types/notebook'
+import { getCwd } from '../../utils/cwd'
+import { isENOENT } from '../../utils/errors'
+import { getFileModificationTime, writeTextContent } from '../../utils/file'
+import { readFileSyncWithMetadata } from '../../utils/fileRead'
+import { safeParseJSON } from '../../utils/json'
+import { lazySchema } from '../../utils/lazySchema'
+import { parseCellId } from '../../utils/notebook'
+import { checkWritePermissionForTool } from '../../utils/permissions/filesystem'
+import type { PermissionDecision } from '../../utils/permissions/PermissionResult'
+import { jsonParse, jsonStringify } from '../../utils/slowOperations'
+import { NOTEBOOK_EDIT_TOOL_NAME } from './constants'
+import { DESCRIPTION, PROMPT } from './prompt'
 import {
   getToolUseSummary,
   renderToolResultMessage,
   renderToolUseErrorMessage,
   renderToolUseMessage,
   renderToolUseRejectedMessage,
-} from './UI.js'
+} from './UI'
 
 export const inputSchema = lazySchema(() =>
   z.strictObject({

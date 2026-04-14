@@ -14,8 +14,8 @@
 
 import * as fs from 'node:fs/promises'
 import * as path from 'node:path'
-import type { OpenSINClient } from '../client.js'
-import type { Message, ToolDefinition } from '../types.js'
+import type { OpenSINClient } from '../client'
+import type { Message, ToolDefinition } from '../types'
 import type {
   BackgroundAgentStatus,
   TerminalStatus,
@@ -23,14 +23,14 @@ import type {
   SpawnAgentInput,
   AgentListItem,
   AgentManagerOptions,
-} from './types.js'
+} from './types'
 import {
   isTerminalStatus,
   DEFAULT_MAX_RUN_TIME_MS,
   TERMINAL_WAIT_GRACE_MS,
   READ_POLL_INTERVAL_MS,
   ALL_COMPLETE_QUIET_PERIOD_MS,
-} from './types.js'
+} from './types'
 
 // ==========================================
 // READABLE ID GENERATION

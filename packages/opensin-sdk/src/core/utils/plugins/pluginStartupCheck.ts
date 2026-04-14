@@ -1,30 +1,30 @@
 import { join } from 'path'
-import { getCwd } from '../cwd.js'
-import { logForDebugging } from '../debug.js'
-import { logError } from '../log.js'
-import type { SettingSource } from '../settings/constants.js'
+import { getCwd } from '../cwd'
+import { logForDebugging } from '../debug'
+import { logError } from '../log'
+import type { SettingSource } from '../settings/constants'
 import {
   getInitialSettings,
   getSettingsForSource,
   updateSettingsForSource,
-} from '../settings/settings.js'
-import { getAddDirEnabledPlugins } from './addDirPluginSettings.js'
+} from '../settings/settings'
+import { getAddDirEnabledPlugins } from './addDirPluginSettings'
 import {
   getInMemoryInstalledPlugins,
   migrateFromEnabledPlugins,
-} from './installedPluginsManager.js'
-import { getPluginById } from './marketplaceManager.js'
+} from './installedPluginsManager'
+import { getPluginById } from './marketplaceManager'
 import {
   type ExtendedPluginScope,
   type PersistablePluginScope,
   SETTING_SOURCE_TO_SCOPE,
   scopeToSettingSource,
-} from './pluginIdentifier.js'
+} from './pluginIdentifier'
 import {
   cacheAndRegisterPlugin,
   registerPluginInstallation,
-} from './pluginInstallationHelpers.js'
-import { isLocalPluginSource, type PluginScope } from './schemas.js'
+} from './pluginInstallationHelpers'
+import { isLocalPluginSource, type PluginScope } from './schemas'
 
 /**
  * Checks for enabled plugins across all settings sources, including --add-dir.

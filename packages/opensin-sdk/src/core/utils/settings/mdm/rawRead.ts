@@ -19,7 +19,7 @@ import {
   WINDOWS_REGISTRY_KEY_PATH_HKCU,
   WINDOWS_REGISTRY_KEY_PATH_HKLM,
   WINDOWS_REGISTRY_VALUE_NAME,
-} from './constants.js'
+} from './constants'
 
 export type RawReadResult = {
   plistStdouts: Array<{ stdout: string; label: string }> | null

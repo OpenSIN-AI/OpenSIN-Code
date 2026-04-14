@@ -1,6 +1,6 @@
-import { DIAMOND_FILLED, DIAMOND_OPEN } from '../constants/figures.js'
-import { count } from '../utils/array.js'
-import type { BackgroundTaskState } from './types.js'
+import { DIAMOND_FILLED, DIAMOND_OPEN } from '../constants/figures'
+import { count } from '../utils/array'
+import type { BackgroundTaskState } from './types'
 
 /**
  * Produces the compact footer-pill label for a set of background tasks.

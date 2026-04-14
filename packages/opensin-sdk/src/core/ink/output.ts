@@ -4,11 +4,11 @@ import {
   styledCharsFromTokens,
   tokenize,
 } from '@alcalzone/ansi-tokenize'
-import { logForDebugging } from '../utils/debug.js'
-import { getGraphemeSegmenter } from '../utils/intl.js'
-import sliceAnsi from '../utils/sliceAnsi.js'
-import { reorderBidi } from './bidi.js'
-import { type Rectangle, unionRect } from './layout/geometry.js'
+import { logForDebugging } from '../utils/debug'
+import { getGraphemeSegmenter } from '../utils/intl'
+import sliceAnsi from '../utils/sliceAnsi'
+import { reorderBidi } from './bidi'
+import { type Rectangle, unionRect } from './layout/geometry'
 import {
   blitRegion,
   CellWidth,
@@ -21,9 +21,9 @@ import {
   type StylePool,
   setCellAt,
   shiftRows,
-} from './screen.js'
-import { stringWidth } from './stringWidth.js'
-import { widestLine } from './widest-line.js'
+} from './screen'
+import { stringWidth } from './stringWidth'
+import { widestLine } from './widest-line'
 
 /**
  * A grapheme cluster with precomputed terminal width, styleId, and hyperlink.

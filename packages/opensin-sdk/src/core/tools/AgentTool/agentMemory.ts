@@ -1,13 +1,13 @@
 import { join, normalize, sep } from 'path'
-import { getProjectRoot } from '../../bootstrap/state.js'
+import { getProjectRoot } from '../../bootstrap/state'
 import {
   buildMemoryPrompt,
   ensureMemoryDirExists,
-} from '../../memdir/memdir.js'
-import { getMemoryBaseDir } from '../../memdir/paths.js'
-import { getCwd } from '../../utils/cwd.js'
-import { findCanonicalGitRoot } from '../../utils/git.js'
-import { sanitizePath } from '../../utils/path.js'
+} from '../../memdir/memdir'
+import { getMemoryBaseDir } from '../../memdir/paths'
+import { getCwd } from '../../utils/cwd'
+import { findCanonicalGitRoot } from '../../utils/git'
+import { sanitizePath } from '../../utils/path'
 
 // Persistent agent memory scope: 'user' (~/.claude/agent-memory/), 'project' (.claude/agent-memory/), or 'local' (.claude/agent-memory-local/)
 export type AgentMemoryScope = 'user' | 'project' | 'local'

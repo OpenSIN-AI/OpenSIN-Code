@@ -1,10 +1,10 @@
-import type { QueuedCommand } from '../types/textInputTypes.js'
+import type { QueuedCommand } from '../types/textInputTypes'
 import {
   dequeue,
   dequeueAllMatching,
   hasCommandsInQueue,
   peek,
-} from './messageQueueManager.js'
+} from './messageQueueManager'
 
 type ProcessQueueParams = {
   executeInput: (commands: QueuedCommand[]) => Promise<void>

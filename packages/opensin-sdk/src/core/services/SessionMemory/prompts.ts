@@ -1,9 +1,9 @@
 import { readFile } from 'fs/promises'
 import { join } from 'path'
-import { roughTokenCountEstimation } from '../../services/tokenEstimation.js'
-import { getClaudeConfigHomeDir } from '../../utils/envUtils.js'
-import { getErrnoCode, toError } from '../../utils/errors.js'
-import { logError } from '../../utils/log.js'
+import { roughTokenCountEstimation } from '../../services/tokenEstimation'
+import { getClaudeConfigHomeDir } from '../../utils/envUtils'
+import { getErrnoCode, toError } from '../../utils/errors'
+import { logError } from '../../utils/log'
 
 const MAX_SECTION_LENGTH = 2000
 const MAX_TOTAL_SESSION_MEMORY_TOKENS = 12000

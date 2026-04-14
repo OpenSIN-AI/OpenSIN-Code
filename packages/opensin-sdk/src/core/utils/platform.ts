@@ -1,8 +1,8 @@
 import { readdir, readFile } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { release as osRelease } from 'os'
-import { getFsImplementation } from './fsOperations.js'
-import { logError } from './log.js'
+import { getFsImplementation } from './fsOperations'
+import { logError } from './log'
 
 export type Platform = 'macos' | 'windows' | 'wsl' | 'linux' | 'unknown'
 

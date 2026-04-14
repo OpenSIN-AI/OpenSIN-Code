@@ -1,18 +1,18 @@
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { saveGlobalConfig } from 'src/utils/config.js'
+} from 'src/services/analytics/index'
+import { saveGlobalConfig } from 'src/utils/config'
 import {
   CODE_REVIEW_PLUGIN_WORKFLOW_CONTENT,
   PR_BODY,
   PR_TITLE,
   WORKFLOW_CONTENT,
-} from '../../constants/github-app.js'
-import { openBrowser } from '../../utils/browser.js'
-import { execFileNoThrow } from '../../utils/execFileNoThrow.js'
-import { logError } from '../../utils/log.js'
-import type { Workflow } from './types.js'
+} from '../../constants/github-app'
+import { openBrowser } from '../../utils/browser'
+import { execFileNoThrow } from '../../utils/execFileNoThrow'
+import { logError } from '../../utils/log'
+import type { Workflow } from './types'
 
 async function createWorkflowFile(
   repoName: string,

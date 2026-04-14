@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { EnvGuard } from '../guard.ts';
-import { DEFAULT_ENVGUARD_CONFIG } from '../types.ts';
+import { EnvGuard } from '../guard';
+import { DEFAULT_ENVGUARD_CONFIG } from '../types';
 
 describe('EnvGuard', () => {
   describe('constructor', () => {

@@ -19,8 +19,8 @@ import {
   TokenUsage,
   JsonRpcRequest,
   JsonRpcResponse,
-} from './types.js';
-import { OpenSINProvider, BaseProvider, ProviderConfig } from './providers.js';
+} from './types';
+import { OpenSINProvider, BaseProvider, ProviderConfig } from './providers';
 
 export class OpenSINClient {
   private config: ConnectionConfig;

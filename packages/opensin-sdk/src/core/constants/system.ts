@@ -1,11 +1,11 @@
 // Critical system constants extracted to break circular dependencies
 
 import { feature } from 'bun:bundle'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
-import { logForDebugging } from '../utils/debug.js'
-import { isEnvDefinedFalsy } from '../utils/envUtils.js'
-import { getAPIProvider } from '../utils/model/providers.js'
-import { getWorkload } from '../utils/workloadContext.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
+import { logForDebugging } from '../utils/debug'
+import { isEnvDefinedFalsy } from '../utils/envUtils'
+import { getAPIProvider } from '../utils/model/providers'
+import { getWorkload } from '../utils/workloadContext'
 
 const DEFAULT_PREFIX = `You are Claude Code, Anthropic's official CLI for Claude.`
 const AGENT_SDK_CLAUDE_CODE_PRESET_PREFIX = `You are Claude Code, Anthropic's official CLI for Claude, running within the Claude Agent SDK.`

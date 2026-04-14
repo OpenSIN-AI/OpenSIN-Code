@@ -9,26 +9,26 @@
  */
 
 import { join } from 'path'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import { logEvent } from '../../services/analytics/index.js'
-import { getGlobalConfig, saveGlobalConfig } from '../config.js'
-import { logForDebugging } from '../debug.js'
-import { isEnvTruthy } from '../envUtils.js'
-import { toError } from '../errors.js'
-import { logError } from '../log.js'
-import { checkGitAvailable, markGitUnavailable } from './gitAvailability.js'
-import { isSourceAllowedByPolicy } from './marketplaceHelpers.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import { logEvent } from '../../services/analytics/index'
+import { getGlobalConfig, saveGlobalConfig } from '../config'
+import { logForDebugging } from '../debug'
+import { isEnvTruthy } from '../envUtils'
+import { toError } from '../errors'
+import { logError } from '../log'
+import { checkGitAvailable, markGitUnavailable } from './gitAvailability'
+import { isSourceAllowedByPolicy } from './marketplaceHelpers'
 import {
   addMarketplaceSource,
   getMarketplacesCacheDir,
   loadKnownMarketplacesConfig,
   saveKnownMarketplacesConfig,
-} from './marketplaceManager.js'
+} from './marketplaceManager'
 import {
   OFFICIAL_MARKETPLACE_NAME,
   OFFICIAL_MARKETPLACE_SOURCE,
-} from './officialMarketplace.js'
-import { fetchOfficialMarketplaceFromGcs } from './officialMarketplaceGcs.js'
+} from './officialMarketplace'
+import { fetchOfficialMarketplaceFromGcs } from './officialMarketplaceGcs'
 
 /**
  * Reason why the official marketplace was not installed

@@ -1,7 +1,7 @@
-import type { Command } from '../commands.js'
-import { getAttributionTexts } from '../utils/attribution.js'
-import { executeShellCommandsInPrompt } from '../utils/promptShellExecution.js'
-import { getUndercoverInstructions, isUndercover } from '../utils/undercover.js'
+import type { Command } from '../commands'
+import { getAttributionTexts } from '../utils/attribution'
+import { executeShellCommandsInPrompt } from '../utils/promptShellExecution'
+import { getUndercoverInstructions, isUndercover } from '../utils/undercover'
 
 const ALLOWED_TOOLS = [
   'Bash(git add:*)',

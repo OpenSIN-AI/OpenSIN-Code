@@ -1,4 +1,4 @@
-import { registerBundledSkill } from '../bundledSkills.js'
+import { registerBundledSkill } from '../bundledSkills'
 
 // Verified 1-token words (tested via API token counting)
 // All common English words confirmed to tokenize as single tokens

@@ -1,40 +1,40 @@
 import type { ToolUseBlock } from '@anthropic-ai/sdk/resources/index.mjs'
-import last from 'lodash-es/last.js'
+import last from 'lodash-es/last'
 import {
   getSessionId,
   isSessionPersistenceDisabled,
-} from 'src/bootstrap/state.js'
-import type { SDKMessage } from 'src/entrypoints/agentSdkTypes.js'
-import type { CanUseToolFn } from '../hooks/useCanUseTool.js'
-import { runTools } from '../services/tools/toolOrchestration.js'
-import { findToolByName, type Tool, type Tools } from '../Tool.js'
-import { BASH_TOOL_NAME } from '../tools/BashTool/toolName.js'
-import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants.js'
-import type { Input as FileReadInput } from '../tools/FileReadTool/FileReadTool.js'
+} from 'src/bootstrap/state'
+import type { SDKMessage } from 'src/entrypoints/agentSdkTypes'
+import type { CanUseToolFn } from '../hooks/useCanUseTool'
+import { runTools } from '../services/tools/toolOrchestration'
+import { findToolByName, type Tool, type Tools } from '../Tool'
+import { BASH_TOOL_NAME } from '../tools/BashTool/toolName'
+import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants'
+import type { Input as FileReadInput } from '../tools/FileReadTool/FileReadTool'
 import {
   FILE_READ_TOOL_NAME,
   FILE_UNCHANGED_STUB,
-} from '../tools/FileReadTool/prompt.js'
-import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt.js'
-import type { Message } from '../types/message.js'
-import type { OrphanedPermission } from '../types/textInputTypes.js'
-import { logForDebugging } from './debug.js'
-import { isEnvTruthy } from './envUtils.js'
-import { isFsInaccessible } from './errors.js'
-import { getFileModificationTime, stripLineNumberPrefix } from './file.js'
-import { readFileSyncWithMetadata } from './fileRead.js'
+} from '../tools/FileReadTool/prompt'
+import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt'
+import type { Message } from '../types/message'
+import type { OrphanedPermission } from '../types/textInputTypes'
+import { logForDebugging } from './debug'
+import { isEnvTruthy } from './envUtils'
+import { isFsInaccessible } from './errors'
+import { getFileModificationTime, stripLineNumberPrefix } from './file'
+import { readFileSyncWithMetadata } from './fileRead'
 import {
   createFileStateCacheWithSizeLimit,
   type FileStateCache,
-} from './fileStateCache.js'
-import { isNotEmptyMessage, normalizeMessages } from './messages.js'
-import { expandPath } from './path.js'
+} from './fileStateCache'
+import { isNotEmptyMessage, normalizeMessages } from './messages'
+import { expandPath } from './path'
 import type {
   inputSchema as permissionToolInputSchema,
   outputSchema as permissionToolOutputSchema,
-} from './permissions/PermissionPromptToolResultSchema.js'
-import type { ProcessUserInputContext } from './processUserInput/processUserInput.js'
-import { recordTranscript } from './sessionStorage.js'
+} from './permissions/PermissionPromptToolResultSchema'
+import type { ProcessUserInputContext } from './processUserInput/processUserInput'
+import { recordTranscript } from './sessionStorage'
 
 export type PermissionPromptTool = Tool<
   ReturnType<typeof permissionToolInputSchema>,

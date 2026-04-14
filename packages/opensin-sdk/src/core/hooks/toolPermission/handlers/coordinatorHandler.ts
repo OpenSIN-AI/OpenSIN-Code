@@ -1,9 +1,9 @@
 import { feature } from 'bun:bundle'
-import type { PendingClassifierCheck } from '../../../types/permissions.js'
-import { logError } from '../../../utils/log.js'
-import type { PermissionDecision } from '../../../utils/permissions/PermissionResult.js'
-import type { PermissionUpdate } from '../../../utils/permissions/PermissionUpdateSchema.js'
-import type { PermissionContext } from '../PermissionContext.js'
+import type { PendingClassifierCheck } from '../../../types/permissions'
+import { logError } from '../../../utils/log'
+import type { PermissionDecision } from '../../../utils/permissions/PermissionResult'
+import type { PermissionUpdate } from '../../../utils/permissions/PermissionUpdateSchema'
+import type { PermissionContext } from '../PermissionContext'
 
 type CoordinatorPermissionParams = {
   ctx: PermissionContext

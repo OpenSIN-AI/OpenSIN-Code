@@ -1,11 +1,11 @@
 import { z } from 'zod/v4'
-import type { TaskStateBase } from '../../Task.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { stopTask } from '../../tasks/stopTask.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { DESCRIPTION, TASK_STOP_TOOL_NAME } from './prompt.js'
-import { renderToolResultMessage, renderToolUseMessage } from './UI.js'
+import type { TaskStateBase } from '../../Task'
+import { buildTool, type ToolDef } from '../../Tool'
+import { stopTask } from '../../tasks/stopTask'
+import { lazySchema } from '../../utils/lazySchema'
+import { jsonStringify } from '../../utils/slowOperations'
+import { DESCRIPTION, TASK_STOP_TOOL_NAME } from './prompt'
+import { renderToolResultMessage, renderToolUseMessage } from './UI'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({

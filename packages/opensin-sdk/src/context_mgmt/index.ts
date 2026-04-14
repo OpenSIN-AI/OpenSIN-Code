@@ -8,8 +8,8 @@ export type {
   ContextStoreConfig,
   ContextSnapshot,
   ContextEvent,
-} from './types.js'
+} from './types'
 
-export { OpenSINContextManager } from './manager.js'
-export { OpenSINContextCompressor, createCompressor } from './compressor.js'
-export { OpenSINContextStore, createContextStore } from './store.js'
+export { OpenSINContextManager } from './manager'
+export { OpenSINContextCompressor, createCompressor } from './compressor'
+export { OpenSINContextStore, createContextStore } from './store'

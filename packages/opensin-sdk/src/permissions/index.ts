@@ -1,11 +1,11 @@
-export { PermissionEvaluator } from './evaluator.js';
-export { ApprovalGate } from './approval_gate.js';
-export { AuditLogger } from './audit_log.js';
-export { matchRule, findMatchingRule, evaluatePermission } from './rules.js';
+export { PermissionEvaluator } from './evaluator';
+export { ApprovalGate } from './approval_gate';
+export { AuditLogger } from './audit_log';
+export { matchRule, findMatchingRule, evaluatePermission } from './rules';
 export type {
   PermissionDecision,
   PermissionRule,
   PermissionCheck,
   PermissionResult,
   AuditEntry,
-} from './types.js';
+} from './types';

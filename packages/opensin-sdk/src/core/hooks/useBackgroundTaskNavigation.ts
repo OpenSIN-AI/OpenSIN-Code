@@ -1,25 +1,25 @@
 import { useEffect, useRef } from 'react'
-import { KeyboardEvent } from '../ink/events/keyboard-event.js'
+import { KeyboardEvent } from '../ink/events/keyboard-event'
 // eslint-disable-next-line custom-rules/prefer-use-keybindings -- backward-compat bridge until REPL wires handleKeyDown to <Box onKeyDown>
-import { useInput } from '../ink.js'
+import { useInput } from '../ink'
 import {
   type AppState,
   useAppState,
   useSetAppState,
-} from '../state/AppState.js'
+} from '../state/AppState'
 import {
   enterTeammateView,
   exitTeammateView,
-} from '../state/teammateViewHelpers.js'
+} from '../state/teammateViewHelpers'
 import {
   getRunningTeammatesSorted,
   InProcessTeammateTask,
-} from '../tasks/InProcessTeammateTask/InProcessTeammateTask.js'
+} from '../tasks/InProcessTeammateTask/InProcessTeammateTask'
 import {
   type InProcessTeammateTaskState,
   isInProcessTeammateTask,
-} from '../tasks/InProcessTeammateTask/types.js'
-import { isBackgroundTask } from '../tasks/types.js'
+} from '../tasks/InProcessTeammateTask/types'
+import { isBackgroundTask } from '../tasks/types'
 
 // Step teammate selection by delta, wrapping across leader(-1)..teammates(0..n-1)..hide(n).
 // First step from a collapsed tree expands it and parks on leader.

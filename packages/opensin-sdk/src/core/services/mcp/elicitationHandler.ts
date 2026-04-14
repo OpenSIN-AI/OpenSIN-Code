@@ -1,22 +1,22 @@
-import type { Client } from '@modelcontextprotocol/sdk/client/index.js'
+import type { Client } from '@modelcontextprotocol/sdk/client/index'
 import {
   ElicitationCompleteNotificationSchema,
   type ElicitRequestParams,
   ElicitRequestSchema,
   type ElicitResult,
-} from '@modelcontextprotocol/sdk/types.js'
-import type { AppState } from '../../state/AppState.js'
+} from '@modelcontextprotocol/sdk/types'
+import type { AppState } from '../../state/AppState'
 import {
   executeElicitationHooks,
   executeElicitationResultHooks,
   executeNotificationHooks,
-} from '../../utils/hooks.js'
-import { logMCPDebug, logMCPError } from '../../utils/log.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../utils/hooks'
+import { logMCPDebug, logMCPError } from '../../utils/log'
+import { jsonStringify } from '../../utils/slowOperations'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
+} from '../analytics/index'
 
 /** Configuration for the waiting state shown after the user opens a URL. */
 export type ElicitationWaitingState = {

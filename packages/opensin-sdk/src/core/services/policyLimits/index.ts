@@ -21,31 +21,31 @@ import {
   CLAUDE_AI_INFERENCE_SCOPE,
   getOauthConfig,
   OAUTH_BETA_HEADER,
-} from '../../constants/oauth.js'
+} from '../../constants/oauth'
 import {
   checkAndRefreshOAuthTokenIfNeeded,
   getAnthropicApiKeyWithSource,
   getClaudeAIOAuthTokens,
-} from '../../utils/auth.js'
-import { registerCleanup } from '../../utils/cleanupRegistry.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { getClaudeConfigHomeDir } from '../../utils/envUtils.js'
-import { classifyAxiosError } from '../../utils/errors.js'
-import { safeParseJSON } from '../../utils/json.js'
+} from '../../utils/auth'
+import { registerCleanup } from '../../utils/cleanupRegistry'
+import { logForDebugging } from '../../utils/debug'
+import { getClaudeConfigHomeDir } from '../../utils/envUtils'
+import { classifyAxiosError } from '../../utils/errors'
+import { safeParseJSON } from '../../utils/json'
 import {
   getAPIProvider,
   isFirstPartyAnthropicBaseUrl,
-} from '../../utils/model/providers.js'
-import { isEssentialTrafficOnly } from '../../utils/privacyLevel.js'
-import { sleep } from '../../utils/sleep.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { getClaudeCodeUserAgent } from '../../utils/userAgent.js'
-import { getRetryDelay } from '../api/withRetry.js'
+} from '../../utils/model/providers'
+import { isEssentialTrafficOnly } from '../../utils/privacyLevel'
+import { sleep } from '../../utils/sleep'
+import { jsonStringify } from '../../utils/slowOperations'
+import { getClaudeCodeUserAgent } from '../../utils/userAgent'
+import { getRetryDelay } from '../api/withRetry'
 import {
   type PolicyLimitsFetchResult,
   type PolicyLimitsResponse,
   PolicyLimitsResponseSchema,
-} from './types.js'
+} from './types'
 
 function isNodeError(e: unknown): e is NodeJS.ErrnoException {
   return e instanceof Error

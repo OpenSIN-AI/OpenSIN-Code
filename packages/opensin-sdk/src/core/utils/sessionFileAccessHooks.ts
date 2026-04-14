@@ -4,43 +4,43 @@
  * Also tracks memdir file access via Read, Grep, Glob, Edit, and Write tools.
  */
 import { feature } from 'bun:bundle'
-import { registerHookCallbacks } from '../bootstrap/state.js'
-import type { HookInput, HookJSONOutput } from '../entrypoints/agentSdkTypes.js'
+import { registerHookCallbacks } from '../bootstrap/state'
+import type { HookInput, HookJSONOutput } from '../entrypoints/agentSdkTypes'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants.js'
-import { inputSchema as editInputSchema } from '../tools/FileEditTool/types.js'
-import { FileReadTool } from '../tools/FileReadTool/FileReadTool.js'
-import { FILE_READ_TOOL_NAME } from '../tools/FileReadTool/prompt.js'
-import { FileWriteTool } from '../tools/FileWriteTool/FileWriteTool.js'
-import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt.js'
-import { GlobTool } from '../tools/GlobTool/GlobTool.js'
-import { GLOB_TOOL_NAME } from '../tools/GlobTool/prompt.js'
-import { GrepTool } from '../tools/GrepTool/GrepTool.js'
-import { GREP_TOOL_NAME } from '../tools/GrepTool/prompt.js'
-import type { HookCallback } from '../types/hooks.js'
+} from '../services/analytics/index'
+import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants'
+import { inputSchema as editInputSchema } from '../tools/FileEditTool/types'
+import { FileReadTool } from '../tools/FileReadTool/FileReadTool'
+import { FILE_READ_TOOL_NAME } from '../tools/FileReadTool/prompt'
+import { FileWriteTool } from '../tools/FileWriteTool/FileWriteTool'
+import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt'
+import { GlobTool } from '../tools/GlobTool/GlobTool'
+import { GLOB_TOOL_NAME } from '../tools/GlobTool/prompt'
+import { GrepTool } from '../tools/GrepTool/GrepTool'
+import { GREP_TOOL_NAME } from '../tools/GrepTool/prompt'
+import type { HookCallback } from '../types/hooks'
 import {
   detectSessionFileType,
   detectSessionPatternType,
   isAutoMemFile,
   memoryScopeForPath,
-} from './memoryFileDetection.js'
+} from './memoryFileDetection'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const teamMemPaths = feature('TEAMMEM')
-  ? (require('../memdir/teamMemPaths.js') as typeof import('../memdir/teamMemPaths.js'))
+  ? (require('../memdir/teamMemPaths') as typeof import('../memdir/teamMemPaths'))
   : null
 const teamMemWatcher = feature('TEAMMEM')
-  ? (require('../services/teamMemorySync/watcher.js') as typeof import('../services/teamMemorySync/watcher.js'))
+  ? (require('../services/teamMemorySync/watcher') as typeof import('../services/teamMemorySync/watcher'))
   : null
 const memoryShapeTelemetry = feature('MEMORY_SHAPE_TELEMETRY')
-  ? (require('../memdir/memoryShapeTelemetry.js') as typeof import('../memdir/memoryShapeTelemetry.js'))
+  ? (require('../memdir/memoryShapeTelemetry') as typeof import('../memdir/memoryShapeTelemetry'))
   : null
 
 /* eslint-enable @typescript-eslint/no-require-imports */
-import { getSubagentLogName } from './agentContext.js'
+import { getSubagentLogName } from './agentContext'
 
 /**
  * Extract the file path from a tool input for memdir detection.

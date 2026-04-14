@@ -9,7 +9,7 @@ import type {
   ContextEntry,
   CompressionResult,
   CompressionStrategy,
-} from './types.js'
+} from './types'
 
 export class OpenSINContextCompressor {
   compress(

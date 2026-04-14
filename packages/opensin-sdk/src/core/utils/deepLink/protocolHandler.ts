@@ -12,16 +12,16 @@
  */
 
 import { homedir } from 'os'
-import { logForDebugging } from '../debug.js'
+import { logForDebugging } from '../debug'
 import {
   filterExistingPaths,
   getKnownPathsForRepo,
-} from '../githubRepoPathMapping.js'
-import { jsonStringify } from '../slowOperations.js'
-import { readLastFetchTime } from './banner.js'
-import { parseDeepLink } from './parseDeepLink.js'
-import { MACOS_BUNDLE_ID } from './registerProtocol.js'
-import { launchInTerminal } from './terminalLauncher.js'
+} from '../githubRepoPathMapping'
+import { jsonStringify } from '../slowOperations'
+import { readLastFetchTime } from './banner'
+import { parseDeepLink } from './parseDeepLink'
+import { MACOS_BUNDLE_ID } from './registerProtocol'
+import { launchInTerminal } from './terminalLauncher'
 
 /**
  * Handle an incoming deep link URI.

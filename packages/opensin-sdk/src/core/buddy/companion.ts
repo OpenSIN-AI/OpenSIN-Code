@@ -1,4 +1,4 @@
-import { getGlobalConfig } from '../utils/config.js'
+import { getGlobalConfig } from '../utils/config'
 import {
   type Companion,
   type CompanionBones,
@@ -10,7 +10,7 @@ import {
   SPECIES,
   STAT_NAMES,
   type StatName,
-} from './types.js'
+} from './types'
 
 // Mulberry32 — tiny seeded PRNG, good enough for picking ducks
 function mulberry32(seed: number): () => number {

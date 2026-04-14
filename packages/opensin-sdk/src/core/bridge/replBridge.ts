@@ -5,15 +5,15 @@ import {
   BridgeFatalError,
   isExpiredErrorType,
   isSuppressible403,
-} from './bridgeApi.js'
-import type { BridgeConfig, BridgeApiClient } from './types.js'
-import { logForDebugging } from '../utils/debug.js'
-import { logForDiagnosticsNoPII } from '../utils/diagLogs.js'
+} from './bridgeApi'
+import type { BridgeConfig, BridgeApiClient } from './types'
+import { logForDebugging } from '../utils/debug'
+import { logForDiagnosticsNoPII } from '../utils/diagLogs'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { registerCleanup } from '../utils/cleanupRegistry.js'
+} from '../services/analytics/index'
+import { registerCleanup } from '../utils/cleanupRegistry'
 import {
   handleIngressMessage,
   handleServerControlRequest,
@@ -21,51 +21,51 @@ import {
   isEligibleBridgeMessage,
   extractTitleText,
   BoundedUUIDSet,
-} from './bridgeMessaging.js'
+} from './bridgeMessaging'
 import {
   decodeWorkSecret,
   buildSdkUrl,
   buildCCRv2SdkUrl,
   sameSessionId,
-} from './workSecret.js'
-import { toCompatSessionId, toInfraSessionId } from './sessionIdCompat.js'
-import { updateSessionBridgeId } from '../utils/concurrentSessions.js'
-import { getTrustedDeviceToken } from './trustedDevice.js'
-import { HybridTransport } from '../cli/transports/HybridTransport.js'
+} from './workSecret'
+import { toCompatSessionId, toInfraSessionId } from './sessionIdCompat'
+import { updateSessionBridgeId } from '../utils/concurrentSessions'
+import { getTrustedDeviceToken } from './trustedDevice'
+import { HybridTransport } from '../cli/transports/HybridTransport'
 import {
   type ReplBridgeTransport,
   createV1ReplTransport,
   createV2ReplTransport,
-} from './replBridgeTransport.js'
-import { updateSessionIngressAuthToken } from '../utils/sessionIngressAuth.js'
-import { isEnvTruthy, isInProtectedNamespace } from '../utils/envUtils.js'
-import { validateBridgeId } from './bridgeApi.js'
+} from './replBridgeTransport'
+import { updateSessionIngressAuthToken } from '../utils/sessionIngressAuth'
+import { isEnvTruthy, isInProtectedNamespace } from '../utils/envUtils'
+import { validateBridgeId } from './bridgeApi'
 import {
   describeAxiosError,
   extractHttpStatus,
   logBridgeSkip,
-} from './debugUtils.js'
-import type { Message } from '../types/message.js'
-import type { SDKMessage } from '../entrypoints/agentSdkTypes.js'
-import type { PermissionMode } from '../utils/permissions/PermissionMode.js'
+} from './debugUtils'
+import type { Message } from '../types/message'
+import type { SDKMessage } from '../entrypoints/agentSdkTypes'
+import type { PermissionMode } from '../utils/permissions/PermissionMode'
 import type {
   SDKControlRequest,
   SDKControlResponse,
-} from '../entrypoints/sdk/controlTypes.js'
-import { createCapacityWake, type CapacitySignal } from './capacityWake.js'
-import { FlushGate } from './flushGate.js'
+} from '../entrypoints/sdk/controlTypes'
+import { createCapacityWake, type CapacitySignal } from './capacityWake'
+import { FlushGate } from './flushGate'
 import {
   DEFAULT_POLL_CONFIG,
   type PollIntervalConfig,
-} from './pollConfigDefaults.js'
-import { errorMessage } from '../utils/errors.js'
-import { sleep } from '../utils/sleep.js'
+} from './pollConfigDefaults'
+import { errorMessage } from '../utils/errors'
+import { sleep } from '../utils/sleep'
 import {
   wrapApiForFaultInjection,
   registerBridgeDebugHandle,
   clearBridgeDebugHandle,
   injectBridgeFault,
-} from './bridgeDebug.js'
+} from './bridgeDebug'
 
 export type ReplBridgeHandle = {
   bridgeSessionId: string
@@ -195,7 +195,7 @@ export type BridgeCoreParams = {
   onStateChange?: (state: BridgeState, detail?: string) => void
   /**
    * Fires on each real user message to flow through writeMessages() until
-   * the callback returns true (done). Mirrors remoteBridgeCore.ts's
+   * the callback returns true (done). Mirrors remoteBridgeCore's
    * onUserMessage so the REPL bridge can derive a session title from early
    * prompts when none was set at init time (e.g. user runs /remote-control
    * on an empty conversation, then types). Tool-result wrappers, meta
@@ -300,7 +300,7 @@ export async function initBridgeCore(
   // bridgePointer import hoisted: perpetual mode reads it before register;
   // non-perpetual writes it after session create; both use clear at teardown.
   const { writeBridgePointer, clearBridgePointer, readBridgePointer } =
-    await import('./bridgePointer.js')
+    await import('./bridgePointer')
 
   // Perpetual mode: read the crash-recovery pointer and treat it as prior
   // state. The pointer is written unconditionally after session create

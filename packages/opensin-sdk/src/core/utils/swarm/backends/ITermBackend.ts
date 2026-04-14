@@ -1,9 +1,9 @@
-import type { AgentColorName } from '../../../tools/AgentTool/agentColorManager.js'
-import { logForDebugging } from '../../../utils/debug.js'
-import { execFileNoThrow } from '../../../utils/execFileNoThrow.js'
-import { IT2_COMMAND, isInITerm2, isIt2CliAvailable } from './detection.js'
-import { registerITermBackend } from './registry.js'
-import type { CreatePaneResult, PaneBackend, PaneId } from './types.js'
+import type { AgentColorName } from '../../../tools/AgentTool/agentColorManager'
+import { logForDebugging } from '../../../utils/debug'
+import { execFileNoThrow } from '../../../utils/execFileNoThrow'
+import { IT2_COMMAND, isInITerm2, isIt2CliAvailable } from './detection'
+import { registerITermBackend } from './registry'
+import type { CreatePaneResult, PaneBackend, PaneId } from './types'
 
 // Track session IDs for teammates
 const teammateSessionIds: string[] = []

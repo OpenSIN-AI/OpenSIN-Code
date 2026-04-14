@@ -1,10 +1,10 @@
 import {
   getClaudeAiBaseUrl,
   getRemoteSessionUrl,
-} from '../constants/product.js'
-import { stringWidth } from '../ink/stringWidth.js'
-import { formatDuration, truncateToWidth } from '../utils/format.js'
-import { getGraphemeSegmenter } from '../utils/intl.js'
+} from '../constants/product'
+import { stringWidth } from '../ink/stringWidth'
+import { formatDuration, truncateToWidth } from '../utils/format'
+import { getGraphemeSegmenter } from '../utils/intl'
 
 /** Bridge status state machine states. */
 export type StatusState =

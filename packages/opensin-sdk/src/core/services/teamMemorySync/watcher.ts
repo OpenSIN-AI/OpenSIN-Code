@@ -14,23 +14,23 @@ import { join } from 'path'
 import {
   getTeamMemPath,
   isTeamMemoryEnabled,
-} from '../../memdir/teamMemPaths.js'
-import { registerCleanup } from '../../utils/cleanupRegistry.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { errorMessage } from '../../utils/errors.js'
-import { getGithubRepo } from '../../utils/git.js'
+} from '../../memdir/teamMemPaths'
+import { registerCleanup } from '../../utils/cleanupRegistry'
+import { logForDebugging } from '../../utils/debug'
+import { errorMessage } from '../../utils/errors'
+import { getGithubRepo } from '../../utils/git'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
+} from '../analytics/index'
 import {
   createSyncState,
   isTeamMemorySyncAvailable,
   pullTeamMemory,
   pushTeamMemory,
   type SyncState,
-} from './index.js'
-import type { TeamMemorySyncPushResult } from './types.js'
+} from './index'
+import type { TeamMemorySyncPushResult } from './types'
 
 const DEBOUNCE_MS = 2000 // Wait 2s after last change before pushing
 

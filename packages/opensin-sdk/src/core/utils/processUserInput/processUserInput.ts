@@ -5,18 +5,18 @@ import type {
   ImageBlockParam,
 } from '@anthropic-ai/sdk/resources/messages.mjs'
 import { randomUUID } from 'crypto'
-import type { QuerySource } from 'src/constants/querySource.js'
-import { logEvent } from 'src/services/analytics/index.js'
-import { getContentText } from 'src/utils/messages.js'
+import type { QuerySource } from 'src/constants/querySource'
+import { logEvent } from 'src/services/analytics/index'
+import { getContentText } from 'src/utils/messages'
 import {
   findCommand,
   getCommandName,
   isBridgeSafeCommand,
   type LocalJSXCommandContext,
-} from '../../commands.js'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
-import type { IDESelection } from '../../hooks/useIdeSelection.js'
-import type { SetToolJSXFn, ToolUseContext } from '../../Tool.js'
+} from '../../commands'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
+import type { IDESelection } from '../../hooks/useIdeSelection'
+import type { SetToolJSXFn, ToolUseContext } from '../../Tool'
 import type {
   AssistantMessage,
   AttachmentMessage,
@@ -24,41 +24,41 @@ import type {
   ProgressMessage,
   SystemMessage,
   UserMessage,
-} from '../../types/message.js'
-import type { PermissionMode } from '../../types/permissions.js'
+} from '../../types/message'
+import type { PermissionMode } from '../../types/permissions'
 import {
   isValidImagePaste,
   type PromptInputMode,
-} from '../../types/textInputTypes.js'
+} from '../../types/textInputTypes'
 import {
   type AgentMentionAttachment,
   createAttachmentMessage,
   getAttachmentMessages,
-} from '../attachments.js'
-import type { PastedContent } from '../config.js'
-import type { EffortValue } from '../effort.js'
-import { toArray } from '../generators.js'
+} from '../attachments'
+import type { PastedContent } from '../config'
+import type { EffortValue } from '../effort'
+import { toArray } from '../generators'
 import {
   executeUserPromptSubmitHooks,
   getUserPromptSubmitHookBlockingMessage,
-} from '../hooks.js'
+} from '../hooks'
 import {
   createImageMetadataText,
   maybeResizeAndDownsampleImageBlock,
-} from '../imageResizer.js'
-import { storeImages } from '../imageStore.js'
+} from '../imageResizer'
+import { storeImages } from '../imageStore'
 import {
   createCommandInputMessage,
   createSystemMessage,
   createUserMessage,
-} from '../messages.js'
-import { queryCheckpoint } from '../queryProfiler.js'
-import { parseSlashCommand } from '../slashCommandParsing.js'
+} from '../messages'
+import { queryCheckpoint } from '../queryProfiler'
+import { parseSlashCommand } from '../slashCommandParsing'
 import {
   hasUltraplanKeyword,
   replaceUltraplanKeyword,
-} from '../ultraplan/keyword.js'
-import { processTextPrompt } from './processTextPrompt.js'
+} from '../ultraplan/keyword'
+import { processTextPrompt } from './processTextPrompt'
 export type ProcessUserInputContext = ToolUseContext & LocalJSXCommandContext
 
 export type ProcessUserInputBaseResult = {
@@ -477,7 +477,7 @@ async function processUserInputBase(
   ) {
     logEvent('tengu_ultraplan_keyword', {})
     const rewritten = replaceUltraplanKeyword(inputString).trim()
-    const { processSlashCommand } = await import('./processSlashCommand.js')
+    const { processSlashCommand } = await import('./processSlashCommand')
     const slashResult = await processSlashCommand(
       `/ultraplan ${rewritten}`,
       precedingInputBlocks,
@@ -515,7 +515,7 @@ async function processUserInputBase(
 
   // Bash commands
   if (inputString !== null && mode === 'bash') {
-    const { processBashCommand } = await import('./processBashCommand.js')
+    const { processBashCommand } = await import('./processBashCommand')
     return addImageMetadataMessage(
       await processBashCommand(
         inputString,
@@ -535,7 +535,7 @@ async function processUserInputBase(
     !effectiveSkipSlash &&
     inputString.startsWith('/')
   ) {
-    const { processSlashCommand } = await import('./processSlashCommand.js')
+    const { processSlashCommand } = await import('./processSlashCommand')
     const slashResult = await processSlashCommand(
       inputString,
       precedingInputBlocks,

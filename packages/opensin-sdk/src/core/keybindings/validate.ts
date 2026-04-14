@@ -1,14 +1,14 @@
-import { plural } from '../utils/stringUtils.js'
-import { chordToString, parseChord, parseKeystroke } from './parser.js'
+import { plural } from '../utils/stringUtils'
+import { chordToString, parseChord, parseKeystroke } from './parser'
 import {
   getReservedShortcuts,
   normalizeKeyForComparison,
-} from './reservedShortcuts.js'
+} from './reservedShortcuts'
 import type {
   KeybindingBlock,
   KeybindingContextName,
   ParsedBinding,
-} from './types.js'
+} from './types'
 
 /**
  * Types of validation issues that can occur with keybindings.

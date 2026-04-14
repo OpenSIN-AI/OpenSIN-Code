@@ -28,13 +28,13 @@ import {
   getAdditionalDirectoriesForClaudeMd,
   getCwdState,
   getOriginalCwd,
-} from '../../bootstrap/state.js'
-import { logForDebugging } from '../debug.js'
-import { expandPath } from '../path.js'
-import { getPlatform, type Platform } from '../platform.js'
-import { settingsChangeDetector } from '../settings/changeDetector.js'
-import { SETTING_SOURCES, type SettingSource } from '../settings/constants.js'
-import { getManagedSettingsDropInDir } from '../settings/managedPath.js'
+} from '../../bootstrap/state'
+import { logForDebugging } from '../debug'
+import { expandPath } from '../path'
+import { getPlatform, type Platform } from '../platform'
+import { settingsChangeDetector } from '../settings/changeDetector'
+import { SETTING_SOURCES, type SettingSource } from '../settings/constants'
+import { getManagedSettingsDropInDir } from '../settings/managedPath'
 import {
   getInitialSettings,
   getSettings_DEPRECATED,
@@ -42,21 +42,21 @@ import {
   getSettingsForSource,
   getSettingsRootPathForSource,
   updateSettingsForSource,
-} from '../settings/settings.js'
-import type { SettingsJson } from '../settings/types.js'
+} from '../settings/settings'
+import type { SettingsJson } from '../settings/types'
 
 // ============================================================================
 // Settings Converter
 // ============================================================================
 
-import { BASH_TOOL_NAME } from 'src/tools/BashTool/toolName.js'
-import { FILE_EDIT_TOOL_NAME } from 'src/tools/FileEditTool/constants.js'
-import { FILE_READ_TOOL_NAME } from 'src/tools/FileReadTool/prompt.js'
-import { WEB_FETCH_TOOL_NAME } from 'src/tools/WebFetchTool/prompt.js'
-import { errorMessage } from '../errors.js'
-import { getClaudeTempDir } from '../permissions/filesystem.js'
-import type { PermissionRuleValue } from '../permissions/PermissionRule.js'
-import { ripgrepCommand } from '../ripgrep.js'
+import { BASH_TOOL_NAME } from 'src/tools/BashTool/toolName'
+import { FILE_EDIT_TOOL_NAME } from 'src/tools/FileEditTool/constants'
+import { FILE_READ_TOOL_NAME } from 'src/tools/FileReadTool/prompt'
+import { WEB_FETCH_TOOL_NAME } from 'src/tools/WebFetchTool/prompt'
+import { errorMessage } from '../errors'
+import { getClaudeTempDir } from '../permissions/filesystem'
+import type { PermissionRuleValue } from '../permissions/PermissionRule'
+import { ripgrepCommand } from '../ripgrep'
 
 // Local copies to avoid circular dependency
 // (permissions.ts imports SandboxManager, bashPermissions.ts imports permissions.ts)

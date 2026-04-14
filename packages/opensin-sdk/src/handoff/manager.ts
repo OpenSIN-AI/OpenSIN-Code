@@ -5,8 +5,8 @@
  * preserving context and intent.
  */
 
-import type { HandoffContext, HandoffConfig } from './types.js';
-import { DEFAULT_HANDOFF_CONFIG } from './types.js';
+import type { HandoffContext, HandoffConfig } from './types';
+import { DEFAULT_HANDOFF_CONFIG } from './types';
 
 export class HandoffManager {
   private config: HandoffConfig;

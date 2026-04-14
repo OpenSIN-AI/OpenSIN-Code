@@ -15,55 +15,55 @@
 
 import { feature } from 'bun:bundle'
 import { basename } from 'path'
-import { getIsRemoteMode } from '../../bootstrap/state.js'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
-import { ENTRYPOINT_NAME } from '../../memdir/memdir.js'
+import { getIsRemoteMode } from '../../bootstrap/state'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
+import { ENTRYPOINT_NAME } from '../../memdir/memdir'
 import {
   formatMemoryManifest,
   scanMemoryFiles,
-} from '../../memdir/memoryScan.js'
+} from '../../memdir/memoryScan'
 import {
   getAutoMemPath,
   isAutoMemoryEnabled,
   isAutoMemPath,
-} from '../../memdir/paths.js'
-import type { Tool } from '../../Tool.js'
-import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
-import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants.js'
-import { FILE_READ_TOOL_NAME } from '../../tools/FileReadTool/prompt.js'
-import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt.js'
-import { GLOB_TOOL_NAME } from '../../tools/GlobTool/prompt.js'
-import { GREP_TOOL_NAME } from '../../tools/GrepTool/prompt.js'
-import { REPL_TOOL_NAME } from '../../tools/REPLTool/constants.js'
+} from '../../memdir/paths'
+import type { Tool } from '../../Tool'
+import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName'
+import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants'
+import { FILE_READ_TOOL_NAME } from '../../tools/FileReadTool/prompt'
+import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt'
+import { GLOB_TOOL_NAME } from '../../tools/GlobTool/prompt'
+import { GREP_TOOL_NAME } from '../../tools/GrepTool/prompt'
+import { REPL_TOOL_NAME } from '../../tools/REPLTool/constants'
 import type {
   AssistantMessage,
   Message,
   SystemLocalCommandMessage,
   SystemMessage,
-} from '../../types/message.js'
-import { createAbortController } from '../../utils/abortController.js'
-import { count, uniq } from '../../utils/array.js'
-import { logForDebugging } from '../../utils/debug.js'
+} from '../../types/message'
+import { createAbortController } from '../../utils/abortController'
+import { count, uniq } from '../../utils/array'
+import { logForDebugging } from '../../utils/debug'
 import {
   createCacheSafeParams,
   runForkedAgent,
-} from '../../utils/forkedAgent.js'
-import type { REPLHookContext } from '../../utils/hooks/postSamplingHooks.js'
+} from '../../utils/forkedAgent'
+import type { REPLHookContext } from '../../utils/hooks/postSamplingHooks'
 import {
   createMemorySavedMessage,
   createUserMessage,
-} from '../../utils/messages.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook.js'
-import { logEvent } from '../analytics/index.js'
-import { sanitizeToolNameForAnalytics } from '../analytics/metadata.js'
+} from '../../utils/messages'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook'
+import { logEvent } from '../analytics/index'
+import { sanitizeToolNameForAnalytics } from '../analytics/metadata'
 import {
   buildExtractAutoOnlyPrompt,
   buildExtractCombinedPrompt,
-} from './prompts.js'
+} from './prompts'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const teamMemPaths = feature('TEAMMEM')
-  ? (require('../../memdir/teamMemPaths.js') as typeof import('../../memdir/teamMemPaths.js'))
+  ? (require('../../memdir/teamMemPaths') as typeof import('../../memdir/teamMemPaths'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 

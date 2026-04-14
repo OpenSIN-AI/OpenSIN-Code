@@ -8,7 +8,7 @@ import {
   csi,
   ERASE_SCREEN,
   ERASE_SCROLLBACK,
-} from './termio/csi.js'
+} from './termio/csi'
 
 // HVP (Horizontal Vertical Position) - legacy Windows cursor home
 const CURSOR_HOME_WINDOWS = csi(0, 'f')

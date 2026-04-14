@@ -11,7 +11,7 @@
  * external CLIs (git, npm, kubectl) are shell-agnostic.
  */
 
-import type { CommandSpec } from '../bash/registry.js'
+import type { CommandSpec } from '../bash/registry'
 
 const URL_PROTOCOLS = ['http://', 'https://', 'ftp://']
 

@@ -3,44 +3,44 @@ import type { ContentBlockParam } from '@opensin-ai/sdk/resources/messages.mjs'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata.js'
-import type { ToolUseConfirm } from '../../components/permissions/PermissionRequest.js'
+} from 'src/services/analytics/index'
+import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata'
+import type { ToolUseConfirm } from '../../components/permissions/PermissionRequest'
 import type {
   ToolPermissionContext,
   Tool as ToolType,
   ToolUseContext,
-} from '../../Tool.js'
-import { awaitClassifierAutoApproval } from '../../tools/BashTool/bashPermissions.js'
-import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
-import type { AssistantMessage } from '../../types/message.js'
+} from '../../Tool'
+import { awaitClassifierAutoApproval } from '../../tools/BashTool/bashPermissions'
+import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName'
+import type { AssistantMessage } from '../../types/message'
 import type {
   PendingClassifierCheck,
   PermissionAllowDecision,
   PermissionDecisionReason,
   PermissionDenyDecision,
-} from '../../types/permissions.js'
-import { setClassifierApproval } from '../../utils/classifierApprovals.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { executePermissionRequestHooks } from '../../utils/hooks.js'
+} from '../../types/permissions'
+import { setClassifierApproval } from '../../utils/classifierApprovals'
+import { logForDebugging } from '../../utils/debug'
+import { executePermissionRequestHooks } from '../../utils/hooks'
 import {
   REJECT_MESSAGE,
   REJECT_MESSAGE_WITH_REASON_PREFIX,
   SUBAGENT_REJECT_MESSAGE,
   SUBAGENT_REJECT_MESSAGE_WITH_REASON_PREFIX,
   withMemoryCorrectionHint,
-} from '../../utils/messages.js'
-import type { PermissionDecision } from '../../utils/permissions/PermissionResult.js'
+} from '../../utils/messages'
+import type { PermissionDecision } from '../../utils/permissions/PermissionResult'
 import {
   applyPermissionUpdates,
   persistPermissionUpdates,
   supportsPersistence,
-} from '../../utils/permissions/PermissionUpdate.js'
-import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema.js'
+} from '../../utils/permissions/PermissionUpdate'
+import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema'
 import {
   logPermissionDecision,
   type PermissionDecisionArgs,
-} from './permissionLogging.js'
+} from './permissionLogging'
 
 type PermissionApprovalSource =
   | { type: 'hook'; permanent?: boolean }

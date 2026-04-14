@@ -1,3 +1,3 @@
-export { OrderedList } from './OrderedList.js';
-export { OrderedListItem } from './OrderedListItem.js';
-export { TreeSelect } from './TreeSelect.js';
+export { OrderedList } from './OrderedList';
+export { OrderedListItem } from './OrderedListItem';
+export { TreeSelect } from './TreeSelect';

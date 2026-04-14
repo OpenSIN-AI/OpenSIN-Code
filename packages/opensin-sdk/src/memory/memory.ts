@@ -14,8 +14,8 @@
 import * as fs from 'node:fs/promises';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { atomicWriteFile, buildFrontmatterDocument, splitFrontmatter } from './frontmatter.js';
-import { getDefaultDescription } from './letta.js';
+import { atomicWriteFile, buildFrontmatterDocument, splitFrontmatter } from './frontmatter';
+import { getDefaultDescription } from './letta';
 
 // ---------------------------------------------------------------------------
 // Types

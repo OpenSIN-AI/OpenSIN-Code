@@ -1,6 +1,6 @@
 import fs from 'fs';
 import yaml from 'yaml';
-import { SkillMetadata, SkillDefinition } from './types.js';
+import { SkillMetadata, SkillDefinition } from './types';
 
 export function parseSkillFile(filePath: string, content: string, source: 'project' | 'global' | 'bundled'): SkillDefinition | null {
   try {

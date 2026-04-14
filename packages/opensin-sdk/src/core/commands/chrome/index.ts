@@ -1,5 +1,5 @@
-import { getIsNonInteractiveSession } from '../../bootstrap/state.js'
-import type { Command } from '../../commands.js'
+import { getIsNonInteractiveSession } from '../../bootstrap/state'
+import type { Command } from '../../commands'
 
 const command: Command = {
   name: 'chrome',
@@ -7,7 +7,7 @@ const command: Command = {
   availability: ['claude-ai'],
   isEnabled: () => !getIsNonInteractiveSession(),
   type: 'local-jsx',
-  load: () => import('./chrome.js'),
+  load: () => import('./chrome'),
 }
 
 export default command

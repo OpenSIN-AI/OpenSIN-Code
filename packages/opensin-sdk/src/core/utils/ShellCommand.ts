@@ -2,13 +2,13 @@ import type { ChildProcess } from 'child_process'
 import { stat } from 'fs/promises'
 import type { Readable } from 'stream'
 import treeKill from 'tree-kill'
-import { generateTaskId } from '../Task.js'
-import { formatDuration } from './format.js'
+import { generateTaskId } from '../Task'
+import { formatDuration } from './format'
 import {
   MAX_TASK_OUTPUT_BYTES,
   MAX_TASK_OUTPUT_BYTES_DISPLAY,
-} from './task/diskOutput.js'
-import { TaskOutput } from './task/TaskOutput.js'
+} from './task/diskOutput'
+import { TaskOutput } from './task/TaskOutput'
 
 export type ExecResult = {
   stdout: string

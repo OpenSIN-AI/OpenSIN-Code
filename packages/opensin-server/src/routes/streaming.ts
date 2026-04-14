@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import { AppState, SessionEvent, ErrorResponse } from '../types';
 
 export function streamingRouter(state: AppState): express.Router {

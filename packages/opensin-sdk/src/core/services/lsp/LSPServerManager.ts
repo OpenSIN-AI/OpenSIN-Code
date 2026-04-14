@@ -1,14 +1,14 @@
 import * as path from 'path'
 import { pathToFileURL } from 'url'
-import { logForDebugging } from '../../utils/debug.js'
-import { errorMessage } from '../../utils/errors.js'
-import { logError } from '../../utils/log.js'
-import { getAllLspServers } from './config.js'
+import { logForDebugging } from '../../utils/debug'
+import { errorMessage } from '../../utils/errors'
+import { logError } from '../../utils/log'
+import { getAllLspServers } from './config'
 import {
   createLSPServerInstance,
   type LSPServerInstance,
-} from './LSPServerInstance.js'
-import type { ScopedLspServerConfig } from './types.js'
+} from './LSPServerInstance'
+import type { ScopedLspServerConfig } from './types'
 /**
  * LSP Server Manager interface returned by createLSPServerManager.
  * Manages multiple LSP server instances and routes requests based on file extensions.
@@ -53,7 +53,7 @@ export type LSPServerManager = {
  * @example
  * const manager = createLSPServerManager()
  * await manager.initialize()
- * const result = await manager.sendRequest('/path/to/file.ts', 'textDocument/definition', params)
+ * const result = await manager.sendRequest('/path/to/file', 'textDocument/definition', params)
  * await manager.shutdown()
  */
 export function createLSPServerManager(): LSPServerManager {

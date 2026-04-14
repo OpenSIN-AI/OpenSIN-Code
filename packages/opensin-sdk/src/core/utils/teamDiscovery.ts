@@ -5,8 +5,8 @@
  * Used by the Teams UI in the footer to show team status.
  */
 
-import { isPaneBackend, type PaneBackendType } from './swarm/backends/types.js'
-import { readTeamFile } from './swarm/teamHelpers.js'
+import { isPaneBackend, type PaneBackendType } from './swarm/backends/types'
+import { readTeamFile } from './swarm/teamHelpers'
 
 export type TeamSummary = {
   name: string
@@ -78,4 +78,4 @@ export function getTeammateStatuses(teamName: string): TeammateStatus[] {
   return statuses
 }
 
-// Note: For time formatting, use formatRelativeTimeAgo from '../utils/format.js'
+// Note: For time formatting, use formatRelativeTimeAgo from '../utils/format'

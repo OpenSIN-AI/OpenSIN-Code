@@ -1,10 +1,10 @@
 import { open, stat } from 'fs/promises'
-import { CLAUDE_CODE_GUIDE_AGENT_TYPE } from 'src/tools/AgentTool/built-in/claudeCodeGuideAgent.js'
-import { getSettingsFilePathForSource } from 'src/utils/settings/settings.js'
-import { enableDebugLogging, getDebugLogPath } from '../../utils/debug.js'
-import { errorMessage, isENOENT } from '../../utils/errors.js'
-import { formatFileSize } from '../../utils/format.js'
-import { registerBundledSkill } from '../bundledSkills.js'
+import { CLAUDE_CODE_GUIDE_AGENT_TYPE } from 'src/tools/AgentTool/built-in/claudeCodeGuideAgent'
+import { getSettingsFilePathForSource } from 'src/utils/settings/settings'
+import { enableDebugLogging, getDebugLogPath } from '../../utils/debug'
+import { errorMessage, isENOENT } from '../../utils/errors'
+import { formatFileSize } from '../../utils/format'
+import { registerBundledSkill } from '../bundledSkills'
 
 const DEFAULT_DEBUG_LINES_READ = 20
 const TAIL_READ_BYTES = 64 * 1024

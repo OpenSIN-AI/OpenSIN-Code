@@ -4,21 +4,21 @@
  * Pure functions for executing vim operators (delete, change, yank, etc.)
  */
 
-import { Cursor } from '../utils/Cursor.js'
-import { firstGrapheme, lastGrapheme } from '../utils/intl.js'
-import { countCharInString } from '../utils/stringUtils.js'
+import { Cursor } from '../utils/Cursor'
+import { firstGrapheme, lastGrapheme } from '../utils/intl'
+import { countCharInString } from '../utils/stringUtils'
 import {
   isInclusiveMotion,
   isLinewiseMotion,
   resolveMotion,
-} from './motions.js'
-import { findTextObject } from './textObjects.js'
+} from './motions'
+import { findTextObject } from './textObjects'
 import type {
   FindType,
   Operator,
   RecordedChange,
   TextObjScope,
-} from './types.js'
+} from './types'
 
 /**
  * Context for operator execution.

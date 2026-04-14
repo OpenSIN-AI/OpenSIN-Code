@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { HandoffManager } from '../manager.ts';
-import { DEFAULT_HANDOFF_CONFIG } from '../types.ts';
+import { HandoffManager } from '../manager';
+import { DEFAULT_HANDOFF_CONFIG } from '../types';
 
 describe('HandoffManager', () => {
   describe('constructor', () => {
@@ -80,10 +80,10 @@ describe('HandoffManager', () => {
       const result = manager.generateHandoff({
         sessionId: 's1',
         summary: 'test',
-        fileChanges: ['file1.ts', 'file2.ts'],
+        fileChanges: ['file1', 'file2'],
       });
       expect(result).toContain('## File Changes');
-      expect(result).toContain('file1.ts');
+      expect(result).toContain('file1');
     });
 
     it('excludes file changes when includeFileChanges is false', () => {
@@ -91,7 +91,7 @@ describe('HandoffManager', () => {
       const result = manager.generateHandoff({
         sessionId: 's1',
         summary: 'test',
-        fileChanges: ['file1.ts'],
+        fileChanges: ['file1'],
       });
       expect(result).not.toContain('## File Changes');
     });

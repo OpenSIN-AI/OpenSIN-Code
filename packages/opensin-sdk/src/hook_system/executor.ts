@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { HookDefinition, HookResult } from './types.js';
+import { HookDefinition, HookResult } from './types';
 
 export async function executeHook(hook: HookDefinition, context?: Record<string, unknown>): Promise<HookResult> {
   return new Promise((resolve) => {

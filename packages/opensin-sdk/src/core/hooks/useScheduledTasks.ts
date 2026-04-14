@@ -1,19 +1,19 @@
 import { useEffect, useRef } from 'react'
-import { useAppStateStore, useSetAppState } from '../state/AppState.js'
-import { isTerminalTaskStatus } from '../Task.js'
+import { useAppStateStore, useSetAppState } from '../state/AppState'
+import { isTerminalTaskStatus } from '../Task'
 import {
   findTeammateTaskByAgentId,
   injectUserMessageToTeammate,
-} from '../tasks/InProcessTeammateTask/InProcessTeammateTask.js'
-import { isKairosCronEnabled } from '../tools/ScheduleCronTool/prompt.js'
-import type { Message } from '../types/message.js'
-import { getCronJitterConfig } from '../utils/cronJitterConfig.js'
-import { createCronScheduler } from '../utils/cronScheduler.js'
-import { removeCronTasks } from '../utils/cronTasks.js'
-import { logForDebugging } from '../utils/debug.js'
-import { enqueuePendingNotification } from '../utils/messageQueueManager.js'
-import { createScheduledTaskFireMessage } from '../utils/messages.js'
-import { WORKLOAD_CRON } from '../utils/workloadContext.js'
+} from '../tasks/InProcessTeammateTask/InProcessTeammateTask'
+import { isKairosCronEnabled } from '../tools/ScheduleCronTool/prompt'
+import type { Message } from '../types/message'
+import { getCronJitterConfig } from '../utils/cronJitterConfig'
+import { createCronScheduler } from '../utils/cronScheduler'
+import { removeCronTasks } from '../utils/cronTasks'
+import { logForDebugging } from '../utils/debug'
+import { enqueuePendingNotification } from '../utils/messageQueueManager'
+import { createScheduledTaskFireMessage } from '../utils/messages'
+import { WORKLOAD_CRON } from '../utils/workloadContext'
 
 type Props = {
   isLoading: boolean

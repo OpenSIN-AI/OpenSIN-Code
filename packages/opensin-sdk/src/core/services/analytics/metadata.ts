@@ -7,38 +7,38 @@
  */
 
 import { extname } from 'path'
-import memoize from 'lodash-es/memoize.js'
-import { env, getHostPlatformForAnalytics } from '../../utils/env.js'
-import { envDynamic } from '../../utils/envDynamic.js'
-import { getModelBetas } from '../../utils/betas.js'
-import { getMainLoopModel } from '../../utils/model/model.js'
+import memoize from 'lodash-es/memoize'
+import { env, getHostPlatformForAnalytics } from '../../utils/env'
+import { envDynamic } from '../../utils/envDynamic'
+import { getModelBetas } from '../../utils/betas'
+import { getMainLoopModel } from '../../utils/model/model'
 import {
   getSessionId,
   getIsInteractive,
   getKairosActive,
   getClientType,
   getParentSessionId as getParentSessionIdFromState,
-} from '../../bootstrap/state.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { isOfficialMcpUrl } from '../mcp/officialRegistry.js'
-import { isClaudeAISubscriber, getSubscriptionType } from '../../utils/auth.js'
-import { getRepoRemoteHash } from '../../utils/git.js'
+} from '../../bootstrap/state'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { isOfficialMcpUrl } from '../mcp/officialRegistry'
+import { isClaudeAISubscriber, getSubscriptionType } from '../../utils/auth'
+import { getRepoRemoteHash } from '../../utils/git'
 import {
   getWslVersion,
   getLinuxDistroInfo,
   detectVcs,
-} from '../../utils/platform.js'
-import type { CoreUserData } from 'src/utils/user.js'
-import { getAgentContext } from '../../utils/agentContext.js'
-import type { EnvironmentMetadata } from '../../types/generated/events_mono/claude_code/v1/claude_code_internal_event.js'
-import type { PublicApiAuth } from '../../types/generated/events_mono/common/v1/auth.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../utils/platform'
+import type { CoreUserData } from 'src/utils/user'
+import { getAgentContext } from '../../utils/agentContext'
+import type { EnvironmentMetadata } from '../../types/generated/events_mono/claude_code/v1/claude_code_internal_event'
+import type { PublicApiAuth } from '../../types/generated/events_mono/common/v1/auth'
+import { jsonStringify } from '../../utils/slowOperations'
 import {
   getAgentId,
   getParentSessionId as getTeammateParentSessionId,
   getTeamName,
   isTeammate,
-} from '../../utils/teammate.js'
+} from '../../utils/teammate'
 import { feature } from 'bun:bundle'
 
 /**
@@ -130,7 +130,7 @@ const BUILTIN_MCP_SERVER_NAMES: ReadonlySet<string> = new Set(
   feature('CHICAGO_MCP')
     ? [
         (
-          require('../../utils/computerUse/common.js') as typeof import('../../utils/computerUse/common.js')
+          require('../../utils/computerUse/common') as typeof import('../../utils/computerUse/common')
         ).COMPUTER_USE_MCP_SERVER_NAME,
       ]
     : [],

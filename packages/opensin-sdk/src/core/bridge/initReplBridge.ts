@@ -15,62 +15,62 @@
 
 import { feature } from 'bun:bundle'
 import { hostname } from 'os'
-import { getOriginalCwd, getSessionId } from '../bootstrap/state.js'
-import type { SDKMessage } from '../entrypoints/agentSdkTypes.js'
-import type { SDKControlResponse } from '../entrypoints/sdk/controlTypes.js'
-import { getFeatureValue_CACHED_WITH_REFRESH } from '../services/analytics/growthbook.js'
-import { getOrganizationUUID } from '../services/oauth/client.js'
+import { getOriginalCwd, getSessionId } from '../bootstrap/state'
+import type { SDKMessage } from '../entrypoints/agentSdkTypes'
+import type { SDKControlResponse } from '../entrypoints/sdk/controlTypes'
+import { getFeatureValue_CACHED_WITH_REFRESH } from '../services/analytics/growthbook'
+import { getOrganizationUUID } from '../services/oauth/client'
 import {
   isPolicyAllowed,
   waitForPolicyLimitsToLoad,
-} from '../services/policyLimits/index.js'
-import type { Message } from '../types/message.js'
+} from '../services/policyLimits/index'
+import type { Message } from '../types/message'
 import {
   checkAndRefreshOAuthTokenIfNeeded,
   getClaudeAIOAuthTokens,
   handleOAuth401Error,
-} from '../utils/auth.js'
-import { getGlobalConfig, saveGlobalConfig } from '../utils/config.js'
-import { logForDebugging } from '../utils/debug.js'
-import { stripDisplayTagsAllowEmpty } from '../utils/displayTags.js'
-import { errorMessage } from '../utils/errors.js'
-import { getBranch, getRemoteUrl } from '../utils/git.js'
-import { toSDKMessages } from '../utils/messages/mappers.js'
+} from '../utils/auth'
+import { getGlobalConfig, saveGlobalConfig } from '../utils/config'
+import { logForDebugging } from '../utils/debug'
+import { stripDisplayTagsAllowEmpty } from '../utils/displayTags'
+import { errorMessage } from '../utils/errors'
+import { getBranch, getRemoteUrl } from '../utils/git'
+import { toSDKMessages } from '../utils/messages/mappers'
 import {
   getContentText,
   getMessagesAfterCompactBoundary,
   isSyntheticMessage,
-} from '../utils/messages.js'
-import type { PermissionMode } from '../utils/permissions/PermissionMode.js'
-import { getCurrentSessionTitle } from '../utils/sessionStorage.js'
+} from '../utils/messages'
+import type { PermissionMode } from '../utils/permissions/PermissionMode'
+import { getCurrentSessionTitle } from '../utils/sessionStorage'
 import {
   extractConversationText,
   generateSessionTitle,
-} from '../utils/sessionTitle.js'
-import { generateShortWordSlug } from '../utils/words.js'
+} from '../utils/sessionTitle'
+import { generateShortWordSlug } from '../utils/words'
 import {
   getBridgeAccessToken,
   getBridgeBaseUrl,
   getBridgeTokenOverride,
-} from './bridgeConfig.js'
+} from './bridgeConfig'
 import {
   checkBridgeMinVersion,
   isBridgeEnabledBlocking,
   isCseShimEnabled,
   isEnvLessBridgeEnabled,
-} from './bridgeEnabled.js'
+} from './bridgeEnabled'
 import {
   archiveBridgeSession,
   createBridgeSession,
   updateBridgeSessionTitle,
-} from './createSession.js'
-import { logBridgeSkip } from './debugUtils.js'
-import { checkEnvLessBridgeMinVersion } from './envLessBridgeConfig.js'
-import { getPollIntervalConfig } from './pollConfig.js'
-import type { BridgeState, ReplBridgeHandle } from './replBridge.js'
-import { initBridgeCore } from './replBridge.js'
-import { setCseShimGate } from './sessionIdCompat.js'
-import type { BridgeWorkerType } from './types.js'
+} from './createSession'
+import { logBridgeSkip } from './debugUtils'
+import { checkEnvLessBridgeMinVersion } from './envLessBridgeConfig'
+import { getPollIntervalConfig } from './pollConfig'
+import type { BridgeState, ReplBridgeHandle } from './replBridge'
+import { initBridgeCore } from './replBridge'
+import { setCseShimGate } from './sessionIdCompat'
+import type { BridgeWorkerType } from './types'
 
 export type InitBridgeOptions = {
   onInboundMessage?: (msg: SDKMessage) => void | Promise<void>
@@ -88,7 +88,7 @@ export type InitBridgeOptions = {
   initialName?: string
   // Fresh view of the full conversation at call time. Used by onUserMessage's
   // count-3 derivation to call generateSessionTitle over the full conversation.
-  // Optional — print.ts's SDK enableRemoteControl path has no REPL message
+  // Optional — print's SDK enableRemoteControl path has no REPL message
   // array; count-3 falls back to the single message text when absent.
   getMessages?: () => Message[]
   // UUIDs already flushed in a prior bridge session. Messages with these
@@ -421,7 +421,7 @@ export async function initReplBridge(
     logForDebugging(
       '[bridge:repl] Using env-less bridge path (tengu_bridge_repl_v2)',
     )
-    const { initEnvLessBridgeCore } = await import('./remoteBridgeCore.js')
+    const { initEnvLessBridgeCore } = await import('./remoteBridgeCore')
     return initEnvLessBridgeCore({
       baseUrl,
       orgUUID,
@@ -477,7 +477,7 @@ export async function initReplBridge(
   if (feature('KAIROS')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
     const { isAssistantMode } =
-      require('../assistant/index.js') as typeof import('../assistant/index.js')
+      require('../assistant/index') as typeof import('../assistant/index')
     /* eslint-enable @typescript-eslint/no-require-imports */
     if (isAssistantMode()) {
       workerType = 'claude_code_assistant'

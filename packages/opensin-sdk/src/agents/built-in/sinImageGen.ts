@@ -7,7 +7,7 @@
  * Branding: Fully OpenSIN — no Claude references
  */
 
-import type { SinAgentDefinition } from '../types.js'
+import type { SinAgentDefinition } from '../types'
 
 function getSinImageGenSystemPrompt(): string {
   return `You are SIN-ImageGen, an AI image generation specialist for OpenSIN-Code. You create brand-compliant images using Gemini Nano Banana Pro (Imagen 4).

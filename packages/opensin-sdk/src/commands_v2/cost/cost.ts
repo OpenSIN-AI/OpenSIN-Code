@@ -1,7 +1,7 @@
-import { formatTotalCost } from '../../cost-tracker.js'
-import { currentLimits } from '../../services/opensinAiLimits.js'
-import type { LocalCommandCall } from '../../types/command.js'
-import { isOpenSINAISubscriber } from '../../utils/auth.js'
+import { formatTotalCost } from '../../cost-tracker'
+import { currentLimits } from '../../services/opensinAiLimits'
+import type { LocalCommandCall } from '../../types/command'
+import { isOpenSINAISubscriber } from '../../utils/auth'
 
 export const call: LocalCommandCall = async () => {
   if (isOpenSINAISubscriber()) {

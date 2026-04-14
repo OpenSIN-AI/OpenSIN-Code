@@ -4,7 +4,7 @@ import {
   type ExecSyncOptionsWithStringEncoding,
   execSync as nodeExecSync,
 } from 'child_process'
-import { slowLogging } from './slowOperations.js'
+import { slowLogging } from './slowOperations'
 
 /**
  * @deprecated Use async alternatives when possible. Sync exec calls block the event loop.
@@ -13,7 +13,7 @@ import { slowLogging } from './slowOperations.js'
  * Use this instead of child_process execSync directly to detect performance issues.
  *
  * @example
- * import { execSync_DEPRECATED } from './execSyncWrapper.js'
+ * import { execSync_DEPRECATED } from './execSyncWrapper'
  * const result = execSync_DEPRECATED('git status', { encoding: 'utf8' })
  */
 export function execSync_DEPRECATED(command: string): Buffer

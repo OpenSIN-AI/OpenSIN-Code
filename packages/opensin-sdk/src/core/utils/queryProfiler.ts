@@ -27,9 +27,9 @@
  * - query_end: End of query
  */
 
-import { logForDebugging } from './debug.js'
-import { isEnvTruthy } from './envUtils.js'
-import { formatMs, formatTimelineLine, getPerformance } from './profilerBase.js'
+import { logForDebugging } from './debug'
+import { isEnvTruthy } from './envUtils'
+import { formatMs, formatTimelineLine, getPerformance } from './profilerBase'
 
 // Module-level state - initialized once when the module loads
 // eslint-disable-next-line custom-rules/no-process-env-top-level

@@ -1,5 +1,5 @@
-import { isPlanModeInterviewPhaseEnabled } from '../../utils/planModeV2.js'
-import { ASK_USER_QUESTION_TOOL_NAME } from '../AskUserQuestionTool/prompt.js'
+import { isPlanModeInterviewPhaseEnabled } from '../../utils/planModeV2'
+import { ASK_USER_QUESTION_TOOL_NAME } from '../AskUserQuestionTool/prompt'
 
 const WHAT_HAPPENS_SECTION = `## What Happens in Plan Mode
 

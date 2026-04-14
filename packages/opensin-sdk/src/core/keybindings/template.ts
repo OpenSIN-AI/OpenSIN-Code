@@ -3,13 +3,13 @@
  * Generates a well-documented template file for ~/.claude/keybindings.json
  */
 
-import { jsonStringify } from '../utils/slowOperations.js'
-import { DEFAULT_BINDINGS } from './defaultBindings.js'
+import { jsonStringify } from '../utils/slowOperations'
+import { DEFAULT_BINDINGS } from './defaultBindings'
 import {
   NON_REBINDABLE,
   normalizeKeyForComparison,
-} from './reservedShortcuts.js'
-import type { KeybindingBlock } from './types.js'
+} from './reservedShortcuts'
+import type { KeybindingBlock } from './types'
 
 /**
  * Filter out reserved shortcuts that cannot be rebound.

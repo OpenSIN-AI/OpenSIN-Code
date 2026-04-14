@@ -8,8 +8,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
-import type { EnvGuardConfig, EnvKeyInfo } from './types.js';
-import { DEFAULT_ENVGUARD_CONFIG } from './types.js';
+import type { EnvGuardConfig, EnvKeyInfo } from './types';
+import { DEFAULT_ENVGUARD_CONFIG } from './types';
 
 export class EnvGuard {
   private config: EnvGuardConfig;

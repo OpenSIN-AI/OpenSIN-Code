@@ -1,33 +1,33 @@
 import { feature } from 'bun:bundle'
 import type { ToolResultBlockParam } from '@anthropic-ai/sdk/resources/index.mjs'
-import type { QuerySource } from '../../constants/querySource.js'
-import type { ToolUseContext } from '../../Tool.js'
-import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants.js'
-import { FILE_READ_TOOL_NAME } from '../../tools/FileReadTool/prompt.js'
-import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt.js'
-import { GLOB_TOOL_NAME } from '../../tools/GlobTool/prompt.js'
-import { GREP_TOOL_NAME } from '../../tools/GrepTool/prompt.js'
-import { WEB_FETCH_TOOL_NAME } from '../../tools/WebFetchTool/prompt.js'
-import { WEB_SEARCH_TOOL_NAME } from '../../tools/WebSearchTool/prompt.js'
-import type { Message } from '../../types/message.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { getMainLoopModel } from '../../utils/model/model.js'
-import { SHELL_TOOL_NAMES } from '../../utils/shell/shellToolUtils.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+import type { QuerySource } from '../../constants/querySource'
+import type { ToolUseContext } from '../../Tool'
+import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants'
+import { FILE_READ_TOOL_NAME } from '../../tools/FileReadTool/prompt'
+import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt'
+import { GLOB_TOOL_NAME } from '../../tools/GlobTool/prompt'
+import { GREP_TOOL_NAME } from '../../tools/GrepTool/prompt'
+import { WEB_FETCH_TOOL_NAME } from '../../tools/WebFetchTool/prompt'
+import { WEB_SEARCH_TOOL_NAME } from '../../tools/WebSearchTool/prompt'
+import type { Message } from '../../types/message'
+import { logForDebugging } from '../../utils/debug'
+import { getMainLoopModel } from '../../utils/model/model'
+import { SHELL_TOOL_NAMES } from '../../utils/shell/shellToolUtils'
+import { jsonStringify } from '../../utils/slowOperations'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
-import { notifyCacheDeletion } from '../api/promptCacheBreakDetection.js'
-import { roughTokenCountEstimation } from '../tokenEstimation.js'
+} from '../analytics/index'
+import { notifyCacheDeletion } from '../api/promptCacheBreakDetection'
+import { roughTokenCountEstimation } from '../tokenEstimation'
 import {
   clearCompactWarningSuppression,
   suppressCompactWarning,
-} from './compactWarningState.js'
+} from './compactWarningState'
 import {
   getTimeBasedMCConfig,
   type TimeBasedMCConfig,
-} from './timeBasedMCConfig.js'
+} from './timeBasedMCConfig'
 
 // Inline from utils/toolResultStorage.ts — importing that file pulls in
 // sessionStorage → utils/messages → services/api/errors, completing a
@@ -53,22 +53,22 @@ const COMPACTABLE_TOOLS = new Set<string>([
 
 // Lazy-initialized cached MC module and state to avoid importing in external builds.
 // The imports and state live inside feature() checks for dead code elimination.
-let cachedMCModule: typeof import('./cachedMicrocompact.js') | null = null
-let cachedMCState: import('./cachedMicrocompact.js').CachedMCState | null = null
+let cachedMCModule: typeof import('./cachedMicrocompact') | null = null
+let cachedMCState: import('./cachedMicrocompact').CachedMCState | null = null
 let pendingCacheEdits:
-  | import('./cachedMicrocompact.js').CacheEditsBlock
+  | import('./cachedMicrocompact').CacheEditsBlock
   | null = null
 
 async function getCachedMCModule(): Promise<
-  typeof import('./cachedMicrocompact.js')
+  typeof import('./cachedMicrocompact')
 > {
   if (!cachedMCModule) {
-    cachedMCModule = await import('./cachedMicrocompact.js')
+    cachedMCModule = await import('./cachedMicrocompact')
   }
   return cachedMCModule
 }
 
-function ensureCachedMCState(): import('./cachedMicrocompact.js').CachedMCState {
+function ensureCachedMCState(): import('./cachedMicrocompact').CachedMCState {
   if (!cachedMCState && cachedMCModule) {
     cachedMCState = cachedMCModule.createCachedMCState()
   }
@@ -86,7 +86,7 @@ function ensureCachedMCState(): import('./cachedMicrocompact.js').CachedMCState 
  * Clears the pending state (caller must pin them after insertion).
  */
 export function consumePendingCacheEdits():
-  | import('./cachedMicrocompact.js').CacheEditsBlock
+  | import('./cachedMicrocompact').CacheEditsBlock
   | null {
   const edits = pendingCacheEdits
   pendingCacheEdits = null
@@ -97,7 +97,7 @@ export function consumePendingCacheEdits():
  * Get all previously-pinned cache edits that must be re-sent at their
  * original positions for cache hits.
  */
-export function getPinnedCacheEdits(): import('./cachedMicrocompact.js').PinnedCacheEdits[] {
+export function getPinnedCacheEdits(): import('./cachedMicrocompact').PinnedCacheEdits[] {
   if (!cachedMCState) {
     return []
   }
@@ -110,7 +110,7 @@ export function getPinnedCacheEdits(): import('./cachedMicrocompact.js').PinnedC
  */
 export function pinCacheEdits(
   userMessageIndex: number,
-  block: import('./cachedMicrocompact.js').CacheEditsBlock,
+  block: import('./cachedMicrocompact').CacheEditsBlock,
 ): void {
   if (cachedMCState) {
     cachedMCState.pinnedEdits.push({ userMessageIndex, block })

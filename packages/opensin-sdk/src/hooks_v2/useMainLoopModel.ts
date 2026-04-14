@@ -1,11 +1,11 @@
 import { useEffect, useReducer } from 'react'
-import { onGrowthBookRefresh } from '../services/analytics/growthbook.js'
-import { useAppState } from '../state/AppState.js'
+import { onGrowthBookRefresh } from '../services/analytics/growthbook'
+import { useAppState } from '../state/AppState'
 import {
   getDefaultMainLoopModelSetting,
   type ModelName,
   parseUserSpecifiedModel,
-} from '../utils/model/model.js'
+} from '../utils/model/model'
 
 // The value of the selector is a full model name that can be used directly in
 // API calls. Use this over getMainLoopModel() when the component needs to

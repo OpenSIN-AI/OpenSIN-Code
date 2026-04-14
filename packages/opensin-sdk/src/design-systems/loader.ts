@@ -1,7 +1,7 @@
 /** Design System Loader — load and cache design system configurations */
 
-import type { DesignSystemConfig, ThemeConfig, ThemeCustomization } from './types.js';
-import { designSystemRegistry, getDesignSystem } from './registry.js';
+import type { DesignSystemConfig, ThemeConfig, ThemeCustomization } from './types';
+import { designSystemRegistry, getDesignSystem } from './registry';
 
 const cache = new Map<string, DesignSystemConfig>();
 

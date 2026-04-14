@@ -8,7 +8,7 @@
  * Branding: Fully OpenSIN — no Claude references
  */
 
-import type { SinAgentDefinition } from '../types.js'
+import type { SinAgentDefinition } from '../types'
 
 function getSinCreatorSystemPrompt(): string {
   return `You are SIN-Creator, a code generation and implementation specialist for OpenSIN-Code, powered by Gemini 2.5 Flash via the Gemini API. You leverage Gemini 2.5 Flash's balanced speed and quality (4 RPM, 1K TPM, 10K RPD) to write clean, well-structured code. Given the user's message, use the tools available to complete the task. Complete the task fully — don't gold-plate, but don't leave it half-done.

@@ -1,10 +1,10 @@
-import { HOOK_EVENTS, type HookEvent } from 'src/entrypoints/agentSdkTypes.js'
-import type { AppState } from 'src/state/AppState.js'
-import type { Message } from 'src/types/message.js'
-import { logForDebugging } from '../debug.js'
-import type { AggregatedHookResult } from '../hooks.js'
-import type { HookCommand } from '../settings/types.js'
-import { isHookEqual } from './hooksSettings.js'
+import { HOOK_EVENTS, type HookEvent } from 'src/entrypoints/agentSdkTypes'
+import type { AppState } from 'src/state/AppState'
+import type { Message } from 'src/types/message'
+import { logForDebugging } from '../debug'
+import type { AggregatedHookResult } from '../hooks'
+import type { HookCommand } from '../settings/types'
+import { isHookEqual } from './hooksSettings'
 
 type OnHookSuccess = (
   hook: HookCommand | FunctionHook,
@@ -48,7 +48,7 @@ export type SessionStore = {
 /**
  * Map (not Record) so .set/.delete don't change the container's identity.
  * Mutator functions mutate the Map and return prev unchanged, letting
- * store.ts's Object.is(next, prev) check short-circuit and skip listener
+ * store's Object.is(next, prev) check short-circuit and skip listener
  * notification. Session hooks are ephemeral per-agent runtime callbacks,
  * never reactively read (only getAppState() snapshots in the query loop).
  * Same pattern as agentControllers on LocalWorkflowTaskState.

@@ -1,9 +1,9 @@
 import { feature } from 'bun:bundle'
 import type { UUID } from 'crypto'
 import { relative } from 'path'
-import { getCwd } from 'src/utils/cwd.js'
-import { addInvokedSkill } from '../bootstrap/state.js'
-import { asSessionId } from '../types/ids.js'
+import { getCwd } from 'src/utils/cwd'
+import { addInvokedSkill } from '../bootstrap/state'
+import { asSessionId } from '../types/ids'
 import type {
   AttributionSnapshotMessage,
   ContextCollapseCommitEntry,
@@ -11,19 +11,19 @@ import type {
   LogOption,
   PersistedWorktreeSession,
   SerializedMessage,
-} from '../types/logs.js'
+} from '../types/logs'
 import type {
   Message,
   NormalizedMessage,
   NormalizedUserMessage,
-} from '../types/message.js'
-import { PERMISSION_MODES } from '../types/permissions.js'
-import { suppressNextSkillListing } from './attachments.js'
+} from '../types/message'
+import { PERMISSION_MODES } from '../types/permissions'
+import { suppressNextSkillListing } from './attachments'
 import {
   copyFileHistoryForResume,
   type FileHistorySnapshot,
-} from './fileHistory.js'
-import { logError } from './log.js'
+} from './fileHistory'
+import { logError } from './log'
 import {
   createAssistantMessage,
   createUserMessage,
@@ -33,9 +33,9 @@ import {
   isToolUseResultMessage,
   NO_RESPONSE_REQUESTED,
   normalizeMessages,
-} from './messages.js'
-import { copyPlanForResume } from './plans.js'
-import { processSessionStartHooks } from './sessionStart.js'
+} from './messages'
+import { copyPlanForResume } from './plans'
+import { processSessionStartHooks } from './sessionStart'
 import {
   buildConversationChain,
   checkResumeConsistency,
@@ -46,8 +46,8 @@ import {
   loadMessageLogs,
   loadTranscriptFile,
   removeExtraFields,
-} from './sessionStorage.js'
-import type { ContentReplacementRecord } from './toolResultStorage.js'
+} from './sessionStorage'
+import type { ContentReplacementRecord } from './toolResultStorage'
 
 // Dead code elimination: ant-only tool names are conditionally required so
 // their strings don't leak into external builds. Static imports always bundle.
@@ -55,18 +55,18 @@ import type { ContentReplacementRecord } from './toolResultStorage.js'
 const BRIEF_TOOL_NAME: string | null =
   feature('KAIROS') || feature('KAIROS_BRIEF')
     ? (
-        require('../tools/BriefTool/prompt.js') as typeof import('../tools/BriefTool/prompt.js')
+        require('../tools/BriefTool/prompt') as typeof import('../tools/BriefTool/prompt')
       ).BRIEF_TOOL_NAME
     : null
 const LEGACY_BRIEF_TOOL_NAME: string | null =
   feature('KAIROS') || feature('KAIROS_BRIEF')
     ? (
-        require('../tools/BriefTool/prompt.js') as typeof import('../tools/BriefTool/prompt.js')
+        require('../tools/BriefTool/prompt') as typeof import('../tools/BriefTool/prompt')
       ).LEGACY_BRIEF_TOOL_NAME
     : null
 const SEND_USER_FILE_TOOL_NAME: string | null = feature('KAIROS')
   ? (
-      require('../tools/SendUserFileTool/prompt.js') as typeof import('../tools/SendUserFileTool/prompt.js')
+      require('../tools/SendUserFileTool/prompt') as typeof import('../tools/SendUserFileTool/prompt')
     ).SEND_USER_FILE_TOOL_NAME
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
@@ -491,7 +491,7 @@ export async function loadConversationForResume(
       let skip = new Set<string>()
       if (feature('BG_SESSIONS')) {
         try {
-          const { listAllLiveSessions } = await import('./udsClient.js')
+          const { listAllLiveSessions } = await import('./udsClient')
           const live = await listAllLiveSessions()
           skip = new Set(
             live.flatMap(s =>

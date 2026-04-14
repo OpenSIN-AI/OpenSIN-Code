@@ -9,12 +9,12 @@
 //   Daemon/SDK: omit getJitterConfig → DEFAULT_CRON_JITTER_CONFIG applies.
 
 import { z } from 'zod/v4'
-import { getFeatureValue_CACHED_WITH_REFRESH } from '../services/analytics/growthbook.js'
+import { getFeatureValue_CACHED_WITH_REFRESH } from '../services/analytics/growthbook'
 import {
   type CronJitterConfig,
   DEFAULT_CRON_JITTER_CONFIG,
-} from './cronTasks.js'
-import { lazySchema } from './lazySchema.js'
+} from './cronTasks'
+import { lazySchema } from './lazySchema'
 
 // How often to re-fetch tengu_kairos_cron_config from GrowthBook. Short because
 // this is an incident lever — when we push a config change to shed :00 load,

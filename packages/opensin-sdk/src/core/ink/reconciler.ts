@@ -2,8 +2,8 @@
 
 import { appendFileSync } from 'fs'
 import createReconciler from 'react-reconciler'
-import { getYogaCounters } from 'src/native-ts/yoga-layout/index.js'
-import { isEnvTruthy } from '../utils/envUtils.js'
+import { getYogaCounters } from 'src/native-ts/yoga-layout/index'
+import { isEnvTruthy } from '../utils/envUtils'
 import {
   appendChildNode,
   clearYogaNodeReferences,
@@ -20,12 +20,12 @@ import {
   setTextNodeValue,
   setTextStyles,
   type TextNode,
-} from './dom.js'
-import { Dispatcher } from './events/dispatcher.js'
-import { EVENT_HANDLER_PROPS } from './events/event-handlers.js'
-import { getFocusManager, getRootNode } from './focus.js'
-import { LayoutDisplay } from './layout/node.js'
-import applyStyles, { type Styles, type TextStyles } from './styles.js'
+} from './dom'
+import { Dispatcher } from './events/dispatcher'
+import { EVENT_HANDLER_PROPS } from './events/event-handlers'
+import { getFocusManager, getRootNode } from './focus'
+import { LayoutDisplay } from './layout/node'
+import applyStyles, { type Styles, type TextStyles } from './styles'
 
 // We need to conditionally perform devtools connection to avoid
 // accidentally breaking other third-party code.
@@ -33,7 +33,7 @@ import applyStyles, { type Styles, type TextStyles } from './styles.js'
 if (process.env.NODE_ENV === 'development') {
   try {
     // eslint-disable-next-line custom-rules/no-top-level-dynamic-import -- dev-only; NODE_ENV check is DCE'd in production
-    void import('./devtools.js')
+    void import('./devtools')
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.code === 'ERR_MODULE_NOT_FOUND') {

@@ -4,8 +4,8 @@
  * Unified interface for multiple LLM providers (OpenAI, Anthropic, OpenSIN).
  */
 
-import { ConnectionConfig, ConnectionStatus, Message, ToolDefinition, StreamChunk, TokenUsage } from './types.js';
-import { streamSSE } from './events.js';
+import { ConnectionConfig, ConnectionStatus, Message, ToolDefinition, StreamChunk, TokenUsage } from './types';
+import { streamSSE } from './events';
 
 export interface ProviderConfig {
   baseUrl: string;

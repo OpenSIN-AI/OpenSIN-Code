@@ -1,4 +1,4 @@
-import { quote } from './shellQuote.js'
+import { quote } from './shellQuote'
 
 /**
  * Parses a shell prefix that may contain an executable path and arguments.

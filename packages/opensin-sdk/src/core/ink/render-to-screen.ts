@@ -1,14 +1,14 @@
-import noop from 'lodash-es/noop.js'
+import noop from 'lodash-es/noop'
 import type { ReactElement } from 'react'
-import { LegacyRoot } from 'react-reconciler/constants.js'
-import { logForDebugging } from '../utils/debug.js'
-import { createNode, type DOMElement } from './dom.js'
-import { FocusManager } from './focus.js'
-import Output from './output.js'
-import reconciler from './reconciler.js'
+import { LegacyRoot } from 'react-reconciler/constants'
+import { logForDebugging } from '../utils/debug'
+import { createNode, type DOMElement } from './dom'
+import { FocusManager } from './focus'
+import Output from './output'
+import reconciler from './reconciler'
 import renderNodeToOutput, {
   resetLayoutShifted,
-} from './render-node-to-output.js'
+} from './render-node-to-output'
 import {
   CellWidth,
   CharPool,
@@ -18,7 +18,7 @@ import {
   type Screen,
   StylePool,
   setCellStyleId,
-} from './screen.js'
+} from './screen'
 
 /** Position of a match within a rendered message, relative to the message's
  *  own bounding box (row 0 = message top). Stable across scroll — to

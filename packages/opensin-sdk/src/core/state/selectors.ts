@@ -3,10 +3,10 @@
  * Keep selectors pure and simple - just data extraction, no side effects.
  */
 
-import type { InProcessTeammateTaskState } from '../tasks/InProcessTeammateTask/types.js'
-import { isInProcessTeammateTask } from '../tasks/InProcessTeammateTask/types.js'
-import type { LocalAgentTaskState } from '../tasks/LocalAgentTask/LocalAgentTask.js'
-import type { AppState } from './AppStateStore.js'
+import type { InProcessTeammateTaskState } from '../tasks/InProcessTeammateTask/types'
+import { isInProcessTeammateTask } from '../tasks/InProcessTeammateTask/types'
+import type { LocalAgentTaskState } from '../tasks/LocalAgentTask/LocalAgentTask'
+import type { AppState } from './AppStateStore'
 
 /**
  * Get the currently viewed teammate task, if any.

@@ -1,22 +1,22 @@
 import type { ToolResultBlockParam } from '@anthropic-ai/sdk/resources/index.mjs'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { z } from 'zod/v4'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
+} from '../../services/analytics/index'
 import {
   buildTool,
   findToolByName,
   type Tool,
   type ToolDef,
   type Tools,
-} from '../../Tool.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { escapeRegExp } from '../../utils/stringUtils.js'
-import { isToolSearchEnabledOptimistic } from '../../utils/toolSearch.js'
-import { getPrompt, isDeferredTool, TOOL_SEARCH_TOOL_NAME } from './prompt.js'
+} from '../../Tool'
+import { logForDebugging } from '../../utils/debug'
+import { lazySchema } from '../../utils/lazySchema'
+import { escapeRegExp } from '../../utils/stringUtils'
+import { isToolSearchEnabledOptimistic } from '../../utils/toolSearch'
+import { getPrompt, isDeferredTool, TOOL_SEARCH_TOOL_NAME } from './prompt'
 
 export const inputSchema = lazySchema(() =>
   z.object({

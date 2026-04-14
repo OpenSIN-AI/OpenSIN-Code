@@ -1,6 +1,6 @@
 import type { DiagLogger } from '@opentelemetry/api'
-import { logForDebugging } from '../debug.js'
-import { logError } from '../log.js'
+import { logForDebugging } from '../debug'
+import { logError } from '../log'
 export class ClaudeCodeDiagLogger implements DiagLogger {
   error(message: string, ..._: unknown[]) {
     logError(new Error(message))

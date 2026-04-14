@@ -1,17 +1,17 @@
 import { z } from 'zod/v4'
-import { setScheduledTasksEnabled } from '../../bootstrap/state.js'
-import type { ValidationResult } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { cronToHuman, parseCronExpression } from '../../utils/cron.js'
+import { setScheduledTasksEnabled } from '../../bootstrap/state'
+import type { ValidationResult } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
+import { cronToHuman, parseCronExpression } from '../../utils/cron'
 import {
   addCronTask,
   getCronFilePath,
   listAllCronTasks,
   nextCronRunMs,
-} from '../../utils/cronTasks.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { semanticBoolean } from '../../utils/semanticBoolean.js'
-import { getTeammateContext } from '../../utils/teammateContext.js'
+} from '../../utils/cronTasks'
+import { lazySchema } from '../../utils/lazySchema'
+import { semanticBoolean } from '../../utils/semanticBoolean'
+import { getTeammateContext } from '../../utils/teammateContext'
 import {
   buildCronCreateDescription,
   buildCronCreatePrompt,
@@ -19,8 +19,8 @@ import {
   DEFAULT_MAX_AGE_DAYS,
   isDurableCronEnabled,
   isKairosCronEnabled,
-} from './prompt.js'
-import { renderCreateResultMessage, renderCreateToolUseMessage } from './UI.js'
+} from './prompt'
+import { renderCreateResultMessage, renderCreateToolUseMessage } from './UI'
 
 const MAX_JOBS = 50
 

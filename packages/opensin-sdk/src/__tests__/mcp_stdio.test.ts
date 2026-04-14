@@ -23,7 +23,7 @@ describe('McpStdioClient', () => {
     client = new McpStdioClient({
       name: 'test-server',
       command: 'node',
-      args: ['server.js'],
+      args: ['server'],
       timeout: 5000,
     });
   });
@@ -49,7 +49,7 @@ describe('McpServerManager', () => {
     manager = new McpServerManager({
       name: 'test-server',
       command: 'node',
-      args: ['server.js'],
+      args: ['server'],
     }, {
       maxRestarts: 2,
       restartDelay: 100,

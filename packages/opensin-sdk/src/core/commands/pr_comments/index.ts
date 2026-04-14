@@ -1,4 +1,4 @@
-import { createMovedToPluginCommand } from '../createMovedToPluginCommand.js'
+import { createMovedToPluginCommand } from '../createMovedToPluginCommand'
 
 export default createMovedToPluginCommand({
   name: 'pr-comments',

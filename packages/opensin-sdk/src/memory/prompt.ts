@@ -5,8 +5,8 @@
  * always has its persistent memory in-context.
  */
 
-import type { MemoryBlock } from './memory.js';
-import { MEMORY_INSTRUCTIONS } from './letta.js';
+import type { MemoryBlock } from './memory';
+import { MEMORY_INSTRUCTIONS } from './letta';
 
 const LINE_NUMBER_WARNING =
   '# NOTE: Line numbers shown below (with arrows like "1→") are to help during editing. Do NOT include line number prefixes in your memory edit tool calls.';

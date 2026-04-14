@@ -5,46 +5,46 @@
  */
 
 import { writeFile } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
-import { getIsRemoteMode } from '../../bootstrap/state.js'
-import { getSystemPrompt } from '../../constants/prompts.js'
-import { getSystemContext, getUserContext } from '../../context.js'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
-import type { Tool, ToolUseContext } from '../../Tool.js'
-import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants.js'
+import memoize from 'lodash-es/memoize'
+import { getIsRemoteMode } from '../../bootstrap/state'
+import { getSystemPrompt } from '../../constants/prompts'
+import { getSystemContext, getUserContext } from '../../context'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
+import type { Tool, ToolUseContext } from '../../Tool'
+import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants'
 import {
   FileReadTool,
   type Output as FileReadToolOutput,
-} from '../../tools/FileReadTool/FileReadTool.js'
-import type { Message } from '../../types/message.js'
-import { count } from '../../utils/array.js'
+} from '../../tools/FileReadTool/FileReadTool'
+import type { Message } from '../../types/message'
+import { count } from '../../utils/array'
 import {
   createCacheSafeParams,
   createSubagentContext,
   runForkedAgent,
-} from '../../utils/forkedAgent.js'
-import { getFsImplementation } from '../../utils/fsOperations.js'
+} from '../../utils/forkedAgent'
+import { getFsImplementation } from '../../utils/fsOperations'
 import {
   type REPLHookContext,
   registerPostSamplingHook,
-} from '../../utils/hooks/postSamplingHooks.js'
+} from '../../utils/hooks/postSamplingHooks'
 import {
   createUserMessage,
   hasToolCallsInLastAssistantTurn,
-} from '../../utils/messages.js'
+} from '../../utils/messages'
 import {
   getSessionMemoryDir,
   getSessionMemoryPath,
-} from '../../utils/permissions/filesystem.js'
-import { sequential } from '../../utils/sequential.js'
-import { asSystemPrompt } from '../../utils/systemPromptType.js'
-import { getTokenUsage, tokenCountWithEstimation } from '../../utils/tokens.js'
-import { logEvent } from '../analytics/index.js'
-import { isAutoCompactEnabled } from '../compact/autoCompact.js'
+} from '../../utils/permissions/filesystem'
+import { sequential } from '../../utils/sequential'
+import { asSystemPrompt } from '../../utils/systemPromptType'
+import { getTokenUsage, tokenCountWithEstimation } from '../../utils/tokens'
+import { logEvent } from '../analytics/index'
+import { isAutoCompactEnabled } from '../compact/autoCompact'
 import {
   buildSessionMemoryUpdatePrompt,
   loadSessionMemoryTemplate,
-} from './prompts.js'
+} from './prompts'
 import {
   DEFAULT_SESSION_MEMORY_CONFIG,
   getSessionMemoryConfig,
@@ -59,7 +59,7 @@ import {
   type SessionMemoryConfig,
   setLastSummarizedMessageId,
   setSessionMemoryConfig,
-} from './sessionMemoryUtils.js'
+} from './sessionMemoryUtils'
 
 // ============================================================================
 // Feature Gate and Config (Cached - Non-blocking)
@@ -67,11 +67,11 @@ import {
 // These functions return cached values from disk immediately without blocking
 // on GrowthBook initialization. Values may be stale but are updated in background.
 
-import { errorMessage, getErrnoCode } from '../../utils/errors.js'
+import { errorMessage, getErrnoCode } from '../../utils/errors'
 import {
   getDynamicConfig_CACHED_MAY_BE_STALE,
   getFeatureValue_CACHED_MAY_BE_STALE,
-} from '../analytics/growthbook.js'
+} from '../analytics/growthbook'
 
 /**
  * Check if session memory feature is enabled.

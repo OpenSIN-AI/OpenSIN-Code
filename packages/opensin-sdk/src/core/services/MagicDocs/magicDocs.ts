@@ -6,27 +6,27 @@
  * See docs/magic-docs.md for more information.
  */
 
-import type { Tool, ToolUseContext } from '../../Tool.js'
-import type { BuiltInAgentDefinition } from '../../tools/AgentTool/loadAgentsDir.js'
-import { runAgent } from '../../tools/AgentTool/runAgent.js'
-import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants.js'
+import type { Tool, ToolUseContext } from '../../Tool'
+import type { BuiltInAgentDefinition } from '../../tools/AgentTool/loadAgentsDir'
+import { runAgent } from '../../tools/AgentTool/runAgent'
+import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants'
 import {
   FileReadTool,
   type Output as FileReadToolOutput,
   registerFileReadListener,
-} from '../../tools/FileReadTool/FileReadTool.js'
-import { isFsInaccessible } from '../../utils/errors.js'
-import { cloneFileStateCache } from '../../utils/fileStateCache.js'
+} from '../../tools/FileReadTool/FileReadTool'
+import { isFsInaccessible } from '../../utils/errors'
+import { cloneFileStateCache } from '../../utils/fileStateCache'
 import {
   type REPLHookContext,
   registerPostSamplingHook,
-} from '../../utils/hooks/postSamplingHooks.js'
+} from '../../utils/hooks/postSamplingHooks'
 import {
   createUserMessage,
   hasToolCallsInLastAssistantTurn,
-} from '../../utils/messages.js'
-import { sequential } from '../../utils/sequential.js'
-import { buildMagicDocsUpdatePrompt } from './prompts.js'
+} from '../../utils/messages'
+import { sequential } from '../../utils/sequential'
+import { buildMagicDocsUpdatePrompt } from './prompts'
 
 // Magic Doc header pattern: # MAGIC DOC: [title]
 // Matches at the start of the file (first line)

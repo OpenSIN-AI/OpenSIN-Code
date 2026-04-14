@@ -3,8 +3,8 @@
  * OpenSIN-Code Phase 2.3
  */
 
-import { McpResourceResult } from './types.js';
-import { McpStdioClient } from './client.js';
+import { McpResourceResult } from './types';
+import { McpStdioClient } from './client';
 
 export async function listResources(client: McpStdioClient): Promise<McpResourceResult> {
   const result = await client.request('resources/list') as McpResourceResult;

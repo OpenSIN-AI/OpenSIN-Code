@@ -1,32 +1,32 @@
 import { feature } from 'bun:bundle'
-import { getInvokedSkillsForAgent } from '../../bootstrap/state.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
+import { getInvokedSkillsForAgent } from '../../bootstrap/state'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_PII_TAGGED,
   logEvent,
-} from '../../services/analytics/index.js'
-import { queryModelWithoutStreaming } from '../../services/api/claude.js'
-import { getEmptyToolPermissionContext } from '../../Tool.js'
-import type { Message } from '../../types/message.js'
-import { createAbortController } from '../abortController.js'
-import { count } from '../array.js'
-import { getCwd } from '../cwd.js'
-import { toError } from '../errors.js'
-import { logError } from '../log.js'
+} from '../../services/analytics/index'
+import { queryModelWithoutStreaming } from '../../services/api/claude'
+import { getEmptyToolPermissionContext } from '../../Tool'
+import type { Message } from '../../types/message'
+import { createAbortController } from '../abortController'
+import { count } from '../array'
+import { getCwd } from '../cwd'
+import { toError } from '../errors'
+import { logError } from '../log'
 import {
   createUserMessage,
   extractTag,
   extractTextContent,
-} from '../messages.js'
-import { getSmallFastModel } from '../model/model.js'
-import { jsonParse } from '../slowOperations.js'
-import { asSystemPrompt } from '../systemPromptType.js'
+} from '../messages'
+import { getSmallFastModel } from '../model/model'
+import { jsonParse } from '../slowOperations'
+import { asSystemPrompt } from '../systemPromptType'
 import {
   type ApiQueryHookConfig,
   createApiQueryHook,
-} from './apiQueryHookHelper.js'
-import { registerPostSamplingHook } from './postSamplingHooks.js'
+} from './apiQueryHookHelper'
+import { registerPostSamplingHook } from './postSamplingHooks'
 
 const TURN_BATCH_SIZE = 5
 

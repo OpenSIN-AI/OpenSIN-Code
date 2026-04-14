@@ -5,14 +5,14 @@ import {
   type OAuthDiscoveryState,
   auth as sdkAuth,
   refreshAuthorization as sdkRefreshAuthorization,
-} from '@modelcontextprotocol/sdk/client/auth.js'
+} from '@modelcontextprotocol/sdk/client/auth'
 import {
   InvalidGrantError,
   OAuthError,
   ServerError,
   TemporarilyUnavailableError,
   TooManyRequestsError,
-} from '@modelcontextprotocol/sdk/server/auth/errors.js'
+} from '@modelcontextprotocol/sdk/server/auth/errors'
 import {
   type AuthorizationServerMetadata,
   type OAuthClientInformation,
@@ -22,8 +22,8 @@ import {
   OAuthMetadataSchema,
   type OAuthTokens,
   OAuthTokensSchema,
-} from '@modelcontextprotocol/sdk/shared/auth.js'
-import type { FetchLike } from '@modelcontextprotocol/sdk/shared/transport.js'
+} from '@modelcontextprotocol/sdk/shared/auth'
+import type { FetchLike } from '@modelcontextprotocol/sdk/shared/transport'
 import axios from 'axios'
 import { createHash, randomBytes, randomUUID } from 'crypto'
 import { mkdir } from 'fs/promises'
@@ -31,24 +31,24 @@ import { createServer, type Server } from 'http'
 import { join } from 'path'
 import { parse } from 'url'
 import xss from 'xss'
-import { MCP_CLIENT_METADATA_URL } from '../../constants/oauth.js'
-import { openBrowser } from '../../utils/browser.js'
-import { getClaudeConfigHomeDir } from '../../utils/envUtils.js'
-import { errorMessage, getErrnoCode } from '../../utils/errors.js'
-import * as lockfile from '../../utils/lockfile.js'
-import { logMCPDebug } from '../../utils/log.js'
-import { getPlatform } from '../../utils/platform.js'
-import { getSecureStorage } from '../../utils/secureStorage/index.js'
-import { clearKeychainCache } from '../../utils/secureStorage/macOsKeychainHelpers.js'
-import type { SecureStorageData } from '../../utils/secureStorage/types.js'
-import { sleep } from '../../utils/sleep.js'
-import { jsonParse, jsonStringify } from '../../utils/slowOperations.js'
-import { logEvent } from '../analytics/index.js'
-import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from '../analytics/metadata.js'
-import { buildRedirectUri, findAvailablePort } from './oauthPort.js'
-import type { McpHTTPServerConfig, McpSSEServerConfig } from './types.js'
-import { getLoggingSafeMcpBaseUrl } from './utils.js'
-import { performCrossAppAccess, XaaTokenExchangeError } from './xaa.js'
+import { MCP_CLIENT_METADATA_URL } from '../../constants/oauth'
+import { openBrowser } from '../../utils/browser'
+import { getClaudeConfigHomeDir } from '../../utils/envUtils'
+import { errorMessage, getErrnoCode } from '../../utils/errors'
+import * as lockfile from '../../utils/lockfile'
+import { logMCPDebug } from '../../utils/log'
+import { getPlatform } from '../../utils/platform'
+import { getSecureStorage } from '../../utils/secureStorage/index'
+import { clearKeychainCache } from '../../utils/secureStorage/macOsKeychainHelpers'
+import type { SecureStorageData } from '../../utils/secureStorage/types'
+import { sleep } from '../../utils/sleep'
+import { jsonParse, jsonStringify } from '../../utils/slowOperations'
+import { logEvent } from '../analytics/index'
+import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from '../analytics/metadata'
+import { buildRedirectUri, findAvailablePort } from './oauthPort'
+import type { McpHTTPServerConfig, McpSSEServerConfig } from './types'
+import { getLoggingSafeMcpBaseUrl } from './utils'
+import { performCrossAppAccess, XaaTokenExchangeError } from './xaa'
 import {
   acquireIdpIdToken,
   clearIdpIdToken,
@@ -57,7 +57,7 @@ import {
   getIdpClientSecret,
   getXaaIdpSettings,
   isXaaEnabled,
-} from './xaaIdpLogin.js'
+} from './xaaIdpLogin'
 
 /**
  * Timeout for individual OAuth requests (metadata discovery, token refresh, etc.)

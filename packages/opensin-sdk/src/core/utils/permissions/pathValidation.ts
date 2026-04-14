@@ -1,16 +1,16 @@
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { homedir } from 'os'
 import { dirname, isAbsolute, resolve } from 'path'
-import type { ToolPermissionContext } from '../../Tool.js'
-import { getPlatform } from '../../utils/platform.js'
+import type { ToolPermissionContext } from '../../Tool'
+import { getPlatform } from '../../utils/platform'
 import {
   getFsImplementation,
   getPathsForPermissionCheck,
   safeResolvePath,
-} from '../fsOperations.js'
-import { containsPathTraversal } from '../path.js'
-import { SandboxManager } from '../sandbox/sandbox-adapter.js'
-import { containsVulnerableUncPath } from '../shell/readOnlyCommandValidation.js'
+} from '../fsOperations'
+import { containsPathTraversal } from '../path'
+import { SandboxManager } from '../sandbox/sandbox-adapter'
+import { containsVulnerableUncPath } from '../shell/readOnlyCommandValidation'
 import {
   checkEditableInternalPath,
   checkPathSafetyForAutoEdit,
@@ -18,8 +18,8 @@ import {
   matchingRuleForInput,
   pathInAllowedWorkingPath,
   pathInWorkingPath,
-} from './filesystem.js'
-import type { PermissionDecisionReason } from './PermissionResult.js'
+} from './filesystem'
+import type { PermissionDecisionReason } from './PermissionResult'
 
 const MAX_DIRS_TO_LIST = 5
 const GLOB_PATTERN_REGEX = /[*?[\]{}]/

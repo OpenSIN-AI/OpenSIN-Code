@@ -1,4 +1,4 @@
-import { PermissionRule, PermissionCheck, PermissionResult } from './types.js';
+import { PermissionRule, PermissionCheck, PermissionResult } from './types';
 
 export function matchRule(rule: PermissionRule, check: PermissionCheck): boolean {
   if (rule.toolName && rule.toolName !== check.toolName) return false;

@@ -6,7 +6,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as fs from 'node:fs/promises';
 import * as os from 'node:os';
 import * as path from 'node:path';
-import { createMemoryStore, type MemoryStore } from './memory.js';
+import { createMemoryStore, type MemoryStore } from './memory';
 
 describe('MemoryStore', () => {
   let testDir: string;

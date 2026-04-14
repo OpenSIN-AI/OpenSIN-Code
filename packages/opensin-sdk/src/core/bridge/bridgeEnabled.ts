@@ -3,15 +3,15 @@ import {
   checkGate_CACHED_OR_BLOCKING,
   getDynamicConfig_CACHED_MAY_BE_STALE,
   getFeatureValue_CACHED_MAY_BE_STALE,
-} from '../services/analytics/growthbook.js'
+} from '../services/analytics/growthbook'
 // Namespace import breaks the bridgeEnabled → auth → config → bridgeEnabled
 // cycle — authModule.foo is a live binding, so by the time the helpers below
 // call it, auth.js is fully loaded. Previously used require() for the same
 // deferral, but require() hits a CJS cache that diverges from the ESM
 // namespace after mock.module() (daemon/auth.test.ts), breaking spyOn.
-import * as authModule from '../utils/auth.js'
-import { isEnvTruthy } from '../utils/envUtils.js'
-import { lt } from '../utils/semver.js'
+import * as authModule from '../utils/auth'
+import { isEnvTruthy } from '../utils/envUtils'
+import { lt } from '../utils/semver'
 
 /**
  * Runtime check for bridge mode entitlement.

@@ -1,8 +1,8 @@
-import { logEvent } from '../services/analytics/index.js'
-import { logForDebugging } from '../utils/debug.js'
-import { logForDiagnosticsNoPII } from '../utils/diagLogs.js'
-import { errorMessage } from '../utils/errors.js'
-import { jsonParse } from '../utils/slowOperations.js'
+import { logEvent } from '../services/analytics/index'
+import { logForDebugging } from '../utils/debug'
+import { logForDiagnosticsNoPII } from '../utils/diagLogs'
+import { errorMessage } from '../utils/errors'
+import { jsonParse } from '../utils/slowOperations'
 
 /** Format a millisecond duration as a human-readable string (e.g. "5m 30s"). */
 function formatDuration(ms: number): string {

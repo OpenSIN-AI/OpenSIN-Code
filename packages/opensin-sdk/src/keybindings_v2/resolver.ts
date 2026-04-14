@@ -1,5 +1,5 @@
-import type { KeyBinding, KeybindingContext, ResolvedBinding, ConflictInfo } from './types.js'
-import { parseKeySequence } from './parser.js'
+import type { KeyBinding, KeybindingContext, ResolvedBinding, ConflictInfo } from './types'
+import { parseKeySequence } from './parser'
 
 export class KeybindingResolver {
   private bindings: Map<string, KeyBinding[]> = new Map()

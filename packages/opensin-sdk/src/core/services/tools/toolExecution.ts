@@ -7,7 +7,7 @@ import type {
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
+} from 'src/services/analytics/index'
 import {
   extractMcpToolDetails,
   extractSkillName,
@@ -17,58 +17,58 @@ import {
   isToolDetailsLoggingEnabled,
   mcpToolDetailsForAnalytics,
   sanitizeToolNameForAnalytics,
-} from 'src/services/analytics/metadata.js'
+} from 'src/services/analytics/metadata'
 import {
   addToToolDuration,
   getCodeEditToolDecisionCounter,
   getStatsStore,
-} from '../../bootstrap/state.js'
+} from '../../bootstrap/state'
 import {
   buildCodeEditToolAttributes,
   isCodeEditingTool,
-} from '../../hooks/toolPermission/permissionLogging.js'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
+} from '../../hooks/toolPermission/permissionLogging'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
 import {
   findToolByName,
   type Tool,
   type ToolProgress,
   type ToolProgressData,
   type ToolUseContext,
-} from '../../Tool.js'
-import type { BashToolInput } from '../../tools/BashTool/BashTool.js'
-import { startSpeculativeClassifierCheck } from '../../tools/BashTool/bashPermissions.js'
-import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
-import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants.js'
-import { FILE_READ_TOOL_NAME } from '../../tools/FileReadTool/prompt.js'
-import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt.js'
-import { NOTEBOOK_EDIT_TOOL_NAME } from '../../tools/NotebookEditTool/constants.js'
-import { POWERSHELL_TOOL_NAME } from '../../tools/PowerShellTool/toolName.js'
-import { parseGitCommitId } from '../../tools/shared/gitOperationTracking.js'
+} from '../../Tool'
+import type { BashToolInput } from '../../tools/BashTool/BashTool'
+import { startSpeculativeClassifierCheck } from '../../tools/BashTool/bashPermissions'
+import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName'
+import { FILE_EDIT_TOOL_NAME } from '../../tools/FileEditTool/constants'
+import { FILE_READ_TOOL_NAME } from '../../tools/FileReadTool/prompt'
+import { FILE_WRITE_TOOL_NAME } from '../../tools/FileWriteTool/prompt'
+import { NOTEBOOK_EDIT_TOOL_NAME } from '../../tools/NotebookEditTool/constants'
+import { POWERSHELL_TOOL_NAME } from '../../tools/PowerShellTool/toolName'
+import { parseGitCommitId } from '../../tools/shared/gitOperationTracking'
 import {
   isDeferredTool,
   TOOL_SEARCH_TOOL_NAME,
-} from '../../tools/ToolSearchTool/prompt.js'
-import { getAllBaseTools } from '../../tools.js'
-import type { HookProgress } from '../../types/hooks.js'
+} from '../../tools/ToolSearchTool/prompt'
+import { getAllBaseTools } from '../../tools'
+import type { HookProgress } from '../../types/hooks'
 import type {
   AssistantMessage,
   AttachmentMessage,
   Message,
   ProgressMessage,
   StopHookInfo,
-} from '../../types/message.js'
-import { count } from '../../utils/array.js'
-import { createAttachmentMessage } from '../../utils/attachments.js'
-import { logForDebugging } from '../../utils/debug.js'
+} from '../../types/message'
+import { count } from '../../utils/array'
+import { createAttachmentMessage } from '../../utils/attachments'
+import { logForDebugging } from '../../utils/debug'
 import {
   AbortError,
   errorMessage,
   getErrnoCode,
   ShellError,
   TelemetrySafeError_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-} from '../../utils/errors.js'
-import { executePermissionDeniedHooks } from '../../utils/hooks.js'
-import { logError } from '../../utils/log.js'
+} from '../../utils/errors'
+import { executePermissionDeniedHooks } from '../../utils/hooks'
+import { logError } from '../../utils/log'
 import {
   CANCEL_MESSAGE,
   createProgressMessage,
@@ -76,18 +76,18 @@ import {
   createToolResultStopMessage,
   createUserMessage,
   withMemoryCorrectionHint,
-} from '../../utils/messages.js'
+} from '../../utils/messages'
 import type {
   PermissionDecisionReason,
   PermissionResult,
-} from '../../utils/permissions/PermissionResult.js'
+} from '../../utils/permissions/PermissionResult'
 import {
   startSessionActivity,
   stopSessionActivity,
-} from '../../utils/sessionActivity.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { Stream } from '../../utils/stream.js'
-import { logOTelEvent } from '../../utils/telemetry/events.js'
+} from '../../utils/sessionActivity'
+import { jsonStringify } from '../../utils/slowOperations'
+import { Stream } from '../../utils/stream'
+import { logOTelEvent } from '../../utils/telemetry/events'
 import {
   addToolContentEvent,
   endToolBlockedOnUserSpan,
@@ -97,38 +97,38 @@ import {
   startToolBlockedOnUserSpan,
   startToolExecutionSpan,
   startToolSpan,
-} from '../../utils/telemetry/sessionTracing.js'
+} from '../../utils/telemetry/sessionTracing'
 import {
   formatError,
   formatZodValidationError,
-} from '../../utils/toolErrors.js'
+} from '../../utils/toolErrors'
 import {
   processPreMappedToolResultBlock,
   processToolResultBlock,
-} from '../../utils/toolResultStorage.js'
+} from '../../utils/toolResultStorage'
 import {
   extractDiscoveredToolNames,
   isToolSearchEnabledOptimistic,
   isToolSearchToolAvailable,
-} from '../../utils/toolSearch.js'
+} from '../../utils/toolSearch'
 import {
   McpAuthError,
   McpToolCallError_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-} from '../mcp/client.js'
-import { mcpInfoFromString } from '../mcp/mcpStringUtils.js'
-import { normalizeNameForMCP } from '../mcp/normalization.js'
-import type { MCPServerConnection } from '../mcp/types.js'
+} from '../mcp/client'
+import { mcpInfoFromString } from '../mcp/mcpStringUtils'
+import { normalizeNameForMCP } from '../mcp/normalization'
+import type { MCPServerConnection } from '../mcp/types'
 import {
   getLoggingSafeMcpBaseUrl,
   getMcpServerScopeFromToolName,
   isMcpTool,
-} from '../mcp/utils.js'
+} from '../mcp/utils'
 import {
   resolveHookPermissionDecision,
   runPostToolUseFailureHooks,
   runPostToolUseHooks,
   runPreToolUseHooks,
-} from './toolHooks.js'
+} from './toolHooks'
 
 /** Minimum total hook duration (ms) to show inline timing summary */
 export const HOOK_TIMING_DISPLAY_THRESHOLD_MS = 500
@@ -580,7 +580,7 @@ export function buildSchemaNotSentHint(
   messages: Message[],
   tools: readonly { name: string }[],
 ): string | null {
-  // Optimistic gating — reconstructing claude.ts's full useToolSearch
+  // Optimistic gating — reconstructing claude's full useToolSearch
   // computation is fragile. These two gates prevent pointing at a ToolSearch
   // that isn't callable; occasional misfires (Haiku, tst-auto below threshold)
   // cost one extra round-trip on an already-failing path.

@@ -1,7 +1,7 @@
-import { getSessionId } from '../bootstrap/state.js'
-import { checkStatsigFeatureGate_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
-import type { SessionId } from '../types/ids.js'
-import { isEnvTruthy } from '../utils/envUtils.js'
+import { getSessionId } from '../bootstrap/state'
+import { checkStatsigFeatureGate_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
+import type { SessionId } from '../types/ids'
+import { isEnvTruthy } from '../utils/envUtils'
 
 // -- config
 

@@ -1,4 +1,4 @@
-import { getInitialSettings } from '../settings/settings.js'
+import { getInitialSettings } from '../settings/settings'
 
 /**
  * Resolve the default shell for input-box `!` commands.

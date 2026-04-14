@@ -1,14 +1,14 @@
 import { useMemo } from 'react'
-import { useRegisterOverlay } from '../../context/overlayContext.js'
-import type { InputEvent } from '../../ink/events/input-event.js'
-import { useInput } from '../../ink.js'
-import { useKeybindings } from '../../keybindings/useKeybinding.js'
+import { useRegisterOverlay } from '../../context/overlayContext'
+import type { InputEvent } from '../../ink/events/input-event'
+import { useInput } from '../../ink'
+import { useKeybindings } from '../../keybindings/useKeybinding'
 import {
   normalizeFullWidthDigits,
   normalizeFullWidthSpace,
-} from '../../utils/stringUtils.js'
-import type { OptionWithDescription } from './select.js'
-import type { SelectState } from './use-select-state.js'
+} from '../../utils/stringUtils'
+import type { OptionWithDescription } from './select'
+import type { SelectState } from './use-select-state'
 
 export type UseSelectProps<T> = {
   /**

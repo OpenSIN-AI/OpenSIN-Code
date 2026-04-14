@@ -5,7 +5,7 @@
  * NDJSON streaming, error handling, retry logic, context management.
  */
 
-import type { Message, ToolCall, ToolResult, ToolDefinition, TokenUsage, StreamChunk } from '../types.js';
+import type { Message, ToolCall, ToolResult, ToolDefinition, TokenUsage, StreamChunk } from '../types';
 
 // --- Agent Loop Events (NDJSON output) ---
 

@@ -1,4 +1,4 @@
-import type { AgentColorName } from '../../../tools/AgentTool/agentColorManager.js'
+import type { AgentColorName } from '../../../tools/AgentTool/agentColorManager'
 
 /**
  * Types of backends available for teammate execution.

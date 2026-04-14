@@ -1,11 +1,11 @@
 import { feature } from 'bun:bundle'
 import type { ContentBlockParam } from '@anthropic-ai/sdk/resources/messages.mjs'
 import { randomUUID } from 'crypto'
-import last from 'lodash-es/last.js'
+import last from 'lodash-es/last'
 import {
   getSessionId,
   isSessionPersistenceDisabled,
-} from 'src/bootstrap/state.js'
+} from 'src/bootstrap/state'
 import type {
   PermissionMode,
   SDKCompactBoundaryMessage,
@@ -13,99 +13,99 @@ import type {
   SDKPermissionDenial,
   SDKStatus,
   SDKUserMessageReplay,
-} from 'src/entrypoints/agentSdkTypes.js'
-import { accumulateUsage, updateUsage } from 'src/services/api/claude.js'
-import type { NonNullableUsage } from 'src/services/api/logging.js'
-import { EMPTY_USAGE } from 'src/services/api/logging.js'
+} from 'src/entrypoints/agentSdkTypes'
+import { accumulateUsage, updateUsage } from 'src/services/api/claude'
+import type { NonNullableUsage } from 'src/services/api/logging'
+import { EMPTY_USAGE } from 'src/services/api/logging'
 import stripAnsi from 'strip-ansi'
-import type { Command } from './commands.js'
-import { getSlashCommandToolSkills } from './commands.js'
+import type { Command } from './commands'
+import { getSlashCommandToolSkills } from './commands'
 import {
   LOCAL_COMMAND_STDERR_TAG,
   LOCAL_COMMAND_STDOUT_TAG,
-} from './constants/xml.js'
+} from './constants/xml'
 import {
   getModelUsage,
   getTotalAPIDuration,
   getTotalCost,
-} from './cost-tracker.js'
-import type { CanUseToolFn } from './hooks/useCanUseTool.js'
-import { loadMemoryPrompt } from './memdir/memdir.js'
-import { hasAutoMemPathOverride } from './memdir/paths.js'
-import { query } from './query.js'
-import { categorizeRetryableAPIError } from './services/api/errors.js'
-import type { MCPServerConnection } from './services/mcp/types.js'
-import type { AppState } from './state/AppState.js'
-import { type Tools, type ToolUseContext, toolMatchesName } from './Tool.js'
-import type { AgentDefinition } from './tools/AgentTool/loadAgentsDir.js'
-import { SYNTHETIC_OUTPUT_TOOL_NAME } from './tools/SyntheticOutputTool/SyntheticOutputTool.js'
-import type { Message } from './types/message.js'
-import type { OrphanedPermission } from './types/textInputTypes.js'
-import { createAbortController } from './utils/abortController.js'
-import type { AttributionState } from './utils/commitAttribution.js'
-import { getGlobalConfig } from './utils/config.js'
-import { getCwd } from './utils/cwd.js'
-import { isBareMode, isEnvTruthy } from './utils/envUtils.js'
-import { getFastModeState } from './utils/fastMode.js'
+} from './cost-tracker'
+import type { CanUseToolFn } from './hooks/useCanUseTool'
+import { loadMemoryPrompt } from './memdir/memdir'
+import { hasAutoMemPathOverride } from './memdir/paths'
+import { query } from './query'
+import { categorizeRetryableAPIError } from './services/api/errors'
+import type { MCPServerConnection } from './services/mcp/types'
+import type { AppState } from './state/AppState'
+import { type Tools, type ToolUseContext, toolMatchesName } from './Tool'
+import type { AgentDefinition } from './tools/AgentTool/loadAgentsDir'
+import { SYNTHETIC_OUTPUT_TOOL_NAME } from './tools/SyntheticOutputTool/SyntheticOutputTool'
+import type { Message } from './types/message'
+import type { OrphanedPermission } from './types/textInputTypes'
+import { createAbortController } from './utils/abortController'
+import type { AttributionState } from './utils/commitAttribution'
+import { getGlobalConfig } from './utils/config'
+import { getCwd } from './utils/cwd'
+import { isBareMode, isEnvTruthy } from './utils/envUtils'
+import { getFastModeState } from './utils/fastMode'
 import {
   type FileHistoryState,
   fileHistoryEnabled,
   fileHistoryMakeSnapshot,
-} from './utils/fileHistory.js'
+} from './utils/fileHistory'
 import {
   cloneFileStateCache,
   type FileStateCache,
-} from './utils/fileStateCache.js'
-import { headlessProfilerCheckpoint } from './utils/headlessProfiler.js'
-import { registerStructuredOutputEnforcement } from './utils/hooks/hookHelpers.js'
-import { getInMemoryErrors } from './utils/log.js'
-import { countToolCalls, SYNTHETIC_MESSAGES } from './utils/messages.js'
+} from './utils/fileStateCache'
+import { headlessProfilerCheckpoint } from './utils/headlessProfiler'
+import { registerStructuredOutputEnforcement } from './utils/hooks/hookHelpers'
+import { getInMemoryErrors } from './utils/log'
+import { countToolCalls, SYNTHETIC_MESSAGES } from './utils/messages'
 import {
   getMainLoopModel,
   parseUserSpecifiedModel,
-} from './utils/model/model.js'
-import { loadAllPluginsCacheOnly } from './utils/plugins/pluginLoader.js'
+} from './utils/model/model'
+import { loadAllPluginsCacheOnly } from './utils/plugins/pluginLoader'
 import {
   type ProcessUserInputContext,
   processUserInput,
-} from './utils/processUserInput/processUserInput.js'
-import { fetchSystemPromptParts } from './utils/queryContext.js'
-import { setCwd } from './utils/Shell.js'
+} from './utils/processUserInput/processUserInput'
+import { fetchSystemPromptParts } from './utils/queryContext'
+import { setCwd } from './utils/Shell'
 import {
   flushSessionStorage,
   recordTranscript,
-} from './utils/sessionStorage.js'
-import { asSystemPrompt } from './utils/systemPromptType.js'
-import { resolveThemeSetting } from './utils/systemTheme.js'
+} from './utils/sessionStorage'
+import { asSystemPrompt } from './utils/systemPromptType'
+import { resolveThemeSetting } from './utils/systemTheme'
 import {
   shouldEnableThinkingByDefault,
   type ThinkingConfig,
-} from './utils/thinking.js'
+} from './utils/thinking'
 
 // Lazy: MessageSelector.tsx pulls React/ink; only needed for message filtering at query time
 /* eslint-disable @typescript-eslint/no-require-imports */
 const messageSelector =
-  (): typeof import('src/components/MessageSelector.js') =>
-    require('src/components/MessageSelector.js')
+  (): typeof import('src/components/MessageSelector') =>
+    require('src/components/MessageSelector')
 
 import {
   localCommandOutputToSDKAssistantMessage,
   toSDKCompactMetadata,
-} from './utils/messages/mappers.js'
+} from './utils/messages/mappers'
 import {
   buildSystemInitMessage,
   sdkCompatToolName,
-} from './utils/messages/systemInit.js'
+} from './utils/messages/systemInit'
 import {
   getScratchpadDir,
   isScratchpadEnabled,
-} from './utils/permissions/filesystem.js'
+} from './utils/permissions/filesystem'
 /* eslint-enable @typescript-eslint/no-require-imports */
 import {
   handleOrphanedPermission,
   isResultSuccessful,
   normalizeMessage,
-} from './utils/queryHelpers.js'
+} from './utils/queryHelpers'
 
 // Dead code elimination: conditional import for coordinator mode
 /* eslint-disable @typescript-eslint/no-require-imports */
@@ -113,17 +113,17 @@ const getCoordinatorUserContext: (
   mcpClients: ReadonlyArray<{ name: string }>,
   scratchpadDir?: string,
 ) => { [k: string]: string } = feature('COORDINATOR_MODE')
-  ? require('./coordinator/coordinatorMode.js').getCoordinatorUserContext
+  ? require('./coordinator/coordinatorMode').getCoordinatorUserContext
   : () => ({})
 /* eslint-enable @typescript-eslint/no-require-imports */
 
 // Dead code elimination: conditional import for snip compaction
 /* eslint-disable @typescript-eslint/no-require-imports */
 const snipModule = feature('HISTORY_SNIP')
-  ? (require('./services/compact/snipCompact.js') as typeof import('./services/compact/snipCompact.js'))
+  ? (require('./services/compact/snipCompact') as typeof import('./services/compact/snipCompact'))
   : null
 const snipProjection = feature('HISTORY_SNIP')
-  ? (require('./services/compact/snipProjection.js') as typeof import('./services/compact/snipProjection.js'))
+  ? (require('./services/compact/snipProjection') as typeof import('./services/compact/snipProjection'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 

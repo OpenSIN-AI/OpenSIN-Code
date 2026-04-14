@@ -1,3 +1,3 @@
-export { EnvGuard } from './guard.js';
-export type { EnvGuardConfig, EnvKeyInfo } from './types.js';
-export { DEFAULT_ENVGUARD_CONFIG } from './types.js';
+export { EnvGuard } from './guard';
+export type { EnvGuardConfig, EnvKeyInfo } from './types';
+export { DEFAULT_ENVGUARD_CONFIG } from './types';

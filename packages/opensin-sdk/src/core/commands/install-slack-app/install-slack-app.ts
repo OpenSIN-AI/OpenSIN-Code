@@ -1,7 +1,7 @@
-import type { LocalCommandResult } from '../../commands.js'
-import { logEvent } from '../../services/analytics/index.js'
-import { openBrowser } from '../../utils/browser.js'
-import { saveGlobalConfig } from '../../utils/config.js'
+import type { LocalCommandResult } from '../../commands'
+import { logEvent } from '../../services/analytics/index'
+import { openBrowser } from '../../utils/browser'
+import { saveGlobalConfig } from '../../utils/config'
 
 const SLACK_APP_URL = 'https://slack.com/marketplace/A08SF47R6P4-claude'
 

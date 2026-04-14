@@ -1,23 +1,23 @@
 import {
   type ReadResourceResult,
   ReadResourceResultSchema,
-} from '@modelcontextprotocol/sdk/types.js'
+} from '@modelcontextprotocol/sdk/types'
 import { z } from 'zod/v4'
-import { ensureConnectedClient } from '../../services/mcp/client.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { lazySchema } from '../../utils/lazySchema.js'
+import { ensureConnectedClient } from '../../services/mcp/client'
+import { buildTool, type ToolDef } from '../../Tool'
+import { lazySchema } from '../../utils/lazySchema'
 import {
   getBinaryBlobSavedMessage,
   persistBinaryContent,
-} from '../../utils/mcpOutputStorage.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { isOutputLineTruncated } from '../../utils/terminal.js'
-import { DESCRIPTION, PROMPT } from './prompt.js'
+} from '../../utils/mcpOutputStorage'
+import { jsonStringify } from '../../utils/slowOperations'
+import { isOutputLineTruncated } from '../../utils/terminal'
+import { DESCRIPTION, PROMPT } from './prompt'
 import {
   renderToolResultMessage,
   renderToolUseMessage,
   userFacingName,
-} from './UI.js'
+} from './UI'
 
 export const inputSchema = lazySchema(() =>
   z.object({

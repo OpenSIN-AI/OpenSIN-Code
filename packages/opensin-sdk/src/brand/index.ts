@@ -6,8 +6,8 @@
  * through this system to ensure brand consistency.
  */
 
-export { OPENSIN_BRAND } from './guidelines.js'
-export type { OpenSINBrand } from './guidelines.js'
-export { BrandEnforcer } from './enforcer.js'
-export { MediaPackager } from './packager.js'
-export { ContentPipeline } from './pipeline.js'
+export { OPENSIN_BRAND } from './guidelines'
+export type { OpenSINBrand } from './guidelines'
+export { BrandEnforcer } from './enforcer'
+export { MediaPackager } from './packager'
+export { ContentPipeline } from './pipeline'

@@ -4,8 +4,8 @@
  * Registry for available tools with execution dispatch.
  */
 
-import type { ToolDefinition, ToolCall, ToolResult } from '../types.js';
-import type { ToolExecutor } from './types.js';
+import type { ToolDefinition, ToolCall, ToolResult } from '../types';
+import type { ToolExecutor } from './types';
 
 export interface ToolHandler {
   definition: ToolDefinition;

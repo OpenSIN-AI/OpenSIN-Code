@@ -1,28 +1,28 @@
 import { posix } from 'path'
-import type { ToolPermissionContext } from '../../Tool.js'
+import type { ToolPermissionContext } from '../../Tool'
 // Types extracted to src/types/permissions.ts to break import cycles
 import type {
   AdditionalWorkingDirectory,
   WorkingDirectorySource,
-} from '../../types/permissions.js'
-import { logForDebugging } from '../debug.js'
-import type { EditableSettingSource } from '../settings/constants.js'
+} from '../../types/permissions'
+import { logForDebugging } from '../debug'
+import type { EditableSettingSource } from '../settings/constants'
 import {
   getSettingsForSource,
   updateSettingsForSource,
-} from '../settings/settings.js'
-import { jsonStringify } from '../slowOperations.js'
-import { toPosixPath } from './filesystem.js'
-import type { PermissionRuleValue } from './PermissionRule.js'
+} from '../settings/settings'
+import { jsonStringify } from '../slowOperations'
+import { toPosixPath } from './filesystem'
+import type { PermissionRuleValue } from './PermissionRule'
 import type {
   PermissionUpdate,
   PermissionUpdateDestination,
-} from './PermissionUpdateSchema.js'
+} from './PermissionUpdateSchema'
 import {
   permissionRuleValueFromString,
   permissionRuleValueToString,
-} from './permissionRuleParser.js'
-import { addPermissionRulesToSettings } from './permissionsLoader.js'
+} from './permissionRuleParser'
+import { addPermissionRulesToSettings } from './permissionsLoader'
 
 // Re-export for backwards compatibility
 export type { AdditionalWorkingDirectory, WorkingDirectorySource }

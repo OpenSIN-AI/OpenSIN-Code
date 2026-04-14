@@ -1,17 +1,17 @@
 import axios from 'axios'
-import memoize from 'lodash-es/memoize.js'
-import { getOauthConfig } from 'src/constants/oauth.js'
+import memoize from 'lodash-es/memoize'
+import { getOauthConfig } from 'src/constants/oauth'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { getClaudeAIOAuthTokens } from 'src/utils/auth.js'
-import { getGlobalConfig, saveGlobalConfig } from 'src/utils/config.js'
-import { logForDebugging } from 'src/utils/debug.js'
-import { isEnvDefinedFalsy } from 'src/utils/envUtils.js'
-import { clearMcpAuthCache } from './client.js'
-import { normalizeNameForMCP } from './normalization.js'
-import type { ScopedMcpServerConfig } from './types.js'
+} from 'src/services/analytics/index'
+import { getClaudeAIOAuthTokens } from 'src/utils/auth'
+import { getGlobalConfig, saveGlobalConfig } from 'src/utils/config'
+import { logForDebugging } from 'src/utils/debug'
+import { isEnvDefinedFalsy } from 'src/utils/envUtils'
+import { clearMcpAuthCache } from './client'
+import { normalizeNameForMCP } from './normalization'
+import type { ScopedMcpServerConfig } from './types'
 
 type ClaudeAIMcpServer = {
   type: 'mcp_server'

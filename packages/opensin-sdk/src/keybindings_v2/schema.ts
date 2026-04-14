@@ -1,4 +1,4 @@
-import type { KeyBinding, KeybindingContext } from './types.js'
+import type { KeyBinding, KeybindingContext } from './types'
 
 export const VALID_CONTEXTS: KeybindingContext[] = ['global', 'terminal', 'input', 'vim-normal', 'vim-insert', 'voice', 'file-explorer']
 export const RESERVED_SHORTCUTS = [

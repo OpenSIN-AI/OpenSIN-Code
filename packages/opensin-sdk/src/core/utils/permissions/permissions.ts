@@ -1,66 +1,66 @@
 import { feature } from 'bun:bundle'
 import { APIUserAbortError } from '@anthropic-ai/sdk'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
 import {
   getToolNameForPermissionCheck,
   mcpInfoFromString,
-} from '../../services/mcp/mcpStringUtils.js'
-import type { Tool, ToolPermissionContext, ToolUseContext } from '../../Tool.js'
-import { AGENT_TOOL_NAME } from '../../tools/AgentTool/constants.js'
-import { shouldUseSandbox } from '../../tools/BashTool/shouldUseSandbox.js'
-import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
-import { POWERSHELL_TOOL_NAME } from '../../tools/PowerShellTool/toolName.js'
-import { REPL_TOOL_NAME } from '../../tools/REPLTool/constants.js'
-import type { AssistantMessage } from '../../types/message.js'
-import { extractOutputRedirections } from '../bash/commands.js'
-import { logForDebugging } from '../debug.js'
-import { AbortError, toError } from '../errors.js'
-import { logError } from '../log.js'
-import { SandboxManager } from '../sandbox/sandbox-adapter.js'
+} from '../../services/mcp/mcpStringUtils'
+import type { Tool, ToolPermissionContext, ToolUseContext } from '../../Tool'
+import { AGENT_TOOL_NAME } from '../../tools/AgentTool/constants'
+import { shouldUseSandbox } from '../../tools/BashTool/shouldUseSandbox'
+import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName'
+import { POWERSHELL_TOOL_NAME } from '../../tools/PowerShellTool/toolName'
+import { REPL_TOOL_NAME } from '../../tools/REPLTool/constants'
+import type { AssistantMessage } from '../../types/message'
+import { extractOutputRedirections } from '../bash/commands'
+import { logForDebugging } from '../debug'
+import { AbortError, toError } from '../errors'
+import { logError } from '../log'
+import { SandboxManager } from '../sandbox/sandbox-adapter'
 import {
   getSettingSourceDisplayNameLowercase,
   SETTING_SOURCES,
-} from '../settings/constants.js'
-import { plural } from '../stringUtils.js'
-import { permissionModeTitle } from './PermissionMode.js'
+} from '../settings/constants'
+import { plural } from '../stringUtils'
+import { permissionModeTitle } from './PermissionMode'
 import type {
   PermissionAskDecision,
   PermissionDecision,
   PermissionDecisionReason,
   PermissionDenyDecision,
   PermissionResult,
-} from './PermissionResult.js'
+} from './PermissionResult'
 import type {
   PermissionBehavior,
   PermissionRule,
   PermissionRuleSource,
   PermissionRuleValue,
-} from './PermissionRule.js'
+} from './PermissionRule'
 import {
   applyPermissionUpdate,
   applyPermissionUpdates,
   persistPermissionUpdates,
-} from './PermissionUpdate.js'
+} from './PermissionUpdate'
 import type {
   PermissionUpdate,
   PermissionUpdateDestination,
-} from './PermissionUpdateSchema.js'
+} from './PermissionUpdateSchema'
 import {
   permissionRuleValueFromString,
   permissionRuleValueToString,
-} from './permissionRuleParser.js'
+} from './permissionRuleParser'
 import {
   deletePermissionRuleFromSettings,
   type PermissionRuleFromEditableSettings,
   shouldAllowManagedPermissionRulesOnly,
-} from './permissionsLoader.js'
+} from './permissionsLoader'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const classifierDecisionModule = feature('TRANSCRIPT_CLASSIFIER')
-  ? (require('./classifierDecision.js') as typeof import('./classifierDecision.js'))
+  ? (require('./classifierDecision') as typeof import('./classifierDecision'))
   : null
 const autoModeStateModule = feature('TRANSCRIPT_CLASSIFIER')
-  ? (require('./autoModeState.js') as typeof import('./autoModeState.js'))
+  ? (require('./autoModeState') as typeof import('./autoModeState'))
   : null
 
 import {
@@ -69,28 +69,28 @@ import {
   getTotalCacheReadInputTokens,
   getTotalInputTokens,
   getTotalOutputTokens,
-} from '../../bootstrap/state.js'
-import { getFeatureValue_CACHED_WITH_REFRESH } from '../../services/analytics/growthbook.js'
+} from '../../bootstrap/state'
+import { getFeatureValue_CACHED_WITH_REFRESH } from '../../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { sanitizeToolNameForAnalytics } from '../../services/analytics/metadata.js'
+} from '../../services/analytics/index'
+import { sanitizeToolNameForAnalytics } from '../../services/analytics/metadata'
 import {
   clearClassifierChecking,
   setClassifierChecking,
-} from '../classifierApprovals.js'
-import { isInProtectedNamespace } from '../envUtils.js'
-import { executePermissionRequestHooks } from '../hooks.js'
+} from '../classifierApprovals'
+import { isInProtectedNamespace } from '../envUtils'
+import { executePermissionRequestHooks } from '../hooks'
 import {
   AUTO_REJECT_MESSAGE,
   buildClassifierUnavailableMessage,
   buildYoloRejectionMessage,
   DONT_ASK_REJECT_MESSAGE,
-} from '../messages.js'
-import { calculateCostFromTokens } from '../modelCost.js'
+} from '../messages'
+import { calculateCostFromTokens } from '../modelCost'
 /* eslint-enable @typescript-eslint/no-require-imports */
-import { jsonStringify } from '../slowOperations.js'
+import { jsonStringify } from '../slowOperations'
 import {
   createDenialTrackingState,
   DENIAL_LIMITS,
@@ -98,11 +98,11 @@ import {
   recordDenial,
   recordSuccess,
   shouldFallbackToPrompting,
-} from './denialTracking.js'
+} from './denialTracking'
 import {
   classifyYoloAction,
   formatActionForClassifier,
-} from './yoloClassifier.js'
+} from './yoloClassifier'
 
 const CLASSIFIER_FAIL_CLOSED_REFRESH_MS = 30 * 60 * 1000 // 30 minutes
 

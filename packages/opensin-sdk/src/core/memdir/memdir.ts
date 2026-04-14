@@ -1,35 +1,35 @@
 import { feature } from 'bun:bundle'
 import { join } from 'path'
-import { getFsImplementation } from '../utils/fsOperations.js'
-import { getAutoMemPath, isAutoMemoryEnabled } from './paths.js'
+import { getFsImplementation } from '../utils/fsOperations'
+import { getAutoMemPath, isAutoMemoryEnabled } from './paths'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const teamMemPaths = feature('TEAMMEM')
-  ? (require('./teamMemPaths.js') as typeof import('./teamMemPaths.js'))
+  ? (require('./teamMemPaths') as typeof import('./teamMemPaths'))
   : null
 
-import { getKairosActive, getOriginalCwd } from '../bootstrap/state.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
+import { getKairosActive, getOriginalCwd } from '../bootstrap/state'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
 /* eslint-enable @typescript-eslint/no-require-imports */
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { GREP_TOOL_NAME } from '../tools/GrepTool/prompt.js'
-import { isReplModeEnabled } from '../tools/REPLTool/constants.js'
-import { logForDebugging } from '../utils/debug.js'
-import { hasEmbeddedSearchTools } from '../utils/embeddedTools.js'
-import { isEnvTruthy } from '../utils/envUtils.js'
-import { formatFileSize } from '../utils/format.js'
-import { getProjectDir } from '../utils/sessionStorage.js'
-import { getInitialSettings } from '../utils/settings/settings.js'
+} from '../services/analytics/index'
+import { GREP_TOOL_NAME } from '../tools/GrepTool/prompt'
+import { isReplModeEnabled } from '../tools/REPLTool/constants'
+import { logForDebugging } from '../utils/debug'
+import { hasEmbeddedSearchTools } from '../utils/embeddedTools'
+import { isEnvTruthy } from '../utils/envUtils'
+import { formatFileSize } from '../utils/format'
+import { getProjectDir } from '../utils/sessionStorage'
+import { getInitialSettings } from '../utils/settings/settings'
 import {
   MEMORY_FRONTMATTER_EXAMPLE,
   TRUSTING_RECALL_SECTION,
   TYPES_SECTION_INDIVIDUAL,
   WHAT_NOT_TO_SAVE_SECTION,
   WHEN_TO_ACCESS_SECTION,
-} from './memoryTypes.js'
+} from './memoryTypes'
 
 export const ENTRYPOINT_NAME = 'MEMORY.md'
 export const MAX_ENTRYPOINT_LINES = 200
@@ -104,7 +104,7 @@ export function truncateEntrypointContent(raw: string): EntrypointTruncation {
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const teamMemPrompts = feature('TEAMMEM')
-  ? (require('./teamMemPrompts.js') as typeof import('./teamMemPrompts.js'))
+  ? (require('./teamMemPrompts') as typeof import('./teamMemPrompts'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 

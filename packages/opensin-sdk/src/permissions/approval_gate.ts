@@ -1,5 +1,5 @@
 import readline from 'readline';
-import { PermissionCheck, PermissionResult } from './types.js';
+import { PermissionCheck, PermissionResult } from './types';
 
 export class ApprovalGate {
   private timeout: number;

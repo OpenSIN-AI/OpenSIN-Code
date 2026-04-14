@@ -1,12 +1,12 @@
-import memoize from 'lodash-es/memoize.js'
-import type { HookEvent } from 'src/entrypoints/agentSdkTypes.js'
-import { getRegisteredHooks } from '../../bootstrap/state.js'
-import type { AppState } from '../../state/AppState.js'
+import memoize from 'lodash-es/memoize'
+import type { HookEvent } from 'src/entrypoints/agentSdkTypes'
+import { getRegisteredHooks } from '../../bootstrap/state'
+import type { AppState } from '../../state/AppState'
 import {
   getAllHooks,
   type IndividualHookConfig,
   sortMatchersByPriority,
-} from './hooksSettings.js'
+} from './hooksSettings'
 
 export type MatcherMetadata = {
   fieldToMatch: string

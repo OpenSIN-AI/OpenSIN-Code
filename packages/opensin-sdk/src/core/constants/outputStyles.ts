@@ -1,12 +1,12 @@
 import figures from 'figures'
-import memoize from 'lodash-es/memoize.js'
-import { getOutputStyleDirStyles } from '../outputStyles/loadOutputStylesDir.js'
-import type { OutputStyle } from '../utils/config.js'
-import { getCwd } from '../utils/cwd.js'
-import { logForDebugging } from '../utils/debug.js'
-import { loadPluginOutputStyles } from '../utils/plugins/loadPluginOutputStyles.js'
-import type { SettingSource } from '../utils/settings/constants.js'
-import { getSettings_DEPRECATED } from '../utils/settings/settings.js'
+import memoize from 'lodash-es/memoize'
+import { getOutputStyleDirStyles } from '../outputStyles/loadOutputStylesDir'
+import type { OutputStyle } from '../utils/config'
+import { getCwd } from '../utils/cwd'
+import { logForDebugging } from '../utils/debug'
+import { loadPluginOutputStyles } from '../utils/plugins/loadPluginOutputStyles'
+import type { SettingSource } from '../utils/settings/constants'
+import { getSettings_DEPRECATED } from '../utils/settings/settings'
 
 export type OutputStyleConfig = {
   name: string

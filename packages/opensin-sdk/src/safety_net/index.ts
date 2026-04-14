@@ -1,3 +1,3 @@
-export { SafetyChecker } from './checker.js';
-export type { SafetyRule, SafetyCheck } from './types.js';
-export { DEFAULT_SAFETY_RULES } from './types.js';
+export { SafetyChecker } from './checker';
+export type { SafetyRule, SafetyCheck } from './types';
+export { DEFAULT_SAFETY_RULES } from './types';

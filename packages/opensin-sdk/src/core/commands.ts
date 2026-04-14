@@ -1,190 +1,190 @@
 // biome-ignore-all assist/source/organizeImports: ANT-ONLY import markers must not be reordered
-import addDir from './commands/add-dir/index.js'
-import autofixPr from './commands/autofix-pr/index.js'
-import backfillSessions from './commands/backfill-sessions/index.js'
-import btw from './commands/btw/index.js'
-import goodClaude from './commands/good-claude/index.js'
-import issue from './commands/issue/index.js'
-import feedback from './commands/feedback/index.js'
-import clear from './commands/clear/index.js'
-import color from './commands/color/index.js'
-import commit from './commands/commit.js'
-import copy from './commands/copy/index.js'
-import desktop from './commands/desktop/index.js'
-import commitPushPr from './commands/commit-push-pr.js'
-import compact from './commands/compact/index.js'
-import config from './commands/config/index.js'
-import { context, contextNonInteractive } from './commands/context/index.js'
-import cost from './commands/cost/index.js'
-import diff from './commands/diff/index.js'
-import ctx_viz from './commands/ctx_viz/index.js'
-import doctor from './commands/doctor/index.js'
-import memory from './commands/memory/index.js'
-import help from './commands/help/index.js'
-import ide from './commands/ide/index.js'
-import init from './commands/init.js'
-import initVerifiers from './commands/init-verifiers.js'
-import keybindings from './commands/keybindings/index.js'
-import login from './commands/login/index.js'
-import logout from './commands/logout/index.js'
-import installGitHubApp from './commands/install-github-app/index.js'
-import installSlackApp from './commands/install-slack-app/index.js'
-import breakCache from './commands/break-cache/index.js'
-import mcp from './commands/mcp/index.js'
-import mobile from './commands/mobile/index.js'
-import onboarding from './commands/onboarding/index.js'
-import pr_comments from './commands/pr_comments/index.js'
-import releaseNotes from './commands/release-notes/index.js'
-import rename from './commands/rename/index.js'
-import resume from './commands/resume/index.js'
-import review, { ultrareview } from './commands/review.js'
-import session from './commands/session/index.js'
-import share from './commands/share/index.js'
-import skills from './commands/skills/index.js'
-import status from './commands/status/index.js'
-import tasks from './commands/tasks/index.js'
-import teleport from './commands/teleport/index.js'
+import addDir from './commands/add-dir/index'
+import autofixPr from './commands/autofix-pr/index'
+import backfillSessions from './commands/backfill-sessions/index'
+import btw from './commands/btw/index'
+import goodClaude from './commands/good-claude/index'
+import issue from './commands/issue/index'
+import feedback from './commands/feedback/index'
+import clear from './commands/clear/index'
+import color from './commands/color/index'
+import commit from './commands/commit'
+import copy from './commands/copy/index'
+import desktop from './commands/desktop/index'
+import commitPushPr from './commands/commit-push-pr'
+import compact from './commands/compact/index'
+import config from './commands/config/index'
+import { context, contextNonInteractive } from './commands/context/index'
+import cost from './commands/cost/index'
+import diff from './commands/diff/index'
+import ctx_viz from './commands/ctx_viz/index'
+import doctor from './commands/doctor/index'
+import memory from './commands/memory/index'
+import help from './commands/help/index'
+import ide from './commands/ide/index'
+import init from './commands/init'
+import initVerifiers from './commands/init-verifiers'
+import keybindings from './commands/keybindings/index'
+import login from './commands/login/index'
+import logout from './commands/logout/index'
+import installGitHubApp from './commands/install-github-app/index'
+import installSlackApp from './commands/install-slack-app/index'
+import breakCache from './commands/break-cache/index'
+import mcp from './commands/mcp/index'
+import mobile from './commands/mobile/index'
+import onboarding from './commands/onboarding/index'
+import pr_comments from './commands/pr_comments/index'
+import releaseNotes from './commands/release-notes/index'
+import rename from './commands/rename/index'
+import resume from './commands/resume/index'
+import review, { ultrareview } from './commands/review'
+import session from './commands/session/index'
+import share from './commands/share/index'
+import skills from './commands/skills/index'
+import status from './commands/status/index'
+import tasks from './commands/tasks/index'
+import teleport from './commands/teleport/index'
 /* eslint-disable @typescript-eslint/no-require-imports */
 const agentsPlatform =
   process.env.USER_TYPE === 'ant'
-    ? require('./commands/agents-platform/index.js').default
+    ? require('./commands/agents-platform/index').default
     : null
 /* eslint-enable @typescript-eslint/no-require-imports */
-import securityReview from './commands/security-review.js'
-import bughunter from './commands/bughunter/index.js'
-import terminalSetup from './commands/terminalSetup/index.js'
-import usage from './commands/usage/index.js'
-import theme from './commands/theme/index.js'
-import vim from './commands/vim/index.js'
+import securityReview from './commands/security-review'
+import bughunter from './commands/bughunter/index'
+import terminalSetup from './commands/terminalSetup/index'
+import usage from './commands/usage/index'
+import theme from './commands/theme/index'
+import vim from './commands/vim/index'
 import { feature } from 'bun:bundle'
 // Dead code elimination: conditional imports
 /* eslint-disable @typescript-eslint/no-require-imports */
 const proactive =
   feature('PROACTIVE') || feature('KAIROS')
-    ? require('./commands/proactive.js').default
+    ? require('./commands/proactive').default
     : null
 const briefCommand =
   feature('KAIROS') || feature('KAIROS_BRIEF')
-    ? require('./commands/brief.js').default
+    ? require('./commands/brief').default
     : null
 const assistantCommand = feature('KAIROS')
-  ? require('./commands/assistant/index.js').default
+  ? require('./commands/assistant/index').default
   : null
 const bridge = feature('BRIDGE_MODE')
-  ? require('./commands/bridge/index.js').default
+  ? require('./commands/bridge/index').default
   : null
 const remoteControlServerCommand =
   feature('DAEMON') && feature('BRIDGE_MODE')
-    ? require('./commands/remoteControlServer/index.js').default
+    ? require('./commands/remoteControlServer/index').default
     : null
 const voiceCommand = feature('VOICE_MODE')
-  ? require('./commands/voice/index.js').default
+  ? require('./commands/voice/index').default
   : null
 const forceSnip = feature('HISTORY_SNIP')
-  ? require('./commands/force-snip.js').default
+  ? require('./commands/force-snip').default
   : null
 const workflowsCmd = feature('WORKFLOW_SCRIPTS')
   ? (
-      require('./commands/workflows/index.js') as typeof import('./commands/workflows/index.js')
+      require('./commands/workflows/index') as typeof import('./commands/workflows/index')
     ).default
   : null
 const webCmd = feature('CCR_REMOTE_SETUP')
   ? (
-      require('./commands/remote-setup/index.js') as typeof import('./commands/remote-setup/index.js')
+      require('./commands/remote-setup/index') as typeof import('./commands/remote-setup/index')
     ).default
   : null
 const clearSkillIndexCache = feature('EXPERIMENTAL_SKILL_SEARCH')
   ? (
-      require('./services/skillSearch/localSearch.js') as typeof import('./services/skillSearch/localSearch.js')
+      require('./services/skillSearch/localSearch') as typeof import('./services/skillSearch/localSearch')
     ).clearSkillIndexCache
   : null
 const subscribePr = feature('KAIROS_GITHUB_WEBHOOKS')
-  ? require('./commands/subscribe-pr.js').default
+  ? require('./commands/subscribe-pr').default
   : null
 const ultraplan = feature('ULTRAPLAN')
-  ? require('./commands/ultraplan.js').default
+  ? require('./commands/ultraplan').default
   : null
-const torch = feature('TORCH') ? require('./commands/torch.js').default : null
+const torch = feature('TORCH') ? require('./commands/torch').default : null
 const peersCmd = feature('UDS_INBOX')
   ? (
-      require('./commands/peers/index.js') as typeof import('./commands/peers/index.js')
+      require('./commands/peers/index') as typeof import('./commands/peers/index')
     ).default
   : null
 const forkCmd = feature('FORK_SUBAGENT')
   ? (
-      require('./commands/fork/index.js') as typeof import('./commands/fork/index.js')
+      require('./commands/fork/index') as typeof import('./commands/fork/index')
     ).default
   : null
 const buddy = feature('BUDDY')
   ? (
-      require('./commands/buddy/index.js') as typeof import('./commands/buddy/index.js')
+      require('./commands/buddy/index') as typeof import('./commands/buddy/index')
     ).default
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
-import thinkback from './commands/thinkback/index.js'
-import thinkbackPlay from './commands/thinkback-play/index.js'
-import permissions from './commands/permissions/index.js'
-import plan from './commands/plan/index.js'
-import fast from './commands/fast/index.js'
-import passes from './commands/passes/index.js'
-import privacySettings from './commands/privacy-settings/index.js'
-import hooks from './commands/hooks/index.js'
-import files from './commands/files/index.js'
-import branch from './commands/branch/index.js'
-import agents from './commands/agents/index.js'
-import plugin from './commands/plugin/index.js'
-import reloadPlugins from './commands/reload-plugins/index.js'
-import rewind from './commands/rewind/index.js'
-import heapDump from './commands/heapdump/index.js'
-import mockLimits from './commands/mock-limits/index.js'
-import bridgeKick from './commands/bridge-kick.js'
-import version from './commands/version.js'
-import summary from './commands/summary/index.js'
+import thinkback from './commands/thinkback/index'
+import thinkbackPlay from './commands/thinkback-play/index'
+import permissions from './commands/permissions/index'
+import plan from './commands/plan/index'
+import fast from './commands/fast/index'
+import passes from './commands/passes/index'
+import privacySettings from './commands/privacy-settings/index'
+import hooks from './commands/hooks/index'
+import files from './commands/files/index'
+import branch from './commands/branch/index'
+import agents from './commands/agents/index'
+import plugin from './commands/plugin/index'
+import reloadPlugins from './commands/reload-plugins/index'
+import rewind from './commands/rewind/index'
+import heapDump from './commands/heapdump/index'
+import mockLimits from './commands/mock-limits/index'
+import bridgeKick from './commands/bridge-kick'
+import version from './commands/version'
+import summary from './commands/summary/index'
 import {
   resetLimits,
   resetLimitsNonInteractive,
-} from './commands/reset-limits/index.js'
-import antTrace from './commands/ant-trace/index.js'
-import perfIssue from './commands/perf-issue/index.js'
-import sandboxToggle from './commands/sandbox-toggle/index.js'
-import chrome from './commands/chrome/index.js'
-import stickers from './commands/stickers/index.js'
-import advisor from './commands/advisor.js'
-import { logError } from './utils/log.js'
-import { toError } from './utils/errors.js'
-import { logForDebugging } from './utils/debug.js'
+} from './commands/reset-limits/index'
+import antTrace from './commands/ant-trace/index'
+import perfIssue from './commands/perf-issue/index'
+import sandboxToggle from './commands/sandbox-toggle/index'
+import chrome from './commands/chrome/index'
+import stickers from './commands/stickers/index'
+import advisor from './commands/advisor'
+import { logError } from './utils/log'
+import { toError } from './utils/errors'
+import { logForDebugging } from './utils/debug'
 import {
   getSkillDirCommands,
   clearSkillCaches,
   getDynamicSkills,
-} from './skills/loadSkillsDir.js'
-import { getBundledSkills } from './skills/bundledSkills.js'
-import { getBuiltinPluginSkillCommands } from './plugins/builtinPlugins.js'
+} from './skills/loadSkillsDir'
+import { getBundledSkills } from './skills/bundledSkills'
+import { getBuiltinPluginSkillCommands } from './plugins/builtinPlugins'
 import {
   getPluginCommands,
   clearPluginCommandCache,
   getPluginSkills,
   clearPluginSkillsCache,
-} from './utils/plugins/loadPluginCommands.js'
-import memoize from 'lodash-es/memoize.js'
-import { isUsing3PServices, isClaudeAISubscriber } from './utils/auth.js'
-import { isFirstPartyAnthropicBaseUrl } from './utils/model/providers.js'
-import env from './commands/env/index.js'
-import exit from './commands/exit/index.js'
-import exportCommand from './commands/export/index.js'
-import model from './commands/model/index.js'
-import tag from './commands/tag/index.js'
-import outputStyle from './commands/output-style/index.js'
-import remoteEnv from './commands/remote-env/index.js'
-import upgrade from './commands/upgrade/index.js'
+} from './utils/plugins/loadPluginCommands'
+import memoize from 'lodash-es/memoize'
+import { isUsing3PServices, isClaudeAISubscriber } from './utils/auth'
+import { isFirstPartyAnthropicBaseUrl } from './utils/model/providers'
+import env from './commands/env/index'
+import exit from './commands/exit/index'
+import exportCommand from './commands/export/index'
+import model from './commands/model/index'
+import tag from './commands/tag/index'
+import outputStyle from './commands/output-style/index'
+import remoteEnv from './commands/remote-env/index'
+import upgrade from './commands/upgrade/index'
 import {
   extraUsage,
   extraUsageNonInteractive,
-} from './commands/extra-usage/index.js'
-import rateLimitOptions from './commands/rate-limit-options/index.js'
-import statusline from './commands/statusline.js'
-import effort from './commands/effort/index.js'
-import stats from './commands/stats/index.js'
+} from './commands/extra-usage/index'
+import rateLimitOptions from './commands/rate-limit-options/index'
+import statusline from './commands/statusline'
+import effort from './commands/effort/index'
+import stats from './commands/stats/index'
 // insights.ts is 113KB (3200 lines, includes diffLines/html rendering). Lazy
 // shim defers the heavy module until /insights is actually invoked.
 const usageReport: Command = {
@@ -195,19 +195,19 @@ const usageReport: Command = {
   progressMessage: 'analyzing your sessions',
   source: 'builtin',
   async getPromptForCommand(args, context) {
-    const real = (await import('./commands/insights.js')).default
+    const real = (await import('./commands/insights')).default
     if (real.type !== 'prompt') throw new Error('unreachable')
     return real.getPromptForCommand(args, context)
   },
 }
-import oauthRefresh from './commands/oauth-refresh/index.js'
-import debugToolCall from './commands/debug-tool-call/index.js'
-import { getSettingSourceName } from './utils/settings/constants.js'
+import oauthRefresh from './commands/oauth-refresh/index'
+import debugToolCall from './commands/debug-tool-call/index'
+import { getSettingSourceName } from './utils/settings/constants'
 import {
   type Command,
   getCommandName,
   isCommandEnabled,
-} from './types/command.js'
+} from './types/command'
 
 // Re-export types from the centralized location
 export type {
@@ -218,8 +218,8 @@ export type {
   LocalJSXCommandContext,
   PromptCommand,
   ResumeEntrypoint,
-} from './types/command.js'
-export { getCommandName, isCommandEnabled } from './types/command.js'
+} from './types/command'
+export { getCommandName, isCommandEnabled } from './types/command'
 
 // Commands that get eliminated from the external build
 export const INTERNAL_ONLY_COMMANDS = [
@@ -400,7 +400,7 @@ async function getSkills(cwd: string): Promise<{
 /* eslint-disable @typescript-eslint/no-require-imports */
 const getWorkflowCommands = feature('WORKFLOW_SCRIPTS')
   ? (
-      require('./tools/WorkflowTool/createWorkflowCommand.js') as typeof import('./tools/WorkflowTool/createWorkflowCommand.js')
+      require('./tools/WorkflowTool/createWorkflowCommand') as typeof import('./tools/WorkflowTool/createWorkflowCommand')
     ).getWorkflowCommands
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */

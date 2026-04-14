@@ -10,16 +10,16 @@
  */
 
 import { dirname, join } from 'path'
-import { getSessionId } from 'src/bootstrap/state.js'
+import { getSessionId } from 'src/bootstrap/state'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { logForDebugging } from './debug.js'
-import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils.js'
-import { getFsImplementation } from './fsOperations.js'
-import { formatMs, formatTimelineLine, getPerformance } from './profilerBase.js'
-import { writeFileSync_DEPRECATED } from './slowOperations.js'
+} from '../services/analytics/index'
+import { logForDebugging } from './debug'
+import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils'
+import { getFsImplementation } from './fsOperations'
+import { formatMs, formatTimelineLine, getPerformance } from './profilerBase'
+import { writeFileSync_DEPRECATED } from './slowOperations'
 
 // Module-level state - decided once at module load
 // eslint-disable-next-line custom-rules/no-process-env-top-level

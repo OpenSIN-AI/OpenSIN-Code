@@ -1,29 +1,29 @@
 import { feature } from 'bun:bundle'
-import { markPostCompaction } from 'src/bootstrap/state.js'
-import { getSdkBetas } from '../../bootstrap/state.js'
-import type { QuerySource } from '../../constants/querySource.js'
-import type { ToolUseContext } from '../../Tool.js'
-import type { Message } from '../../types/message.js'
-import { getGlobalConfig } from '../../utils/config.js'
-import { getContextWindowForModel } from '../../utils/context.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { hasExactErrorMessage } from '../../utils/errors.js'
-import type { CacheSafeParams } from '../../utils/forkedAgent.js'
-import { logError } from '../../utils/log.js'
-import { tokenCountWithEstimation } from '../../utils/tokens.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook.js'
-import { getMaxOutputTokensForModel } from '../api/claude.js'
-import { notifyCompaction } from '../api/promptCacheBreakDetection.js'
-import { setLastSummarizedMessageId } from '../SessionMemory/sessionMemoryUtils.js'
+import { markPostCompaction } from 'src/bootstrap/state'
+import { getSdkBetas } from '../../bootstrap/state'
+import type { QuerySource } from '../../constants/querySource'
+import type { ToolUseContext } from '../../Tool'
+import type { Message } from '../../types/message'
+import { getGlobalConfig } from '../../utils/config'
+import { getContextWindowForModel } from '../../utils/context'
+import { logForDebugging } from '../../utils/debug'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { hasExactErrorMessage } from '../../utils/errors'
+import type { CacheSafeParams } from '../../utils/forkedAgent'
+import { logError } from '../../utils/log'
+import { tokenCountWithEstimation } from '../../utils/tokens'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook'
+import { getMaxOutputTokensForModel } from '../api/claude'
+import { notifyCompaction } from '../api/promptCacheBreakDetection'
+import { setLastSummarizedMessageId } from '../SessionMemory/sessionMemoryUtils'
 import {
   type CompactionResult,
   compactConversation,
   ERROR_MESSAGE_USER_ABORT,
   type RecompactionInfo,
-} from './compact.js'
-import { runPostCompactCleanup } from './postCompactCleanup.js'
-import { trySessionMemoryCompaction } from './sessionMemoryCompact.js'
+} from './compact'
+import { runPostCompactCleanup } from './postCompactCleanup'
+import { trySessionMemoryCompaction } from './sessionMemoryCompact'
 
 // Reserve this many tokens for output during compaction
 // Based on p99.99 of compact summary output being 17,387 tokens.
@@ -215,7 +215,7 @@ export async function shouldAutoCompact(
   if (feature('CONTEXT_COLLAPSE')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
     const { isContextCollapseEnabled } =
-      require('../contextCollapse/index.js') as typeof import('../contextCollapse/index.js')
+      require('../contextCollapse/index') as typeof import('../contextCollapse/index')
     /* eslint-enable @typescript-eslint/no-require-imports */
     if (isContextCollapseEnabled()) {
       return false

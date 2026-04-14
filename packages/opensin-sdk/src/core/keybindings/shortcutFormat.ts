@@ -1,10 +1,10 @@
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { loadKeybindingsSync } from './loadUserBindings.js'
-import { getBindingDisplayText } from './resolver.js'
-import type { KeybindingContextName } from './types.js'
+} from '../services/analytics/index'
+import { loadKeybindingsSync } from './loadUserBindings'
+import { getBindingDisplayText } from './resolver'
+import type { KeybindingContextName } from './types'
 
 // TODO(keybindings-migration): Remove fallback parameter after migration is
 // complete and we've confirmed no 'keybinding_fallback_used' events are being

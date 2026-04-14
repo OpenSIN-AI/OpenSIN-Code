@@ -1,12 +1,12 @@
 import { readdir } from 'fs/promises'
 import { join } from 'path'
 import { coerce as semverCoerce } from 'semver'
-import { getSessionId } from '../bootstrap/state.js'
-import { getCwd } from './cwd.js'
-import { logForDebugging } from './debug.js'
-import { execFileNoThrow } from './execFileNoThrow.js'
-import { pathExists } from './file.js'
-import { gte as semverGte } from './semver.js'
+import { getSessionId } from '../bootstrap/state'
+import { getCwd } from './cwd'
+import { logForDebugging } from './debug'
+import { execFileNoThrow } from './execFileNoThrow'
+import { pathExists } from './file'
+import { gte as semverGte } from './semver'
 
 const MIN_DESKTOP_VERSION = '1.1.2396'
 

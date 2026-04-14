@@ -7,27 +7,27 @@
 import type {
   ParsedCommandElement,
   ParsedPowerShellCommand,
-} from '../../utils/powershell/parser.js'
+} from '../../utils/powershell/parser'
 
 type ParsedStatement = ParsedPowerShellCommand['statements'][number]
 
-import { getPlatform } from '../../utils/platform.js'
+import { getPlatform } from '../../utils/platform'
 import {
   COMMON_ALIASES,
   deriveSecurityFlags,
   getPipelineSegments,
   isNullRedirectionTarget,
   isPowerShellParameter,
-} from '../../utils/powershell/parser.js'
-import type { ExternalCommandConfig } from '../../utils/shell/readOnlyCommandValidation.js'
+} from '../../utils/powershell/parser'
+import type { ExternalCommandConfig } from '../../utils/shell/readOnlyCommandValidation'
 import {
   DOCKER_READ_ONLY_COMMANDS,
   EXTERNAL_READONLY_COMMANDS,
   GH_READ_ONLY_COMMANDS,
   GIT_READ_ONLY_COMMANDS,
   validateFlags,
-} from '../../utils/shell/readOnlyCommandValidation.js'
-import { COMMON_PARAMETERS } from './commonParameters.js'
+} from '../../utils/shell/readOnlyCommandValidation'
+import { COMMON_PARAMETERS } from './commonParameters'
 
 const DOTNET_READ_ONLY_FLAGS = new Set([
   '--version',

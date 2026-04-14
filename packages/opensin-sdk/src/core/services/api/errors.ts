@@ -7,49 +7,49 @@ import type {
   BetaMessage,
   BetaStopReason,
 } from '@anthropic-ai/sdk/resources/beta/messages/messages.mjs'
-import { AFK_MODE_BETA_HEADER } from 'src/constants/betas.js'
-import type { SDKAssistantMessageError } from 'src/entrypoints/agentSdkTypes.js'
+import { AFK_MODE_BETA_HEADER } from 'src/constants/betas'
+import type { SDKAssistantMessageError } from 'src/entrypoints/agentSdkTypes'
 import type {
   AssistantMessage,
   Message,
   UserMessage,
-} from 'src/types/message.js'
+} from 'src/types/message'
 import {
   getAnthropicApiKeyWithSource,
   getClaudeAIOAuthTokens,
   getOauthAccountInfo,
   isClaudeAISubscriber,
-} from 'src/utils/auth.js'
+} from 'src/utils/auth'
 import {
   createAssistantAPIErrorMessage,
   NO_RESPONSE_REQUESTED,
-} from 'src/utils/messages.js'
+} from 'src/utils/messages'
 import {
   getDefaultMainLoopModelSetting,
   isNonCustomOpusModel,
-} from 'src/utils/model/model.js'
-import { getModelStrings } from 'src/utils/model/modelStrings.js'
-import { getAPIProvider } from 'src/utils/model/providers.js'
-import { getIsNonInteractiveSession } from '../../bootstrap/state.js'
+} from 'src/utils/model/model'
+import { getModelStrings } from 'src/utils/model/modelStrings'
+import { getAPIProvider } from 'src/utils/model/providers'
+import { getIsNonInteractiveSession } from '../../bootstrap/state'
 import {
   API_PDF_MAX_PAGES,
   PDF_TARGET_RAW_SIZE,
-} from '../../constants/apiLimits.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { formatFileSize } from '../../utils/format.js'
-import { ImageResizeError } from '../../utils/imageResizer.js'
-import { ImageSizeError } from '../../utils/imageValidation.js'
+} from '../../constants/apiLimits'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { formatFileSize } from '../../utils/format'
+import { ImageResizeError } from '../../utils/imageResizer'
+import { ImageSizeError } from '../../utils/imageValidation'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../analytics/index.js'
+} from '../analytics/index'
 import {
   type ClaudeAILimits,
   getRateLimitErrorMessage,
   type OverageDisabledReason,
-} from '../claudeAiLimits.js'
-import { shouldProcessRateLimits } from '../rateLimitMocking.js' // Used for /mock-limits command
-import { extractConnectionErrorDetails, formatAPIError } from './errorUtils.js'
+} from '../claudeAiLimits'
+import { shouldProcessRateLimits } from '../rateLimitMocking' // Used for /mock-limits command
+import { extractConnectionErrorDetails, formatAPIError } from './errorUtils'
 
 export const API_ERROR_MESSAGE_PREFIX = 'API Error'
 

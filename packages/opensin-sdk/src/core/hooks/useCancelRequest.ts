@@ -5,34 +5,34 @@
  * This component renders nothing - it just registers the cancel keybinding handler.
  */
 import { useCallback, useRef } from 'react'
-import { logEvent } from 'src/services/analytics/index.js'
-import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from 'src/services/analytics/metadata.js'
+import { logEvent } from 'src/services/analytics/index'
+import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from 'src/services/analytics/metadata'
 import {
   useAppState,
   useAppStateStore,
   useSetAppState,
-} from 'src/state/AppState.js'
-import { isVimModeEnabled } from '../components/PromptInput/utils.js'
-import type { ToolUseConfirm } from '../components/permissions/PermissionRequest.js'
-import type { SpinnerMode } from '../components/Spinner/types.js'
-import { useNotifications } from '../context/notifications.js'
-import { useIsOverlayActive } from '../context/overlayContext.js'
-import { useCommandQueue } from '../hooks/useCommandQueue.js'
-import { getShortcutDisplay } from '../keybindings/shortcutFormat.js'
-import { useKeybinding } from '../keybindings/useKeybinding.js'
-import type { Screen } from '../screens/REPL.js'
-import { exitTeammateView } from '../state/teammateViewHelpers.js'
+} from 'src/state/AppState'
+import { isVimModeEnabled } from '../components/PromptInput/utils'
+import type { ToolUseConfirm } from '../components/permissions/PermissionRequest'
+import type { SpinnerMode } from '../components/Spinner/types'
+import { useNotifications } from '../context/notifications'
+import { useIsOverlayActive } from '../context/overlayContext'
+import { useCommandQueue } from '../hooks/useCommandQueue'
+import { getShortcutDisplay } from '../keybindings/shortcutFormat'
+import { useKeybinding } from '../keybindings/useKeybinding'
+import type { Screen } from '../screens/REPL'
+import { exitTeammateView } from '../state/teammateViewHelpers'
 import {
   killAllRunningAgentTasks,
   markAgentsNotified,
-} from '../tasks/LocalAgentTask/LocalAgentTask.js'
-import type { PromptInputMode, VimMode } from '../types/textInputTypes.js'
+} from '../tasks/LocalAgentTask/LocalAgentTask'
+import type { PromptInputMode, VimMode } from '../types/textInputTypes'
 import {
   clearCommandQueue,
   enqueuePendingNotification,
   hasCommandsInQueue,
-} from '../utils/messageQueueManager.js'
-import { emitTaskTerminatedSdk } from '../utils/sdkEventQueue.js'
+} from '../utils/messageQueueManager'
+import { emitTaskTerminatedSdk } from '../utils/sdkEventQueue'
 
 /** Time window in ms during which a second press kills all background agents. */
 const KILL_AGENTS_CONFIRM_WINDOW_MS = 3000

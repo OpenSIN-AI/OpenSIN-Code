@@ -3,11 +3,11 @@ import type {
   Logger,
 } from '@ant/computer-use-mcp/types'
 import { format } from 'util'
-import { logForDebugging } from '../debug.js'
-import { COMPUTER_USE_MCP_SERVER_NAME } from './common.js'
-import { createCliExecutor } from './executor.js'
-import { getChicagoEnabled, getChicagoSubGates } from './gates.js'
-import { requireComputerUseSwift } from './swiftLoader.js'
+import { logForDebugging } from '../debug'
+import { COMPUTER_USE_MCP_SERVER_NAME } from './common'
+import { createCliExecutor } from './executor'
+import { getChicagoEnabled, getChicagoSubGates } from './gates'
+import { requireComputerUseSwift } from './swiftLoader'
 
 class DebugLogger implements Logger {
   silly(message: string, ...args: unknown[]): void {

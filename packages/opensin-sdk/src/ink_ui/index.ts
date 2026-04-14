@@ -20,8 +20,8 @@ export type {
   ListProps,
   SpinnerProps,
   ProgressBarProps,
-} from './types.js';
+} from './types';
 
-export { TerminalRenderer } from './renderer.js';
-export { Text, Box, Spinner, ProgressBar, TextInput, List } from './components.js';
-export { LayoutEngine } from './layout.js';
+export { TerminalRenderer } from './renderer';
+export { Text, Box, Spinner, ProgressBar, TextInput, List } from './components';
+export { LayoutEngine } from './layout';

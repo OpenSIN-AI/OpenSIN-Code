@@ -27,7 +27,7 @@
 
 import { feature } from 'bun:bundle'
 import ignore from 'ignore'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { Lexer } from 'marked'
 import {
   basename,
@@ -40,47 +40,47 @@ import {
   sep,
 } from 'path'
 import picomatch from 'picomatch'
-import { logEvent } from 'src/services/analytics/index.js'
+import { logEvent } from 'src/services/analytics/index'
 import {
   getAdditionalDirectoriesForClaudeMd,
   getOriginalCwd,
-} from '../bootstrap/state.js'
-import { truncateEntrypointContent } from '../memdir/memdir.js'
-import { getAutoMemEntrypoint, isAutoMemoryEnabled } from '../memdir/paths.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
+} from '../bootstrap/state'
+import { truncateEntrypointContent } from '../memdir/memdir'
+import { getAutoMemEntrypoint, isAutoMemoryEnabled } from '../memdir/paths'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
 import {
   getCurrentProjectConfig,
   getManagedClaudeRulesDir,
   getMemoryPath,
   getUserClaudeRulesDir,
-} from './config.js'
-import { logForDebugging } from './debug.js'
-import { logForDiagnosticsNoPII } from './diagLogs.js'
-import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils.js'
-import { getErrnoCode } from './errors.js'
-import { normalizePathForComparison } from './file.js'
-import { cacheKeys, type FileStateCache } from './fileStateCache.js'
+} from './config'
+import { logForDebugging } from './debug'
+import { logForDiagnosticsNoPII } from './diagLogs'
+import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils'
+import { getErrnoCode } from './errors'
+import { normalizePathForComparison } from './file'
+import { cacheKeys, type FileStateCache } from './fileStateCache'
 import {
   parseFrontmatter,
   splitPathInFrontmatter,
-} from './frontmatterParser.js'
-import { getFsImplementation, safeResolvePath } from './fsOperations.js'
-import { findCanonicalGitRoot, findGitRoot } from './git.js'
+} from './frontmatterParser'
+import { getFsImplementation, safeResolvePath } from './fsOperations'
+import { findCanonicalGitRoot, findGitRoot } from './git'
 import {
   executeInstructionsLoadedHooks,
   hasInstructionsLoadedHook,
   type InstructionsLoadReason,
   type InstructionsMemoryType,
-} from './hooks.js'
-import type { MemoryType } from './memory/types.js'
-import { expandPath } from './path.js'
-import { pathInWorkingPath } from './permissions/filesystem.js'
-import { isSettingSourceEnabled } from './settings/constants.js'
-import { getInitialSettings } from './settings/settings.js'
+} from './hooks'
+import type { MemoryType } from './memory/types'
+import { expandPath } from './path'
+import { pathInWorkingPath } from './permissions/filesystem'
+import { isSettingSourceEnabled } from './settings/constants'
+import { getInitialSettings } from './settings/settings'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const teamMemPaths = feature('TEAMMEM')
-  ? (require('../memdir/teamMemPaths.js') as typeof import('../memdir/teamMemPaths.js'))
+  ? (require('../memdir/teamMemPaths') as typeof import('../memdir/teamMemPaths'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 
@@ -113,8 +113,8 @@ const TEXT_FILE_EXTENSIONS = new Set([
   '.sass',
   '.less',
   // JavaScript/TypeScript
-  '.js',
-  '.ts',
+  '',
+  '',
   '.tsx',
   '.jsx',
   '.mjs',

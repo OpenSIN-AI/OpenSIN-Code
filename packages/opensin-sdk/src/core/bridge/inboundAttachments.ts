@@ -16,11 +16,11 @@ import { randomUUID } from 'crypto'
 import { mkdir, writeFile } from 'fs/promises'
 import { basename, join } from 'path'
 import { z } from 'zod/v4'
-import { getSessionId } from '../bootstrap/state.js'
-import { logForDebugging } from '../utils/debug.js'
-import { getClaudeConfigHomeDir } from '../utils/envUtils.js'
-import { lazySchema } from '../utils/lazySchema.js'
-import { getBridgeAccessToken, getBridgeBaseUrl } from './bridgeConfig.js'
+import { getSessionId } from '../bootstrap/state'
+import { logForDebugging } from '../utils/debug'
+import { getClaudeConfigHomeDir } from '../utils/envUtils'
+import { lazySchema } from '../utils/lazySchema'
+import { getBridgeAccessToken, getBridgeBaseUrl } from './bridgeConfig'
 
 const DOWNLOAD_TIMEOUT_MS = 30_000
 
@@ -76,7 +76,7 @@ async function resolveOne(att: InboundAttachment): Promise<string | undefined> {
   try {
     // getOauthConfig() (via getBridgeBaseUrl) throws on a non-allowlisted
     // CLAUDE_CODE_CUSTOM_OAUTH_URL — keep it inside the try so a bad
-    // FedStart URL degrades to "no @path" instead of crashing print.ts's
+    // FedStart URL degrades to "no @path" instead of crashing print's
     // reader loop (which has no catch around the await).
     const url = `${getBridgeBaseUrl()}/api/oauth/files/${encodeURIComponent(att.file_uuid)}/content`
     const response = await axios.get(url, {

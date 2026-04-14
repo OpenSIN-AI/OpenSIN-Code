@@ -1,36 +1,36 @@
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata.js'
+} from 'src/services/analytics/index'
+import { sanitizeToolNameForAnalytics } from 'src/services/analytics/metadata'
 import type z from 'zod/v4'
-import type { CanUseToolFn } from '../../hooks/useCanUseTool.js'
-import type { AnyObject, Tool, ToolUseContext } from '../../Tool.js'
-import type { HookProgress } from '../../types/hooks.js'
+import type { CanUseToolFn } from '../../hooks/useCanUseTool'
+import type { AnyObject, Tool, ToolUseContext } from '../../Tool'
+import type { HookProgress } from '../../types/hooks'
 import type {
   AssistantMessage,
   AttachmentMessage,
   ProgressMessage,
-} from '../../types/message.js'
-import type { PermissionDecision } from '../../types/permissions.js'
-import { createAttachmentMessage } from '../../utils/attachments.js'
-import { logForDebugging } from '../../utils/debug.js'
+} from '../../types/message'
+import type { PermissionDecision } from '../../types/permissions'
+import { createAttachmentMessage } from '../../utils/attachments'
+import { logForDebugging } from '../../utils/debug'
 import {
   executePostToolHooks,
   executePostToolUseFailureHooks,
   executePreToolHooks,
   getPreToolHookBlockingMessage,
-} from '../../utils/hooks.js'
-import { logError } from '../../utils/log.js'
+} from '../../utils/hooks'
+import { logError } from '../../utils/log'
 import {
   getRuleBehaviorDescription,
   type PermissionDecisionReason,
   type PermissionResult,
-} from '../../utils/permissions/PermissionResult.js'
-import { checkRuleBasedPermissions } from '../../utils/permissions/permissions.js'
-import { formatError } from '../../utils/toolErrors.js'
-import { isMcpTool } from '../mcp/utils.js'
-import type { McpServerType, MessageUpdateLazy } from './toolExecution.js'
+} from '../../utils/permissions/PermissionResult'
+import { checkRuleBasedPermissions } from '../../utils/permissions/permissions'
+import { formatError } from '../../utils/toolErrors'
+import { isMcpTool } from '../mcp/utils'
+import type { McpServerType, MessageUpdateLazy } from './toolExecution'
 
 export type PostToolUseHooksResult<Output> =
   | MessageUpdateLazy<AttachmentMessage | ProgressMessage<HookProgress>>

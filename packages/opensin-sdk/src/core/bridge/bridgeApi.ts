@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-import { debugBody, extractErrorDetail } from './debugUtils.js'
+import { debugBody, extractErrorDetail } from './debugUtils'
 import {
   BRIDGE_LOGIN_INSTRUCTION,
   type BridgeApiClient,
   type BridgeConfig,
   type PermissionResponseEvent,
   type WorkResponse,
-} from './types.js'
+} from './types'
 
 type BridgeApiDeps = {
   baseUrl: string

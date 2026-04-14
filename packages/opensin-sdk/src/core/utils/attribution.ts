@@ -1,40 +1,40 @@
 import { feature } from 'bun:bundle'
 import { stat } from 'fs/promises'
-import { getClientType } from '../bootstrap/state.js'
+import { getClientType } from '../bootstrap/state'
 import {
   getRemoteSessionUrl,
   isRemoteSessionLocal,
   PRODUCT_URL,
-} from '../constants/product.js'
-import { TERMINAL_OUTPUT_TAGS } from '../constants/xml.js'
-import type { AppState } from '../state/AppState.js'
-import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants.js'
-import { FILE_READ_TOOL_NAME } from '../tools/FileReadTool/prompt.js'
-import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt.js'
-import { GLOB_TOOL_NAME } from '../tools/GlobTool/prompt.js'
-import { GREP_TOOL_NAME } from '../tools/GrepTool/prompt.js'
-import type { Entry } from '../types/logs.js'
+} from '../constants/product'
+import { TERMINAL_OUTPUT_TAGS } from '../constants/xml'
+import type { AppState } from '../state/AppState'
+import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants'
+import { FILE_READ_TOOL_NAME } from '../tools/FileReadTool/prompt'
+import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt'
+import { GLOB_TOOL_NAME } from '../tools/GlobTool/prompt'
+import { GREP_TOOL_NAME } from '../tools/GrepTool/prompt'
+import type { Entry } from '../types/logs'
 import {
   type AttributionData,
   calculateCommitAttribution,
   isInternalModelRepo,
   isInternalModelRepoCached,
   sanitizeModelName,
-} from './commitAttribution.js'
-import { logForDebugging } from './debug.js'
-import { parseJSONL } from './json.js'
-import { logError } from './log.js'
+} from './commitAttribution'
+import { logForDebugging } from './debug'
+import { parseJSONL } from './json'
+import { logError } from './log'
 import {
   getCanonicalName,
   getMainLoopModel,
   getPublicModelDisplayName,
   getPublicModelName,
-} from './model/model.js'
-import { isMemoryFileAccess } from './sessionFileAccessHooks.js'
-import { getTranscriptPath } from './sessionStorage.js'
-import { readTranscriptForLoad } from './sessionStoragePortable.js'
-import { getInitialSettings } from './settings/settings.js'
-import { isUndercover } from './undercover.js'
+} from './model/model'
+import { isMemoryFileAccess } from './sessionFileAccessHooks'
+import { getTranscriptPath } from './sessionStorage'
+import { readTranscriptForLoad } from './sessionStoragePortable'
+import { getInitialSettings } from './settings/settings'
+import { isUndercover } from './undercover'
 
 export type AttributionTexts = {
   commit: string
@@ -381,7 +381,7 @@ export async function getEnhancedPRAttribution(
   // squash commit body verbatim — trailer lines at the end become proper git
   // trailers on the squash commit.
   if (feature('COMMIT_ATTRIBUTION') && isInternal && attributionData) {
-    const { buildPRTrailers } = await import('./attributionTrailer.js')
+    const { buildPRTrailers } = await import('./attributionTrailer')
     const trailers = buildPRTrailers(attributionData, appState.attribution)
     const result = `${summary}\n\n${trailers.join('\n')}`
     logForDebugging(`PR Attribution: returning with trailers: ${result}`)

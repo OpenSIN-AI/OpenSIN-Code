@@ -1,4 +1,4 @@
-import { Event } from './event.js'
+import { Event } from './event'
 
 type EventPhase = 'none' | 'capturing' | 'at_target' | 'bubbling'
 

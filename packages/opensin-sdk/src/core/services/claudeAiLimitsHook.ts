@@ -3,7 +3,7 @@ import {
   type ClaudeAILimits,
   currentLimits,
   statusListeners,
-} from './claudeAiLimits.js'
+} from './claudeAiLimits'
 
 export function useClaudeAiLimits(): ClaudeAILimits {
   const [limits, setLimits] = useState<ClaudeAILimits>({ ...currentLimits })

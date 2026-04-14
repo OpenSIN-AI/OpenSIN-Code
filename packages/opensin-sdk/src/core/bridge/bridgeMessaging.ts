@@ -11,22 +11,22 @@
  */
 
 import { randomUUID } from 'crypto'
-import type { SDKMessage } from '../entrypoints/agentSdkTypes.js'
+import type { SDKMessage } from '../entrypoints/agentSdkTypes'
 import type {
   SDKControlRequest,
   SDKControlResponse,
-} from '../entrypoints/sdk/controlTypes.js'
-import type { SDKResultSuccess } from '../entrypoints/sdk/coreTypes.js'
-import { logEvent } from '../services/analytics/index.js'
-import { EMPTY_USAGE } from '../services/api/emptyUsage.js'
-import type { Message } from '../types/message.js'
-import { normalizeControlMessageKeys } from '../utils/controlMessageCompat.js'
-import { logForDebugging } from '../utils/debug.js'
-import { stripDisplayTagsAllowEmpty } from '../utils/displayTags.js'
-import { errorMessage } from '../utils/errors.js'
-import type { PermissionMode } from '../utils/permissions/PermissionMode.js'
-import { jsonParse } from '../utils/slowOperations.js'
-import type { ReplBridgeTransport } from './replBridgeTransport.js'
+} from '../entrypoints/sdk/controlTypes'
+import type { SDKResultSuccess } from '../entrypoints/sdk/coreTypes'
+import { logEvent } from '../services/analytics/index'
+import { EMPTY_USAGE } from '../services/api/emptyUsage'
+import type { Message } from '../types/message'
+import { normalizeControlMessageKeys } from '../utils/controlMessageCompat'
+import { logForDebugging } from '../utils/debug'
+import { stripDisplayTagsAllowEmpty } from '../utils/displayTags'
+import { errorMessage } from '../utils/errors'
+import type { PermissionMode } from '../utils/permissions/PermissionMode'
+import { jsonParse } from '../utils/slowOperations'
+import type { ReplBridgeTransport } from './replBridgeTransport'
 
 // ─── Type guards ─────────────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { join } from 'path'
-import { getPlatform } from '../platform.js'
+import { getPlatform } from '../platform'
 
 /**
  * Get the path to the managed settings directory based on the current platform.

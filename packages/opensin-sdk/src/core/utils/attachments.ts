@@ -2,40 +2,40 @@
 import {
   logEvent,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-} from 'src/services/analytics/index.js'
+} from 'src/services/analytics/index'
 import {
   toolMatchesName,
   type Tools,
   type ToolUseContext,
   type ToolPermissionContext,
-} from '../Tool.js'
+} from '../Tool'
 import {
   FileReadTool,
   MaxFileReadTokenExceededError,
   type Output as FileReadToolOutput,
   readImageWithTokenBudget,
-} from '../tools/FileReadTool/FileReadTool.js'
-import { FileTooLargeError, readFileInRange } from './readFileInRange.js'
-import { expandPath } from './path.js'
-import { countCharInString } from './stringUtils.js'
-import { count, uniq } from './array.js'
-import { getFsImplementation } from './fsOperations.js'
+} from '../tools/FileReadTool/FileReadTool'
+import { FileTooLargeError, readFileInRange } from './readFileInRange'
+import { expandPath } from './path'
+import { countCharInString } from './stringUtils'
+import { count, uniq } from './array'
+import { getFsImplementation } from './fsOperations'
 import { readdir, stat } from 'fs/promises'
-import type { IDESelection } from '../hooks/useIdeSelection.js'
-import { TODO_WRITE_TOOL_NAME } from '../tools/TodoWriteTool/constants.js'
-import { TASK_CREATE_TOOL_NAME } from '../tools/TaskCreateTool/constants.js'
-import { TASK_UPDATE_TOOL_NAME } from '../tools/TaskUpdateTool/constants.js'
-import { BASH_TOOL_NAME } from '../tools/BashTool/toolName.js'
-import { SKILL_TOOL_NAME } from '../tools/SkillTool/constants.js'
-import type { TodoList } from './todo/types.js'
+import type { IDESelection } from '../hooks/useIdeSelection'
+import { TODO_WRITE_TOOL_NAME } from '../tools/TodoWriteTool/constants'
+import { TASK_CREATE_TOOL_NAME } from '../tools/TaskCreateTool/constants'
+import { TASK_UPDATE_TOOL_NAME } from '../tools/TaskUpdateTool/constants'
+import { BASH_TOOL_NAME } from '../tools/BashTool/toolName'
+import { SKILL_TOOL_NAME } from '../tools/SkillTool/constants'
+import type { TodoList } from './todo/types'
 import {
   type Task,
   listTasks,
   getTaskListId,
   isTodoV2Enabled,
-} from './tasks.js'
-import { getPlanFilePath, getPlan } from './plans.js'
-import { getConnectedIdeName } from './ide.js'
+} from './tasks'
+import { getPlanFilePath, getPlan } from './plans'
+import { getConnectedIdeName } from './ide'
 import {
   filterInjectedMemoryFiles,
   getManagedAndUserConditionalRules,
@@ -43,49 +43,49 @@ import {
   getMemoryFilesForNestedDirectory,
   getConditionalRulesForCwdLevelDirectory,
   type MemoryFileInfo,
-} from './claudemd.js'
+} from './claudemd'
 import { dirname, parse, relative, resolve } from 'path'
-import { getCwd } from 'src/utils/cwd.js'
-import { getViewedTeammateTask } from '../state/selectors.js'
-import { logError } from './log.js'
-import { logAntError } from './debug.js'
-import { isENOENT, toError } from './errors.js'
-import type { DiagnosticFile } from '../services/diagnosticTracking.js'
-import { diagnosticTracker } from '../services/diagnosticTracking.js'
+import { getCwd } from 'src/utils/cwd'
+import { getViewedTeammateTask } from '../state/selectors'
+import { logError } from './log'
+import { logAntError } from './debug'
+import { isENOENT, toError } from './errors'
+import type { DiagnosticFile } from '../services/diagnosticTracking'
+import { diagnosticTracker } from '../services/diagnosticTracking'
 import type {
   AttachmentMessage,
   Message,
   MessageOrigin,
-} from 'src/types/message.js'
+} from 'src/types/message'
 import {
   type QueuedCommand,
   getImagePasteIds,
   isValidImagePaste,
-} from 'src/types/textInputTypes.js'
+} from 'src/types/textInputTypes'
 import { randomUUID, type UUID } from 'crypto'
-import { getSettings_DEPRECATED } from './settings/settings.js'
-import { getSnippetForTwoFileDiff } from 'src/tools/FileEditTool/utils.js'
+import { getSettings_DEPRECATED } from './settings/settings'
+import { getSnippetForTwoFileDiff } from 'src/tools/FileEditTool/utils'
 import type {
   ContentBlockParam,
   ImageBlockParam,
   Base64ImageSource,
 } from '@anthropic-ai/sdk/resources/messages.mjs'
-import { maybeResizeAndDownsampleImageBlock } from './imageResizer.js'
-import type { PastedContent } from './config.js'
-import { getGlobalConfig } from './config.js'
+import { maybeResizeAndDownsampleImageBlock } from './imageResizer'
+import type { PastedContent } from './config'
+import { getGlobalConfig } from './config'
 import {
   getDefaultSonnetModel,
   getDefaultHaikuModel,
   getDefaultOpusModel,
-} from './model/model.js'
-import type { ReadResourceResult } from '@modelcontextprotocol/sdk/types.js'
-import { getSkillToolCommands, getMcpSkillCommands } from '../commands.js'
-import type { Command } from '../types/command.js'
-import uniqBy from 'lodash-es/uniqBy.js'
-import { getProjectRoot } from '../bootstrap/state.js'
-import { formatCommandsWithinBudget } from '../tools/SkillTool/prompt.js'
-import { getContextWindowForModel } from './context.js'
-import type { DiscoverySignal } from '../services/skillSearch/signals.js'
+} from './model/model'
+import type { ReadResourceResult } from '@modelcontextprotocol/sdk/types'
+import { getSkillToolCommands, getMcpSkillCommands } from '../commands'
+import type { Command } from '../types/command'
+import uniqBy from 'lodash-es/uniqBy'
+import { getProjectRoot } from '../bootstrap/state'
+import { formatCommandsWithinBudget } from '../tools/SkillTool/prompt'
+import { getContextWindowForModel } from './context'
+import type { DiscoverySignal } from '../services/skillSearch/signals'
 // Conditional require for DCE. All skill-search string literals that would
 // otherwise leak into external builds live inside these modules. The only
 // surfaces in THIS file are: the maybe() call (gated via spread below) and
@@ -95,51 +95,51 @@ import type { DiscoverySignal } from '../services/skillSearch/signals.js'
 const skillSearchModules = feature('EXPERIMENTAL_SKILL_SEARCH')
   ? {
       featureCheck:
-        require('../services/skillSearch/featureCheck.js') as typeof import('../services/skillSearch/featureCheck.js'),
+        require('../services/skillSearch/featureCheck') as typeof import('../services/skillSearch/featureCheck'),
       prefetch:
-        require('../services/skillSearch/prefetch.js') as typeof import('../services/skillSearch/prefetch.js'),
+        require('../services/skillSearch/prefetch') as typeof import('../services/skillSearch/prefetch'),
     }
   : null
 const autoModeStateModule = feature('TRANSCRIPT_CLASSIFIER')
-  ? (require('./permissions/autoModeState.js') as typeof import('./permissions/autoModeState.js'))
+  ? (require('./permissions/autoModeState') as typeof import('./permissions/autoModeState'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 import {
   MAX_LINES_TO_READ,
   FILE_READ_TOOL_NAME,
-} from 'src/tools/FileReadTool/prompt.js'
-import { getDefaultFileReadingLimits } from 'src/tools/FileReadTool/limits.js'
-import { cacheKeys, type FileStateCache } from './fileStateCache.js'
+} from 'src/tools/FileReadTool/prompt'
+import { getDefaultFileReadingLimits } from 'src/tools/FileReadTool/limits'
+import { cacheKeys, type FileStateCache } from './fileStateCache'
 import {
   createAbortController,
   createChildAbortController,
-} from './abortController.js'
-import { isAbortError } from './errors.js'
+} from './abortController'
+import { isAbortError } from './errors'
 import {
   getFileModificationTimeAsync,
   isFileWithinReadSizeLimit,
-} from './file.js'
-import type { AgentDefinition } from '../tools/AgentTool/loadAgentsDir.js'
-import { filterAgentsByMcpRequirements } from '../tools/AgentTool/loadAgentsDir.js'
-import { AGENT_TOOL_NAME } from '../tools/AgentTool/constants.js'
+} from './file'
+import type { AgentDefinition } from '../tools/AgentTool/loadAgentsDir'
+import { filterAgentsByMcpRequirements } from '../tools/AgentTool/loadAgentsDir'
+import { AGENT_TOOL_NAME } from '../tools/AgentTool/constants'
 import {
   formatAgentLine,
   shouldInjectAgentListInMessages,
-} from '../tools/AgentTool/prompt.js'
-import { filterDeniedAgents } from './permissions/permissions.js'
-import { getSubscriptionType } from './auth.js'
-import { mcpInfoFromString } from '../services/mcp/mcpStringUtils.js'
+} from '../tools/AgentTool/prompt'
+import { filterDeniedAgents } from './permissions/permissions'
+import { getSubscriptionType } from './auth'
+import { mcpInfoFromString } from '../services/mcp/mcpStringUtils'
 import {
   matchingRuleForInput,
   pathInAllowedWorkingPath,
-} from './permissions/filesystem.js'
+} from './permissions/filesystem'
 import {
   generateTaskAttachments,
   applyTaskOffsetsAndEvictions,
-} from './task/framework.js'
-import { getTaskOutputPath } from './task/diskOutput.js'
-import { drainPendingMessages } from '../tasks/LocalAgentTask/LocalAgentTask.js'
-import type { TaskType, TaskStatus } from '../Task.js'
+} from './task/framework'
+import { getTaskOutputPath } from './task/diskOutput'
+import { drainPendingMessages } from '../tasks/LocalAgentTask/LocalAgentTask'
+import type { TaskType, TaskStatus } from '../Task'
 import {
   getOriginalCwd,
   getSessionId,
@@ -157,8 +157,8 @@ import {
   getLastEmittedDate,
   setLastEmittedDate,
   getKairosActive,
-} from '../bootstrap/state.js'
-import type { QuerySource } from '../constants/querySource.js'
+} from '../bootstrap/state'
+import type { QuerySource } from '../constants/querySource'
 import {
   getDeferredToolsDelta,
   isDeferredToolsDeltaEnabled,
@@ -166,90 +166,90 @@ import {
   isToolSearchToolAvailable,
   modelSupportsToolReference,
   type DeferredToolsDeltaScanContext,
-} from './toolSearch.js'
+} from './toolSearch'
 import {
   getMcpInstructionsDelta,
   isMcpInstructionsDeltaEnabled,
   type ClientSideInstruction,
-} from './mcpInstructionsDelta.js'
-import { CLAUDE_IN_CHROME_MCP_SERVER_NAME } from './claudeInChrome/common.js'
-import { CHROME_TOOL_SEARCH_INSTRUCTIONS } from './claudeInChrome/prompt.js'
-import type { MCPServerConnection } from '../services/mcp/types.js'
+} from './mcpInstructionsDelta'
+import { CLAUDE_IN_CHROME_MCP_SERVER_NAME } from './claudeInChrome/common'
+import { CHROME_TOOL_SEARCH_INSTRUCTIONS } from './claudeInChrome/prompt'
+import type { MCPServerConnection } from '../services/mcp/types'
 import type {
   HookEvent,
   SyncHookJSONOutput,
-} from 'src/entrypoints/agentSdkTypes.js'
+} from 'src/entrypoints/agentSdkTypes'
 import {
   checkForAsyncHookResponses,
   removeDeliveredAsyncHooks,
-} from './hooks/AsyncHookRegistry.js'
+} from './hooks/AsyncHookRegistry'
 import {
   checkForLSPDiagnostics,
   clearAllLSPDiagnostics,
-} from '../services/lsp/LSPDiagnosticRegistry.js'
-import { logForDebugging } from './debug.js'
+} from '../services/lsp/LSPDiagnosticRegistry'
+import { logForDebugging } from './debug'
 import {
   extractTextContent,
   getUserMessageText,
   isThinkingMessage,
-} from './messages.js'
-import { isHumanTurn } from './messagePredicates.js'
-import { isEnvTruthy, getClaudeConfigHomeDir } from './envUtils.js'
+} from './messages'
+import { isHumanTurn } from './messagePredicates'
+import { isEnvTruthy, getClaudeConfigHomeDir } from './envUtils'
 import { feature } from 'bun:bundle'
 /* eslint-disable @typescript-eslint/no-require-imports */
 const BRIEF_TOOL_NAME: string | null =
   feature('KAIROS') || feature('KAIROS_BRIEF')
     ? (
-        require('../tools/BriefTool/prompt.js') as typeof import('../tools/BriefTool/prompt.js')
+        require('../tools/BriefTool/prompt') as typeof import('../tools/BriefTool/prompt')
       ).BRIEF_TOOL_NAME
     : null
 const sessionTranscriptModule = feature('KAIROS')
-  ? (require('../services/sessionTranscript/sessionTranscript.js') as typeof import('../services/sessionTranscript/sessionTranscript.js'))
+  ? (require('../services/sessionTranscript/sessionTranscript') as typeof import('../services/sessionTranscript/sessionTranscript'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
-import { hasUltrathinkKeyword, isUltrathinkEnabled } from './thinking.js'
+import { hasUltrathinkKeyword, isUltrathinkEnabled } from './thinking'
 import {
   tokenCountFromLastAPIResponse,
   tokenCountWithEstimation,
-} from './tokens.js'
+} from './tokens'
 import {
   getEffectiveContextWindowSize,
   isAutoCompactEnabled,
-} from '../services/compact/autoCompact.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
+} from '../services/compact/autoCompact'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
 import {
   hasInstructionsLoadedHook,
   executeInstructionsLoadedHooks,
   type HookBlockingError,
   type InstructionsMemoryType,
-} from './hooks.js'
-import { jsonStringify } from './slowOperations.js'
-import { isPDFExtension } from './pdfUtils.js'
-import { getLocalISODate } from '../constants/common.js'
-import { getPDFPageCount } from './pdf.js'
-import { PDF_AT_MENTION_INLINE_THRESHOLD } from '../constants/apiLimits.js'
-import { isAgentSwarmsEnabled } from './agentSwarmsEnabled.js'
-import { findRelevantMemories } from '../memdir/findRelevantMemories.js'
-import { memoryAge, memoryFreshnessText } from '../memdir/memoryAge.js'
-import { getAutoMemPath, isAutoMemoryEnabled } from '../memdir/paths.js'
-import { getAgentMemoryDir } from '../tools/AgentTool/agentMemory.js'
+} from './hooks'
+import { jsonStringify } from './slowOperations'
+import { isPDFExtension } from './pdfUtils'
+import { getLocalISODate } from '../constants/common'
+import { getPDFPageCount } from './pdf'
+import { PDF_AT_MENTION_INLINE_THRESHOLD } from '../constants/apiLimits'
+import { isAgentSwarmsEnabled } from './agentSwarmsEnabled'
+import { findRelevantMemories } from '../memdir/findRelevantMemories'
+import { memoryAge, memoryFreshnessText } from '../memdir/memoryAge'
+import { getAutoMemPath, isAutoMemoryEnabled } from '../memdir/paths'
+import { getAgentMemoryDir } from '../tools/AgentTool/agentMemory'
 import {
   readUnreadMessages,
   markMessagesAsReadByPredicate,
   isShutdownApproved,
   isStructuredProtocolMessage,
   isIdleNotification,
-} from './teammateMailbox.js'
+} from './teammateMailbox'
 import {
   getAgentName,
   getAgentId,
   getTeamName,
   isTeamLead,
-} from './teammate.js'
-import { isInProcessTeammate } from './teammateContext.js'
-import { removeTeammateFromTeamFile } from './swarm/teamHelpers.js'
-import { unassignTeammateTasks } from './tasks.js'
-import { getCompanionIntroAttachment } from '../buddy/prompt.js'
+} from './teammate'
+import { isInProcessTeammate } from './teammateContext'
+import { removeTeammateFromTeamFile } from './swarm/teamHelpers'
+import { unassignTeammateTasks } from './tasks'
+import { getCompanionIntroAttachment } from '../buddy/prompt'
 
 export const TODO_REMINDER_CONFIG = {
   TURNS_SINCE_WRITE: 10,
@@ -3970,7 +3970,7 @@ export function getContextEfficiencyAttachment(
   // isn't in the tool list. Lazy require keeps this file snip-string-free.
   const { isSnipRuntimeEnabled, shouldNudgeForSnips } =
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    require('../services/compact/snipCompact.js') as typeof import('../services/compact/snipCompact.js')
+    require('../services/compact/snipCompact') as typeof import('../services/compact/snipCompact')
   if (!isSnipRuntimeEnabled()) {
     return []
   }

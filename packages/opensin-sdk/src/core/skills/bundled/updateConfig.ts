@@ -1,7 +1,7 @@
 import { toJSONSchema } from 'zod/v4'
-import { SettingsSchema } from '../../utils/settings/types.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { registerBundledSkill } from '../bundledSkills.js'
+import { SettingsSchema } from '../../utils/settings/types'
+import { jsonStringify } from '../../utils/slowOperations'
+import { registerBundledSkill } from '../bundledSkills'
 
 /**
  * Generate JSON Schema from the settings Zod schema.

@@ -1,10 +1,10 @@
 import { feature } from 'bun:bundle'
-import { getModelOptions } from '../../utils/model/modelOptions.js'
-import { isVoiceGrowthBookEnabled } from '../../voice/voiceModeEnabled.js'
+import { getModelOptions } from '../../utils/model/modelOptions'
+import { isVoiceGrowthBookEnabled } from '../../voice/voiceModeEnabled'
 import {
   getOptionsForSetting,
   SUPPORTED_SETTINGS,
-} from './supportedSettings.js'
+} from './supportedSettings'
 
 export const DESCRIPTION = 'Get or set Claude Code configuration settings.'
 

@@ -1,37 +1,37 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { BoundedUUIDSet } from '../bridge/bridgeMessaging.js'
-import type { ToolUseConfirm } from '../components/permissions/PermissionRequest.js'
-import type { SpinnerMode } from '../components/Spinner/types.js'
+import { BoundedUUIDSet } from '../bridge/bridgeMessaging'
+import type { ToolUseConfirm } from '../components/permissions/PermissionRequest'
+import type { SpinnerMode } from '../components/Spinner/types'
 import {
   type RemotePermissionResponse,
   type RemoteSessionConfig,
   RemoteSessionManager,
-} from '../remote/RemoteSessionManager.js'
+} from '../remote/RemoteSessionManager'
 import {
   createSyntheticAssistantMessage,
   createToolStub,
-} from '../remote/remotePermissionBridge.js'
+} from '../remote/remotePermissionBridge'
 import {
   convertSDKMessage,
   isSessionEndMessage,
-} from '../remote/sdkMessageAdapter.js'
-import { useSetAppState } from '../state/AppState.js'
-import type { AppState } from '../state/AppStateStore.js'
-import type { Tool } from '../Tool.js'
-import { findToolByName } from '../Tool.js'
-import type { Message as MessageType } from '../types/message.js'
-import type { PermissionAskDecision } from '../types/permissions.js'
-import { logForDebugging } from '../utils/debug.js'
-import { truncateToWidth } from '../utils/format.js'
+} from '../remote/sdkMessageAdapter'
+import { useSetAppState } from '../state/AppState'
+import type { AppState } from '../state/AppStateStore'
+import type { Tool } from '../Tool'
+import { findToolByName } from '../Tool'
+import type { Message as MessageType } from '../types/message'
+import type { PermissionAskDecision } from '../types/permissions'
+import { logForDebugging } from '../utils/debug'
+import { truncateToWidth } from '../utils/format'
 import {
   createSystemMessage,
   extractTextContent,
   handleMessageFromStream,
   type StreamingToolUse,
-} from '../utils/messages.js'
-import { generateSessionTitle } from '../utils/sessionTitle.js'
-import type { RemoteMessageContent } from '../utils/teleport/api.js'
-import { updateSessionTitle } from '../utils/teleport/api.js'
+} from '../utils/messages'
+import { generateSessionTitle } from '../utils/sessionTitle'
+import type { RemoteMessageContent } from '../utils/teleport/api'
+import { updateSessionTitle } from '../utils/teleport/api'
 
 // How long to wait for a response before showing a warning
 const RESPONSE_TIMEOUT_MS = 60000 // 60 seconds

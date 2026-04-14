@@ -6,8 +6,8 @@
  * on-brand instead of generic (per 2026 best practices).
  */
 
-import { OPENSIN_BRAND } from './guidelines.js'
-import { BrandEnforcer } from './enforcer.js'
+import { OPENSIN_BRAND } from './guidelines'
+import { BrandEnforcer } from './enforcer'
 
 export interface PackageOptions {
   type: 'image' | 'video'

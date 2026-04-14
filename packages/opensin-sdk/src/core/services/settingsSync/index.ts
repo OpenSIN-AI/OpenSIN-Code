@@ -12,41 +12,41 @@
 import { feature } from 'bun:bundle'
 import axios from 'axios'
 import { mkdir, readFile, stat, writeFile } from 'fs/promises'
-import pickBy from 'lodash-es/pickBy.js'
+import pickBy from 'lodash-es/pickBy'
 import { dirname } from 'path'
-import { getIsInteractive } from '../../bootstrap/state.js'
+import { getIsInteractive } from '../../bootstrap/state'
 import {
   CLAUDE_AI_INFERENCE_SCOPE,
   getOauthConfig,
   OAUTH_BETA_HEADER,
-} from '../../constants/oauth.js'
+} from '../../constants/oauth'
 import {
   checkAndRefreshOAuthTokenIfNeeded,
   getClaudeAIOAuthTokens,
-} from '../../utils/auth.js'
-import { clearMemoryFileCaches } from '../../utils/claudemd.js'
-import { getMemoryPath } from '../../utils/config.js'
-import { logForDiagnosticsNoPII } from '../../utils/diagLogs.js'
-import { classifyAxiosError } from '../../utils/errors.js'
-import { getRepoRemoteHash } from '../../utils/git.js'
+} from '../../utils/auth'
+import { clearMemoryFileCaches } from '../../utils/claudemd'
+import { getMemoryPath } from '../../utils/config'
+import { logForDiagnosticsNoPII } from '../../utils/diagLogs'
+import { classifyAxiosError } from '../../utils/errors'
+import { getRepoRemoteHash } from '../../utils/git'
 import {
   getAPIProvider,
   isFirstPartyAnthropicBaseUrl,
-} from '../../utils/model/providers.js'
-import { markInternalWrite } from '../../utils/settings/internalWrites.js'
-import { getSettingsFilePathForSource } from '../../utils/settings/settings.js'
-import { resetSettingsCache } from '../../utils/settings/settingsCache.js'
-import { sleep } from '../../utils/sleep.js'
-import { getClaudeCodeUserAgent } from '../../utils/userAgent.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook.js'
-import { logEvent } from '../analytics/index.js'
-import { getRetryDelay } from '../api/withRetry.js'
+} from '../../utils/model/providers'
+import { markInternalWrite } from '../../utils/settings/internalWrites'
+import { getSettingsFilePathForSource } from '../../utils/settings/settings'
+import { resetSettingsCache } from '../../utils/settings/settingsCache'
+import { sleep } from '../../utils/sleep'
+import { getClaudeCodeUserAgent } from '../../utils/userAgent'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../analytics/growthbook'
+import { logEvent } from '../analytics/index'
+import { getRetryDelay } from '../api/withRetry'
 import {
   type SettingsSyncFetchResult,
   type SettingsSyncUploadResult,
   SYNC_KEYS,
   UserSyncDataSchema,
-} from './types.js'
+} from './types'
 
 const SETTINGS_SYNC_TIMEOUT_MS = 10000 // 10 seconds
 const DEFAULT_MAX_RETRIES = 3

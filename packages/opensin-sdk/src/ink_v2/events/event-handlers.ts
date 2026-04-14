@@ -1,8 +1,8 @@
-import type { ClickEvent } from './click-event.js'
-import type { FocusEvent } from './focus-event.js'
-import type { KeyboardEvent } from './keyboard-event.js'
-import type { PasteEvent } from './paste-event.js'
-import type { ResizeEvent } from './resize-event.js'
+import type { ClickEvent } from './click-event'
+import type { FocusEvent } from './focus-event'
+import type { KeyboardEvent } from './keyboard-event'
+import type { PasteEvent } from './paste-event'
+import type { ResizeEvent } from './resize-event'
 
 type KeyboardEventHandler = (event: KeyboardEvent) => void
 type FocusEventHandler = (event: FocusEvent) => void

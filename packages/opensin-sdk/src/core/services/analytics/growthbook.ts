@@ -3,27 +3,27 @@ import { isEqual, memoize } from 'lodash-es'
 import {
   getIsNonInteractiveSession,
   getSessionTrustAccepted,
-} from '../../bootstrap/state.js'
-import { getGrowthBookClientKey } from '../../constants/keys.js'
+} from '../../bootstrap/state'
+import { getGrowthBookClientKey } from '../../constants/keys'
 import {
   checkHasTrustDialogAccepted,
   getGlobalConfig,
   saveGlobalConfig,
-} from '../../utils/config.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { toError } from '../../utils/errors.js'
-import { getAuthHeaders } from '../../utils/http.js'
-import { logError } from '../../utils/log.js'
-import { createSignal } from '../../utils/signal.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../utils/config'
+import { logForDebugging } from '../../utils/debug'
+import { toError } from '../../utils/errors'
+import { getAuthHeaders } from '../../utils/http'
+import { logError } from '../../utils/log'
+import { createSignal } from '../../utils/signal'
+import { jsonStringify } from '../../utils/slowOperations'
 import {
   type GitHubActionsMetadata,
   getUserForGrowthBook,
-} from '../../utils/user.js'
+} from '../../utils/user'
 import {
   is1PEventLoggingEnabled,
   logGrowthBookExperimentTo1P,
-} from './firstPartyEventLogger.js'
+} from './firstPartyEventLogger'
 
 /**
  * User attributes sent to GrowthBook for targeting.

@@ -1,48 +1,48 @@
 import chalk from 'chalk'
 import { writeSync } from 'fs'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { onExit } from 'signal-exit'
-import type { ExitReason } from 'src/entrypoints/agentSdkTypes.js'
+import type { ExitReason } from 'src/entrypoints/agentSdkTypes'
 import {
   getIsInteractive,
   getIsScrollDraining,
   getLastMainRequestId,
   getSessionId,
   isSessionPersistenceDisabled,
-} from '../bootstrap/state.js'
-import instances from '../ink/instances.js'
+} from '../bootstrap/state'
+import instances from '../ink/instances'
 import {
   DISABLE_KITTY_KEYBOARD,
   DISABLE_MODIFY_OTHER_KEYS,
-} from '../ink/termio/csi.js'
+} from '../ink/termio/csi'
 import {
   DBP,
   DFE,
   DISABLE_MOUSE_TRACKING,
   EXIT_ALT_SCREEN,
   SHOW_CURSOR,
-} from '../ink/termio/dec.js'
+} from '../ink/termio/dec'
 import {
   CLEAR_ITERM2_PROGRESS,
   CLEAR_TAB_STATUS,
   CLEAR_TERMINAL_TITLE,
   supportsTabStatus,
   wrapForMultiplexer,
-} from '../ink/termio/osc.js'
-import { shutdownDatadog } from '../services/analytics/datadog.js'
-import { shutdown1PEventLogging } from '../services/analytics/firstPartyEventLogger.js'
+} from '../ink/termio/osc'
+import { shutdownDatadog } from '../services/analytics/datadog'
+import { shutdown1PEventLogging } from '../services/analytics/firstPartyEventLogger'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import type { AppState } from '../state/AppState.js'
-import { runCleanupFunctions } from './cleanupRegistry.js'
-import { logForDebugging } from './debug.js'
-import { logForDiagnosticsNoPII } from './diagLogs.js'
-import { isEnvTruthy } from './envUtils.js'
-import { getCurrentSessionTitle, sessionIdExists } from './sessionStorage.js'
-import { sleep } from './sleep.js'
-import { profileReport } from './startupProfiler.js'
+} from '../services/analytics/index'
+import type { AppState } from '../state/AppState'
+import { runCleanupFunctions } from './cleanupRegistry'
+import { logForDebugging } from './debug'
+import { logForDiagnosticsNoPII } from './diagLogs'
+import { isEnvTruthy } from './envUtils'
+import { getCurrentSessionTitle, sessionIdExists } from './sessionStorage'
+import { sleep } from './sleep'
+import { profileReport } from './startupProfiler'
 
 /**
  * Clean up terminal modes synchronously before process exit.
@@ -407,7 +407,7 @@ export async function gracefulShutdown(
   // failsafe can scale with it. Without this, a user-configured 10s hook
   // budget is silently truncated by the 5s failsafe (gh-32712 follow-up).
   const { executeSessionEndHooks, getSessionEndHookTimeoutMs } = await import(
-    './hooks.js'
+    './hooks'
   )
   const sessionEndTimeoutMs = getSessionEndHookTimeoutMs()
 

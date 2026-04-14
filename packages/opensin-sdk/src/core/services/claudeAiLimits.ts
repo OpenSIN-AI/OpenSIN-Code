@@ -1,28 +1,28 @@
 import { APIError } from '@anthropic-ai/sdk'
 import type { MessageParam } from '@anthropic-ai/sdk/resources/index.mjs'
-import isEqual from 'lodash-es/isEqual.js'
-import { getIsNonInteractiveSession } from '../bootstrap/state.js'
-import { isClaudeAISubscriber } from '../utils/auth.js'
-import { getModelBetas } from '../utils/betas.js'
-import { getGlobalConfig, saveGlobalConfig } from '../utils/config.js'
-import { logError } from '../utils/log.js'
-import { getSmallFastModel } from '../utils/model/model.js'
-import { isEssentialTrafficOnly } from '../utils/privacyLevel.js'
-import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from './analytics/index.js'
-import { logEvent } from './analytics/index.js'
-import { getAPIMetadata } from './api/claude.js'
-import { getAnthropicClient } from './api/client.js'
+import isEqual from 'lodash-es/isEqual'
+import { getIsNonInteractiveSession } from '../bootstrap/state'
+import { isClaudeAISubscriber } from '../utils/auth'
+import { getModelBetas } from '../utils/betas'
+import { getGlobalConfig, saveGlobalConfig } from '../utils/config'
+import { logError } from '../utils/log'
+import { getSmallFastModel } from '../utils/model/model'
+import { isEssentialTrafficOnly } from '../utils/privacyLevel'
+import type { AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS } from './analytics/index'
+import { logEvent } from './analytics/index'
+import { getAPIMetadata } from './api/claude'
+import { getAnthropicClient } from './api/client'
 import {
   processRateLimitHeaders,
   shouldProcessRateLimits,
-} from './rateLimitMocking.js'
+} from './rateLimitMocking'
 
 // Re-export message functions from centralized location
 export {
   getRateLimitErrorMessage,
   getRateLimitWarning,
   getUsingOverageText,
-} from './rateLimitMessages.js'
+} from './rateLimitMessages'
 
 type QuotaStatus = 'allowed' | 'allowed_warning' | 'rejected'
 

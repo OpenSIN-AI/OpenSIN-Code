@@ -8,16 +8,16 @@ import {
   type ResourceMetrics,
 } from '@opentelemetry/sdk-metrics'
 import axios from 'axios'
-import { checkMetricsEnabled } from 'src/services/api/metricsOptOut.js'
-import { getIsNonInteractiveSession } from '../../bootstrap/state.js'
-import { getSubscriptionType, isClaudeAISubscriber } from '../auth.js'
-import { checkHasTrustDialogAccepted } from '../config.js'
-import { logForDebugging } from '../debug.js'
-import { errorMessage, toError } from '../errors.js'
-import { getAuthHeaders } from '../http.js'
-import { logError } from '../log.js'
-import { jsonStringify } from '../slowOperations.js'
-import { getClaudeCodeUserAgent } from '../userAgent.js'
+import { checkMetricsEnabled } from 'src/services/api/metricsOptOut'
+import { getIsNonInteractiveSession } from '../../bootstrap/state'
+import { getSubscriptionType, isClaudeAISubscriber } from '../auth'
+import { checkHasTrustDialogAccepted } from '../config'
+import { logForDebugging } from '../debug'
+import { errorMessage, toError } from '../errors'
+import { getAuthHeaders } from '../http'
+import { logError } from '../log'
+import { jsonStringify } from '../slowOperations'
+import { getClaudeCodeUserAgent } from '../userAgent'
 
 type DataPoint = {
   attributes: Record<string, string>

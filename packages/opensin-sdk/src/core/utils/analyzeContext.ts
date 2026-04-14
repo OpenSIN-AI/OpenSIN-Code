@@ -3,24 +3,24 @@ import type { Anthropic } from '@anthropic-ai/sdk'
 import {
   getSystemPrompt,
   SYSTEM_PROMPT_DYNAMIC_BOUNDARY,
-} from 'src/constants/prompts.js'
-import { microcompactMessages } from 'src/services/compact/microCompact.js'
-import { getSdkBetas } from '../bootstrap/state.js'
-import { getCommandName } from '../commands.js'
-import { getSystemContext } from '../context.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook.js'
+} from 'src/constants/prompts'
+import { microcompactMessages } from 'src/services/compact/microCompact'
+import { getSdkBetas } from '../bootstrap/state'
+import { getCommandName } from '../commands'
+import { getSystemContext } from '../context'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../services/analytics/growthbook'
 import {
   AUTOCOMPACT_BUFFER_TOKENS,
   getEffectiveContextWindowSize,
   isAutoCompactEnabled,
   MANUAL_COMPACT_BUFFER_TOKENS,
-} from '../services/compact/autoCompact.js'
+} from '../services/compact/autoCompact'
 import {
   countMessagesTokensWithAPI,
   countTokensViaHaikuFallback,
   roughTokenCountEstimation,
-} from '../services/tokenEstimation.js'
-import { estimateSkillFrontmatterTokens } from '../skills/loadSkillsDir.js'
+} from '../services/tokenEstimation'
+import { estimateSkillFrontmatterTokens } from '../skills/loadSkillsDir'
 import {
   findToolByName,
   type Tool,
@@ -28,16 +28,16 @@ import {
   type Tools,
   type ToolUseContext,
   toolMatchesName,
-} from '../Tool.js'
+} from '../Tool'
 import type {
   AgentDefinition,
   AgentDefinitionsResult,
-} from '../tools/AgentTool/loadAgentsDir.js'
-import { SKILL_TOOL_NAME } from '../tools/SkillTool/constants.js'
+} from '../tools/AgentTool/loadAgentsDir'
+import { SKILL_TOOL_NAME } from '../tools/SkillTool/constants'
 import {
   getLimitedSkillToolCommands,
   getSkillToolInfo as getSlashCommandInfo,
-} from '../tools/SkillTool/prompt.js'
+} from '../tools/SkillTool/prompt'
 import type {
   AssistantMessage,
   AttachmentMessage,
@@ -45,22 +45,22 @@ import type {
   NormalizedAssistantMessage,
   NormalizedUserMessage,
   UserMessage,
-} from '../types/message.js'
-import { toolToAPISchema } from './api.js'
-import { filterInjectedMemoryFiles, getMemoryFiles } from './claudemd.js'
-import { getContextWindowForModel } from './context.js'
-import { getCwd } from './cwd.js'
-import { logForDebugging } from './debug.js'
-import { isEnvTruthy } from './envUtils.js'
-import { errorMessage, toError } from './errors.js'
-import { logError } from './log.js'
-import { normalizeMessagesForAPI } from './messages.js'
-import { getRuntimeMainLoopModel } from './model/model.js'
-import type { SettingSource } from './settings/constants.js'
-import { jsonStringify } from './slowOperations.js'
-import { buildEffectiveSystemPrompt } from './systemPrompt.js'
-import type { Theme } from './theme.js'
-import { getCurrentUsage } from './tokens.js'
+} from '../types/message'
+import { toolToAPISchema } from './api'
+import { filterInjectedMemoryFiles, getMemoryFiles } from './claudemd'
+import { getContextWindowForModel } from './context'
+import { getCwd } from './cwd'
+import { logForDebugging } from './debug'
+import { isEnvTruthy } from './envUtils'
+import { errorMessage, toError } from './errors'
+import { logError } from './log'
+import { normalizeMessagesForAPI } from './messages'
+import { getRuntimeMainLoopModel } from './model/model'
+import type { SettingSource } from './settings/constants'
+import { jsonStringify } from './slowOperations'
+import { buildEffectiveSystemPrompt } from './systemPrompt'
+import type { Theme } from './theme'
+import { getCurrentUsage } from './tokens'
 
 const RESERVED_CATEGORY_NAME = 'Autocompact buffer'
 const MANUAL_COMPACT_BUFFER_NAME = 'Compact buffer'
@@ -383,8 +383,8 @@ async function countBuiltInToolTokens(
   }
 
   // Check if tool search is enabled
-  const { isToolSearchEnabled } = await import('./toolSearch.js')
-  const { isDeferredTool } = await import('../tools/ToolSearchTool/prompt.js')
+  const { isToolSearchEnabled } = await import('./toolSearch')
+  const { isDeferredTool } = await import('../tools/ToolSearchTool/prompt')
   const isDeferred = await isToolSearchEnabled(
     model ?? '',
     tools,
@@ -666,8 +666,8 @@ export async function countMcpToolTokens(
 
   // Check if tool search is enabled - if so, MCP tools are deferred
   // isToolSearchEnabled handles threshold calculation internally for TstAuto mode
-  const { isToolSearchEnabled } = await import('./toolSearch.js')
-  const { isDeferredTool } = await import('../tools/ToolSearchTool/prompt.js')
+  const { isToolSearchEnabled } = await import('./toolSearch')
+  const { isDeferredTool } = await import('../tools/ToolSearchTool/prompt')
 
   const isDeferred = await isToolSearchEnabled(
     model,
@@ -1119,7 +1119,7 @@ export async function analyzeContextUsage(
   if (feature('CONTEXT_COLLAPSE')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
     const { isContextCollapseEnabled } =
-      require('../services/contextCollapse/index.js') as typeof import('../services/contextCollapse/index.js')
+      require('../services/contextCollapse/index') as typeof import('../services/contextCollapse/index')
     /* eslint-enable @typescript-eslint/no-require-imports */
     if (isContextCollapseEnabled()) {
       skipReservedBuffer = true

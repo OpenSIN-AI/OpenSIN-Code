@@ -10,24 +10,24 @@
  * but users can disable it per-marketplace.
  */
 
-import { updatePluginOp } from '../../services/plugins/pluginOperations.js'
-import { shouldSkipPluginAutoupdate } from '../config.js'
-import { logForDebugging } from '../debug.js'
-import { errorMessage } from '../errors.js'
-import { logError } from '../log.js'
+import { updatePluginOp } from '../../services/plugins/pluginOperations'
+import { shouldSkipPluginAutoupdate } from '../config'
+import { logForDebugging } from '../debug'
+import { errorMessage } from '../errors'
+import { logError } from '../log'
 import {
   getPendingUpdatesDetails,
   hasPendingUpdates,
   isInstallationRelevantToCurrentProject,
   loadInstalledPluginsFromDisk,
-} from './installedPluginsManager.js'
+} from './installedPluginsManager'
 import {
   getDeclaredMarketplaces,
   loadKnownMarketplacesConfig,
   refreshMarketplace,
-} from './marketplaceManager.js'
-import { parsePluginIdentifier } from './pluginIdentifier.js'
-import { isMarketplaceAutoUpdate, type PluginScope } from './schemas.js'
+} from './marketplaceManager'
+import { parsePluginIdentifier } from './pluginIdentifier'
+import { isMarketplaceAutoUpdate, type PluginScope } from './schemas'
 
 /**
  * Callback type for notifying when plugins have been updated

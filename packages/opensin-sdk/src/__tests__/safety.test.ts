@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { createSafetyDetector } from '../safety/detector.js'
+import { createSafetyDetector } from '../safety/detector'
 
 describe('SafetyDetector', () => {
   const d = createSafetyDetector()

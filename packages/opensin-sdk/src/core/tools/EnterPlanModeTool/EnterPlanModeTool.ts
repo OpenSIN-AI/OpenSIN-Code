@@ -3,20 +3,20 @@ import { z } from 'zod/v4'
 import {
   getAllowedChannels,
   handlePlanModeTransition,
-} from '../../bootstrap/state.js'
-import type { Tool } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { applyPermissionUpdate } from '../../utils/permissions/PermissionUpdate.js'
-import { prepareContextForPlanMode } from '../../utils/permissions/permissionSetup.js'
-import { isPlanModeInterviewPhaseEnabled } from '../../utils/planModeV2.js'
-import { ENTER_PLAN_MODE_TOOL_NAME } from './constants.js'
-import { getEnterPlanModeToolPrompt } from './prompt.js'
+} from '../../bootstrap/state'
+import type { Tool } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
+import { lazySchema } from '../../utils/lazySchema'
+import { applyPermissionUpdate } from '../../utils/permissions/PermissionUpdate'
+import { prepareContextForPlanMode } from '../../utils/permissions/permissionSetup'
+import { isPlanModeInterviewPhaseEnabled } from '../../utils/planModeV2'
+import { ENTER_PLAN_MODE_TOOL_NAME } from './constants'
+import { getEnterPlanModeToolPrompt } from './prompt'
 import {
   renderToolResultMessage,
   renderToolUseMessage,
   renderToolUseRejectedMessage,
-} from './UI.js'
+} from './UI'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({

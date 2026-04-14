@@ -3,14 +3,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const CLI_DIR = path.resolve(__dirname, '../cli_v2');
-const INDEX_PATH = path.join(CLI_DIR, 'index.ts');
+const INDEX_PATH = path.join(CLI_DIR, 'index');
 
 function readIndexContent(): string {
   return fs.readFileSync(INDEX_PATH, 'utf-8');
 }
 
 function readCliFile(name: string): string {
-  const tsPath = path.join(CLI_DIR, name + '.ts');
+  const tsPath = path.join(CLI_DIR, name + '');
   if (fs.existsSync(tsPath)) return fs.readFileSync(tsPath, 'utf-8');
   const tsxPath = path.join(CLI_DIR, name + '.tsx');
   if (fs.existsSync(tsxPath)) return fs.readFileSync(tsxPath, 'utf-8');
@@ -54,15 +54,15 @@ describe('CLI v2 Framework', () => {
     });
 
     it('exit.ts should exist', () => {
-      expect(fs.existsSync(path.join(CLI_DIR, 'exit.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(CLI_DIR, 'exit'))).toBe(true);
     });
 
     it('structuredIO.ts should exist', () => {
-      expect(fs.existsSync(path.join(CLI_DIR, 'structuredIO.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(CLI_DIR, 'structuredIO'))).toBe(true);
     });
 
     it('ndjsonSafeStringify.ts should exist', () => {
-      expect(fs.existsSync(path.join(CLI_DIR, 'ndjsonSafeStringify.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(CLI_DIR, 'ndjsonSafeStringify'))).toBe(true);
     });
   });
 
@@ -127,17 +127,17 @@ describe('CLI v2 Framework', () => {
     });
 
     it('handlers directory should have auth handler file', () => {
-      expect(fs.existsSync(path.join(CLI_DIR, 'handlers', 'auth.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(CLI_DIR, 'handlers', 'auth'))).toBe(true);
     });
 
     it('handlers directory should have mcp handler file', () => {
-      const hasTs = fs.existsSync(path.join(CLI_DIR, 'handlers', 'mcp.ts'));
+      const hasTs = fs.existsSync(path.join(CLI_DIR, 'handlers', 'mcp'));
       const hasTsx = fs.existsSync(path.join(CLI_DIR, 'handlers', 'mcp.tsx'));
       expect(hasTs || hasTsx).toBe(true);
     });
 
     it('handlers directory should have plugins handler file', () => {
-      expect(fs.existsSync(path.join(CLI_DIR, 'handlers', 'plugins.ts'))).toBe(true);
+      expect(fs.existsSync(path.join(CLI_DIR, 'handlers', 'plugins'))).toBe(true);
     });
   });
 

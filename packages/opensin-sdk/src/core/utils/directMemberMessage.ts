@@ -1,4 +1,4 @@
-import type { AppState } from '../state/AppState.js'
+import type { AppState } from '../state/AppState'
 
 /**
  * Parse `@agent-name message` syntax for direct team member messaging.

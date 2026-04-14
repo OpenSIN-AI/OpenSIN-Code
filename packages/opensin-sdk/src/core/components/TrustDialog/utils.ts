@@ -1,9 +1,9 @@
-import type { PermissionRule } from 'src/utils/permissions/PermissionRule.js'
-import { getSettingsForSource } from 'src/utils/settings/settings.js'
-import type { SettingsJson } from 'src/utils/settings/types.js'
-import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
-import { SAFE_ENV_VARS } from '../../utils/managedEnvConstants.js'
-import { getPermissionRulesForSource } from '../../utils/permissions/permissionsLoader.js'
+import type { PermissionRule } from 'src/utils/permissions/PermissionRule'
+import { getSettingsForSource } from 'src/utils/settings/settings'
+import type { SettingsJson } from 'src/utils/settings/types'
+import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName'
+import { SAFE_ENV_VARS } from '../../utils/managedEnvConstants'
+import { getPermissionRulesForSource } from '../../utils/permissions/permissionsLoader'
 
 function hasHooks(settings: SettingsJson | null): boolean {
   if (settings === null || settings.disableAllHooks) {

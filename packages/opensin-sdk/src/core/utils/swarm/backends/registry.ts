@@ -1,23 +1,23 @@
-import { getIsNonInteractiveSession } from '../../../bootstrap/state.js'
-import { logForDebugging } from '../../../utils/debug.js'
-import { getPlatform } from '../../../utils/platform.js'
+import { getIsNonInteractiveSession } from '../../../bootstrap/state'
+import { logForDebugging } from '../../../utils/debug'
+import { getPlatform } from '../../../utils/platform'
 import {
   isInITerm2,
   isInsideTmux,
   isInsideTmuxSync,
   isIt2CliAvailable,
   isTmuxAvailable,
-} from './detection.js'
-import { createInProcessBackend } from './InProcessBackend.js'
-import { getPreferTmuxOverIterm2 } from './it2Setup.js'
-import { createPaneBackendExecutor } from './PaneBackendExecutor.js'
-import { getTeammateModeFromSnapshot } from './teammateModeSnapshot.js'
+} from './detection'
+import { createInProcessBackend } from './InProcessBackend'
+import { getPreferTmuxOverIterm2 } from './it2Setup'
+import { createPaneBackendExecutor } from './PaneBackendExecutor'
+import { getTeammateModeFromSnapshot } from './teammateModeSnapshot'
 import type {
   BackendDetectionResult,
   PaneBackend,
   PaneBackendType,
   TeammateExecutor,
-} from './types.js'
+} from './types'
 
 /**
  * Cached backend detection result.
@@ -73,8 +73,8 @@ let ITermBackendClass: (new () => PaneBackend) | null = null
  */
 export async function ensureBackendsRegistered(): Promise<void> {
   if (backendsRegistered) return
-  await import('./TmuxBackend.js')
-  await import('./ITermBackend.js')
+  await import('./TmuxBackend')
+  await import('./ITermBackend')
   backendsRegistered = true
 }
 

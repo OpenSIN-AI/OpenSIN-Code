@@ -1,13 +1,13 @@
 import axios, { type AxiosError } from 'axios'
-import type { StdoutMessage } from 'src/entrypoints/sdk/controlTypes.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { logForDiagnosticsNoPII } from '../../utils/diagLogs.js'
-import { getSessionIngressAuthToken } from '../../utils/sessionIngressAuth.js'
-import { SerialBatchEventUploader } from './SerialBatchEventUploader.js'
+import type { StdoutMessage } from 'src/entrypoints/sdk/controlTypes'
+import { logForDebugging } from '../../utils/debug'
+import { logForDiagnosticsNoPII } from '../../utils/diagLogs'
+import { getSessionIngressAuthToken } from '../../utils/sessionIngressAuth'
+import { SerialBatchEventUploader } from './SerialBatchEventUploader'
 import {
   WebSocketTransport,
   type WebSocketTransportOptions,
-} from './WebSocketTransport.js'
+} from './WebSocketTransport'
 
 const BATCH_FLUSH_INTERVAL_MS = 100
 // Per-attempt POST timeout. Bounds how long a single stuck POST can block

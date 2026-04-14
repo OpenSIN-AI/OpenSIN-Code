@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { logEvent } from 'src/services/analytics/index.js'
+import { logEvent } from 'src/services/analytics/index'
 import { z } from 'zod/v4'
-import type { MCPServerConnection } from '../services/mcp/types.js'
-import { getConnectedIdeClient } from '../utils/ide.js'
-import { lazySchema } from '../utils/lazySchema.js'
+import type { MCPServerConnection } from '../services/mcp/types'
+import { getConnectedIdeClient } from '../utils/ide'
+import { lazySchema } from '../utils/lazySchema'
 
 const LogEventSchema = lazySchema(() =>
   z.object({

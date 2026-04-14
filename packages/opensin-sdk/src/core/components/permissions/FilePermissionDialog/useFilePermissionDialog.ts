@@ -1,24 +1,24 @@
 import { useCallback, useMemo, useState } from 'react'
-import { useAppState } from 'src/state/AppState.js'
-import { useKeybindings } from '../../../keybindings/useKeybinding.js'
+import { useAppState } from 'src/state/AppState'
+import { useKeybindings } from '../../../keybindings/useKeybinding'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../../services/analytics/index.js'
-import { sanitizeToolNameForAnalytics } from '../../../services/analytics/metadata.js'
-import type { PermissionUpdate } from '../../../utils/permissions/PermissionUpdateSchema.js'
-import type { CompletionType } from '../../../utils/unaryLogging.js'
-import type { ToolUseConfirm } from '../PermissionRequest.js'
+} from '../../../services/analytics/index'
+import { sanitizeToolNameForAnalytics } from '../../../services/analytics/metadata'
+import type { PermissionUpdate } from '../../../utils/permissions/PermissionUpdateSchema'
+import type { CompletionType } from '../../../utils/unaryLogging'
+import type { ToolUseConfirm } from '../PermissionRequest'
 import {
   type FileOperationType,
   getFilePermissionOptions,
   type PermissionOption,
   type PermissionOptionWithLabel,
-} from './permissionOptions.js'
+} from './permissionOptions'
 import {
   PERMISSION_HANDLERS,
   type PermissionHandlerParams,
-} from './usePermissionHandler.js'
+} from './usePermissionHandler'
 
 export interface ToolInput {
   [key: string]: unknown

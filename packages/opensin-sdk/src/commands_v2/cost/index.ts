@@ -2,8 +2,8 @@
  * Cost command - minimal metadata only.
  * Implementation is lazy-loaded from cost.ts to reduce startup time.
  */
-import type { Command } from '../../commands.js'
-import { isOpenSINAISubscriber } from '../../utils/auth.js'
+import type { Command } from '../../commands'
+import { isOpenSINAISubscriber } from '../../utils/auth'
 
 const cost = {
   type: 'local',
@@ -17,7 +17,7 @@ const cost = {
     return isOpenSINAISubscriber()
   },
   supportsNonInteractive: true,
-  load: () => import('./cost.js'),
+  load: () => import('./cost'),
 } satisfies Command
 
 export default cost

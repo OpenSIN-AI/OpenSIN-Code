@@ -10,9 +10,9 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { AgentLoop, createAgentLoop } from '../agent_loop/agent_loop.js';
-import { ToolRegistry, createToolRegistry } from '../agent_loop/tool_registry.js';
-import { AgentLoopContext, estimateMessageTokens, estimateTotalTokens } from '../agent_loop/context.js';
+import { AgentLoop, createAgentLoop } from '../agent_loop/agent_loop';
+import { ToolRegistry, createToolRegistry } from '../agent_loop/tool_registry';
+import { AgentLoopContext, estimateMessageTokens, estimateTotalTokens } from '../agent_loop/context';
 import {
   toNDJSONLine,
   emitNDJSON,
@@ -20,14 +20,14 @@ import {
   parseNDJSONLine,
   parseNDJSONStream,
   streamNDJSON,
-} from '../agent_loop/ndjson.js';
+} from '../agent_loop/ndjson';
 import type {
   AgentLoopConfig,
   LLMCaller,
   LLMResponse,
   AgentEvent,
-} from '../agent_loop/types.js';
-import type { Message, ToolCall, ToolResult, ToolDefinition } from '../types.js';
+} from '../agent_loop/types';
+import type { Message, ToolCall, ToolResult, ToolDefinition } from '../types';
 
 // --- Helpers ---
 

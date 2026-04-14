@@ -3,8 +3,8 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { renderMemoryBlocks } from './prompt.js';
-import type { MemoryBlock } from './memory.js';
+import { renderMemoryBlocks } from './prompt';
+import type { MemoryBlock } from './memory';
 
 describe('renderMemoryBlocks', () => {
   it('returns empty string for no blocks', () => {

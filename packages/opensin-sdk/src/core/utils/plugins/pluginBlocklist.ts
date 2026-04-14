@@ -8,20 +8,20 @@
  * for UI reason/text only. If re-introduced, serve from downloads.claude.ai.
  */
 
-import { uninstallPluginOp } from '../../services/plugins/pluginOperations.js'
-import { logForDebugging } from '../debug.js'
-import { errorMessage } from '../errors.js'
-import { loadInstalledPluginsV2 } from './installedPluginsManager.js'
+import { uninstallPluginOp } from '../../services/plugins/pluginOperations'
+import { logForDebugging } from '../debug'
+import { errorMessage } from '../errors'
+import { loadInstalledPluginsV2 } from './installedPluginsManager'
 import {
   getMarketplace,
   loadKnownMarketplacesConfigSafe,
-} from './marketplaceManager.js'
+} from './marketplaceManager'
 import {
   addFlaggedPlugin,
   getFlaggedPlugins,
   loadFlaggedPlugins,
-} from './pluginFlagging.js'
-import type { InstalledPluginsFileV2, PluginMarketplace } from './schemas.js'
+} from './pluginFlagging'
+import type { InstalledPluginsFileV2, PluginMarketplace } from './schemas'
 
 /**
  * Detect plugins installed from a marketplace that are no longer listed there.

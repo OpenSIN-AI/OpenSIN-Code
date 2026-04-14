@@ -1,15 +1,15 @@
-import { logEvent } from 'src/services/analytics/index.js'
-import { openBrowser } from '../../utils/browser.js'
-import { AuthCodeListener } from './auth-code-listener.js'
-import * as client from './client.js'
-import * as crypto from './crypto.js'
+import { logEvent } from 'src/services/analytics/index'
+import { openBrowser } from '../../utils/browser'
+import { AuthCodeListener } from './auth-code-listener'
+import * as client from './client'
+import * as crypto from './crypto'
 import type {
   OAuthProfileResponse,
   OAuthTokenExchangeResponse,
   OAuthTokens,
   RateLimitTier,
   SubscriptionType,
-} from './types.js'
+} from './types'
 
 /**
  * OAuth service that handles the OAuth 2.0 authorization code flow with PKCE.

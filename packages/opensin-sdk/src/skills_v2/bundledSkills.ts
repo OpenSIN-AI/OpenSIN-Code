@@ -1,4 +1,4 @@
-import type { Skill } from './types.js'
+import type { Skill } from './types'
 
 export const BUNDLED_SKILLS: Skill[] = [
   { name: 'code-review', description: 'Comprehensive code review with best practices', version: '1.0.0', category: 'development', instructions: 'Review the code for bugs, style issues, performance problems, and security vulnerabilities.', triggers: ['review', 'code review', 'audit'], source: 'bundled', enabled: true, usageCount: 0 },

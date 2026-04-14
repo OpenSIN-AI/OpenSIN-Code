@@ -1,32 +1,32 @@
-import type { StdoutMessage } from 'src/entrypoints/sdk/controlTypes.js'
+import type { StdoutMessage } from 'src/entrypoints/sdk/controlTypes'
 import { PassThrough } from 'stream'
 import { URL } from 'url'
-import { getSessionId } from '../bootstrap/state.js'
-import { getPollIntervalConfig } from '../bridge/pollConfig.js'
-import { registerCleanup } from '../utils/cleanupRegistry.js'
-import { setCommandLifecycleListener } from '../utils/commandLifecycle.js'
-import { isDebugMode, logForDebugging } from '../utils/debug.js'
-import { logForDiagnosticsNoPII } from '../utils/diagLogs.js'
-import { isEnvTruthy } from '../utils/envUtils.js'
-import { errorMessage } from '../utils/errors.js'
-import { gracefulShutdown } from '../utils/gracefulShutdown.js'
-import { logError } from '../utils/log.js'
-import { writeToStdout } from '../utils/process.js'
-import { getSessionIngressAuthToken } from '../utils/sessionIngressAuth.js'
+import { getSessionId } from '../bootstrap/state'
+import { getPollIntervalConfig } from '../bridge/pollConfig'
+import { registerCleanup } from '../utils/cleanupRegistry'
+import { setCommandLifecycleListener } from '../utils/commandLifecycle'
+import { isDebugMode, logForDebugging } from '../utils/debug'
+import { logForDiagnosticsNoPII } from '../utils/diagLogs'
+import { isEnvTruthy } from '../utils/envUtils'
+import { errorMessage } from '../utils/errors'
+import { gracefulShutdown } from '../utils/gracefulShutdown'
+import { logError } from '../utils/log'
+import { writeToStdout } from '../utils/process'
+import { getSessionIngressAuthToken } from '../utils/sessionIngressAuth'
 import {
   setSessionMetadataChangedListener,
   setSessionStateChangedListener,
-} from '../utils/sessionState.js'
+} from '../utils/sessionState'
 import {
   setInternalEventReader,
   setInternalEventWriter,
-} from '../utils/sessionStorage.js'
-import { ndjsonSafeStringify } from './ndjsonSafeStringify.js'
-import { StructuredIO } from './structuredIO.js'
-import { CCRClient, CCRInitError } from './transports/ccrClient.js'
-import { SSETransport } from './transports/SSETransport.js'
-import type { Transport } from './transports/Transport.js'
-import { getTransportForUrl } from './transports/transportUtils.js'
+} from '../utils/sessionStorage'
+import { ndjsonSafeStringify } from './ndjsonSafeStringify'
+import { StructuredIO } from './structuredIO'
+import { CCRClient, CCRInitError } from './transports/ccrClient'
+import { SSETransport } from './transports/SSETransport'
+import type { Transport } from './transports/Transport'
+import { getTransportForUrl } from './transports/transportUtils'
 
 /**
  * Bidirectional streaming for SDK mode with session tracking

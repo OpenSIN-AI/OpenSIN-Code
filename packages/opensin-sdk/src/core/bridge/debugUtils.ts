@@ -1,10 +1,10 @@
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { logForDebugging } from '../utils/debug.js'
-import { errorMessage } from '../utils/errors.js'
-import { jsonStringify } from '../utils/slowOperations.js'
+} from '../services/analytics/index'
+import { logForDebugging } from '../utils/debug'
+import { errorMessage } from '../utils/errors'
+import { jsonStringify } from '../utils/slowOperations'
 
 const DEBUG_MSG_LIMIT = 2000
 

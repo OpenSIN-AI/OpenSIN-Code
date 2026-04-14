@@ -1,19 +1,19 @@
 import axios from 'axios'
 import { z } from 'zod/v4'
-import { getOauthConfig } from '../../constants/oauth.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import { getOrganizationUUID } from '../../services/oauth/client.js'
-import { isPolicyAllowed } from '../../services/policyLimits/index.js'
-import type { ToolUseContext } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
+import { getOauthConfig } from '../../constants/oauth'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import { getOrganizationUUID } from '../../services/oauth/client'
+import { isPolicyAllowed } from '../../services/policyLimits/index'
+import type { ToolUseContext } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
 import {
   checkAndRefreshOAuthTokenIfNeeded,
   getClaudeAIOAuthTokens,
-} from '../../utils/auth.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { DESCRIPTION, PROMPT, REMOTE_TRIGGER_TOOL_NAME } from './prompt.js'
-import { renderToolResultMessage, renderToolUseMessage } from './UI.js'
+} from '../../utils/auth'
+import { lazySchema } from '../../utils/lazySchema'
+import { jsonStringify } from '../../utils/slowOperations'
+import { DESCRIPTION, PROMPT, REMOTE_TRIGGER_TOOL_NAME } from './prompt'
+import { renderToolResultMessage, renderToolUseMessage } from './UI'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({

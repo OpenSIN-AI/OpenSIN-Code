@@ -1,19 +1,19 @@
 import { appendFile, mkdir, symlink, unlink } from 'fs/promises'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { dirname, join } from 'path'
-import { getSessionId } from 'src/bootstrap/state.js'
+import { getSessionId } from 'src/bootstrap/state'
 
-import { type BufferedWriter, createBufferedWriter } from './bufferedWriter.js'
-import { registerCleanup } from './cleanupRegistry.js'
+import { type BufferedWriter, createBufferedWriter } from './bufferedWriter'
+import { registerCleanup } from './cleanupRegistry'
 import {
   type DebugFilter,
   parseDebugFilter,
   shouldShowDebugMessage,
-} from './debugFilter.js'
-import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils.js'
-import { getFsImplementation } from './fsOperations.js'
-import { writeToStderr } from './process.js'
-import { jsonStringify } from './slowOperations.js'
+} from './debugFilter'
+import { getClaudeConfigHomeDir, isEnvTruthy } from './envUtils'
+import { getFsImplementation } from './fsOperations'
+import { writeToStderr } from './process'
+import { jsonStringify } from './slowOperations'
 
 export type DebugLogLevel = 'verbose' | 'debug' | 'info' | 'warn' | 'error'
 

@@ -4,22 +4,22 @@ import {
   type Logger,
   type PermissionMode,
 } from '@ant/claude-for-chrome-mcp'
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio'
 import { format } from 'util'
-import { shutdownDatadog } from '../../services/analytics/datadog.js'
-import { shutdown1PEventLogging } from '../../services/analytics/firstPartyEventLogger.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
+import { shutdownDatadog } from '../../services/analytics/datadog'
+import { shutdown1PEventLogging } from '../../services/analytics/firstPartyEventLogger'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { initializeAnalyticsSink } from '../../services/analytics/sink.js'
-import { getClaudeAIOAuthTokens } from '../auth.js'
-import { enableConfigs, getGlobalConfig, saveGlobalConfig } from '../config.js'
-import { logForDebugging } from '../debug.js'
-import { isEnvTruthy } from '../envUtils.js'
-import { sideQuery } from '../sideQuery.js'
-import { getAllSocketPaths, getSecureSocketPath } from './common.js'
+} from '../../services/analytics/index'
+import { initializeAnalyticsSink } from '../../services/analytics/sink'
+import { getClaudeAIOAuthTokens } from '../auth'
+import { enableConfigs, getGlobalConfig, saveGlobalConfig } from '../config'
+import { logForDebugging } from '../debug'
+import { isEnvTruthy } from '../envUtils'
+import { sideQuery } from '../sideQuery'
+import { getAllSocketPaths, getSecureSocketPath } from './common'
 
 const EXTENSION_DOWNLOAD_URL = 'https://claude.ai/chrome'
 const BUG_REPORT_URL =

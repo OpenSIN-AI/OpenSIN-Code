@@ -1,12 +1,12 @@
 import { feature } from 'bun:bundle'
-import { getShortcutDisplay } from '../keybindings/shortcutFormat.js'
-import { isExtractModeActive } from '../memdir/paths.js'
+import { getShortcutDisplay } from '../keybindings/shortcutFormat'
+import { isExtractModeActive } from '../memdir/paths'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import type { ToolUseContext } from '../Tool.js'
-import type { HookProgress } from '../types/hooks.js'
+} from '../services/analytics/index'
+import type { ToolUseContext } from '../Tool'
+import type { HookProgress } from '../types/hooks'
 import type {
   AssistantMessage,
   Message,
@@ -15,11 +15,11 @@ import type {
   StreamEvent,
   TombstoneMessage,
   ToolUseSummaryMessage,
-} from '../types/message.js'
-import { createAttachmentMessage } from '../utils/attachments.js'
-import { logForDebugging } from '../utils/debug.js'
-import { errorMessage } from '../utils/errors.js'
-import type { REPLHookContext } from '../utils/hooks/postSamplingHooks.js'
+} from '../types/message'
+import { createAttachmentMessage } from '../utils/attachments'
+import { logForDebugging } from '../utils/debug'
+import { errorMessage } from '../utils/errors'
+import type { REPLHookContext } from '../utils/hooks/postSamplingHooks'
 import {
   executeStopHooks,
   executeTaskCompletedHooks,
@@ -27,35 +27,35 @@ import {
   getStopHookMessage,
   getTaskCompletedHookMessage,
   getTeammateIdleHookMessage,
-} from '../utils/hooks.js'
+} from '../utils/hooks'
 import {
   createStopHookSummaryMessage,
   createSystemMessage,
   createUserInterruptionMessage,
   createUserMessage,
-} from '../utils/messages.js'
-import type { SystemPrompt } from '../utils/systemPromptType.js'
-import { getTaskListId, listTasks } from '../utils/tasks.js'
-import { getAgentName, getTeamName, isTeammate } from '../utils/teammate.js'
+} from '../utils/messages'
+import type { SystemPrompt } from '../utils/systemPromptType'
+import { getTaskListId, listTasks } from '../utils/tasks'
+import { getAgentName, getTeamName, isTeammate } from '../utils/teammate'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const extractMemoriesModule = feature('EXTRACT_MEMORIES')
-  ? (require('../services/extractMemories/extractMemories.js') as typeof import('../services/extractMemories/extractMemories.js'))
+  ? (require('../services/extractMemories/extractMemories') as typeof import('../services/extractMemories/extractMemories'))
   : null
 const jobClassifierModule = feature('TEMPLATES')
-  ? (require('../jobs/classifier.js') as typeof import('../jobs/classifier.js'))
+  ? (require('../jobs/classifier') as typeof import('../jobs/classifier'))
   : null
 
 /* eslint-enable @typescript-eslint/no-require-imports */
 
-import type { QuerySource } from '../constants/querySource.js'
-import { executeAutoDream } from '../services/autoDream/autoDream.js'
-import { executePromptSuggestion } from '../services/PromptSuggestion/promptSuggestion.js'
-import { isBareMode, isEnvDefinedFalsy } from '../utils/envUtils.js'
+import type { QuerySource } from '../constants/querySource'
+import { executeAutoDream } from '../services/autoDream/autoDream'
+import { executePromptSuggestion } from '../services/PromptSuggestion/promptSuggestion'
+import { isBareMode, isEnvDefinedFalsy } from '../utils/envUtils'
 import {
   createCacheSafeParams,
   saveCacheSafeParams,
-} from '../utils/forkedAgent.js'
+} from '../utils/forkedAgent'
 
 type StopHookResult = {
   blockingErrors: Message[]
@@ -164,7 +164,7 @@ export async function* handleStopHooks(
   if (feature('CHICAGO_MCP') && !toolUseContext.agentId) {
     try {
       const { cleanupComputerUseAfterTurn } = await import(
-        '../utils/computerUse/cleanup.js'
+        '../utils/computerUse/cleanup'
       )
       await cleanupComputerUseAfterTurn(toolUseContext)
     } catch {

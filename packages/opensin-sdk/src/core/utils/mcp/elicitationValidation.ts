@@ -3,14 +3,14 @@ import type {
   MultiSelectEnumSchema,
   PrimitiveSchemaDefinition,
   StringSchema,
-} from '@modelcontextprotocol/sdk/types.js'
+} from '@modelcontextprotocol/sdk/types'
 import { z } from 'zod/v4'
-import { jsonStringify } from '../slowOperations.js'
-import { plural } from '../stringUtils.js'
+import { jsonStringify } from '../slowOperations'
+import { plural } from '../stringUtils'
 import {
   looksLikeISO8601,
   parseNaturalLanguageDateTime,
-} from './dateTimeParser.js'
+} from './dateTimeParser'
 
 export type ValidationResult = {
   value?: string | number | boolean

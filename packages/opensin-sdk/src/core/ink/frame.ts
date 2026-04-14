@@ -1,13 +1,13 @@
-import type { Cursor } from './cursor.js'
-import type { Size } from './layout/geometry.js'
-import type { ScrollHint } from './render-node-to-output.js'
+import type { Cursor } from './cursor'
+import type { Size } from './layout/geometry'
+import type { ScrollHint } from './render-node-to-output'
 import {
   type CharPool,
   createScreen,
   type HyperlinkPool,
   type Screen,
   type StylePool,
-} from './screen.js'
+} from './screen'
 
 export type Frame = {
   readonly screen: Screen

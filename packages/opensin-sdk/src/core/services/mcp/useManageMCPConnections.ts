@@ -1,9 +1,9 @@
 import { feature } from 'bun:bundle'
 import { basename } from 'path'
 import { useCallback, useEffect, useRef } from 'react'
-import { getSessionId } from '../../bootstrap/state.js'
-import type { Command } from '../../commands.js'
-import type { Tool } from '../../Tool.js'
+import { getSessionId } from '../../bootstrap/state'
+import type { Command } from '../../commands'
+import type { Tool } from '../../Tool'
 import {
   clearServerCache,
   fetchCommandsForClient,
@@ -11,22 +11,22 @@ import {
   fetchToolsForClient,
   getMcpToolsCommandsAndResources,
   reconnectMcpServerImpl,
-} from './client.js'
+} from './client'
 import type {
   MCPServerConnection,
   ScopedMcpServerConfig,
   ServerResource,
-} from './types.js'
+} from './types'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const fetchMcpSkillsForClient = feature('MCP_SKILLS')
   ? (
-      require('../../skills/mcpSkills.js') as typeof import('../../skills/mcpSkills.js')
+      require('../../skills/mcpSkills') as typeof import('../../skills/mcpSkills')
     ).fetchMcpSkillsForClient
   : null
 const clearSkillIndexCache = feature('EXPERIMENTAL_SKILL_SEARCH')
   ? (
-      require('../skillSearch/localSearch.js') as typeof import('../skillSearch/localSearch.js')
+      require('../skillSearch/localSearch') as typeof import('../skillSearch/localSearch')
     ).clearSkillIndexCache
   : null
 
@@ -34,13 +34,13 @@ import {
   PromptListChangedNotificationSchema,
   ResourceListChangedNotificationSchema,
   ToolListChangedNotificationSchema,
-} from '@modelcontextprotocol/sdk/types.js'
-import omit from 'lodash-es/omit.js'
-import reject from 'lodash-es/reject.js'
+} from '@modelcontextprotocol/sdk/types'
+import omit from 'lodash-es/omit'
+import reject from 'lodash-es/reject'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
+} from 'src/services/analytics/index'
 import {
   dedupClaudeAiMcpServers,
   doesEnterpriseMcpConfigExist,
@@ -48,21 +48,21 @@ import {
   getClaudeCodeMcpConfigs,
   isMcpServerDisabled,
   setMcpServerEnabled,
-} from 'src/services/mcp/config.js'
-import type { AppState } from 'src/state/AppState.js'
-import type { PluginError } from 'src/types/plugin.js'
-import { logForDebugging } from 'src/utils/debug.js'
-import { getAllowedChannels } from '../../bootstrap/state.js'
-import { useNotifications } from '../../context/notifications.js'
+} from 'src/services/mcp/config'
+import type { AppState } from 'src/state/AppState'
+import type { PluginError } from 'src/types/plugin'
+import { logForDebugging } from 'src/utils/debug'
+import { getAllowedChannels } from '../../bootstrap/state'
+import { useNotifications } from '../../context/notifications'
 import {
   useAppState,
   useAppStateStore,
   useSetAppState,
-} from '../../state/AppState.js'
-import { errorMessage } from '../../utils/errors.js'
+} from '../../state/AppState'
+import { errorMessage } from '../../utils/errors'
 /* eslint-enable @typescript-eslint/no-require-imports */
-import { logMCPDebug, logMCPError } from '../../utils/log.js'
-import { enqueue } from '../../utils/messageQueueManager.js'
+import { logMCPDebug, logMCPError } from '../../utils/log'
+import { enqueue } from '../../utils/messageQueueManager'
 import {
   CHANNEL_PERMISSION_METHOD,
   ChannelMessageNotificationSchema,
@@ -70,19 +70,19 @@ import {
   findChannelEntry,
   gateChannelServer,
   wrapChannelMessage,
-} from './channelNotification.js'
+} from './channelNotification'
 import {
   type ChannelPermissionCallbacks,
   createChannelPermissionCallbacks,
   isChannelPermissionRelayEnabled,
-} from './channelPermissions.js'
+} from './channelPermissions'
 import {
   clearClaudeAIMcpConfigsCache,
   fetchClaudeAIMcpConfigsIfEligible,
-} from './claudeai.js'
-import { registerElicitationHandler } from './elicitationHandler.js'
-import { getMcpPrefix } from './mcpStringUtils.js'
-import { commandBelongsToServer, excludeStalePluginClients } from './utils.js'
+} from './claudeai'
+import { registerElicitationHandler } from './elicitationHandler'
+import { getMcpPrefix } from './mcpStringUtils'
+import { commandBelongsToServer, excludeStalePluginClients } from './utils'
 
 // Constants for reconnection with exponential backoff
 const MAX_RECONNECT_ATTEMPTS = 5

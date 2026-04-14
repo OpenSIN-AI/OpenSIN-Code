@@ -12,8 +12,8 @@ import type {
   DispatchResult,
   TaskStatus,
   CoordinatorConfig,
-} from './types.js';
-import { TaskScheduler } from './scheduler.js';
+} from './types';
+import { TaskScheduler } from './scheduler';
 
 export class WorkDispatcher {
   private scheduler: TaskScheduler;

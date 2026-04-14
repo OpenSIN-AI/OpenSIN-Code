@@ -9,42 +9,42 @@ import {
   getOriginalCwd,
   getSessionId,
   regenerateSessionId,
-} from '../../bootstrap/state.js'
+} from '../../bootstrap/state'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import type { AppState } from '../../state/AppState.js'
-import { isInProcessTeammateTask } from '../../tasks/InProcessTeammateTask/types.js'
+} from '../../services/analytics/index'
+import type { AppState } from '../../state/AppState'
+import { isInProcessTeammateTask } from '../../tasks/InProcessTeammateTask/types'
 import {
   isLocalAgentTask,
   type LocalAgentTaskState,
-} from '../../tasks/LocalAgentTask/LocalAgentTask.js'
-import { isLocalShellTask } from '../../tasks/LocalShellTask/guards.js'
-import { asAgentId } from '../../types/ids.js'
-import type { Message } from '../../types/message.js'
-import { createEmptyAttributionState } from '../../utils/commitAttribution.js'
-import type { FileStateCache } from '../../utils/fileStateCache.js'
+} from '../../tasks/LocalAgentTask/LocalAgentTask'
+import { isLocalShellTask } from '../../tasks/LocalShellTask/guards'
+import { asAgentId } from '../../types/ids'
+import type { Message } from '../../types/message'
+import { createEmptyAttributionState } from '../../utils/commitAttribution'
+import type { FileStateCache } from '../../utils/fileStateCache'
 import {
   executeSessionEndHooks,
   getSessionEndHookTimeoutMs,
-} from '../../utils/hooks.js'
-import { logError } from '../../utils/log.js'
-import { clearAllPlanSlugs } from '../../utils/plans.js'
-import { setCwd } from '../../utils/Shell.js'
-import { processSessionStartHooks } from '../../utils/sessionStart.js'
+} from '../../utils/hooks'
+import { logError } from '../../utils/log'
+import { clearAllPlanSlugs } from '../../utils/plans'
+import { setCwd } from '../../utils/Shell'
+import { processSessionStartHooks } from '../../utils/sessionStart'
 import {
   clearSessionMetadata,
   getAgentTranscriptPath,
   resetSessionFilePointer,
   saveWorktreeState,
-} from '../../utils/sessionStorage.js'
+} from '../../utils/sessionStorage'
 import {
   evictTaskOutput,
   initTaskOutputAsSymlink,
-} from '../../utils/task/diskOutput.js'
-import { getCurrentWorktreeSession } from '../../utils/worktree.js'
-import { clearSessionCaches } from './caches.js'
+} from '../../utils/task/diskOutput'
+import { getCurrentWorktreeSession } from '../../utils/worktree'
+import { clearSessionCaches } from './caches'
 
 export async function clearConversation({
   setMessages,
@@ -111,7 +111,7 @@ export async function clearConversation({
   // Clear context-blocked flag so proactive ticks resume after /clear
   if (feature('PROACTIVE') || feature('KAIROS')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
-    const { setContextBlocked } = require('../../proactive/index.js')
+    const { setContextBlocked } = require('../../proactive/index')
     /* eslint-enable @typescript-eslint/no-require-imports */
     setContextBlocked(false)
   }
@@ -229,10 +229,10 @@ export async function clearConversation({
   // and (if applicable) the same worktree directory.
   if (feature('COORDINATOR_MODE')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
-    const { saveMode } = require('../../utils/sessionStorage.js')
+    const { saveMode } = require('../../utils/sessionStorage')
     const {
       isCoordinatorMode,
-    } = require('../../coordinator/coordinatorMode.js')
+    } = require('../../coordinator/coordinatorMode')
     /* eslint-enable @typescript-eslint/no-require-imports */
     saveMode(isCoordinatorMode() ? 'coordinator' : 'normal')
   }

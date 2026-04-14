@@ -11,7 +11,7 @@ import {
   getMockHeaders,
   isMockFastModeRateLimitScenario,
   shouldProcessMockLimits,
-} from './mockRateLimits.js'
+} from './mockRateLimits'
 
 /**
  * Process headers, applying mocks if /mock-limits command is active

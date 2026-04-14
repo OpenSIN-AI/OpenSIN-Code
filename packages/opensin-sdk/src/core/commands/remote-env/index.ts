@@ -1,6 +1,6 @@
-import type { Command } from '../../commands.js'
-import { isPolicyAllowed } from '../../services/policyLimits/index.js'
-import { isClaudeAISubscriber } from '../../utils/auth.js'
+import type { Command } from '../../commands'
+import { isPolicyAllowed } from '../../services/policyLimits/index'
+import { isClaudeAISubscriber } from '../../utils/auth'
 
 export default {
   type: 'local-jsx',
@@ -11,5 +11,5 @@ export default {
   get isHidden() {
     return !isClaudeAISubscriber() || !isPolicyAllowed('allow_remote_sessions')
   },
-  load: () => import('./remote-env.js'),
+  load: () => import('./remote-env'),
 } satisfies Command

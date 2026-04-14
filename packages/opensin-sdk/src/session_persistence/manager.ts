@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { SessionMessage, SessionData, SessionMetadata } from './types.js';
-import { SessionStore } from './store.js';
+import { SessionMessage, SessionData, SessionMetadata } from './types';
+import { SessionStore } from './store';
 
 export class SessionManager {
   private store: SessionStore;

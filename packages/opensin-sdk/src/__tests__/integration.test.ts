@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const SRC_DIR = path.resolve(__dirname, '..');
-const INDEX_PATH = path.join(SRC_DIR, 'index.ts');
+const INDEX_PATH = path.join(SRC_DIR, 'index');
 
 function readIndexContent(): string {
   return fs.readFileSync(INDEX_PATH, 'utf-8');
@@ -229,20 +229,20 @@ describe('SDK Integration', () => {
   });
 
   describe('SDK structure', () => {
-    it('should have client.ts', () => {
-      expect(fs.existsSync(path.join(SRC_DIR, 'client.ts'))).toBe(true);
+    it('should have client', () => {
+      expect(fs.existsSync(path.join(SRC_DIR, 'client'))).toBe(true);
     });
 
-    it('should have types.ts', () => {
-      expect(fs.existsSync(path.join(SRC_DIR, 'types.ts'))).toBe(true);
+    it('should have types', () => {
+      expect(fs.existsSync(path.join(SRC_DIR, 'types'))).toBe(true);
     });
 
-    it('should have events.ts', () => {
-      expect(fs.existsSync(path.join(SRC_DIR, 'events.ts'))).toBe(true);
+    it('should have events', () => {
+      expect(fs.existsSync(path.join(SRC_DIR, 'events'))).toBe(true);
     });
 
-    it('should have providers.ts', () => {
-      expect(fs.existsSync(path.join(SRC_DIR, 'providers.ts'))).toBe(true);
+    it('should have providers', () => {
+      expect(fs.existsSync(path.join(SRC_DIR, 'providers'))).toBe(true);
     });
 
     it('should have hooks module', () => {

@@ -38,33 +38,33 @@ import {
   setLoggerProvider,
   setMeterProvider,
   setTracerProvider,
-} from 'src/bootstrap/state.js'
+} from 'src/bootstrap/state'
 import {
   getOtelHeadersFromHelper,
   getSubscriptionType,
   is1PApiCustomer,
   isClaudeAISubscriber,
-} from 'src/utils/auth.js'
-import { getPlatform, getWslVersion } from 'src/utils/platform.js'
+} from 'src/utils/auth'
+import { getPlatform, getWslVersion } from 'src/utils/platform'
 
-import { getCACertificates } from '../caCerts.js'
-import { registerCleanup } from '../cleanupRegistry.js'
-import { getHasFormattedOutput, logForDebugging } from '../debug.js'
-import { isEnvTruthy } from '../envUtils.js'
-import { errorMessage } from '../errors.js'
-import { getMTLSConfig } from '../mtls.js'
-import { getProxyUrl, shouldBypassProxy } from '../proxy.js'
-import { getSettings_DEPRECATED } from '../settings/settings.js'
-import { jsonStringify } from '../slowOperations.js'
-import { profileCheckpoint } from '../startupProfiler.js'
-import { isBetaTracingEnabled } from './betaSessionTracing.js'
-import { BigQueryMetricsExporter } from './bigqueryExporter.js'
-import { ClaudeCodeDiagLogger } from './logger.js'
-import { initializePerfettoTracing } from './perfettoTracing.js'
+import { getCACertificates } from '../caCerts'
+import { registerCleanup } from '../cleanupRegistry'
+import { getHasFormattedOutput, logForDebugging } from '../debug'
+import { isEnvTruthy } from '../envUtils'
+import { errorMessage } from '../errors'
+import { getMTLSConfig } from '../mtls'
+import { getProxyUrl, shouldBypassProxy } from '../proxy'
+import { getSettings_DEPRECATED } from '../settings/settings'
+import { jsonStringify } from '../slowOperations'
+import { profileCheckpoint } from '../startupProfiler'
+import { isBetaTracingEnabled } from './betaSessionTracing'
+import { BigQueryMetricsExporter } from './bigqueryExporter'
+import { ClaudeCodeDiagLogger } from './logger'
+import { initializePerfettoTracing } from './perfettoTracing'
 import {
   endInteractionSpan,
   isEnhancedTelemetryEnabled,
-} from './sessionTracing.js'
+} from './sessionTracing'
 
 const DEFAULT_METRICS_EXPORT_INTERVAL_MS = 60000
 const DEFAULT_LOGS_EXPORT_INTERVAL_MS = 5000

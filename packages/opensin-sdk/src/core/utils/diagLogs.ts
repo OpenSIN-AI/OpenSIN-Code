@@ -1,6 +1,6 @@
 import { dirname } from 'path'
-import { getFsImplementation } from './fsOperations.js'
-import { jsonStringify } from './slowOperations.js'
+import { getFsImplementation } from './fsOperations'
+import { jsonStringify } from './slowOperations'
 
 type DiagnosticLogLevel = 'debug' | 'info' | 'warn' | 'error'
 

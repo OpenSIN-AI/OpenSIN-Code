@@ -8,12 +8,12 @@ import * as readline from 'readline';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
-import { OpenSINClient } from '../client.js';
-import { SessionManager } from './session_manager.js';
-import { CommandHistory } from './history.js';
-import { SlashCommand, AgentState } from './types.js';
-import { Message, ToolDefinition } from '../types.js';
-import { createMemoryStore, renderMemoryBlocks, type MemoryStore } from '../memory/index.js';
+import { OpenSINClient } from '../client';
+import { SessionManager } from './session_manager';
+import { CommandHistory } from './history';
+import { SlashCommand, AgentState } from './types';
+import { Message, ToolDefinition } from '../types';
+import { createMemoryStore, renderMemoryBlocks, type MemoryStore } from '../memory/index';
 
 export class StdinHandler {
   private rl: readline.Interface;

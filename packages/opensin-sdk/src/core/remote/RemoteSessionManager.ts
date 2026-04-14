@@ -1,20 +1,20 @@
-import type { SDKMessage } from '../entrypoints/agentSdkTypes.js'
+import type { SDKMessage } from '../entrypoints/agentSdkTypes'
 import type {
   SDKControlCancelRequest,
   SDKControlPermissionRequest,
   SDKControlRequest,
   SDKControlResponse,
-} from '../entrypoints/sdk/controlTypes.js'
-import { logForDebugging } from '../utils/debug.js'
-import { logError } from '../utils/log.js'
+} from '../entrypoints/sdk/controlTypes'
+import { logForDebugging } from '../utils/debug'
+import { logError } from '../utils/log'
 import {
   type RemoteMessageContent,
   sendEventToRemoteSession,
-} from '../utils/teleport/api.js'
+} from '../utils/teleport/api'
 import {
   SessionsWebSocket,
   type SessionsWebSocketCallbacks,
-} from './SessionsWebSocket.js'
+} from './SessionsWebSocket'
 
 /**
  * Type guard to check if a message is an SDKMessage (not a control message)

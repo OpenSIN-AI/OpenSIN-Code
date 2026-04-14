@@ -1,3 +1,3 @@
-export { Commands } from './Commands.js';
-export { General } from './General.js';
-export { HelpV2 } from './HelpV2.js';
+export { Commands } from './Commands';
+export { General } from './General';
+export { HelpV2 } from './HelpV2';

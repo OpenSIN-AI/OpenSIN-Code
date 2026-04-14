@@ -3,9 +3,9 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { ContextPruner } from '../pruner.js';
-import { DEFAULT_PRUNING_POLICY } from '../types.js';
-import type { ContextMessage } from '../pruner.js';
+import { ContextPruner } from '../pruner';
+import { DEFAULT_PRUNING_POLICY } from '../types';
+import type { ContextMessage } from '../pruner';
 
 describe('ContextPruner', () => {
   describe('constructor', () => {

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { jsonParse, jsonStringify } from '../utils/slowOperations.js'
-import type { WorkSecret } from './types.js'
+import { jsonParse, jsonStringify } from '../utils/slowOperations'
+import type { WorkSecret } from './types'
 
 /** Decode a base64url-encoded work secret and validate its version. */
 export function decodeWorkSecret(secret: string): WorkSecret {

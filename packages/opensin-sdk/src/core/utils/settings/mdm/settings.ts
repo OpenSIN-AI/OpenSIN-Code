@@ -19,32 +19,32 @@
  */
 
 import { join } from 'path'
-import { logForDebugging } from '../../debug.js'
-import { logForDiagnosticsNoPII } from '../../diagLogs.js'
-import { readFileSync } from '../../fileRead.js'
-import { getFsImplementation } from '../../fsOperations.js'
-import { safeParseJSON } from '../../json.js'
-import { profileCheckpoint } from '../../startupProfiler.js'
+import { logForDebugging } from '../../debug'
+import { logForDiagnosticsNoPII } from '../../diagLogs'
+import { readFileSync } from '../../fileRead'
+import { getFsImplementation } from '../../fsOperations'
+import { safeParseJSON } from '../../json'
+import { profileCheckpoint } from '../../startupProfiler'
 import {
   getManagedFilePath,
   getManagedSettingsDropInDir,
-} from '../managedPath.js'
-import { type SettingsJson, SettingsSchema } from '../types.js'
+} from '../managedPath'
+import { type SettingsJson, SettingsSchema } from '../types'
 import {
   filterInvalidPermissionRules,
   formatZodError,
   type ValidationError,
-} from '../validation.js'
+} from '../validation'
 import {
   WINDOWS_REGISTRY_KEY_PATH_HKCU,
   WINDOWS_REGISTRY_KEY_PATH_HKLM,
   WINDOWS_REGISTRY_VALUE_NAME,
-} from './constants.js'
+} from './constants'
 import {
   fireRawRead,
   getMdmRawReadPromise,
   type RawReadResult,
-} from './rawRead.js'
+} from './rawRead'
 
 // ---------------------------------------------------------------------------
 // Types and cache

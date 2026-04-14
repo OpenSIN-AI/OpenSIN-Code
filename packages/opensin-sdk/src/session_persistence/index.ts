@@ -1,3 +1,3 @@
-export { SessionStore } from './store.js';
-export { SessionManager } from './manager.js';
-export type { SessionMessage, SessionMetadata, SessionData } from './types.js';
+export { SessionStore } from './store';
+export { SessionManager } from './manager';
+export type { SessionMessage, SessionMetadata, SessionData } from './types';

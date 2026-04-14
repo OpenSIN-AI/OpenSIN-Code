@@ -4,16 +4,16 @@ import type {
   ToolResultBlockParam,
 } from '@anthropic-ai/sdk/resources/index.mjs'
 import { readFile, stat } from 'fs/promises'
-import { getOriginalCwd } from 'src/bootstrap/state.js'
-import { logEvent } from 'src/services/analytics/index.js'
-import type { ToolPermissionContext } from 'src/Tool.js'
-import { getCwd } from 'src/utils/cwd.js'
-import { pathInAllowedWorkingPath } from 'src/utils/permissions/filesystem.js'
-import { setCwd } from 'src/utils/Shell.js'
-import { shouldMaintainProjectWorkingDir } from '../../utils/envUtils.js'
-import { maybeResizeAndDownsampleImageBuffer } from '../../utils/imageResizer.js'
-import { getMaxOutputLength } from '../../utils/shell/outputLimits.js'
-import { countCharInString, plural } from '../../utils/stringUtils.js'
+import { getOriginalCwd } from 'src/bootstrap/state'
+import { logEvent } from 'src/services/analytics/index'
+import type { ToolPermissionContext } from 'src/Tool'
+import { getCwd } from 'src/utils/cwd'
+import { pathInAllowedWorkingPath } from 'src/utils/permissions/filesystem'
+import { setCwd } from 'src/utils/Shell'
+import { shouldMaintainProjectWorkingDir } from '../../utils/envUtils'
+import { maybeResizeAndDownsampleImageBuffer } from '../../utils/imageResizer'
+import { getMaxOutputLength } from '../../utils/shell/outputLimits'
+import { countCharInString, plural } from '../../utils/stringUtils'
 /**
  * Strips leading and trailing lines that contain only whitespace/newlines.
  * Unlike trim(), this preserves whitespace within content lines and only removes

@@ -26,26 +26,26 @@ import {
   resetStateForTests,
   setCostStateForRestore,
   setHasUnknownModelCost,
-} from './bootstrap/state.js'
-import type { ModelUsage } from './entrypoints/agentSdkTypes.js'
+} from './bootstrap/state'
+import type { ModelUsage } from './entrypoints/agentSdkTypes'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from './services/analytics/index.js'
-import { getAdvisorUsage } from './utils/advisor.js'
+} from './services/analytics/index'
+import { getAdvisorUsage } from './utils/advisor'
 import {
   getCurrentProjectConfig,
   saveCurrentProjectConfig,
-} from './utils/config.js'
+} from './utils/config'
 import {
   getContextWindowForModel,
   getModelMaxOutputTokens,
-} from './utils/context.js'
-import { isFastModeEnabled } from './utils/fastMode.js'
-import { formatDuration, formatNumber } from './utils/format.js'
-import type { FpsMetrics } from './utils/fpsTracker.js'
-import { getCanonicalName } from './utils/model/model.js'
-import { calculateUSDCost } from './utils/modelCost.js'
+} from './utils/context'
+import { isFastModeEnabled } from './utils/fastMode'
+import { formatDuration, formatNumber } from './utils/format'
+import type { FpsMetrics } from './utils/fpsTracker'
+import { getCanonicalName } from './utils/model/model'
+import { calculateUSDCost } from './utils/modelCost'
 export {
   getTotalCostUSD as getTotalCost,
   getTotalDuration,

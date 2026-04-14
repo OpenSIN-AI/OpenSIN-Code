@@ -3,29 +3,29 @@ import { constants as fsConstants } from 'fs'
 import { access, writeFile } from 'fs/promises'
 import { homedir } from 'os'
 import { join } from 'path'
-import { getDynamicConfig_BLOCKS_ON_INIT } from 'src/services/analytics/growthbook.js'
+import { getDynamicConfig_BLOCKS_ON_INIT } from 'src/services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from 'src/services/analytics/index.js'
-import { type ReleaseChannel, saveGlobalConfig } from './config.js'
-import { logForDebugging } from './debug.js'
-import { env } from './env.js'
-import { getClaudeConfigHomeDir } from './envUtils.js'
-import { ClaudeError, getErrnoCode, isENOENT } from './errors.js'
-import { execFileNoThrowWithCwd } from './execFileNoThrow.js'
-import { getFsImplementation } from './fsOperations.js'
-import { gracefulShutdownSync } from './gracefulShutdown.js'
-import { logError } from './log.js'
-import { gte, lt } from './semver.js'
-import { getInitialSettings } from './settings/settings.js'
+} from 'src/services/analytics/index'
+import { type ReleaseChannel, saveGlobalConfig } from './config'
+import { logForDebugging } from './debug'
+import { env } from './env'
+import { getClaudeConfigHomeDir } from './envUtils'
+import { ClaudeError, getErrnoCode, isENOENT } from './errors'
+import { execFileNoThrowWithCwd } from './execFileNoThrow'
+import { getFsImplementation } from './fsOperations'
+import { gracefulShutdownSync } from './gracefulShutdown'
+import { logError } from './log'
+import { gte, lt } from './semver'
+import { getInitialSettings } from './settings/settings'
 import {
   filterClaudeAliases,
   getShellConfigPaths,
   readFileLines,
   writeFileLines,
-} from './shellConfig.js'
-import { jsonParse } from './slowOperations.js'
+} from './shellConfig'
+import { jsonParse } from './slowOperations'
 
 const GCS_BUCKET_URL =
   'https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases'

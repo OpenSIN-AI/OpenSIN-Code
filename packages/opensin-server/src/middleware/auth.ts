@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 
 // Augment Express Request to include user property
 declare module 'express' {

@@ -15,8 +15,8 @@
 import {
   logEvent,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS as SafeString,
-} from '../../services/analytics/index.js'
-import { OFFICIAL_MARKETPLACE_NAME } from './officialMarketplace.js'
+} from '../../services/analytics/index'
+import { OFFICIAL_MARKETPLACE_NAME } from './officialMarketplace'
 
 export type PluginFetchSource =
   | 'install_counts'

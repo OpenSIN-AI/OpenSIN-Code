@@ -42,12 +42,12 @@ import {
 } from 'fs/promises'
 import { tmpdir } from 'os'
 import { basename, dirname, join } from 'path'
-import { logForDebugging } from '../debug.js'
-import { parseZipModes, unzipFile } from '../dxt/zip.js'
-import { isEnvTruthy } from '../envUtils.js'
-import { getFsImplementation } from '../fsOperations.js'
-import { expandTilde } from '../permissions/pathValidation.js'
-import type { MarketplaceSource } from './schemas.js'
+import { logForDebugging } from '../debug'
+import { parseZipModes, unzipFile } from '../dxt/zip'
+import { isEnvTruthy } from '../envUtils'
+import { getFsImplementation } from '../fsOperations'
+import { expandTilde } from '../permissions/pathValidation'
+import type { MarketplaceSource } from './schemas'
 
 /**
  * Check if the plugin zip cache mode is enabled.

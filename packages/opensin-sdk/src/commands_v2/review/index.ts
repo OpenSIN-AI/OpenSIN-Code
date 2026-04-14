@@ -1,10 +1,10 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 
 const review = {
   type: 'local-jsx',
   name: 'review',
   description: 'Review code changes',
-  load: () => import('./ultrareviewCommand.js'),
+  load: () => import('./ultrareviewCommand'),
 } satisfies Command
 
 export default review

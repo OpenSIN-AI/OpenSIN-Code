@@ -5,8 +5,8 @@
  * to optimize token usage while preserving essential information.
  */
 
-import type { PruningPolicy, PruningStats } from './types.js';
-import { DEFAULT_PRUNING_POLICY } from './types.js';
+import type { PruningPolicy, PruningStats } from './types';
+import { DEFAULT_PRUNING_POLICY } from './types';
 
 export interface ContextMessage {
   role: string;

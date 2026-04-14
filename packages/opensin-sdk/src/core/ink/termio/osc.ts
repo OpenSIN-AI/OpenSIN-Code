@@ -3,10 +3,10 @@
  */
 
 import { Buffer } from 'buffer'
-import { env } from '../../utils/env.js'
-import { execFileNoThrow } from '../../utils/execFileNoThrow.js'
-import { BEL, ESC, ESC_TYPE, SEP } from './ansi.js'
-import type { Action, Color, TabStatusAction } from './types.js'
+import { env } from '../../utils/env'
+import { execFileNoThrow } from '../../utils/execFileNoThrow'
+import { BEL, ESC, ESC_TYPE, SEP } from './ansi'
+import type { Action, Color, TabStatusAction } from './types'
 
 export const OSC_PREFIX = ESC + String.fromCharCode(ESC_TYPE.OSC)
 

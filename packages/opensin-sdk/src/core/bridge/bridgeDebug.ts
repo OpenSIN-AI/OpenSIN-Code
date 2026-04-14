@@ -1,6 +1,6 @@
-import { logForDebugging } from '../utils/debug.js'
-import { BridgeFatalError } from './bridgeApi.js'
-import type { BridgeApiClient } from './types.js'
+import { logForDebugging } from '../utils/debug'
+import { BridgeFatalError } from './bridgeApi'
+import type { BridgeApiClient } from './types'
 
 /**
  * Ant-only fault injection for manually testing bridge recovery paths.

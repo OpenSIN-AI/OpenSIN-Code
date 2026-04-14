@@ -1,8 +1,8 @@
 import { feature } from 'bun:bundle'
-import type { Message } from '../types/message.js'
-import type { Attachment } from '../utils/attachments.js'
-import { getGlobalConfig } from '../utils/config.js'
-import { getCompanion } from './companion.js'
+import type { Message } from '../types/message'
+import type { Attachment } from '../utils/attachments'
+import { getGlobalConfig } from '../utils/config'
+import { getCompanion } from './companion'
 
 export function companionIntroText(name: string, species: string): string {
   return `# Companion

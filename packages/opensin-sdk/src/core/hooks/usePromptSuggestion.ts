@@ -1,11 +1,11 @@
 import { useCallback, useRef } from 'react'
-import { useTerminalFocus } from '../ink/hooks/use-terminal-focus.js'
+import { useTerminalFocus } from '../ink/hooks/use-terminal-focus'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import { abortSpeculation } from '../services/PromptSuggestion/speculation.js'
-import { useAppState, useSetAppState } from '../state/AppState.js'
+} from '../services/analytics/index'
+import { abortSpeculation } from '../services/PromptSuggestion/speculation'
+import { useAppState, useSetAppState } from '../state/AppState'
 
 type Props = {
   inputValue: string

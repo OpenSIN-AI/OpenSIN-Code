@@ -1,13 +1,13 @@
-import { isInputModeCharacter } from 'src/components/PromptInput/inputModes.js'
-import { useNotifications } from 'src/context/notifications.js'
+import { isInputModeCharacter } from 'src/components/PromptInput/inputModes'
+import { useNotifications } from 'src/context/notifications'
 import stripAnsi from 'strip-ansi'
-import { markBackslashReturnUsed } from '../commands/terminalSetup/terminalSetup.js'
-import { addToHistory } from '../history.js'
-import type { Key } from '../ink.js'
+import { markBackslashReturnUsed } from '../commands/terminalSetup/terminalSetup'
+import { addToHistory } from '../history'
+import type { Key } from '../ink'
 import type {
   InlineGhostText,
   TextInputState,
-} from '../types/textInputTypes.js'
+} from '../types/textInputTypes'
 import {
   Cursor,
   getLastKill,
@@ -17,12 +17,12 @@ import {
   resetYankState,
   updateYankLength,
   yankPop,
-} from '../utils/Cursor.js'
-import { env } from '../utils/env.js'
-import { isFullscreenEnvEnabled } from '../utils/fullscreen.js'
-import type { ImageDimensions } from '../utils/imageResizer.js'
-import { isModifierPressed, prewarmModifiers } from '../utils/modifiers.js'
-import { useDoublePress } from './useDoublePress.js'
+} from '../utils/Cursor'
+import { env } from '../utils/env'
+import { isFullscreenEnvEnabled } from '../utils/fullscreen'
+import type { ImageDimensions } from '../utils/imageResizer'
+import { isModifierPressed, prewarmModifiers } from '../utils/modifiers'
+import { useDoublePress } from './useDoublePress'
 
 type MaybeCursor = void | Cursor
 type InputHandler = (input: string) => MaybeCursor

@@ -6,31 +6,31 @@ import {
   handlePlanModeTransition,
   setHasExitedPlanMode,
   setNeedsAutoModeExitAttachment,
-} from '../../bootstrap/state.js'
+} from '../../bootstrap/state'
 import type {
   ToolPermissionContext,
   ToolPermissionRulesBySource,
-} from '../../Tool.js'
-import { getCwd } from '../cwd.js'
-import { isEnvTruthy } from '../envUtils.js'
-import type { SettingSource } from '../settings/constants.js'
-import { SETTING_SOURCES } from '../settings/constants.js'
+} from '../../Tool'
+import { getCwd } from '../cwd'
+import { isEnvTruthy } from '../envUtils'
+import type { SettingSource } from '../settings/constants'
+import { SETTING_SOURCES } from '../settings/constants'
 import {
   getSettings_DEPRECATED,
   getSettingsFilePathForSource,
   getUseAutoModeDuringPlan,
   hasAutoModeOptIn,
-} from '../settings/settings.js'
+} from '../settings/settings'
 import {
   type PermissionMode,
   permissionModeFromString,
-} from './PermissionMode.js'
-import { applyPermissionRulesToPermissionContext } from './permissions.js'
-import { loadAllPermissionRulesFromDisk } from './permissionsLoader.js'
+} from './PermissionMode'
+import { applyPermissionRulesToPermissionContext } from './permissions'
+import { loadAllPermissionRulesFromDisk } from './permissionsLoader'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const autoModeStateModule = feature('TRANSCRIPT_CLASSIFIER')
-  ? (require('./autoModeState.js') as typeof import('./autoModeState.js'))
+  ? (require('./autoModeState') as typeof import('./autoModeState'))
   : null
 
 import { resolve } from 'path'
@@ -39,47 +39,47 @@ import {
   checkStatsigFeatureGate_CACHED_MAY_BE_STALE,
   getDynamicConfig_BLOCKS_ON_INIT,
   getFeatureValue_CACHED_MAY_BE_STALE,
-} from 'src/services/analytics/growthbook.js'
+} from 'src/services/analytics/growthbook'
 import {
   addDirHelpMessage,
   validateDirectoryForWorkspace,
-} from '../../commands/add-dir/validation.js'
+} from '../../commands/add-dir/validation'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { AGENT_TOOL_NAME } from '../../tools/AgentTool/constants.js'
-import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName.js'
+} from '../../services/analytics/index'
+import { AGENT_TOOL_NAME } from '../../tools/AgentTool/constants'
+import { BASH_TOOL_NAME } from '../../tools/BashTool/toolName'
 /* eslint-enable @typescript-eslint/no-require-imports */
-import { POWERSHELL_TOOL_NAME } from '../../tools/PowerShellTool/toolName.js'
-import { getToolsForDefaultPreset, parseToolPreset } from '../../tools.js'
+import { POWERSHELL_TOOL_NAME } from '../../tools/PowerShellTool/toolName'
+import { getToolsForDefaultPreset, parseToolPreset } from '../../tools'
 import {
   getFsImplementation,
   safeResolvePath,
-} from '../../utils/fsOperations.js'
-import { modelSupportsAutoMode } from '../betas.js'
-import { logForDebugging } from '../debug.js'
-import { gracefulShutdown } from '../gracefulShutdown.js'
-import { getMainLoopModel } from '../model/model.js'
+} from '../../utils/fsOperations'
+import { modelSupportsAutoMode } from '../betas'
+import { logForDebugging } from '../debug'
+import { gracefulShutdown } from '../gracefulShutdown'
+import { getMainLoopModel } from '../model/model'
 import {
   CROSS_PLATFORM_CODE_EXEC,
   DANGEROUS_BASH_PATTERNS,
-} from './dangerousPatterns.js'
+} from './dangerousPatterns'
 import type {
   PermissionRule,
   PermissionRuleSource,
   PermissionRuleValue,
-} from './PermissionRule.js'
+} from './PermissionRule'
 import {
   type AdditionalWorkingDirectory,
   applyPermissionUpdate,
-} from './PermissionUpdate.js'
-import type { PermissionUpdateDestination } from './PermissionUpdateSchema.js'
+} from './PermissionUpdate'
+import type { PermissionUpdateDestination } from './PermissionUpdateSchema'
 import {
   normalizeLegacyToolName,
   permissionRuleValueFromString,
   permissionRuleValueToString,
-} from './permissionRuleParser.js'
+} from './permissionRuleParser'
 
 /**
  * Checks if a Bash permission rule is dangerous for auto mode.

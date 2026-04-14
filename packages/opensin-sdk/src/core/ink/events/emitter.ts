@@ -1,5 +1,5 @@
 import { EventEmitter as NodeEventEmitter } from 'events'
-import { Event } from './event.js'
+import { Event } from './event'
 
 // Similar to node's builtin EventEmitter, but is also aware of our `Event`
 // class, and so `emit` respects `stopImmediatePropagation()`.

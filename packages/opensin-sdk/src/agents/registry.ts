@@ -5,7 +5,7 @@
  * Provides lookup, listing, and registration capabilities.
  */
 
-import type { SinAgentDefinition, AgentSource } from './types.js'
+import type { SinAgentDefinition, AgentSource } from './types'
 
 class SinAgentRegistry {
   private agents: Map<string, SinAgentDefinition> = new Map()
@@ -81,13 +81,13 @@ export const sinAgentRegistry = new SinAgentRegistry()
  */
 export function registerBuiltInAgents(): void {
   // Import and register all built-in agents
-  import('./built-in/sinExplorer.js').then(m => sinAgentRegistry.register(m.SIN_EXPLORER))
-  import('./built-in/sinPlanner.js').then(m => sinAgentRegistry.register(m.SIN_PLANNER))
-  import('./built-in/sinVerifier.js').then(m => sinAgentRegistry.register(m.SIN_VERIFIER))
-  import('./built-in/sinCreator.js').then(m => sinAgentRegistry.register(m.SIN_CREATOR))
-  import('./built-in/sinImageGen.js').then(m => sinAgentRegistry.register(m.SIN_IMAGE_GEN))
-  import('./built-in/sinVideoGen.js').then(m => sinAgentRegistry.register(m.SIN_VIDEO_GEN))
-  import('./built-in/sinTeamLead.js').then(m => sinAgentRegistry.register(m.SIN_TEAM_LEAD))
-  import('./built-in/sinResearcher.js').then(m => sinAgentRegistry.register(m.SIN_RESEARCHER))
-  import('./built-in/sinGuide.js').then(m => sinAgentRegistry.register(m.SIN_GUIDE))
+  import('./built-in/sinExplorer').then(m => sinAgentRegistry.register(m.SIN_EXPLORER))
+  import('./built-in/sinPlanner').then(m => sinAgentRegistry.register(m.SIN_PLANNER))
+  import('./built-in/sinVerifier').then(m => sinAgentRegistry.register(m.SIN_VERIFIER))
+  import('./built-in/sinCreator').then(m => sinAgentRegistry.register(m.SIN_CREATOR))
+  import('./built-in/sinImageGen').then(m => sinAgentRegistry.register(m.SIN_IMAGE_GEN))
+  import('./built-in/sinVideoGen').then(m => sinAgentRegistry.register(m.SIN_VIDEO_GEN))
+  import('./built-in/sinTeamLead').then(m => sinAgentRegistry.register(m.SIN_TEAM_LEAD))
+  import('./built-in/sinResearcher').then(m => sinAgentRegistry.register(m.SIN_RESEARCHER))
+  import('./built-in/sinGuide').then(m => sinAgentRegistry.register(m.SIN_GUIDE))
 }

@@ -5,27 +5,27 @@
  */
 import { basename } from 'path'
 import { spawn, type ChildProcessWithoutNullStreams } from 'child_process'
-import { pathExists } from './file.js'
-import { wrapSpawn } from './ShellCommand.js'
-import { TaskOutput } from './task/TaskOutput.js'
-import { getCwd } from './cwd.js'
+import { pathExists } from './file'
+import { wrapSpawn } from './ShellCommand'
+import { TaskOutput } from './task/TaskOutput'
+import { getCwd } from './cwd'
 import { randomUUID } from 'crypto'
-import { formatShellPrefixCommand } from './bash/shellPrefix.js'
+import { formatShellPrefixCommand } from './bash/shellPrefix'
 import {
   getHookEnvFilePath,
   invalidateSessionEnvCache,
-} from './sessionEnvironment.js'
-import { subprocessEnv } from './subprocessEnv.js'
-import { getPlatform } from './platform.js'
-import { findGitBashPath, windowsPathToPosixPath } from './windowsPaths.js'
-import { getCachedPowerShellPath } from './shell/powershellDetection.js'
-import { DEFAULT_HOOK_SHELL } from './shell/shellProvider.js'
-import { buildPowerShellArgs } from './shell/powershellProvider.js'
+} from './sessionEnvironment'
+import { subprocessEnv } from './subprocessEnv'
+import { getPlatform } from './platform'
+import { findGitBashPath, windowsPathToPosixPath } from './windowsPaths'
+import { getCachedPowerShellPath } from './shell/powershellDetection'
+import { DEFAULT_HOOK_SHELL } from './shell/shellProvider'
+import { buildPowerShellArgs } from './shell/powershellProvider'
 import {
   loadPluginOptions,
   substituteUserConfigVariables,
-} from './plugins/pluginOptionsStorage.js'
-import { getPluginDataDir } from './plugins/pluginDirectories.js'
+} from './plugins/pluginOptionsStorage'
+import { getPluginDataDir } from './plugins/pluginDirectories'
 import {
   getSessionId,
   getProjectRoot,
@@ -35,33 +35,33 @@ import {
   addToTurnHookDuration,
   getOriginalCwd,
   getMainThreadAgentType,
-} from '../bootstrap/state.js'
-import { checkHasTrustDialogAccepted } from './config.js'
+} from '../bootstrap/state'
+import { checkHasTrustDialogAccepted } from './config'
 import {
   getHooksConfigFromSnapshot,
   shouldAllowManagedHooksOnly,
   shouldDisableAllHooksIncludingManaged,
-} from './hooks/hooksConfigSnapshot.js'
+} from './hooks/hooksConfigSnapshot'
 import {
   getTranscriptPathForSession,
   getAgentTranscriptPath,
-} from './sessionStorage.js'
-import type { AgentId } from '../types/ids.js'
+} from './sessionStorage'
+import type { AgentId } from '../types/ids'
 import {
   getSettings_DEPRECATED,
   getSettingsForSource,
-} from './settings/settings.js'
+} from './settings/settings'
 import {
   logEvent,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
-} from 'src/services/analytics/index.js'
-import { logOTelEvent } from './telemetry/events.js'
-import { ALLOWED_OFFICIAL_MARKETPLACE_NAMES } from './plugins/schemas.js'
+} from 'src/services/analytics/index'
+import { logOTelEvent } from './telemetry/events'
+import { ALLOWED_OFFICIAL_MARKETPLACE_NAMES } from './plugins/schemas'
 import {
   startHookSpan,
   endHookSpan,
   isBetaTracingEnabled,
-} from './telemetry/sessionTracing.js'
+} from './telemetry/sessionTracing'
 import {
   hookJSONOutputSchema,
   promptRequestSchema,
@@ -72,7 +72,7 @@ import {
   isAsyncHookJSONOutput,
   isSyncHookJSONOutput,
   type PermissionRequestResult,
-} from '../types/hooks.js'
+} from '../types/hooks'
 import type {
   HookEvent,
   HookInput,
@@ -106,50 +106,50 @@ import type {
   ExitReason,
   SyncHookJSONOutput,
   AsyncHookJSONOutput,
-} from 'src/entrypoints/agentSdkTypes.js'
-import type { StatusLineCommandInput } from '../types/statusLine.js'
-import type { ElicitResult } from '@modelcontextprotocol/sdk/types.js'
-import type { FileSuggestionCommandInput } from '../types/fileSuggestion.js'
-import type { HookResultMessage } from 'src/types/message.js'
+} from 'src/entrypoints/agentSdkTypes'
+import type { StatusLineCommandInput } from '../types/statusLine'
+import type { ElicitResult } from '@modelcontextprotocol/sdk/types'
+import type { FileSuggestionCommandInput } from '../types/fileSuggestion'
+import type { HookResultMessage } from 'src/types/message'
 import chalk from 'chalk'
 import type {
   HookMatcher,
   HookCommand,
   PluginHookMatcher,
   SkillHookMatcher,
-} from './settings/types.js'
-import { getHookDisplayText } from './hooks/hooksSettings.js'
-import { logForDebugging } from './debug.js'
-import { logForDiagnosticsNoPII } from './diagLogs.js'
-import { firstLineOf } from './stringUtils.js'
+} from './settings/types'
+import { getHookDisplayText } from './hooks/hooksSettings'
+import { logForDebugging } from './debug'
+import { logForDiagnosticsNoPII } from './diagLogs'
+import { firstLineOf } from './stringUtils'
 import {
   normalizeLegacyToolName,
   getLegacyToolNames,
   permissionRuleValueFromString,
-} from './permissions/permissionRuleParser.js'
-import { logError } from './log.js'
-import { createCombinedAbortSignal } from './combinedAbortSignal.js'
-import type { PermissionResult } from './permissions/PermissionResult.js'
-import { registerPendingAsyncHook } from './hooks/AsyncHookRegistry.js'
-import { enqueuePendingNotification } from './messageQueueManager.js'
+} from './permissions/permissionRuleParser'
+import { logError } from './log'
+import { createCombinedAbortSignal } from './combinedAbortSignal'
+import type { PermissionResult } from './permissions/PermissionResult'
+import { registerPendingAsyncHook } from './hooks/AsyncHookRegistry'
+import { enqueuePendingNotification } from './messageQueueManager'
 import {
   extractTextContent,
   getLastAssistantMessage,
   wrapInSystemReminder,
-} from './messages.js'
+} from './messages'
 import {
   emitHookStarted,
   emitHookResponse,
   startHookProgressInterval,
-} from './hooks/hookEvents.js'
-import { createAttachmentMessage } from './attachments.js'
-import { all } from './generators.js'
-import { findToolByName, type Tools, type ToolUseContext } from '../Tool.js'
-import { execPromptHook } from './hooks/execPromptHook.js'
-import type { Message, AssistantMessage } from '../types/message.js'
-import { execAgentHook } from './hooks/execAgentHook.js'
-import { execHttpHook } from './hooks/execHttpHook.js'
-import type { ShellCommand } from './ShellCommand.js'
+} from './hooks/hookEvents'
+import { createAttachmentMessage } from './attachments'
+import { all } from './generators'
+import { findToolByName, type Tools, type ToolUseContext } from '../Tool'
+import { execPromptHook } from './hooks/execPromptHook'
+import type { Message, AssistantMessage } from '../types/message'
+import { execAgentHook } from './hooks/execAgentHook'
+import { execHttpHook } from './hooks/execHttpHook'
+import type { ShellCommand } from './ShellCommand'
 import {
   getSessionHooks,
   getSessionFunctionHooks,
@@ -157,11 +157,11 @@ import {
   clearSessionHooks,
   type SessionDerivedHookMatcher,
   type FunctionHook,
-} from './hooks/sessionHooks.js'
-import type { AppState } from '../state/AppState.js'
-import { jsonStringify, jsonParse } from './slowOperations.js'
-import { isEnvTruthy } from './envUtils.js'
-import { errorMessage, getErrnoCode } from './errors.js'
+} from './hooks/sessionHooks'
+import type { AppState } from '../state/AppState'
+import { jsonStringify, jsonParse } from './slowOperations'
+import { isEnvTruthy } from './envUtils'
+import { errorMessage, getErrnoCode } from './errors'
 
 const TOOL_HOOK_EXECUTION_TIMEOUT_MS = 10 * 60 * 1000
 

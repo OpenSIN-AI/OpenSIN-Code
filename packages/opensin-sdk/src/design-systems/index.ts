@@ -13,14 +13,14 @@ export type {
   ThemeCustomization,
   GeneratedComponent,
   DesignSystemRegistry,
-} from './types.js';
+} from './types';
 
 export {
   designSystemRegistry,
   getDesignSystem,
   listDesignSystems,
   getComponentSpec,
-} from './registry.js';
+} from './registry';
 
 export {
   loadDesignSystem,
@@ -28,9 +28,9 @@ export {
   clearDesignSystemCache,
   mergeTheme,
   getThemeVariables,
-} from './loader.js';
+} from './loader';
 
 export {
   generateComponent,
   generateAllComponents,
-} from './generator.js';
+} from './generator';

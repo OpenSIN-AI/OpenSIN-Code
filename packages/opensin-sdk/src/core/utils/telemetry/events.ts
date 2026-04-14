@@ -1,8 +1,8 @@
 import type { Attributes } from '@opentelemetry/api'
-import { getEventLogger, getPromptId } from 'src/bootstrap/state.js'
-import { logForDebugging } from '../debug.js'
-import { isEnvTruthy } from '../envUtils.js'
-import { getTelemetryAttributes } from '../telemetryAttributes.js'
+import { getEventLogger, getPromptId } from 'src/bootstrap/state'
+import { logForDebugging } from '../debug'
+import { isEnvTruthy } from '../envUtils'
+import { getTelemetryAttributes } from '../telemetryAttributes'
 
 // Monotonically increasing counter for ordering events within a session
 let eventSequence = 0

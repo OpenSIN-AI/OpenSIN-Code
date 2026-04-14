@@ -1,15 +1,15 @@
 // biome-ignore-all assist/source/organizeImports: ANT-ONLY import markers must not be reordered
-import { MODEL_ALIASES } from './aliases.js'
-import { isModelAllowed } from './modelAllowlist.js'
-import { getAPIProvider } from './providers.js'
-import { sideQuery } from '../sideQuery.js'
+import { MODEL_ALIASES } from './aliases'
+import { isModelAllowed } from './modelAllowlist'
+import { getAPIProvider } from './providers'
+import { sideQuery } from '../sideQuery'
 import {
   NotFoundError,
   APIError,
   APIConnectionError,
   AuthenticationError,
 } from '@anthropic-ai/sdk'
-import { getModelStrings } from './modelStrings.js'
+import { getModelStrings } from './modelStrings'
 
 // Cache valid models to avoid repeated API calls
 const validModelCache = new Map<string, boolean>()

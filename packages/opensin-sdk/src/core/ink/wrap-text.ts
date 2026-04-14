@@ -1,7 +1,7 @@
-import sliceAnsi from '../utils/sliceAnsi.js'
-import { stringWidth } from './stringWidth.js'
-import type { Styles } from './styles.js'
-import { wrapAnsi } from './wrapAnsi.js'
+import sliceAnsi from '../utils/sliceAnsi'
+import { stringWidth } from './stringWidth'
+import type { Styles } from './styles'
+import { wrapAnsi } from './wrapAnsi'
 
 const ELLIPSIS = '…'
 

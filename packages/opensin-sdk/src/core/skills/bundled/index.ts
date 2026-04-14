@@ -1,16 +1,16 @@
 import { feature } from 'bun:bundle'
-import { shouldAutoEnableClaudeInChrome } from 'src/utils/claudeInChrome/setup.js'
-import { registerBatchSkill } from './batch.js'
-import { registerClaudeInChromeSkill } from './claudeInChrome.js'
-import { registerDebugSkill } from './debug.js'
-import { registerKeybindingsSkill } from './keybindings.js'
-import { registerLoremIpsumSkill } from './loremIpsum.js'
-import { registerRememberSkill } from './remember.js'
-import { registerSimplifySkill } from './simplify.js'
-import { registerSkillifySkill } from './skillify.js'
-import { registerStuckSkill } from './stuck.js'
-import { registerUpdateConfigSkill } from './updateConfig.js'
-import { registerVerifySkill } from './verify.js'
+import { shouldAutoEnableClaudeInChrome } from 'src/utils/claudeInChrome/setup'
+import { registerBatchSkill } from './batch'
+import { registerClaudeInChromeSkill } from './claudeInChrome'
+import { registerDebugSkill } from './debug'
+import { registerKeybindingsSkill } from './keybindings'
+import { registerLoremIpsumSkill } from './loremIpsum'
+import { registerRememberSkill } from './remember'
+import { registerSimplifySkill } from './simplify'
+import { registerSkillifySkill } from './skillify'
+import { registerStuckSkill } from './stuck'
+import { registerUpdateConfigSkill } from './updateConfig'
+import { registerVerifySkill } from './verify'
 
 /**
  * Initialize all bundled skills.
@@ -34,19 +34,19 @@ export function initBundledSkills(): void {
   registerStuckSkill()
   if (feature('KAIROS') || feature('KAIROS_DREAM')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
-    const { registerDreamSkill } = require('./dream.js')
+    const { registerDreamSkill } = require('./dream')
     /* eslint-enable @typescript-eslint/no-require-imports */
     registerDreamSkill()
   }
   if (feature('REVIEW_ARTIFACT')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
-    const { registerHunterSkill } = require('./hunter.js')
+    const { registerHunterSkill } = require('./hunter')
     /* eslint-enable @typescript-eslint/no-require-imports */
     registerHunterSkill()
   }
   if (feature('AGENT_TRIGGERS')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
-    const { registerLoopSkill } = require('./loop.js')
+    const { registerLoopSkill } = require('./loop')
     /* eslint-enable @typescript-eslint/no-require-imports */
     // /loop's isEnabled delegates to isKairosCronEnabled() — same lazy
     // per-invocation pattern as the cron tools. Registered unconditionally;
@@ -57,13 +57,13 @@ export function initBundledSkills(): void {
     /* eslint-disable @typescript-eslint/no-require-imports */
     const {
       registerScheduleRemoteAgentsSkill,
-    } = require('./scheduleRemoteAgents.js')
+    } = require('./scheduleRemoteAgents')
     /* eslint-enable @typescript-eslint/no-require-imports */
     registerScheduleRemoteAgentsSkill()
   }
   if (feature('BUILDING_CLAUDE_APPS')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
-    const { registerClaudeApiSkill } = require('./claudeApi.js')
+    const { registerClaudeApiSkill } = require('./claudeApi')
     /* eslint-enable @typescript-eslint/no-require-imports */
     registerClaudeApiSkill()
   }
@@ -72,7 +72,7 @@ export function initBundledSkills(): void {
   }
   if (feature('RUN_SKILL_GENERATOR')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
-    const { registerRunSkillGeneratorSkill } = require('./runSkillGenerator.js')
+    const { registerRunSkillGeneratorSkill } = require('./runSkillGenerator')
     /* eslint-enable @typescript-eslint/no-require-imports */
     registerRunSkillGeneratorSkill()
   }

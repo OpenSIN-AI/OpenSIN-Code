@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
-import { getIsRemoteMode } from '../../bootstrap/state.js'
+import { getIsRemoteMode } from '../../bootstrap/state'
 import {
   type Notification,
   useNotifications,
-} from '../../context/notifications.js'
-import { logError } from '../../utils/log.js'
+} from '../../context/notifications'
+import { logError } from '../../utils/log'
 
 type Result = Notification | Notification[] | null
 

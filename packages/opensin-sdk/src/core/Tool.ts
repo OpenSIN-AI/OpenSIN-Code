@@ -5,12 +5,12 @@ import type {
 import type {
   ElicitRequestURLParams,
   ElicitResult,
-} from '@modelcontextprotocol/sdk/types.js'
+} from '@modelcontextprotocol/sdk/types'
 import type { UUID } from 'crypto'
 import type { z } from 'zod/v4'
-import type { Command } from './commands.js'
-import type { CanUseToolFn } from './hooks/useCanUseTool.js'
-import type { ThinkingConfig } from './utils/thinking.js'
+import type { Command } from './commands'
+import type { CanUseToolFn } from './hooks/useCanUseTool'
+import type { ThinkingConfig } from './utils/thinking'
 
 export type ToolInputJSONSchema = {
   [x: string]: unknown
@@ -20,15 +20,15 @@ export type ToolInputJSONSchema = {
   }
 }
 
-import type { Notification } from './context/notifications.js'
+import type { Notification } from './context/notifications'
 import type {
   MCPServerConnection,
   ServerResource,
-} from './services/mcp/types.js'
+} from './services/mcp/types'
 import type {
   AgentDefinition,
   AgentDefinitionsResult,
-} from './tools/AgentTool/loadAgentsDir.js'
+} from './tools/AgentTool/loadAgentsDir'
 import type {
   AssistantMessage,
   AttachmentMessage,
@@ -37,14 +37,14 @@ import type {
   SystemLocalCommandMessage,
   SystemMessage,
   UserMessage,
-} from './types/message.js'
+} from './types/message'
 // Import permission types from centralized location to break import cycles
 // Import PermissionResult from centralized location to break import cycles
 import type {
   AdditionalWorkingDirectory,
   PermissionMode,
   PermissionResult,
-} from './types/permissions.js'
+} from './types/permissions'
 // Import tool progress types from centralized location to break import cycles
 import type {
   AgentToolProgress,
@@ -55,11 +55,11 @@ import type {
   TaskOutputProgress,
   ToolProgressData,
   WebSearchProgress,
-} from './types/tools.js'
-import type { FileStateCache } from './utils/fileStateCache.js'
-import type { DenialTrackingState } from './utils/permissions/denialTracking.js'
-import type { SystemPrompt } from './utils/systemPromptType.js'
-import type { ContentReplacementState } from './utils/toolResultStorage.js'
+} from './types/tools'
+import type { FileStateCache } from './utils/fileStateCache'
+import type { DenialTrackingState } from './utils/permissions/denialTracking'
+import type { SystemPrompt } from './utils/systemPromptType'
+import type { ContentReplacementState } from './utils/toolResultStorage'
 
 // Re-export progress types for backwards compatibility
 export type {
@@ -72,20 +72,20 @@ export type {
   WebSearchProgress,
 }
 
-import type { SpinnerMode } from './components/Spinner.js'
-import type { QuerySource } from './constants/querySource.js'
-import type { SDKStatus } from './entrypoints/agentSdkTypes.js'
-import type { AppState } from './state/AppState.js'
+import type { SpinnerMode } from './components/Spinner'
+import type { QuerySource } from './constants/querySource'
+import type { SDKStatus } from './entrypoints/agentSdkTypes'
+import type { AppState } from './state/AppState'
 import type {
   HookProgress,
   PromptRequest,
   PromptResponse,
-} from './types/hooks.js'
-import type { AgentId } from './types/ids.js'
-import type { DeepImmutable } from './types/utils.js'
-import type { AttributionState } from './utils/commitAttribution.js'
-import type { FileHistoryState } from './utils/fileHistory.js'
-import type { Theme, ThemeName } from './utils/theme.js'
+} from './types/hooks'
+import type { AgentId } from './types/ids'
+import type { DeepImmutable } from './types/utils'
+import type { AttributionState } from './utils/commitAttribution'
+import type { FileHistoryState } from './utils/fileHistory'
+import type { Theme, ThemeName } from './utils/theme'
 
 export type QueryChainTracking = {
   chainId: string
@@ -114,7 +114,7 @@ export type SetToolJSXFn = (
 ) => void
 
 // Import tool permission types from centralized location to break import cycles
-import type { ToolPermissionRulesBySource } from './types/permissions.js'
+import type { ToolPermissionRulesBySource } from './types/permissions'
 
 // Re-export for backwards compatibility
 export type { ToolPermissionRulesBySource }

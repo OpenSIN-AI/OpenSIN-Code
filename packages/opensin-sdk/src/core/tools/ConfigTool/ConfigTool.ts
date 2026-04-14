@@ -3,35 +3,35 @@ import { z } from 'zod/v4'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
+} from '../../services/analytics/index'
+import { buildTool, type ToolDef } from '../../Tool'
 import {
   type GlobalConfig,
   getGlobalConfig,
   getRemoteControlAtStartup,
   saveGlobalConfig,
-} from '../../utils/config.js'
-import { errorMessage } from '../../utils/errors.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { logError } from '../../utils/log.js'
+} from '../../utils/config'
+import { errorMessage } from '../../utils/errors'
+import { lazySchema } from '../../utils/lazySchema'
+import { logError } from '../../utils/log'
 import {
   getInitialSettings,
   updateSettingsForSource,
-} from '../../utils/settings/settings.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { CONFIG_TOOL_NAME } from './constants.js'
-import { DESCRIPTION, generatePrompt } from './prompt.js'
+} from '../../utils/settings/settings'
+import { jsonStringify } from '../../utils/slowOperations'
+import { CONFIG_TOOL_NAME } from './constants'
+import { DESCRIPTION, generatePrompt } from './prompt'
 import {
   getConfig,
   getOptionsForSetting,
   getPath,
   isSupported,
-} from './supportedSettings.js'
+} from './supportedSettings'
 import {
   renderToolResultMessage,
   renderToolUseMessage,
   renderToolUseRejectedMessage,
-} from './UI.js'
+} from './UI'
 
 const inputSchema = lazySchema(() =>
   z.strictObject({
@@ -115,7 +115,7 @@ export const ConfigTool = buildTool({
     // voiceEnabled as an unknown setting so no voice-specific strings leak.
     if (feature('VOICE_MODE') && setting === 'voiceEnabled') {
       const { isVoiceGrowthBookEnabled } = await import(
-        '../../voice/voiceModeEnabled.js'
+        '../../voice/voiceModeEnabled'
       )
       if (!isVoiceGrowthBookEnabled()) {
         return {
@@ -235,10 +235,10 @@ export const ConfigTool = buildTool({
       finalValue === true
     ) {
       const { isVoiceModeEnabled } = await import(
-        '../../voice/voiceModeEnabled.js'
+        '../../voice/voiceModeEnabled'
       )
       if (!isVoiceModeEnabled()) {
-        const { isAnthropicAuthEnabled } = await import('../../utils/auth.js')
+        const { isAnthropicAuthEnabled } = await import('../../utils/auth')
         return {
           data: {
             success: false,
@@ -249,13 +249,13 @@ export const ConfigTool = buildTool({
         }
       }
       const { isVoiceStreamAvailable } = await import(
-        '../../services/voiceStreamSTT.js'
+        '../../services/voiceStreamSTT'
       )
       const {
         checkRecordingAvailability,
         checkVoiceDependencies,
         requestMicrophonePermission,
-      } = await import('../../services/voice.js')
+      } = await import('../../services/voice')
 
       const recording = await checkRecordingAvailability()
       if (!recording.available) {
@@ -347,7 +347,7 @@ export const ConfigTool = buildTool({
       // and the settings cache resets for the next /voice read.
       if (feature('VOICE_MODE') && setting === 'voiceEnabled') {
         const { settingsChangeDetector } = await import(
-          '../../utils/settings/changeDetector.js'
+          '../../utils/settings/changeDetector'
         )
         settingsChangeDetector.notifyChange('userSettings')
       }

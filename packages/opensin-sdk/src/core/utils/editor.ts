@@ -4,11 +4,11 @@ import {
   spawn,
   spawnSync,
 } from 'child_process'
-import memoize from 'lodash-es/memoize.js'
+import memoize from 'lodash-es/memoize'
 import { basename } from 'path'
-import instances from '../ink/instances.js'
-import { logForDebugging } from './debug.js'
-import { whichSync } from './which.js'
+import instances from '../ink/instances'
+import { logForDebugging } from './debug'
+import { whichSync } from './which'
 
 function isCommandAvailable(command: string): boolean {
   return !!whichSync(command)

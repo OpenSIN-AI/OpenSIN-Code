@@ -4,8 +4,8 @@
  * Provides native web search capability with caching and rate limiting.
  */
 
-import type { SearchResult, SearchConfig } from './types.js';
-import { DEFAULT_SEARCH_CONFIG } from './types.js';
+import type { SearchResult, SearchConfig } from './types';
+import { DEFAULT_SEARCH_CONFIG } from './types';
 
 interface CacheEntry {
   results: SearchResult[];

@@ -2,14 +2,14 @@ import { feature } from 'bun:bundle'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
-import type { ToolUseContext } from '../Tool.js'
-import type { AgentDefinition } from '../tools/AgentTool/loadAgentsDir.js'
-import { isBuiltInAgent } from '../tools/AgentTool/loadAgentsDir.js'
-import { isEnvTruthy } from './envUtils.js'
-import { asSystemPrompt, type SystemPrompt } from './systemPromptType.js'
+} from '../services/analytics/index'
+import type { ToolUseContext } from '../Tool'
+import type { AgentDefinition } from '../tools/AgentTool/loadAgentsDir'
+import { isBuiltInAgent } from '../tools/AgentTool/loadAgentsDir'
+import { isEnvTruthy } from './envUtils'
+import { asSystemPrompt, type SystemPrompt } from './systemPromptType'
 
-export { asSystemPrompt, type SystemPrompt } from './systemPromptType.js'
+export { asSystemPrompt, type SystemPrompt } from './systemPromptType'
 
 // Dead code elimination: conditional import for proactive mode.
 // Same pattern as prompts.ts — lazy require to avoid pulling the module
@@ -17,7 +17,7 @@ export { asSystemPrompt, type SystemPrompt } from './systemPromptType.js'
 /* eslint-disable @typescript-eslint/no-require-imports */
 const proactiveModule =
   feature('PROACTIVE') || feature('KAIROS')
-    ? (require('../proactive/index.js') as typeof import('../proactive/index.js'))
+    ? (require('../proactive/index') as typeof import('../proactive/index'))
     : null
 /* eslint-enable @typescript-eslint/no-require-imports */
 
@@ -67,7 +67,7 @@ export function buildEffectiveSystemPrompt({
     // Lazy require to avoid circular dependency at module load time
     const { getCoordinatorSystemPrompt } =
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      require('../coordinator/coordinatorMode.js') as typeof import('../coordinator/coordinatorMode.js')
+      require('../coordinator/coordinatorMode') as typeof import('../coordinator/coordinatorMode')
     return asSystemPrompt([
       getCoordinatorSystemPrompt(),
       ...(appendSystemPrompt ? [appendSystemPrompt] : []),

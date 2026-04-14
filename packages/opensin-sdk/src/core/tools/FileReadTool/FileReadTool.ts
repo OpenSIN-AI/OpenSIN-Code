@@ -7,39 +7,39 @@ import {
   PDF_AT_MENTION_INLINE_THRESHOLD,
   PDF_EXTRACT_SIZE_THRESHOLD,
   PDF_MAX_PAGES_PER_READ,
-} from '../../constants/apiLimits.js'
-import { hasBinaryExtension } from '../../constants/files.js'
-import { memoryFreshnessNote } from '../../memdir/memoryAge.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
-import { logEvent } from '../../services/analytics/index.js'
+} from '../../constants/apiLimits'
+import { hasBinaryExtension } from '../../constants/files'
+import { memoryFreshnessNote } from '../../memdir/memoryAge'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
+import { logEvent } from '../../services/analytics/index'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   getFileExtensionForAnalytics,
-} from '../../services/analytics/metadata.js'
+} from '../../services/analytics/metadata'
 import {
   countTokensWithAPI,
   roughTokenCountEstimationForFileType,
-} from '../../services/tokenEstimation.js'
+} from '../../services/tokenEstimation'
 import {
   activateConditionalSkillsForPaths,
   addSkillDirectories,
   discoverSkillDirsForPaths,
-} from '../../skills/loadSkillsDir.js'
-import type { ToolUseContext } from '../../Tool.js'
-import { buildTool, type ToolDef } from '../../Tool.js'
-import { getCwd } from '../../utils/cwd.js'
-import { getClaudeConfigHomeDir, isEnvTruthy } from '../../utils/envUtils.js'
-import { getErrnoCode, isENOENT } from '../../utils/errors.js'
+} from '../../skills/loadSkillsDir'
+import type { ToolUseContext } from '../../Tool'
+import { buildTool, type ToolDef } from '../../Tool'
+import { getCwd } from '../../utils/cwd'
+import { getClaudeConfigHomeDir, isEnvTruthy } from '../../utils/envUtils'
+import { getErrnoCode, isENOENT } from '../../utils/errors'
 import {
   addLineNumbers,
   FILE_NOT_FOUND_CWD_NOTE,
   findSimilarFile,
   getFileModificationTimeAsync,
   suggestPathUnderCwd,
-} from '../../utils/file.js'
-import { logFileOperation } from '../../utils/fileOperationAnalytics.js'
-import { formatFileSize } from '../../utils/format.js'
-import { getFsImplementation } from '../../utils/fsOperations.js'
+} from '../../utils/file'
+import { logFileOperation } from '../../utils/fileOperationAnalytics'
+import { formatFileSize } from '../../utils/format'
+import { getFsImplementation } from '../../utils/fsOperations'
 import {
   compressImageBufferWithTokenLimit,
   createImageMetadataText,
@@ -47,34 +47,34 @@ import {
   type ImageDimensions,
   ImageResizeError,
   maybeResizeAndDownsampleImageBuffer,
-} from '../../utils/imageResizer.js'
-import { lazySchema } from '../../utils/lazySchema.js'
-import { logError } from '../../utils/log.js'
-import { isAutoMemFile } from '../../utils/memoryFileDetection.js'
-import { createUserMessage } from '../../utils/messages.js'
-import { getCanonicalName, getMainLoopModel } from '../../utils/model/model.js'
+} from '../../utils/imageResizer'
+import { lazySchema } from '../../utils/lazySchema'
+import { logError } from '../../utils/log'
+import { isAutoMemFile } from '../../utils/memoryFileDetection'
+import { createUserMessage } from '../../utils/messages'
+import { getCanonicalName, getMainLoopModel } from '../../utils/model/model'
 import {
   mapNotebookCellsToToolResult,
   readNotebook,
-} from '../../utils/notebook.js'
-import { expandPath } from '../../utils/path.js'
-import { extractPDFPages, getPDFPageCount, readPDF } from '../../utils/pdf.js'
+} from '../../utils/notebook'
+import { expandPath } from '../../utils/path'
+import { extractPDFPages, getPDFPageCount, readPDF } from '../../utils/pdf'
 import {
   isPDFExtension,
   isPDFSupported,
   parsePDFPageRange,
-} from '../../utils/pdfUtils.js'
+} from '../../utils/pdfUtils'
 import {
   checkReadPermissionForTool,
   matchingRuleForInput,
-} from '../../utils/permissions/filesystem.js'
-import type { PermissionDecision } from '../../utils/permissions/PermissionResult.js'
-import { matchWildcardPattern } from '../../utils/permissions/shellRuleMatching.js'
-import { readFileInRange } from '../../utils/readFileInRange.js'
-import { semanticNumber } from '../../utils/semanticNumber.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { BASH_TOOL_NAME } from '../BashTool/toolName.js'
-import { getDefaultFileReadingLimits } from './limits.js'
+} from '../../utils/permissions/filesystem'
+import type { PermissionDecision } from '../../utils/permissions/PermissionResult'
+import { matchWildcardPattern } from '../../utils/permissions/shellRuleMatching'
+import { readFileInRange } from '../../utils/readFileInRange'
+import { semanticNumber } from '../../utils/semanticNumber'
+import { jsonStringify } from '../../utils/slowOperations'
+import { BASH_TOOL_NAME } from '../BashTool/toolName'
+import { getDefaultFileReadingLimits } from './limits'
 import {
   DESCRIPTION,
   FILE_READ_TOOL_NAME,
@@ -83,7 +83,7 @@ import {
   OFFSET_INSTRUCTION_DEFAULT,
   OFFSET_INSTRUCTION_TARGETED,
   renderPromptTemplate,
-} from './prompt.js'
+} from './prompt'
 import {
   getToolUseSummary,
   renderToolResultMessage,
@@ -91,7 +91,7 @@ import {
   renderToolUseMessage,
   renderToolUseTag,
   userFacingName,
-} from './UI.js'
+} from './UI'
 
 // Device files that would hang the process: infinite output or blocking input.
 // Checked by path only (no I/O). Safe devices like /dev/null are intentionally omitted.

@@ -8,31 +8,31 @@ import axios from 'axios'
 import { randomUUID } from 'crypto'
 import { appendFile, mkdir, readdir, unlink, writeFile } from 'fs/promises'
 import * as path from 'path'
-import type { CoreUserData } from 'src/utils/user.js'
+import type { CoreUserData } from 'src/utils/user'
 import {
   getIsNonInteractiveSession,
   getSessionId,
-} from '../../bootstrap/state.js'
-import { ClaudeCodeInternalEvent } from '../../types/generated/events_mono/claude_code/v1/claude_code_internal_event.js'
-import { GrowthbookExperimentEvent } from '../../types/generated/events_mono/growthbook/v1/growthbook_experiment_event.js'
+} from '../../bootstrap/state'
+import { ClaudeCodeInternalEvent } from '../../types/generated/events_mono/claude_code/v1/claude_code_internal_event'
+import { GrowthbookExperimentEvent } from '../../types/generated/events_mono/growthbook/v1/growthbook_experiment_event'
 import {
   getClaudeAIOAuthTokens,
   hasProfileScope,
   isClaudeAISubscriber,
-} from '../../utils/auth.js'
-import { checkHasTrustDialogAccepted } from '../../utils/config.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { getClaudeConfigHomeDir } from '../../utils/envUtils.js'
-import { errorMessage, isFsInaccessible, toError } from '../../utils/errors.js'
-import { getAuthHeaders } from '../../utils/http.js'
-import { readJSONLFile } from '../../utils/json.js'
-import { logError } from '../../utils/log.js'
-import { sleep } from '../../utils/sleep.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { getClaudeCodeUserAgent } from '../../utils/userAgent.js'
-import { isOAuthTokenExpired } from '../oauth/client.js'
-import { stripProtoFields } from './index.js'
-import { type EventMetadata, to1PEventFormat } from './metadata.js'
+} from '../../utils/auth'
+import { checkHasTrustDialogAccepted } from '../../utils/config'
+import { logForDebugging } from '../../utils/debug'
+import { getClaudeConfigHomeDir } from '../../utils/envUtils'
+import { errorMessage, isFsInaccessible, toError } from '../../utils/errors'
+import { getAuthHeaders } from '../../utils/http'
+import { readJSONLFile } from '../../utils/json'
+import { logError } from '../../utils/log'
+import { sleep } from '../../utils/sleep'
+import { jsonStringify } from '../../utils/slowOperations'
+import { getClaudeCodeUserAgent } from '../../utils/userAgent'
+import { isOAuthTokenExpired } from '../oauth/client'
+import { stripProtoFields } from './index'
+import { type EventMetadata, to1PEventFormat } from './metadata'
 
 // Unique ID for this process run - used to isolate failed event files between runs
 const BATCH_UUID = randomUUID()

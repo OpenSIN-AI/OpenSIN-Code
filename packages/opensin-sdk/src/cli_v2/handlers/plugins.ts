@@ -5,12 +5,12 @@
 /* eslint-disable custom-rules/no-process-exit -- CLI subcommand handlers intentionally exit */
 import figures from 'figures'
 import { basename, dirname } from 'path'
-import { setUseCoworkPlugins } from '../../bootstrap/state.js'
+import { setUseCoworkPlugins } from '../../bootstrap/state'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_PII_TAGGED,
   logEvent,
-} from '../../services/analytics/index.js'
+} from '../../services/analytics/index'
 import {
   disableAllPlugins,
   disablePlugin,
@@ -20,20 +20,20 @@ import {
   updatePluginCli,
   VALID_INSTALLABLE_SCOPES,
   VALID_UPDATE_SCOPES,
-} from '../../services/plugins/pluginCliCommands.js'
-import { getPluginErrorMessage } from '../../types/plugin.js'
-import { errorMessage } from '../../utils/errors.js'
-import { logError } from '../../utils/log.js'
-import { clearAllCaches } from '../../utils/plugins/cacheUtils.js'
-import { getInstallCounts } from '../../utils/plugins/installCounts.js'
+} from '../../services/plugins/pluginCliCommands'
+import { getPluginErrorMessage } from '../../types/plugin'
+import { errorMessage } from '../../utils/errors'
+import { logError } from '../../utils/log'
+import { clearAllCaches } from '../../utils/plugins/cacheUtils'
+import { getInstallCounts } from '../../utils/plugins/installCounts'
 import {
   isPluginInstalled,
   loadInstalledPluginsV2,
-} from '../../utils/plugins/installedPluginsManager.js'
+} from '../../utils/plugins/installedPluginsManager'
 import {
   createPluginId,
   loadMarketplacesWithGracefulDegradation,
-} from '../../utils/plugins/marketplaceHelpers.js'
+} from '../../utils/plugins/marketplaceHelpers'
 import {
   addMarketplaceSource,
   loadKnownMarketplacesConfig,
@@ -41,23 +41,23 @@ import {
   refreshMarketplace,
   removeMarketplaceSource,
   saveMarketplaceToSettings,
-} from '../../utils/plugins/marketplaceManager.js'
-import { loadPluginMcpServers } from '../../utils/plugins/mcpPluginIntegration.js'
-import { parseMarketplaceInput } from '../../utils/plugins/parseMarketplaceInput.js'
+} from '../../utils/plugins/marketplaceManager'
+import { loadPluginMcpServers } from '../../utils/plugins/mcpPluginIntegration'
+import { parseMarketplaceInput } from '../../utils/plugins/parseMarketplaceInput'
 import {
   parsePluginIdentifier,
   scopeToSettingSource,
-} from '../../utils/plugins/pluginIdentifier.js'
-import { loadAllPlugins } from '../../utils/plugins/pluginLoader.js'
-import type { PluginSource } from '../../utils/plugins/schemas.js'
+} from '../../utils/plugins/pluginIdentifier'
+import { loadAllPlugins } from '../../utils/plugins/pluginLoader'
+import type { PluginSource } from '../../utils/plugins/schemas'
 import {
   type ValidationResult,
   validateManifest,
   validatePluginContents,
-} from '../../utils/plugins/validatePlugin.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { plural } from '../../utils/stringUtils.js'
-import { cliError, cliOk } from '../exit.js'
+} from '../../utils/plugins/validatePlugin'
+import { jsonStringify } from '../../utils/slowOperations'
+import { plural } from '../../utils/stringUtils'
+import { cliError, cliOk } from '../exit'
 
 // Re-export for main.tsx to reference in option definitions
 export { VALID_INSTALLABLE_SCOPES, VALID_UPDATE_SCOPES }
@@ -164,7 +164,7 @@ export async function pluginListHandler(options: {
 
   const installedData = loadInstalledPluginsV2()
   const { getPluginEditableScopes } = await import(
-    '../../utils/plugins/pluginStartupCheck.js'
+    '../../utils/plugins/pluginStartupCheck'
   )
   const enabledPlugins = getPluginEditableScopes()
 

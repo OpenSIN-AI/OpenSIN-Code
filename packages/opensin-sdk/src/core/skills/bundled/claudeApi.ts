@@ -1,10 +1,10 @@
 import { readdir } from 'fs/promises'
-import { getCwd } from '../../utils/cwd.js'
-import { registerBundledSkill } from '../bundledSkills.js'
+import { getCwd } from '../../utils/cwd'
+import { registerBundledSkill } from '../bundledSkills'
 
 // claudeApiContent.js bundles 247KB of .md strings. Lazy-load inside
 // getPromptForCommand so they only enter memory when /claude-api is invoked.
-type SkillContent = typeof import('./claudeApiContent.js')
+type SkillContent = typeof import('./claudeApiContent')
 
 type DetectedLanguage =
   | 'python'
@@ -18,7 +18,7 @@ type DetectedLanguage =
 
 const LANGUAGE_INDICATORS: Record<DetectedLanguage, string[]> = {
   python: ['.py', 'requirements.txt', 'pyproject.toml', 'setup.py', 'Pipfile'],
-  typescript: ['.ts', '.tsx', 'tsconfig.json', 'package.json'],
+  typescript: ['', '.tsx', 'tsconfig.json', 'package.json'],
   java: ['.java', 'pom.xml', 'build.gradle'],
   go: ['.go', 'go.mod'],
   ruby: ['.rb', 'Gemfile'],
@@ -187,7 +187,7 @@ export function registerClaudeApiSkill(): void {
     allowedTools: ['Read', 'Grep', 'Glob', 'WebFetch'],
     userInvocable: true,
     async getPromptForCommand(args) {
-      const content = await import('./claudeApiContent.js')
+      const content = await import('./claudeApiContent')
       const lang = await detectLanguage()
       const prompt = buildPrompt(lang, args, content)
       return [{ type: 'text', text: prompt }]

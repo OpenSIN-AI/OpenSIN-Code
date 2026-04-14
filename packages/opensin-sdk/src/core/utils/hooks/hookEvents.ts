@@ -6,9 +6,9 @@
  * what to do with them (e.g., convert to SDK messages, log, etc.).
  */
 
-import { HOOK_EVENTS } from 'src/entrypoints/sdk/coreTypes.js'
+import { HOOK_EVENTS } from 'src/entrypoints/sdk/coreTypes'
 
-import { logForDebugging } from '../debug.js'
+import { logForDebugging } from '../debug'
 
 /**
  * Hook events that are always emitted regardless of the includeHookEvents

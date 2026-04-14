@@ -16,8 +16,8 @@ export type {
   BridgeConfig,
   BridgeState,
   BridgeEvent,
-} from './types.js'
+} from './types'
 
-export { StdioTransport, WebSocketTransport, HttpTransport, createTransport } from './transport.js'
-export { OpenSINProtocol, ProtocolError } from './protocol.js'
-export { OpenSINBridge, JsonRpcAdapter, NdjsonAdapter, createBridge } from './adapter.js'
+export { StdioTransport, WebSocketTransport, HttpTransport, createTransport } from './transport'
+export { OpenSINProtocol, ProtocolError } from './protocol'
+export { OpenSINBridge, JsonRpcAdapter, NdjsonAdapter, createBridge } from './adapter'

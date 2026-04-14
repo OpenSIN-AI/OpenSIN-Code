@@ -22,36 +22,36 @@ export type {
   PermissionMode,
   AgentMcpServerSpec,
   HooksSetting,
-} from './types.js'
+} from './types'
 
 // Registry
-export { sinAgentRegistry, registerBuiltInAgents } from './registry.js'
+export { sinAgentRegistry, registerBuiltInAgents } from './registry'
 
 // Built-in Agents
-export { SIN_EXPLORER } from './built-in/sinExplorer.js'
-export { SIN_PLANNER } from './built-in/sinPlanner.js'
-export { SIN_VERIFIER } from './built-in/sinVerifier.js'
-export { SIN_CREATOR } from './built-in/sinCreator.js'
-export { SIN_IMAGE_GEN } from './built-in/sinImageGen.js'
-export { SIN_VIDEO_GEN } from './built-in/sinVideoGen.js'
-export { SIN_TEAM_LEAD } from './built-in/sinTeamLead.js'
-export { SIN_RESEARCHER } from './built-in/sinResearcher.js'
-export { SIN_GUIDE } from './built-in/sinGuide.js'
+export { SIN_EXPLORER } from './built-in/sinExplorer'
+export { SIN_PLANNER } from './built-in/sinPlanner'
+export { SIN_VERIFIER } from './built-in/sinVerifier'
+export { SIN_CREATOR } from './built-in/sinCreator'
+export { SIN_IMAGE_GEN } from './built-in/sinImageGen'
+export { SIN_VIDEO_GEN } from './built-in/sinVideoGen'
+export { SIN_TEAM_LEAD } from './built-in/sinTeamLead'
+export { SIN_RESEARCHER } from './built-in/sinResearcher'
+export { SIN_GUIDE } from './built-in/sinGuide'
 
 /**
  * All built-in agent definitions as an array.
  */
-import { SIN_EXPLORER } from './built-in/sinExplorer.js'
-import { SIN_PLANNER } from './built-in/sinPlanner.js'
-import { SIN_VERIFIER } from './built-in/sinVerifier.js'
-import { SIN_CREATOR } from './built-in/sinCreator.js'
-import { SIN_IMAGE_GEN } from './built-in/sinImageGen.js'
-import { SIN_VIDEO_GEN } from './built-in/sinVideoGen.js'
-import { SIN_TEAM_LEAD } from './built-in/sinTeamLead.js'
-import { SIN_RESEARCHER } from './built-in/sinResearcher.js'
-import { SIN_GUIDE } from './built-in/sinGuide.js'
+import { SIN_EXPLORER } from './built-in/sinExplorer'
+import { SIN_PLANNER } from './built-in/sinPlanner'
+import { SIN_VERIFIER } from './built-in/sinVerifier'
+import { SIN_CREATOR } from './built-in/sinCreator'
+import { SIN_IMAGE_GEN } from './built-in/sinImageGen'
+import { SIN_VIDEO_GEN } from './built-in/sinVideoGen'
+import { SIN_TEAM_LEAD } from './built-in/sinTeamLead'
+import { SIN_RESEARCHER } from './built-in/sinResearcher'
+import { SIN_GUIDE } from './built-in/sinGuide'
 
-import { sinAgentRegistry } from './registry.js'
+import { sinAgentRegistry } from './registry'
 
 export const BUILT_IN_AGENTS = [
   SIN_EXPLORER,

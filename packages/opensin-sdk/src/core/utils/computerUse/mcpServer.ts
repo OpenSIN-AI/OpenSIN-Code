@@ -2,18 +2,18 @@ import {
   buildComputerUseTools,
   createComputerUseMcpServer,
 } from '@ant/computer-use-mcp'
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
-import { ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js'
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio'
+import { ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types'
 import { homedir } from 'os'
 
-import { shutdownDatadog } from '../../services/analytics/datadog.js'
-import { shutdown1PEventLogging } from '../../services/analytics/firstPartyEventLogger.js'
-import { initializeAnalyticsSink } from '../../services/analytics/sink.js'
-import { enableConfigs } from '../config.js'
-import { logForDebugging } from '../debug.js'
-import { filterAppsForDescription } from './appNames.js'
-import { getChicagoCoordinateMode } from './gates.js'
-import { getComputerUseHostAdapter } from './hostAdapter.js'
+import { shutdownDatadog } from '../../services/analytics/datadog'
+import { shutdown1PEventLogging } from '../../services/analytics/firstPartyEventLogger'
+import { initializeAnalyticsSink } from '../../services/analytics/sink'
+import { enableConfigs } from '../config'
+import { logForDebugging } from '../debug'
+import { filterAppsForDescription } from './appNames'
+import { getChicagoCoordinateMode } from './gates'
+import { getComputerUseHostAdapter } from './hostAdapter'
 
 const APP_ENUM_TIMEOUT_MS = 1000
 

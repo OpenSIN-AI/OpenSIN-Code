@@ -1,10 +1,10 @@
 import { randomUUID } from 'crypto'
 import { LRUCache } from 'lru-cache'
-import { logForDebugging } from '../../utils/debug.js'
-import { toError } from '../../utils/errors.js'
-import { logError } from '../../utils/log.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import type { DiagnosticFile } from '../diagnosticTracking.js'
+import { logForDebugging } from '../../utils/debug'
+import { toError } from '../../utils/errors'
+import { logError } from '../../utils/log'
+import { jsonStringify } from '../../utils/slowOperations'
+import type { DiagnosticFile } from '../diagnosticTracking'
 
 /**
  * Pending LSP diagnostic notification

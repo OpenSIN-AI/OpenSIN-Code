@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { readFile, writeFile, mkdir } from 'fs/promises'
-import type { LocalCommandResult } from '../../types/command.js'
-import type { ToolUseContext } from '../../Tool.js'
+import type { LocalCommandResult } from '../../types/command'
+import type { ToolUseContext } from '../../Tool'
 
 // ============================================================================
 // GoodOpenSIN — Positive feedback collection

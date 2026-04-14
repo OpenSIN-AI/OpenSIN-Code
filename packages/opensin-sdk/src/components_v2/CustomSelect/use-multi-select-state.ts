@@ -1,15 +1,15 @@
 import { useCallback, useState } from 'react'
 import { isDeepStrictEqual } from 'util'
-import { useRegisterOverlay } from '../../context/overlayContext.js'
-import type { InputEvent } from '../../ink/events/input-event.js'
+import { useRegisterOverlay } from '../../context/overlayContext'
+import type { InputEvent } from '../../ink/events/input-event'
 // eslint-disable-next-line custom-rules/prefer-use-keybindings -- raw space/arrow multiselect input
-import { useInput } from '../../ink.js'
+import { useInput } from '../../ink'
 import {
   normalizeFullWidthDigits,
   normalizeFullWidthSpace,
-} from '../../utils/stringUtils.js'
-import type { OptionWithDescription } from './select.js'
-import { useSelectNavigation } from './use-select-navigation.js'
+} from '../../utils/stringUtils'
+import type { OptionWithDescription } from './select'
+import { useSelectNavigation } from './use-select-navigation'
 
 export type UseMultiSelectStateProps<T> = {
   /**

@@ -1,6 +1,6 @@
-import type { Command } from '../../commands.js'
-import { hasOpenSINApiKeyAuth } from '../../utils/auth.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
+import type { Command } from '../../commands'
+import { hasOpenSINApiKeyAuth } from '../../utils/auth'
+import { isEnvTruthy } from '../../utils/envUtils'
 
 export default () =>
   ({
@@ -10,5 +10,5 @@ export default () =>
       ? 'Switch OpenSIN accounts'
       : 'Sign in with your OpenSIN account',
     isEnabled: () => !isEnvTruthy(process.env.DISABLE_LOGIN_COMMAND),
-    load: () => import('./login.js'),
+    load: () => import('./login'),
   }) satisfies Command

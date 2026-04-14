@@ -1,21 +1,21 @@
 import { feature } from 'bun:bundle'
-import { microcompactMessages } from '../../services/compact/microCompact.js'
-import type { AppState } from '../../state/AppStateStore.js'
-import type { Tools, ToolUseContext } from '../../Tool.js'
-import type { AgentDefinitionsResult } from '../../tools/AgentTool/loadAgentsDir.js'
-import type { Message } from '../../types/message.js'
+import { microcompactMessages } from '../../services/compact/microCompact'
+import type { AppState } from '../../state/AppStateStore'
+import type { Tools, ToolUseContext } from '../../Tool'
+import type { AgentDefinitionsResult } from '../../tools/AgentTool/loadAgentsDir'
+import type { Message } from '../../types/message'
 import {
   analyzeContextUsage,
   type ContextData,
-} from '../../utils/analyzeContext.js'
-import { formatTokens } from '../../utils/format.js'
-import { getMessagesAfterCompactBoundary } from '../../utils/messages.js'
-import { getSourceDisplayName } from '../../utils/settings/constants.js'
-import { plural } from '../../utils/stringUtils.js'
+} from '../../utils/analyzeContext'
+import { formatTokens } from '../../utils/format'
+import { getMessagesAfterCompactBoundary } from '../../utils/messages'
+import { getSourceDisplayName } from '../../utils/settings/constants'
+import { plural } from '../../utils/stringUtils'
 
 /**
  * Shared data-collection path for `/context` (slash command) and the SDK
- * `get_context_usage` control request. Mirrors query.ts's pre-API transforms
+ * `get_context_usage` control request. Mirrors query's pre-API transforms
  * (compact boundary, projectView, microcompact) so the token count reflects
  * what the model actually sees.
  */
@@ -50,7 +50,7 @@ export async function collectContextData(
   if (feature('CONTEXT_COLLAPSE')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
     const { projectView } =
-      require('../../services/contextCollapse/operations.js') as typeof import('../../services/contextCollapse/operations.js')
+      require('../../services/contextCollapse/operations') as typeof import('../../services/contextCollapse/operations')
     /* eslint-enable @typescript-eslint/no-require-imports */
     apiView = projectView(apiView)
   }
@@ -113,7 +113,7 @@ function formatContextAsMarkdownTable(data: ContextData): string {
   if (feature('CONTEXT_COLLAPSE')) {
     /* eslint-disable @typescript-eslint/no-require-imports */
     const { getStats, isContextCollapseEnabled } =
-      require('../../services/contextCollapse/index.js') as typeof import('../../services/contextCollapse/index.js')
+      require('../../services/contextCollapse/index') as typeof import('../../services/contextCollapse/index')
     /* eslint-enable @typescript-eslint/no-require-imports */
     if (isContextCollapseEnabled()) {
       const s = getStats()

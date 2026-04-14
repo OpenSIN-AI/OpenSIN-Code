@@ -1,5 +1,5 @@
-import type { Skill, SkillDirectory } from './types.js'
-import { getBundledSkills } from './bundledSkills.js'
+import type { Skill, SkillDirectory } from './types'
+import { getBundledSkills } from './bundledSkills'
 
 export async function loadSkillsFromDirectory(dirPath: string): Promise<SkillDirectory> {
   const skills: Skill[] = []; const now = Date.now()

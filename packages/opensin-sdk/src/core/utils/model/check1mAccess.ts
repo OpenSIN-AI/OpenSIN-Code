@@ -1,7 +1,7 @@
-import type { OverageDisabledReason } from 'src/services/claudeAiLimits.js'
-import { isClaudeAISubscriber } from '../auth.js'
-import { getGlobalConfig } from '../config.js'
-import { is1mContextDisabled } from '../context.js'
+import type { OverageDisabledReason } from 'src/services/claudeAiLimits'
+import { isClaudeAISubscriber } from '../auth'
+import { getGlobalConfig } from '../config'
+import { is1mContextDisabled } from '../context'
 
 /**
  * Check if extra usage is enabled based on the cached disabled reason.

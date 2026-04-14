@@ -1,103 +1,103 @@
 // biome-ignore-all assist/source/organizeImports: ANT-ONLY import markers must not be reordered
 import { type as osType, version as osVersion, release as osRelease } from 'os'
-import { env } from '../utils/env.js'
-import { getIsGit } from '../utils/git.js'
-import { getCwd } from '../utils/cwd.js'
-import { getIsNonInteractiveSession } from '../bootstrap/state.js'
-import { getCurrentWorktreeSession } from '../utils/worktree.js'
-import { getSessionStartDate } from './common.js'
-import { getInitialSettings } from '../utils/settings/settings.js'
+import { env } from '../utils/env'
+import { getIsGit } from '../utils/git'
+import { getCwd } from '../utils/cwd'
+import { getIsNonInteractiveSession } from '../bootstrap/state'
+import { getCurrentWorktreeSession } from '../utils/worktree'
+import { getSessionStartDate } from './common'
+import { getInitialSettings } from '../utils/settings/settings'
 import {
   AGENT_TOOL_NAME,
   VERIFICATION_AGENT_TYPE,
-} from '../tools/AgentTool/constants.js'
-import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt.js'
-import { FILE_READ_TOOL_NAME } from '../tools/FileReadTool/prompt.js'
-import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants.js'
-import { TODO_WRITE_TOOL_NAME } from '../tools/TodoWriteTool/constants.js'
-import { TASK_CREATE_TOOL_NAME } from '../tools/TaskCreateTool/constants.js'
-import type { Tools } from '../Tool.js'
-import type { Command } from '../types/command.js'
-import { BASH_TOOL_NAME } from '../tools/BashTool/toolName.js'
+} from '../tools/AgentTool/constants'
+import { FILE_WRITE_TOOL_NAME } from '../tools/FileWriteTool/prompt'
+import { FILE_READ_TOOL_NAME } from '../tools/FileReadTool/prompt'
+import { FILE_EDIT_TOOL_NAME } from '../tools/FileEditTool/constants'
+import { TODO_WRITE_TOOL_NAME } from '../tools/TodoWriteTool/constants'
+import { TASK_CREATE_TOOL_NAME } from '../tools/TaskCreateTool/constants'
+import type { Tools } from '../Tool'
+import type { Command } from '../types/command'
+import { BASH_TOOL_NAME } from '../tools/BashTool/toolName'
 import {
   getCanonicalName,
   getMarketingNameForModel,
-} from '../utils/model/model.js'
-import { getSkillToolCommands } from 'src/commands.js'
-import { SKILL_TOOL_NAME } from '../tools/SkillTool/constants.js'
-import { getOutputStyleConfig } from './outputStyles.js'
+} from '../utils/model/model'
+import { getSkillToolCommands } from 'src/commands'
+import { SKILL_TOOL_NAME } from '../tools/SkillTool/constants'
+import { getOutputStyleConfig } from './outputStyles'
 import type {
   MCPServerConnection,
   ConnectedMCPServer,
-} from '../services/mcp/types.js'
-import { GLOB_TOOL_NAME } from 'src/tools/GlobTool/prompt.js'
-import { GREP_TOOL_NAME } from 'src/tools/GrepTool/prompt.js'
-import { hasEmbeddedSearchTools } from 'src/utils/embeddedTools.js'
-import { ASK_USER_QUESTION_TOOL_NAME } from '../tools/AskUserQuestionTool/prompt.js'
+} from '../services/mcp/types'
+import { GLOB_TOOL_NAME } from 'src/tools/GlobTool/prompt'
+import { GREP_TOOL_NAME } from 'src/tools/GrepTool/prompt'
+import { hasEmbeddedSearchTools } from 'src/utils/embeddedTools'
+import { ASK_USER_QUESTION_TOOL_NAME } from '../tools/AskUserQuestionTool/prompt'
 import {
   EXPLORE_AGENT,
   EXPLORE_AGENT_MIN_QUERIES,
-} from 'src/tools/AgentTool/built-in/exploreAgent.js'
-import { areExplorePlanAgentsEnabled } from 'src/tools/AgentTool/builtInAgents.js'
+} from 'src/tools/AgentTool/built-in/exploreAgent'
+import { areExplorePlanAgentsEnabled } from 'src/tools/AgentTool/builtInAgents'
 import {
   isScratchpadEnabled,
   getScratchpadDir,
-} from '../utils/permissions/filesystem.js'
-import { isEnvTruthy } from '../utils/envUtils.js'
-import { isReplModeEnabled } from '../tools/REPLTool/constants.js'
+} from '../utils/permissions/filesystem'
+import { isEnvTruthy } from '../utils/envUtils'
+import { isReplModeEnabled } from '../tools/REPLTool/constants'
 import { feature } from 'bun:bundle'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook.js'
-import { shouldUseGlobalCacheScope } from '../utils/betas.js'
-import { isForkSubagentEnabled } from '../tools/AgentTool/forkSubagent.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook'
+import { shouldUseGlobalCacheScope } from '../utils/betas'
+import { isForkSubagentEnabled } from '../tools/AgentTool/forkSubagent'
 import {
   systemPromptSection,
   DANGEROUS_uncachedSystemPromptSection,
   resolveSystemPromptSections,
-} from './systemPromptSections.js'
-import { SLEEP_TOOL_NAME } from '../tools/SleepTool/prompt.js'
-import { TICK_TAG } from './xml.js'
-import { logForDebugging } from '../utils/debug.js'
-import { loadMemoryPrompt } from '../memdir/memdir.js'
-import { isUndercover } from '../utils/undercover.js'
-import { isMcpInstructionsDeltaEnabled } from '../utils/mcpInstructionsDelta.js'
+} from './systemPromptSections'
+import { SLEEP_TOOL_NAME } from '../tools/SleepTool/prompt'
+import { TICK_TAG } from './xml'
+import { logForDebugging } from '../utils/debug'
+import { loadMemoryPrompt } from '../memdir/memdir'
+import { isUndercover } from '../utils/undercover'
+import { isMcpInstructionsDeltaEnabled } from '../utils/mcpInstructionsDelta'
 
 // Dead code elimination: conditional imports for feature-gated modules
 /* eslint-disable @typescript-eslint/no-require-imports */
 const getCachedMCConfigForFRC = feature('CACHED_MICROCOMPACT')
   ? (
-      require('../services/compact/cachedMCConfig.js') as typeof import('../services/compact/cachedMCConfig.js')
+      require('../services/compact/cachedMCConfig') as typeof import('../services/compact/cachedMCConfig')
     ).getCachedMCConfig
   : null
 
 const proactiveModule =
   feature('PROACTIVE') || feature('KAIROS')
-    ? require('../proactive/index.js')
+    ? require('../proactive/index')
     : null
 const BRIEF_PROACTIVE_SECTION: string | null =
   feature('KAIROS') || feature('KAIROS_BRIEF')
     ? (
-        require('../tools/BriefTool/prompt.js') as typeof import('../tools/BriefTool/prompt.js')
+        require('../tools/BriefTool/prompt') as typeof import('../tools/BriefTool/prompt')
       ).BRIEF_PROACTIVE_SECTION
     : null
 const briefToolModule =
   feature('KAIROS') || feature('KAIROS_BRIEF')
-    ? (require('../tools/BriefTool/BriefTool.js') as typeof import('../tools/BriefTool/BriefTool.js'))
+    ? (require('../tools/BriefTool/BriefTool') as typeof import('../tools/BriefTool/BriefTool'))
     : null
 const DISCOVER_SKILLS_TOOL_NAME: string | null = feature(
   'EXPERIMENTAL_SKILL_SEARCH',
 )
   ? (
-      require('../tools/DiscoverSkillsTool/prompt.js') as typeof import('../tools/DiscoverSkillsTool/prompt.js')
+      require('../tools/DiscoverSkillsTool/prompt') as typeof import('../tools/DiscoverSkillsTool/prompt')
     ).DISCOVER_SKILLS_TOOL_NAME
   : null
 // Capture the module (not .isSkillSearchEnabled directly) so spyOn() in tests
 // patches what we actually call — a captured function ref would point past the spy.
 const skillSearchFeatureCheck = feature('EXPERIMENTAL_SKILL_SEARCH')
-  ? (require('../services/skillSearch/featureCheck.js') as typeof import('../services/skillSearch/featureCheck.js'))
+  ? (require('../services/skillSearch/featureCheck') as typeof import('../services/skillSearch/featureCheck'))
   : null
 /* eslint-enable @typescript-eslint/no-require-imports */
-import type { OutputStyleConfig } from './outputStyles.js'
-import { CYBER_RISK_INSTRUCTION } from './cyberRiskInstruction.js'
+import type { OutputStyleConfig } from './outputStyles'
+import { CYBER_RISK_INSTRUCTION } from './cyberRiskInstruction'
 
 export const CLAUDE_CODE_DOCS_MAP_URL =
   'https://code.claude.com/docs/en/claude_code_docs_map.md'

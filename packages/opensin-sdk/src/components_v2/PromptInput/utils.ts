@@ -1,5 +1,5 @@
-import type { RGBColor as RGBColorString } from '../../ink/styles.js'
-import type { RGBColor as RGBColorType } from './types.js'
+import type { RGBColor as RGBColorString } from '../../ink/styles'
+import type { RGBColor as RGBColorType } from './types'
 
 export function getDefaultCharacters(): string[] {
   if (process.env.TERM === 'xterm-ghostty') {

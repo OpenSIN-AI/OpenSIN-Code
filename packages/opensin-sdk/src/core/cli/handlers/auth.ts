@@ -3,23 +3,23 @@
 import {
   clearAuthRelatedCaches,
   performLogout,
-} from '../../commands/logout/logout.js'
+} from '../../commands/logout/logout'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import { getSSLErrorHint } from '../../services/api/errorUtils.js'
-import { fetchAndStoreClaudeCodeFirstTokenDate } from '../../services/api/firstTokenDate.js'
+} from '../../services/analytics/index'
+import { getSSLErrorHint } from '../../services/api/errorUtils'
+import { fetchAndStoreClaudeCodeFirstTokenDate } from '../../services/api/firstTokenDate'
 import {
   createAndStoreApiKey,
   fetchAndStoreUserRoles,
   refreshOAuthToken,
   shouldUseClaudeAIAuth,
   storeOAuthAccountInfo,
-} from '../../services/oauth/client.js'
-import { getOauthProfileFromOauthToken } from '../../services/oauth/getOauthProfile.js'
-import { OAuthService } from '../../services/oauth/index.js'
-import type { OAuthTokens } from '../../services/oauth/types.js'
+} from '../../services/oauth/client'
+import { getOauthProfileFromOauthToken } from '../../services/oauth/getOauthProfile'
+import { OAuthService } from '../../services/oauth/index'
+import type { OAuthTokens } from '../../services/oauth/types'
 import {
   clearOAuthTokenCache,
   getAnthropicApiKeyWithSource,
@@ -29,19 +29,19 @@ import {
   isUsing3PServices,
   saveOAuthTokensIfNeeded,
   validateForceLoginOrg,
-} from '../../utils/auth.js'
-import { saveGlobalConfig } from '../../utils/config.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { isRunningOnHomespace } from '../../utils/envUtils.js'
-import { errorMessage } from '../../utils/errors.js'
-import { logError } from '../../utils/log.js'
-import { getAPIProvider } from '../../utils/model/providers.js'
-import { getInitialSettings } from '../../utils/settings/settings.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
+} from '../../utils/auth'
+import { saveGlobalConfig } from '../../utils/config'
+import { logForDebugging } from '../../utils/debug'
+import { isRunningOnHomespace } from '../../utils/envUtils'
+import { errorMessage } from '../../utils/errors'
+import { logError } from '../../utils/log'
+import { getAPIProvider } from '../../utils/model/providers'
+import { getInitialSettings } from '../../utils/settings/settings'
+import { jsonStringify } from '../../utils/slowOperations'
 import {
   buildAccountProperties,
   buildAPIProviderProperties,
-} from '../../utils/status.js'
+} from '../../utils/status'
 
 /**
  * Shared post-token-acquisition logic. Saves tokens, fetches profile/roles,

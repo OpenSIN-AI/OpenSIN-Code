@@ -1,17 +1,17 @@
-import type { AppState } from '../../state/AppState.js'
-import { logForDebugging } from '../debug.js'
-import { updateHooksConfigSnapshot } from '../hooks/hooksConfigSnapshot.js'
+import type { AppState } from '../../state/AppState'
+import { logForDebugging } from '../debug'
+import { updateHooksConfigSnapshot } from '../hooks/hooksConfigSnapshot'
 import {
   createDisabledBypassPermissionsContext,
   findOverlyBroadBashPermissions,
   isBypassPermissionsModeDisabled,
   removeDangerousPermissions,
   transitionPlanAutoMode,
-} from '../permissions/permissionSetup.js'
-import { syncPermissionRulesFromDisk } from '../permissions/permissions.js'
-import { loadAllPermissionRulesFromDisk } from '../permissions/permissionsLoader.js'
-import type { SettingSource } from './constants.js'
-import { getInitialSettings } from './settings.js'
+} from '../permissions/permissionSetup'
+import { syncPermissionRulesFromDisk } from '../permissions/permissions'
+import { loadAllPermissionRulesFromDisk } from '../permissions/permissionsLoader'
+import type { SettingSource } from './constants'
+import { getInitialSettings } from './settings'
 
 /**
  * Apply a settings change to app state. Re-reads settings from disk,

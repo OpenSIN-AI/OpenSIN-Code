@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react'
-import { getIsNonInteractiveSession } from '../bootstrap/state.js'
-import { verifyApiKey } from '../services/api/claude.js'
+import { getIsNonInteractiveSession } from '../bootstrap/state'
+import { verifyApiKey } from '../services/api/claude'
 import {
   getAnthropicApiKeyWithSource,
   getApiKeyFromApiKeyHelper,
   isAnthropicAuthEnabled,
   isClaudeAISubscriber,
-} from '../utils/auth.js'
+} from '../utils/auth'
 
 export type VerificationStatus =
   | 'loading'

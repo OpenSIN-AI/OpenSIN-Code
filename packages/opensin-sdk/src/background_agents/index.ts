@@ -5,7 +5,7 @@
  * Branded: OpenSIN/sincode
  */
 
-export { BackgroundAgentManager } from './manager.js'
+export { BackgroundAgentManager } from './manager'
 export type {
   BackgroundAgentStatus,
   TerminalStatus,
@@ -17,7 +17,7 @@ export type {
   AgentNotificationState,
   AgentRetrievalState,
   AgentArtifactState,
-} from './types.js'
+} from './types'
 export {
   isTerminalStatus,
   isActiveStatus,
@@ -25,4 +25,4 @@ export {
   TERMINAL_WAIT_GRACE_MS,
   READ_POLL_INTERVAL_MS,
   ALL_COMPLETE_QUIET_PERIOD_MS,
-} from './types.js'
+} from './types'

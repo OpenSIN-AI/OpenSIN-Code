@@ -1,8 +1,8 @@
-import type { Command } from '../../commands.js'
+import type { Command } from '../../commands'
 import {
   checkCachedPassesEligibility,
   getCachedReferrerReward,
-} from '../../services/api/referral.js'
+} from '../../services/api/referral'
 
 export default {
   type: 'local-jsx',
@@ -18,5 +18,5 @@ export default {
     const { eligible, hasCache } = checkCachedPassesEligibility()
     return !eligible || !hasCache
   },
-  load: () => import('./passes.js'),
+  load: () => import('./passes'),
 } satisfies Command

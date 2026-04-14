@@ -3,29 +3,29 @@ import type { BetaMessageParam as MessageParam } from '@anthropic-ai/sdk/resourc
 // @aws-sdk/client-bedrock-runtime is imported dynamically in countTokensWithBedrock()
 // to defer ~279KB of AWS SDK code until a Bedrock call is actually made
 import type { CountTokensCommandInput } from '@aws-sdk/client-bedrock-runtime'
-import { getAPIProvider } from 'src/utils/model/providers.js'
-import { VERTEX_COUNT_TOKENS_ALLOWED_BETAS } from '../constants/betas.js'
-import type { Attachment } from '../utils/attachments.js'
-import { getModelBetas } from '../utils/betas.js'
-import { getVertexRegionForModel, isEnvTruthy } from '../utils/envUtils.js'
-import { logError } from '../utils/log.js'
-import { normalizeAttachmentForAPI } from '../utils/messages.js'
+import { getAPIProvider } from 'src/utils/model/providers'
+import { VERTEX_COUNT_TOKENS_ALLOWED_BETAS } from '../constants/betas'
+import type { Attachment } from '../utils/attachments'
+import { getModelBetas } from '../utils/betas'
+import { getVertexRegionForModel, isEnvTruthy } from '../utils/envUtils'
+import { logError } from '../utils/log'
+import { normalizeAttachmentForAPI } from '../utils/messages'
 import {
   createBedrockRuntimeClient,
   getInferenceProfileBackingModel,
   isFoundationModel,
-} from '../utils/model/bedrock.js'
+} from '../utils/model/bedrock'
 import {
   getDefaultSonnetModel,
   getMainLoopModel,
   getSmallFastModel,
   normalizeModelStringForAPI,
-} from '../utils/model/model.js'
-import { jsonStringify } from '../utils/slowOperations.js'
-import { isToolReferenceBlock } from '../utils/toolSearch.js'
-import { getAPIMetadata, getExtraBodyParams } from './api/claude.js'
-import { getAnthropicClient } from './api/client.js'
-import { withTokenCountVCR } from './vcr.js'
+} from '../utils/model/model'
+import { jsonStringify } from '../utils/slowOperations'
+import { isToolReferenceBlock } from '../utils/toolSearch'
+import { getAPIMetadata, getExtraBodyParams } from './api/claude'
+import { getAnthropicClient } from './api/client'
+import { withTokenCountVCR } from './vcr'
 
 // Minimal values for token counting with thinking enabled
 // API constraint: max_tokens must be greater than thinking.budget_tokens

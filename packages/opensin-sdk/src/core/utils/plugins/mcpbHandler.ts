@@ -6,21 +6,21 @@ import axios from 'axios'
 import { createHash } from 'crypto'
 import { chmod, writeFile } from 'fs/promises'
 import { dirname, join } from 'path'
-import type { McpServerConfig } from '../../services/mcp/types.js'
-import { logForDebugging } from '../debug.js'
-import { parseAndValidateManifestFromBytes } from '../dxt/helpers.js'
-import { parseZipModes, unzipFile } from '../dxt/zip.js'
-import { errorMessage, getErrnoCode, isENOENT, toError } from '../errors.js'
-import { getFsImplementation } from '../fsOperations.js'
-import { logError } from '../log.js'
-import { getSecureStorage } from '../secureStorage/index.js'
+import type { McpServerConfig } from '../../services/mcp/types'
+import { logForDebugging } from '../debug'
+import { parseAndValidateManifestFromBytes } from '../dxt/helpers'
+import { parseZipModes, unzipFile } from '../dxt/zip'
+import { errorMessage, getErrnoCode, isENOENT, toError } from '../errors'
+import { getFsImplementation } from '../fsOperations'
+import { logError } from '../log'
+import { getSecureStorage } from '../secureStorage/index'
 import {
   getSettings_DEPRECATED,
   updateSettingsForSource,
-} from '../settings/settings.js'
-import { jsonParse, jsonStringify } from '../slowOperations.js'
-import { getSystemDirectories } from '../systemDirectories.js'
-import { classifyFetchError, logPluginFetch } from './fetchTelemetry.js'
+} from '../settings/settings'
+import { jsonParse, jsonStringify } from '../slowOperations'
+import { getSystemDirectories } from '../systemDirectories'
+import { classifyFetchError, logPluginFetch } from './fetchTelemetry'
 /**
  * User configuration values for MCPB
  */
@@ -583,8 +583,8 @@ async function extractMcpbContents(
     // Determine if text or binary
     const isTextFile =
       filePath.endsWith('.json') ||
-      filePath.endsWith('.js') ||
-      filePath.endsWith('.ts') ||
+      filePath.endsWith('') ||
+      filePath.endsWith('') ||
       filePath.endsWith('.txt') ||
       filePath.endsWith('.md') ||
       filePath.endsWith('.yml') ||

@@ -1,39 +1,39 @@
 import axios from 'axios'
-import { getOauthConfig, OAUTH_BETA_HEADER } from 'src/constants/oauth.js'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook.js'
+import { getOauthConfig, OAUTH_BETA_HEADER } from 'src/constants/oauth'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from 'src/services/analytics/growthbook'
 import {
   getIsNonInteractiveSession,
   getKairosActive,
   preferThirdPartyAuthentication,
-} from '../bootstrap/state.js'
+} from '../bootstrap/state'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../services/analytics/index.js'
+} from '../services/analytics/index'
 import {
   getAnthropicApiKey,
   getClaudeAIOAuthTokens,
   handleOAuth401Error,
   hasProfileScope,
-} from './auth.js'
-import { isInBundledMode } from './bundledMode.js'
-import { getGlobalConfig, saveGlobalConfig } from './config.js'
-import { logForDebugging } from './debug.js'
-import { isEnvTruthy } from './envUtils.js'
+} from './auth'
+import { isInBundledMode } from './bundledMode'
+import { getGlobalConfig, saveGlobalConfig } from './config'
+import { logForDebugging } from './debug'
+import { isEnvTruthy } from './envUtils'
 import {
   getDefaultMainLoopModelSetting,
   isOpus1mMergeEnabled,
   type ModelSetting,
   parseUserSpecifiedModel,
-} from './model/model.js'
-import { getAPIProvider } from './model/providers.js'
-import { isEssentialTrafficOnly } from './privacyLevel.js'
+} from './model/model'
+import { getAPIProvider } from './model/providers'
+import { isEssentialTrafficOnly } from './privacyLevel'
 import {
   getInitialSettings,
   getSettingsForSource,
   updateSettingsForSource,
-} from './settings/settings.js'
-import { createSignal } from './signal.js'
+} from './settings/settings'
+import { createSignal } from './signal'
 
 export function isFastModeEnabled(): boolean {
   return !isEnvTruthy(process.env.CLAUDE_CODE_DISABLE_FAST_MODE)

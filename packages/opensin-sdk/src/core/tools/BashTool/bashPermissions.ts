@@ -1,14 +1,14 @@
 import { feature } from 'bun:bundle'
 import { APIUserAbortError } from '@anthropic-ai/sdk'
 import type { z } from 'zod/v4'
-import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook.js'
+import { getFeatureValue_CACHED_MAY_BE_STALE } from '../../services/analytics/growthbook'
 import {
   type AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   logEvent,
-} from '../../services/analytics/index.js'
-import type { ToolPermissionContext, ToolUseContext } from '../../Tool.js'
-import type { PendingClassifierCheck } from '../../types/permissions.js'
-import { count } from '../../utils/array.js'
+} from '../../services/analytics/index'
+import type { ToolPermissionContext, ToolUseContext } from '../../Tool'
+import type { PendingClassifierCheck } from '../../types/permissions'
+import { count } from '../../utils/array'
 import {
   checkSemantics,
   nodeTypeId,
@@ -16,45 +16,45 @@ import {
   parseForSecurityFromAst,
   type Redirect,
   type SimpleCommand,
-} from '../../utils/bash/ast.js'
+} from '../../utils/bash/ast'
 import {
   type CommandPrefixResult,
   extractOutputRedirections,
   getCommandSubcommandPrefix,
   splitCommand_DEPRECATED,
-} from '../../utils/bash/commands.js'
-import { parseCommandRaw } from '../../utils/bash/parser.js'
-import { tryParseShellCommand } from '../../utils/bash/shellQuote.js'
-import { getCwd } from '../../utils/cwd.js'
-import { logForDebugging } from '../../utils/debug.js'
-import { isEnvTruthy } from '../../utils/envUtils.js'
-import { AbortError } from '../../utils/errors.js'
+} from '../../utils/bash/commands'
+import { parseCommandRaw } from '../../utils/bash/parser'
+import { tryParseShellCommand } from '../../utils/bash/shellQuote'
+import { getCwd } from '../../utils/cwd'
+import { logForDebugging } from '../../utils/debug'
+import { isEnvTruthy } from '../../utils/envUtils'
+import { AbortError } from '../../utils/errors'
 import type {
   ClassifierBehavior,
   ClassifierResult,
-} from '../../utils/permissions/bashClassifier.js'
+} from '../../utils/permissions/bashClassifier'
 import {
   classifyBashCommand,
   getBashPromptAllowDescriptions,
   getBashPromptAskDescriptions,
   getBashPromptDenyDescriptions,
   isClassifierPermissionsEnabled,
-} from '../../utils/permissions/bashClassifier.js'
+} from '../../utils/permissions/bashClassifier'
 import type {
   PermissionDecisionReason,
   PermissionResult,
-} from '../../utils/permissions/PermissionResult.js'
+} from '../../utils/permissions/PermissionResult'
 import type {
   PermissionRule,
   PermissionRuleValue,
-} from '../../utils/permissions/PermissionRule.js'
-import { extractRules } from '../../utils/permissions/PermissionUpdate.js'
-import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema.js'
-import { permissionRuleValueToString } from '../../utils/permissions/permissionRuleParser.js'
+} from '../../utils/permissions/PermissionRule'
+import { extractRules } from '../../utils/permissions/PermissionUpdate'
+import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateSchema'
+import { permissionRuleValueToString } from '../../utils/permissions/permissionRuleParser'
 import {
   createPermissionRequestMessage,
   getRuleByContentsForTool,
-} from '../../utils/permissions/permissions.js'
+} from '../../utils/permissions/permissions'
 import {
   parsePermissionRule,
   type ShellPermissionRule,
@@ -62,21 +62,21 @@ import {
   permissionRuleExtractPrefix as sharedPermissionRuleExtractPrefix,
   suggestionForExactCommand as sharedSuggestionForExactCommand,
   suggestionForPrefix as sharedSuggestionForPrefix,
-} from '../../utils/permissions/shellRuleMatching.js'
-import { getPlatform } from '../../utils/platform.js'
-import { SandboxManager } from '../../utils/sandbox/sandbox-adapter.js'
-import { jsonStringify } from '../../utils/slowOperations.js'
-import { windowsPathToPosixPath } from '../../utils/windowsPaths.js'
-import { BashTool } from './BashTool.js'
-import { checkCommandOperatorPermissions } from './bashCommandHelpers.js'
+} from '../../utils/permissions/shellRuleMatching'
+import { getPlatform } from '../../utils/platform'
+import { SandboxManager } from '../../utils/sandbox/sandbox-adapter'
+import { jsonStringify } from '../../utils/slowOperations'
+import { windowsPathToPosixPath } from '../../utils/windowsPaths'
+import { BashTool } from './BashTool'
+import { checkCommandOperatorPermissions } from './bashCommandHelpers'
 import {
   bashCommandIsSafeAsync_DEPRECATED,
   stripSafeHeredocSubstitutions,
-} from './bashSecurity.js'
-import { checkPermissionMode } from './modeValidation.js'
-import { checkPathConstraints } from './pathValidation.js'
-import { checkSedConstraints } from './sedValidation.js'
-import { shouldUseSandbox } from './shouldUseSandbox.js'
+} from './bashSecurity'
+import { checkPermissionMode } from './modeValidation'
+import { checkPathConstraints } from './pathValidation'
+import { checkSedConstraints } from './sedValidation'
+import { shouldUseSandbox } from './shouldUseSandbox'
 
 // DCE cliff: Bun's feature() evaluator has a per-function complexity budget.
 // bashToolHasPermission is right at the limit. `import { X as Y }` aliases
