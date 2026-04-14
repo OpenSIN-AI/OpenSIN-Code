@@ -115,3 +115,32 @@ graph TD;
 ![OpenSIN CLI Interface Example](https://docs.opensin.ai/og-image.png)
 
 *Proof of execution: The CLI actively drives the entire Agent-to-Agent fleet.*
+
+
+---
+
+## Agent Configuration System (v5)
+
+OpenSIN-Code is the core CLI that powers all A2A agents. The agent configuration system is centralized:
+
+| Datei | Zweck | Repo |
+|:---|:---|:---|
+| `opencode.json` | Haupt-Config (Provider, Modelle, MCPs, Agenten) | `upgraded-opencode-stack` |
+| `oh-my-sin.json` | Zentrales A2A Team Register | `upgraded-opencode-stack` |
+| `oh-my-openagent.json` | Subagenten-Modelle (explore, librarian, etc.) | `upgraded-opencode-stack` |
+| `my-sin-team-code.json` | Team Coding Agenten + Modelle | `upgraded-opencode-stack` |
+| `my-sin-team-worker.json` | Team Worker Agenten + Modelle | `upgraded-opencode-stack` |
+| `my-sin-team-infra.json` | Team Infra Agenten + Modelle | `upgraded-opencode-stack` |
+
+### Subagenten-Modelle
+
+| Subagent | Modell | Fallback-Kette |
+|:---|:---|:---|
+| **explore** | `nvidia-nim/stepfun-ai/step-3.5-flash` | gemini-3-flash → gpt-5.4 → gemini-3.1-pro → claude-sonnet → qwen |
+| **librarian** | `nvidia-nim/stepfun-ai/step-3.5-flash` | gemini-3-flash → gpt-5.4 → gemini-3.1-pro → claude-sonnet → qwen |
+
+### ULTIMATE Creation Skill
+
+Use `/create-a2a-sin-agent` to create new agents, teams, or coders. This skill merges three former skills into one.
+
+→ [Full Documentation](https://github.com/OpenSIN-AI/OpenSIN-documentation/blob/main/docs/guide/agent-configuration.md)
