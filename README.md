@@ -61,8 +61,8 @@ OpenSIN-Code now includes enterprise-grade browser and desktop automation:
 ## Quick Start
 
 ```bash
-npm install
-npm run build
+bun install
+bun run build
 opensin-code
 ```
 
