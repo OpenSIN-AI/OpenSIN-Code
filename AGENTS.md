@@ -26,8 +26,8 @@ OpenSIN-Code is the core code agent for the OpenSIN ecosystem, providing intelli
 ```bash
 git clone https://github.com/OpenSIN-AI/OpenSIN-Code.git
 cd OpenSIN-Code
-npm install
-npm start
+bun install
+bun run build
 ```
 
 ## License

@@ -2,6 +2,10 @@
 
 > The autonomous OpenSIN CLI with full browser & computer-use capabilities.
 
+> [!IMPORTANT]
+> **SSOT:** Die kanonische OpenCode-Konfiguration liegt unter [Delqhi/upgraded-opencode-stack](https://github.com/Delqhi/upgraded-opencode-stack).
+> Nach jeder Änderung MUSS `sin-sync` ausgeführt werden.
+
 ## 🚨 CI/CD MANDAT — ABSOLUTES VERBOT FÜR NORMALE GITHUB ACTIONS
 
 **NIEMALS normale GitHub Actions Runner von GitHub nutzen!** GitHub Actions Billing blockiert unsere Pipelines. Dieses Repository nutzt **ausschließlich** n8n + sin-github-action für CI/CD. Alle Builds laufen auf dem kostenlosen OCI VM (Oracle Cloud Always-Free).
