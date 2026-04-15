@@ -21,6 +21,6 @@ export async function SendUserFileTool(input: SendUserFileToolInput): Promise<Se
   // In production: upload file and generate download link or send via Telegram
   return {
     success: true,
-    url: `https://a2a.delqhi.com/files/${Date.now()}-${filePath.split('/').pop()}`,
+    url: `https://chat.opensin.ai/files/${Date.now()}-${filePath.split('/').pop()}`,
   };
 }
