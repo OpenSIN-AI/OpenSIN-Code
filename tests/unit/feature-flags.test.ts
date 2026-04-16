@@ -1,6 +1,8 @@
 /**
  * Unit tests for feature flags
  */
+import { describe, expect, it } from 'vitest';
+
 import { isFeatureEnabled, enableFeature, disableFeature, getAllFlags, FEATURE_FLAGS } from '../../feature-flags/flags';
 
 describe('FeatureFlags', () => {

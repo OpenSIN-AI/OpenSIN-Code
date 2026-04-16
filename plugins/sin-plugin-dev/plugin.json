@@ -1,0 +1,32 @@
+{
+  "name": "sin-plugin-dev",
+  "version": "1.0.0",
+  "description": "Plugin development toolkit with one guided workflow command, three validation agents, and seven specialized skills for building OpenSIN Code plugins.",
+  "author": {
+    "name": "OpenSIN-AI",
+    "email": "developer@opensin.ai"
+  },
+  "type": "plugin",
+  "commands": [
+    "commands/create-plugin.md"
+  ],
+  "agents": [
+    "agents/agent-creator.md",
+    "agents/plugin-validator.md",
+    "agents/skill-reviewer.md"
+  ],
+  "skills": [
+    "skills/agent-development",
+    "skills/command-development",
+    "skills/hook-development",
+    "skills/mcp-integration",
+    "skills/plugin-settings",
+    "skills/plugin-structure",
+    "skills/skill-development"
+  ],
+  "config": {
+    "guidedWorkflow": true,
+    "validationFirst": true,
+    "progressiveDisclosure": true
+  }
+}

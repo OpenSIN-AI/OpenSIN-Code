@@ -30,10 +30,10 @@
     }
   },
   "automatedChecks": {
-    "build": { "enabled": true, "command": "npm run build", "timeoutSeconds": 120 },
-    "test": { "enabled": true, "command": "npm test", "timeoutSeconds": 300 },
-    "lint": { "enabled": true, "command": "npm run lint", "timeoutSeconds": 60 },
-    "typecheck": { "enabled": true, "command": "npm run typecheck", "timeoutSeconds": 60 }
+    "build": { "enabled": true, "command": "bun run build", "timeoutSeconds": 120 },
+    "test": { "enabled": true, "command": "bun run test", "timeoutSeconds": 300 },
+    "lint": { "enabled": true, "command": "bun run lint", "timeoutSeconds": 60 },
+    "typecheck": { "enabled": true, "command": "bun run typecheck", "timeoutSeconds": 60 }
   },
   "reviewAgents": {
     "code-reviewer": { "enabled": true, "focus": "General code quality, CLAUDE.md compliance, bug detection", "confidenceThreshold": 80 },

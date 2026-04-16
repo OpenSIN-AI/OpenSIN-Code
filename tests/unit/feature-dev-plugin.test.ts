@@ -27,7 +27,8 @@ describe('sin-feature-dev Plugin Manifest', () => {
   });
 
   it('should have OpenSIN-AI as author', () => {
-    expect(manifest.author).toBe('OpenSIN-AI');
+    const authorName = typeof manifest.author === 'string' ? manifest.author : manifest.author?.name;
+    expect(authorName).toBe('OpenSIN-AI');
   });
 
   it('should have MIT license', () => {
@@ -91,7 +92,8 @@ describe('sin-feature-dev Agents', () => {
     });
 
     it(`${agentName}.md should have YAML frontmatter with name`, () => {
-      expect(content).toMatch(/^---\s*\nname:\s*${agentName}/m);
+      const nameLinePattern = new RegExp(`^---\\s*\\nname:\\s*${agentName}`, 'm');
+      expect(content).toMatch(nameLinePattern);
     });
 
     it(`${agentName}.md should specify openai/gpt-5.4 as model`, () => {

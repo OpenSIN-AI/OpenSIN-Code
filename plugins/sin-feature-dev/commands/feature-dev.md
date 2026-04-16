@@ -24,6 +24,8 @@ Clarify the feature request, identify constraints and requirements.
 Launch 2-3 `code-explorer` agents in parallel to understand relevant existing code.
 
 ### Phase 3: Clarifying Questions
+**CRITICAL — DO NOT SKIP.**
+
 Identify underspecified aspects and wait for answers before proceeding.
 
 ### Phase 4: Architecture Design

@@ -1,6 +1,11 @@
 /**
  * Integration test: Plugin loading and initialization
  */
+import { describe, expect, it } from 'vitest';
+
+const fs = require('fs');
+const path = require('path');
+
 describe('Plugin Loading', () => {
   it('should load sin-hookify plugin manifest', () => {
     const manifest = require('../../plugins/sin-hookify/plugin.json');
@@ -32,5 +37,22 @@ describe('Plugin Loading', () => {
     const manifest = require('../../plugins/sin-plugin-dev/plugin.json');
     expect(manifest.name).toBe('sin-plugin-dev');
     expect(manifest.skills.length).toBe(7);
+  });
+
+  it('should keep root and .sin-plugin manifests in sync for phase 1 plugins', () => {
+    const plugins = ['sin-hookify', 'sin-pr-review', 'sin-plugin-dev'];
+
+    for (const plugin of plugins) {
+      const rootManifest = JSON.parse(
+        fs.readFileSync(path.join(__dirname, `../../plugins/${plugin}/plugin.json`), 'utf-8'),
+      );
+      const nestedManifest = JSON.parse(
+        fs.readFileSync(path.join(__dirname, `../../plugins/${plugin}/.sin-plugin/plugin.json`), 'utf-8'),
+      );
+
+      expect(rootManifest.name).toBe(nestedManifest.name);
+      expect(rootManifest.version).toBe(nestedManifest.version);
+      expect(rootManifest.type).toBe('plugin');
+    }
   });
 });

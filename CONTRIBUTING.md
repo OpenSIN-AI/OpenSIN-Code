@@ -7,8 +7,8 @@ Thank you for your interest in contributing to OpenSIN-Code!
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feat/my-feature`
 3. Make your changes
-4. Run tests: `npm test`
-5. Run typecheck: `npm run typecheck`
+4. Run tests: `bun run test`
+5. Run typecheck: `bun run typecheck`
 6. Commit and push: `git commit -m "feat: description" && git push`
 7. Open a Pull Request
 
@@ -24,7 +24,7 @@ Thank you for your interest in contributing to OpenSIN-Code!
 ## Testing
 
 - All new features require tests
-- Run `npm test` before submitting a PR
+- Run `bun run test` before submitting a PR
 - Minimum 80% code coverage for new code
 
 ## Commit Messages

@@ -216,9 +216,9 @@ Features:
 ```bash
 # Download or build the .vsix file
 cd kairos-vscode
-npm install
-npm run compile
-npx vsce package --no-dependencies
+bun install
+bun run compile
+bunx @vscode/vsce package --no-dependencies
 
 # Install in VS Code
 code --install-extension sincode-vscode-0.1.0.vsix
@@ -229,7 +229,7 @@ code --install-extension sincode-vscode-0.1.0.vsix
 ```bash
 git clone git@github.com:OpenSIN-AI/OpenSIN-Code.git
 cd OpenSIN-Code/kairos-vscode
-npm install
+bun install
 
 # Option 1: Open in VS Code and press F5
 code .
@@ -388,10 +388,10 @@ Available models are automatically fetched from your `opencode` config via `open
 ### Build
 
 ```bash
-npm install
-npm run compile    # tsc -p ./
-npm run watch      # tsc -watch -p ./
-npm run package    # vsce package --no-dependencies
+bun install
+bun run compile    # tsc -p ./
+bun run watch      # tsc -watch -p ./
+bun run package    # vsce package --no-dependencies
 ```
 
 ### Project Structure

@@ -255,7 +255,7 @@ function verificationLines_(cwdPath: string, detection: RepoDetection): string[]
     }
   }
   if (detection.packageJson) {
-    lines.push('- Run the JavaScript/TypeScript checks from `package.json` before shipping changes (`npm test`, `npm run lint`, `npm run build`, or the repo equivalent).');
+    lines.push('- Run the JavaScript/TypeScript checks from `package.json` before shipping changes (`bun run test`, `bun run lint`, `bun run build`, or the repo equivalent).');
   }
   if (detection.testsDir && detection.srcDir) {
     lines.push('- `src/` and `tests/` are both present; update both surfaces together when behavior changes.');

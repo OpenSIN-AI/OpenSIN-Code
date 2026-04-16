@@ -17,8 +17,9 @@ OpenSIN platform agent.
 ```bash
 git clone https://github.com/OpenSIN-AI/sin-opencode.git
 cd sin-opencode
-npm install
-npm start
+bun install
+bun run build
+bun run test
 ```
 
 ## License

@@ -28,6 +28,7 @@ git clone https://github.com/OpenSIN-AI/OpenSIN-Code.git
 cd OpenSIN-Code
 bun install
 bun run build
+bun run test
 ```
 
 ## License
