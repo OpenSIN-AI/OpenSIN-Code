@@ -139,7 +139,7 @@ Ensure project builds after code changes:
       "hooks": [
         {
           "type": "prompt",
-          "prompt": "Check if code was modified. If Write/Edit tools were used, verify the project was built (npm run build, cargo build, etc). If not built, block and request build."
+          "prompt": "Check if code was modified. If Write/Edit tools were used, verify the project was built (bun run build, cargo build, etc). If not built, block and request build."
         }
       ]
     }
@@ -199,7 +199,7 @@ file_path=$(echo "$input" | jq -r '.tool_input.file_path')
 
 # Run linter if applicable
 if [[ "$file_path" == *.js ]] || [[ "$file_path" == *.ts ]]; then
-  npx eslint "$file_path" 2>&1 || true
+  bunx eslint "$file_path" 2>&1 || true
 fi
 ```
 

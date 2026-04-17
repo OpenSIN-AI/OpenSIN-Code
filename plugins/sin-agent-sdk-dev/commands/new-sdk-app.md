@@ -80,7 +80,7 @@ Based on the user's answers, create a plan that includes:
 
 3. **SDK Installation**:
 
-   - TypeScript: `npm install @opensin-ai-ai/sin-agent-sdk@latest` (or specify latest version)
+   - TypeScript: `bun install @opensin-ai-ai/sin-agent-sdk@latest` (or specify latest version)
    - Python: `pip install sin-agent-sdk` (pip installs latest by default)
    - After installation, verify the installed version:
      - TypeScript: Check package.json or run `npm list @opensin-ai-ai/sin-agent-sdk`
@@ -116,7 +116,7 @@ After gathering requirements and getting user confirmation on the plan:
 7. Add helpful comments in the code explaining what each part does
 8. **VERIFY THE CODE WORKS BEFORE FINISHING**:
    - For TypeScript:
-     - Run `npx tsc --noEmit` to check for type errors
+     - Run `bunx tsc --noEmit` to check for type errors
      - Fix ALL type errors until types pass completely
      - Ensure imports and types are correct
      - Only proceed when type checking passes with no errors
@@ -142,7 +142,7 @@ Once setup is complete and verified, provide the user with:
 
    - How to set their API key
    - How to run their agent:
-     - TypeScript: `npm start` or `node --loader ts-node/esm index.ts`
+     - TypeScript: `bun run start` or `node --loader ts-node/esm index.ts`
      - Python: `python main.py`
 
 2. **Useful resources**:
@@ -161,7 +161,7 @@ Once setup is complete and verified, provide the user with:
 
 - **ALWAYS USE LATEST VERSIONS**: Before installing any packages, check for the latest versions using WebSearch or by checking npm/PyPI directly
 - **VERIFY CODE RUNS CORRECTLY**:
-  - For TypeScript: Run `npx tsc --noEmit` and fix ALL type errors before finishing
+  - For TypeScript: Run `bunx tsc --noEmit` and fix ALL type errors before finishing
   - For Python: Verify syntax and imports are correct
   - Do NOT consider the task complete until the code passes verification
 - Verify the installed version after installation and inform the user

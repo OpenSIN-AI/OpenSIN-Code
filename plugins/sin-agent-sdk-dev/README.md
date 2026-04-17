@@ -36,7 +36,7 @@ The command will interactively ask you:
 2. Project name (if not provided)
 3. Agent type (coding, business, custom)
 4. Starting point (minimal, basic, or specific example)
-5. Tooling preferences (npm/yarn/pnpm or pip/poetry)
+5. Tooling preferences (bun/pnpm/yarn or pip/poetry)
 
 **Example:**
 ```bash
@@ -139,7 +139,7 @@ The command automatically runs `agent-sdk-verifier-ts` to ensure everything is c
 echo "ANTHROPIC_API_KEY=your_key_here" > .env
 
 # Run your agent
-npm start
+bun run start
 ```
 
 5. **Verify after changes:**
@@ -160,7 +160,7 @@ This plugin is included in the OpenSIN Code repository. To use it:
 - **Verify before deploying**: Run the verifier agent before deploying to production
 - **Keep API keys secure**: Never commit `.env` files or hardcode API keys
 - **Follow SDK documentation**: The verifier agents check against official patterns
-- **Type check TypeScript projects**: Run `npx tsc --noEmit` regularly
+- **Type check TypeScript projects**: Run `bun run typecheck` or `bunx tsc --noEmit`
 - **Test your agents**: Create test cases for your agent's functionality
 
 ## Resources

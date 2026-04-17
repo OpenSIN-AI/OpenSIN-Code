@@ -6,7 +6,7 @@ action: block
 conditions:
   - field: transcript
     operator: not_contains
-    pattern: npm test|pytest|cargo test
+    pattern: bun run test|pytest|cargo test
 ---
 
 **Tests not detected in transcript!**
@@ -14,7 +14,7 @@ conditions:
 Before stopping, please run tests to verify your changes work correctly.
 
 Look for test commands like:
-- `npm test`
+- `bun run test`
 - `pytest`
 - `cargo test`
 

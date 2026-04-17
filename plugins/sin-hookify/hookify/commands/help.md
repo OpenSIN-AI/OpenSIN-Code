@@ -109,7 +109,7 @@ event: stop
 pattern: .*
 ---
 
-Did you run tests before finishing? Make sure `npm test` or equivalent was executed.
+Did you run tests before finishing? Make sure `bun run test` or equivalent was executed.
 ```
 
 ## Pattern Syntax

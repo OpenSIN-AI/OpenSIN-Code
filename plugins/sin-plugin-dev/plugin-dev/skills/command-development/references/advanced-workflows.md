@@ -112,7 +112,7 @@ allowed-tools: Read, Bash(npm:*)
 
 Reading deployment state from `.sin/deployment-state.local.md`...
 
-Running tests: !`npm test`
+Running tests: !`bun run test`
 
 Updating state to 'tested'...
 
@@ -151,7 +151,7 @@ Status: !`git status --short`
    - If hotfix: Fast-track process
 
 2. Tests:
-   !`npm test`
+   !`bun run test`
    - If tests fail: STOP - fix tests first
    - If tests pass: Continue
 
@@ -528,7 +528,7 @@ description: Resilient deployment workflow
 Running steps with error handling...
 
 ## Step 1: Tests
-!`npm test`
+!`bun run test`
 
 if [ $? -ne 0 ]; then
   ERROR: Tests failed

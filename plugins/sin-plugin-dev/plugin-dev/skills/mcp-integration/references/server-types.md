@@ -14,7 +14,7 @@ Execute local MCP servers as child processes with communication via stdin/stdout
 ```json
 {
   "my-server": {
-    "command": "npx",
+    "command": "bunx",
     "args": ["-y", "my-mcp-server"]
   }
 }
@@ -48,7 +48,7 @@ Execute local MCP servers as child processes with communication via stdin/stdout
 ```json
 {
   "filesystem": {
-    "command": "npx",
+    "command": "bunx",
     "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path"]
   }
 }
@@ -464,7 +464,7 @@ Combine different types:
 ```json
 {
   "local-db": {
-    "command": "npx",
+    "command": "bunx",
     "args": ["-y", "mcp-server-sqlite", "./data.db"]
   },
   "cloud-api": {

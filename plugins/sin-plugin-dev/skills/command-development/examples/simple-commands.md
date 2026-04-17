@@ -97,7 +97,7 @@ allowed-tools: Bash(npm:*), Bash(jest:*)
 
 Run tests for $1:
 
-Test execution: !`npm test $1`
+Test execution: !`bun run test $1`
 
 Analyze results:
 - Tests passed/failed

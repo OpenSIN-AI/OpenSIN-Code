@@ -240,7 +240,7 @@
 ### BUG-M012: CI workflow references non-existent test scripts
 - **File:** `.github/workflows/ci.yml`
 - **Author:** ZOEsolar (initial scaffold)
-- **Description:** CI likely runs `npm test` but neither `agent-sdk` nor `opensin-sdk` have a `test` script in package.json.
+- **Description:** CI likely runs `bun run test` but neither `agent-sdk` nor `opensin-sdk` have a `test` script in package.json.
 - **Fix:** Add test scripts or update CI workflow.
 - **Status:** ✅ Fixed
 

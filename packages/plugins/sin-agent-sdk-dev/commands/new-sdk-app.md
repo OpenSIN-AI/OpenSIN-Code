@@ -50,7 +50,7 @@ Based on the user's answers, create a setup plan:
 3. Install dependencies
 4. Create working example based on agent type
 5. **VERIFY CODE WORKS**:
-   - TypeScript: Run `npx tsc --noEmit`
+   - TypeScript: Run `bunx tsc --noEmit`
    - Python: Verify syntax
 
 ## Getting Started

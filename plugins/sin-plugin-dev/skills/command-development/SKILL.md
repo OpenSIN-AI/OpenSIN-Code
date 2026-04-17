@@ -461,7 +461,7 @@ argument-hint: [test-file]
 allowed-tools: Bash(npm:*)
 ---
 
-Run tests: !`npm test $1`
+Run tests: !`bun run test $1`
 
 Analyze results and suggest fixes for failures.
 ```

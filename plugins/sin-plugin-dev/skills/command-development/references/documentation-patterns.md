@@ -165,7 +165,7 @@ if [ "$1" = "production" ] && [ "$(git branch --show-current)" != "main" ]; then
 fi
 
 <!-- Test status ensures we don't deploy broken code -->
-Running tests: !`npm test`
+Running tests: !`bun run test`
 
 ✓ All checks passed
 

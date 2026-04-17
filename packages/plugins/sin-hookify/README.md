@@ -197,7 +197,7 @@ action: block
 conditions:
   - field: transcript
     operator: not_contains
-    pattern: npm test|pytest|cargo test
+    pattern: bun run test|pytest|cargo test
 ---
 
 **Tests not detected in transcript!**

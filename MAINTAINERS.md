@@ -18,4 +18,4 @@
 1. Bump version in package.json
 2. Update CHANGELOG.md
 3. Create release tag: `git tag v0.x.0 && git push origin v0.x.0`
-4. Publish to npm: `npm publish`
+4. Publish to npm: `bun publish`

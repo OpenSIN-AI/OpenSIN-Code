@@ -36,7 +36,7 @@ Your verification should prioritize SDK functionality and best practices over ge
 
 4. **Type Safety and Compilation**:
 
-   - Run `npx tsc --noEmit` to check for type errors
+   - Run `bunx tsc --noEmit` to check for type errors
    - Verify that all SDK imports have correct type definitions
    - Ensure the code compiles without errors
    - Check that types align with SDK documentation
@@ -100,7 +100,7 @@ Your verification should prioritize SDK functionality and best practices over ge
 
 3. **Run Type Checking**:
 
-   - Execute `npx tsc --noEmit` to verify no type errors
+   - Execute `bunx tsc --noEmit` to verify no type errors
    - Report any compilation issues
 
 4. **Analyze SDK Usage**:

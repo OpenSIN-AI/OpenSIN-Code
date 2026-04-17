@@ -139,7 +139,7 @@ The command automatically runs `agent-sdk-verifier-ts` to ensure everything is c
 echo "ANTHROPIC_API_KEY=your_key_here" > .env
 
 # Run your agent
-npm start
+bun run start
 ```
 
 5. **Verify after changes:**
@@ -160,7 +160,7 @@ This plugin is included in the OpenSIN Code repository. To use it:
 - **Verify before deploying**: Run the verifier agent before deploying to production
 - **Keep API keys secure**: Never commit `.env` files or hardcode API keys
 - **Follow SDK documentation**: The verifier agents check against official patterns
-- **Type check TypeScript projects**: Run `npx tsc --noEmit` regularly
+- **Type check TypeScript projects**: Run `bunx tsc --noEmit` regularly
 - **Test your agents**: Create test cases for your agent's functionality
 
 ## Resources

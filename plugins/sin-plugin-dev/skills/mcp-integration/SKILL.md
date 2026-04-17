@@ -72,7 +72,7 @@ Execute local MCP servers as child processes. Best for local tools and custom se
 ```json
 {
   "filesystem": {
-    "command": "npx",
+    "command": "bunx",
     "args": ["-y", "@modelcontextprotocol/server-filesystem", "/allowed/path"],
     "env": {
       "LOG_LEVEL": "debug"

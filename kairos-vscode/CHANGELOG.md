@@ -44,7 +44,7 @@ Initial release of the SIN Code VS Code Extension — an agentic AI coding assis
   - Mood system: happy/sad/excited/neutral/sleeping with 30-second auto-decay
   - Event reactions: commits (🚀), test passes (✅), errors (💥), failures (😢)
   - Clickable status bar item with detailed tooltip (mood, level, XP, last action)
-- **Auto Test Runner** — Automatically runs `npm test` in a dedicated terminal when `.test.` or `.spec.` files are saved
+- **Auto Test Runner** — Automatically runs `bun run test` in a dedicated terminal when `.test.` or `.spec.` files are saved
 - **Git Commit Detection** — Watches `.git/HEAD` for changes and triggers Buddy XP rewards on every commit
 
 ### Phase 3: Advanced Capabilities

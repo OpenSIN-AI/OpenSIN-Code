@@ -5,7 +5,7 @@ OpenSIN SDK — Core client, agent tooling, and intelligence modules.
 ## Installation
 
 ```bash
-npm install @opensin/sdk
+bun install @opensin/sdk
 ```
 
 ## Modules
@@ -130,7 +130,7 @@ System prompt construction with templates and context injection.
 ## Tests
 
 ```bash
-npm test
+bun run test
 ```
 
 573+ tests passing.

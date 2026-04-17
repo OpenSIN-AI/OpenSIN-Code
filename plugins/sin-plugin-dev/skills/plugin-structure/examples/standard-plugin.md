@@ -482,7 +482,7 @@ ISSUES=0
 for file in $CHANGED_FILES; do
   case "$file" in
     *.js|*.ts)
-      if ! npx eslint "$file" --quiet; then
+      if ! bunx eslint "$file" --quiet; then
         ISSUES=$((ISSUES + 1))
       fi
       ;;
