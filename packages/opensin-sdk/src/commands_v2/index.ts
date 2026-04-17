@@ -69,6 +69,14 @@ export { default as usage } from './usage'
 export { default as vim } from './vim'
 export { default as voice } from './voice'
 
+// Phase 4 - New Commands from Epic #1089
+export { default as bughunter } from './bughunter'
+export { default as doctor } from './doctor'
+export { default as goodOpenSin } from './good-opensin'
+export { default as insights } from './insights'
+export { default as teleport } from './teleport'
+export { default as ultraPlan } from './ultraplan'
+
 // Array of all commands for easy registration
 export const allCommands = [
   addDir,
@@ -136,4 +144,10 @@ export const allCommands = [
   usage,
   vim,
   voice,
+  bughunter,
+  doctor,
+  goodOpenSin,
+  insights,
+  teleport,
+  ultraPlan,
 ]
