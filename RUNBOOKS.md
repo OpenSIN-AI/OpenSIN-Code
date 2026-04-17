@@ -98,7 +98,7 @@ curl -s http://127.0.0.1:9338/health | python3 -m json.tool
 **Steps:**
 ```bash
 cd /Users/jeremy/dev/OpenSIN-Code-new/packages/opensin-sdk
-npx tsc --noEmit 2>&1 | grep "error TS" | grep -v "node_modules"
+bunx tsc --noEmit 2>&1 | grep "error TS" | grep -v "node_modules"
 # Should return 0 errors
 ```
 
@@ -130,9 +130,9 @@ with open('$HOME/.open-auth-rotator/openrouter/pool.json', 'w') as f:
 **Steps:**
 ```bash
 cd packages/opensin-sdk
-npm install
-npx tsc --noEmit    # Should show 0 errors
-npx vitest run      # Should show 334/334 passing
+bun install
+bun run build # Should show 0 TypeScript errors
+bun run test # Should show all tests passing
 ```
 
 ## 8. OpenSIN CLI — Agent Loop Debugging
@@ -164,5 +164,5 @@ cat packages/opensin-sdk/src/agent_loop/context.ts
 wc -l packages/opensin-sdk/src/standalone_cli/stdin_handler.ts  # Should be ~189 lines
 
 # Rebuild
-cd packages/opensin-sdk && npx tsc
+cd packages/opensin-sdk && bun run build
 ```
