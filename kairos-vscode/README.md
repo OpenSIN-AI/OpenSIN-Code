@@ -144,7 +144,7 @@ Context files are included in every prompt sent to the AI.
 
 When test files (`.test.` or `.spec.`) are saved, SIN Code automatically:
 1. Opens a terminal named "SIN Code Test Runner"
-2. Runs `npm test` in the test file's directory
+2. Runs `bun run test` in the test file's directory
 3. Shows the terminal output
 
 #### Git Commit Detection
