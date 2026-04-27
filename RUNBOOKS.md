@@ -60,11 +60,11 @@ curl -s "https://openrouter.ai/api/v1/auth/key" \
 NEW_KEY="sk-or-v1-YOUR_NEW_KEY"
 sed -i '' "s/sk-or-v1-.*/$NEW_KEY/" ~/.config/opencode/opencode.json
 echo "{\"apiKey\":\"$NEW_KEY\"}" > ~/.openrouter/api_key.json
-echo "$NEW_KEY" >> ~/.open-auth-rotator/openrouter/keys.txt
+echo "$NEW_KEY" >> ~/.local/share/opencode/openrouter/keys.txt
 
 # 4. Restart Swapper
 pkill -f openrouter_swapper
-cd ~/.open-auth-rotator/openrouter && nohup python3 openrouter_swapper.py > swapper-service.log 2>&1 &
+cd ~/.local/share/opencode/openrouter && nohup python3 openrouter_swapper.py > swapper-service.log 2>&1 &
 echo $! > .swapper.pid
 
 # 5. Verify
@@ -81,11 +81,11 @@ curl -s http://127.0.0.1:9338/health
 ps aux | grep openrouter_swapper | grep -v grep
 
 # 2. Check logs
-tail -20 ~/.open-auth-rotator/openrouter/swapper-service.log
+tail -20 ~/.local/share/opencode/openrouter/swapper-service.log
 
 # 3. Restart
 pkill -f openrouter_swapper
-cd ~/.open-auth-rotator/openrouter && nohup python3 openrouter_swapper.py > swapper-service.log 2>&1 &
+cd ~/.local/share/opencode/openrouter && nohup python3 openrouter_swapper.py > swapper-service.log 2>&1 &
 echo $! > .swapper.pid
 sleep 3
 
@@ -106,19 +106,19 @@ npx tsc --noEmit 2>&1 | grep "error TS" | grep -v "node_modules"
 
 **Check pool:**
 ```bash
-cat ~/.open-auth-rotator/openrouter/keys.txt | wc -l  # count
-cat ~/.open-auth-rotator/openrouter/pool.json | python3 -m json.tool  # details
+cat ~/.local/share/opencode/openrouter/keys.txt | wc -l  # count
+cat ~/.local/share/opencode/openrouter/pool.json | python3 -m json.tool  # details
 ```
 
 **Add new key:**
 ```bash
-echo "sk-or-v1-NEW_KEY" >> ~/.open-auth-rotator/openrouter/keys.txt
+echo "sk-or-v1-NEW_KEY" >> ~/.local/share/opencode/openrouter/keys.txt
 python3 -c "
 import json
-with open('$HOME/.open-auth-rotator/openrouter/pool.json') as f:
+with open('$HOME/.local/share/opencode/openrouter/pool.json') as f:
     pool = json.load(f)
 pool['keys'].append({'key': 'sk-or-v1-NEW_KEY', 'label': 'key-N', 'added': '2026-04-04', 'active': True})
-with open('$HOME/.open-auth-rotator/openrouter/pool.json', 'w') as f:
+with open('$HOME/.local/share/opencode/openrouter/pool.json', 'w') as f:
     json.dump(pool, f, indent=2)
 "
 ```

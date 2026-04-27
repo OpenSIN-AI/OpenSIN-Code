@@ -401,7 +401,7 @@
 - **Status:** ✅ Workaround (Plugins deaktiviert, Backup vorhanden)
 
 ### BUG-E003: OpenRouter Swapper wird nicht genutzt — API Key läuft ins Leere
-- **File:** `~/.open-auth-rotator/openrouter/openrouter_swapper.py` + `~/.config/opencode/opencode.json`
+- **File:** `~/.local/share/opencode/openrouter/openrouter_swapper.py` + `~/.config/opencode/opencode.json`
 - **Author:** OpenSIN-Code Team (Swapper-Architektur)
 - **Severity:** CRITICAL
 - **Description:** Der Swapper ist ein FastAPI-Proxy auf `http://127.0.0.1:9338`. Er fängt 401/429 Errors ab und rotiert Keys automatisch. **ABER:** OpenCode ruft OpenRouter **direkt** auf (`baseURL: https://openrouter.ai/api/v1`), nicht über den Swapper. Der Swapper wird komplett umgangen.
